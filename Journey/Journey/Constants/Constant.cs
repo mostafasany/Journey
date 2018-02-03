@@ -2,6 +2,7 @@
 {
     public class Constant
     {
-        public const string ApplicationUrl = @"https://journey.azurewebsites.net";
+        public const string ApplicationUrl = @"";
+        public const string AppName = "";
     }
 }

@@ -41,7 +41,7 @@ namespace Journey.Droid
             {
                 // Sign in with Facebook login using a server-managed flow.
                 user = await client.LoginAsync(this,
-                    MobileServiceAuthenticationProvider.Facebook, Constant.ApplicationUrl);
+                    MobileServiceAuthenticationProvider.Facebook, Constant.AppName);
                 if (user != null)
                 {
                     message = $"you are now signed-in as {user.UserId}.";

@@ -30,7 +30,7 @@ namespace Journey.UWP
                 if (user == null)
                 {
                     user = await client.LoginAsync(MobileServiceAuthenticationProvider.Facebook,
-                        Constant.ApplicationUrl);
+                                                   Constant.AppName);
                     if (user != null)
                     {
                         message = string.Format("You are now signed-in as {0}.", user.UserId);

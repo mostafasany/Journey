@@ -48,7 +48,7 @@ namespace Journey.iOS
                 {
                     user = await client
                         .LoginAsync(UIApplication.SharedApplication.KeyWindow.RootViewController,
-                            MobileServiceAuthenticationProvider.Facebook, Constant.ApplicationUrl);
+                                    MobileServiceAuthenticationProvider.Facebook, Constant.AppName);
                     if (user != null)
                     {
                         message = $"You are now signed-in as {user.UserId}.";
@@ -66,7 +66,13 @@ namespace Journey.iOS
 
             return user;
         }
+
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            return client.ResumeWithURL(url);
+        }
     }
+
 
     public class IosInitializer : IPlatformInitializer
     {
