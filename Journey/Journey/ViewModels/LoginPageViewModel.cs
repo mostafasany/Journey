@@ -23,7 +23,7 @@ namespace Journey.ViewModels
         {
         }
 
-        public void OnNavigatingTo(NavigationParameters parameters)
+        public async void OnNavigatingTo(NavigationParameters parameters)
         {
             var d = parameters["IsLogin"];
         }
@@ -107,10 +107,14 @@ namespace Journey.ViewModels
                                         (_loginCommand =
                                             new DelegateCommand(Login));
 
-        private void Login()
+        private async void Login()
         {
             try
             {
+                if (App.Authenticator != null)
+                {
+                    var authenticated = await App.Authenticator.Authenticate();
+                }
             }
             catch (Exception e)
             {

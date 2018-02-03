@@ -1,4 +1,5 @@
 ﻿using Abstractions.Services;
+using Journey.Services;
 using Journey.Services.Forms;
 using Journey.Views;
 using Prism;
@@ -18,6 +19,13 @@ namespace Journey
             //Prism.Common.ApplicationProvider
             // Prism.AppModel.ApplicationStore
             //DeviceService
+        }
+
+        public static IAuthenticate Authenticator { get; private set; }
+
+        public static void Init(IAuthenticate authenticator)
+        {
+            Authenticator = authenticator;
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

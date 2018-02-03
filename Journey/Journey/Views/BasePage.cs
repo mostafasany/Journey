@@ -24,10 +24,10 @@ namespace Journey.Views
             var loggerService = _viewModel?.Container.Resolve<ILoggerService>();
             loggerService?.LogPageView(pageName);
         }
-        //    _viewModel?.OnNavigatedFrom();
-        //{
 
         //protected override void OnDisappearing()
+        //{
+        //    _viewModel?.OnNavigatedFrom();
         //    base.OnDisappearing();
         //}
     }

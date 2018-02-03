@@ -1,9 +1,14 @@
-﻿using Foundation;
+﻿using System;
+using System.Threading.Tasks;
+using Foundation;
 using Prism;
 using Prism.Ioc;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
+using Journey.Constants;
+using Journey.Services;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace Journey.iOS
 {
@@ -11,8 +16,11 @@ namespace Journey.iOS
     // User Interface of the application, as well as listening (and optionally responding) to 
     // application events from iOS.
     [Register("AppDelegate")]
-    public class AppDelegate : FormsApplicationDelegate
+    public class AppDelegate : FormsApplicationDelegate, IAuthenticate
     {
+        private MobileServiceClient client;
+
+        private MobileServiceUser user;
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -24,8 +32,39 @@ namespace Journey.iOS
         {
             Forms.Init();
             LoadApplication(new App(new IosInitializer()));
+            client = new MobileServiceClient(Constant.ApplicationUrl);
 
+            Journey.App.Init(this);
             return base.FinishedLaunching(app, options);
+        }
+
+        public async Task<MobileServiceUser> Authenticate()
+        {
+            var message = string.Empty;
+            try
+            {
+                // Sign in with Facebook login using a server-managed flow.
+                if (user == null)
+                {
+                    user = await client
+                        .LoginAsync(UIApplication.SharedApplication.KeyWindow.RootViewController,
+                            MobileServiceAuthenticationProvider.Facebook, Constant.ApplicationUrl);
+                    if (user != null)
+                    {
+                        message = $"You are now signed-in as {user.UserId}.";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+
+            // Display the success or failure message.
+            UIAlertView avAlert = new UIAlertView("Sign-in result", message, null, "OK", null);
+            avAlert.Show();
+
+            return user;
         }
     }
 
