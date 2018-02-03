@@ -25,13 +25,12 @@ namespace Journey
             containerRegistry.RegisterForNavigation<HomePage>();
 
             container.RegisterInstance(typeof(IUnityContainer), container);
-        
         }
 
         protected override void OnInitialized()
         {
             InitializeComponent();
-           
+
             ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver(viewType =>
             {
                 var viewModelTypeName = string.Format(CultureInfo.InvariantCulture, ViewModelNamespace, viewType.Name);

@@ -6,9 +6,9 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Exceptions;
-using Unity;
 using Newtonsoft.Json;
 using Services.Core;
+using Unity;
 
 namespace Services
 {
