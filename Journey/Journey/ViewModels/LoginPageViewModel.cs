@@ -5,9 +5,9 @@ using Unity;
 
 namespace Journey.ViewModels
 {
-    public class HomePageViewModel : BaseViewModel
+    public class LoginPageViewModel : BaseViewModel
     {
-        public HomePageViewModel(IUnityContainer container) :
+        public LoginPageViewModel(IUnityContainer container) :
             base(container)
         {
         }
@@ -97,7 +97,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                NavigationService.NavigateAsync("LoginPage");
+                NavigationService.NavigateAsync("Login");
             }
             catch (Exception e)
             {

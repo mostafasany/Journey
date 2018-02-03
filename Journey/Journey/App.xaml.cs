@@ -21,6 +21,7 @@ namespace Journey
         {
             var container = containerRegistry.GetContainer();
             containerRegistry.RegisterForNavigation<HomePage>();
+            containerRegistry.RegisterForNavigation<LoginPage>();
 
             RegitserAppServices(container);
 
