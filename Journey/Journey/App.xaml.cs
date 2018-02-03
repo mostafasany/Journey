@@ -1,4 +1,5 @@
-﻿using Prism;
+﻿using Journey.Views;
+using Prism;
 using Prism.Ioc;
 using Prism.Unity;
 

@@ -1,7 +1,6 @@
-﻿using Microsoft.Practices.Unity;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 using Services.Core;
-
+using Unity;
 namespace ViewModels
 {
     public class BaseViewModel : BindableBase

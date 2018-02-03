@@ -6,7 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Exceptions;
-using Microsoft.Practices.Unity;
+using Unity;
 using Newtonsoft.Json;
 using Services.Core;
 

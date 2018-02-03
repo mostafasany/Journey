@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Exceptions;
-using Microsoft.Practices.Unity;
+using Unity;
 using Models;
 using Services.Core;
+using Unity;
 
 namespace Services
 {

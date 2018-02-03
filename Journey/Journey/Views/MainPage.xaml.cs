@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace Journey
+namespace Journey.Views
 {
     public partial class MainPage : ContentPage
     {

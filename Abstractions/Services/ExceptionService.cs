@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using Microsoft.Practices.Unity;
 using Services.Core;
+using Unity;
 
 namespace Services
 {
