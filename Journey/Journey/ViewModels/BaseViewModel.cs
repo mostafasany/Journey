@@ -1,5 +1,5 @@
-﻿using Prism.Mvvm;
-using Prism.Navigation;
+﻿using Abstractions.Services.Contracts;
+using Prism.Mvvm;
 using Services.Core;
 using Unity;
 
@@ -12,12 +12,13 @@ namespace Journey.ViewModels
         protected BaseViewModel(IUnityContainer container)
         {
             Container = container;
+
             if (Container.IsRegistered<IExceptionService>())
                 ExceptionService = Container.Resolve<IExceptionService>();
             if (Container.IsRegistered<IPopupService>())
                 PopupService = Container.Resolve<IPopupService>();
             if (Container.IsRegistered<INavigationService>())
-                NavigationService = Container.Resolve<PageNavigationService>();
+                NavigationService = Container.Resolve<INavigationService>();
             if (Container.IsRegistered<IInternetService>())
                 InternetService = Container.Resolve<IInternetService>();
             if (Container.IsRegistered<IDialogService>())
@@ -27,6 +28,7 @@ namespace Journey.ViewModels
         }
 
         public IUnityContainer Container { get; set; }
+
         protected IExceptionService ExceptionService { get; set; }
         protected IPopupService PopupService { get; set; }
         protected INavigationService NavigationService { get; set; }
@@ -56,17 +58,6 @@ namespace Journey.ViewModels
             return translatedResource;
         }
 
-        public virtual void OnNavigatedTo(object paramater, bool isBack)
-        {
-        }
-
-        public virtual void OnNavigatedFrom()
-        {
-        }
-
-        public virtual void OnNavigatingFrom()
-        {
-        }
 
         public virtual void OnBackPressed()
         {

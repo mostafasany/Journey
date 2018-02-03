@@ -15,6 +15,9 @@ namespace Journey
     {
         public App(IPlatformInitializer initializer = null) : base(initializer)
         {
+            //Prism.Common.ApplicationProvider
+            // Prism.AppModel.ApplicationStore
+            //DeviceService
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -35,14 +38,15 @@ namespace Journey
             container.RegisterType<IHttpService, HttpService>(new ContainerControlledLifetimeManager());
             container.RegisterType<ILoggerService, LoggerService>(new ContainerControlledLifetimeManager());
             container.RegisterType<INavigationService, PageNavigationService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<Abstractions.Services.Contracts.INavigationService, NavigationService>(
+                new ContainerControlledLifetimeManager());
+            container.RegisterType<ISerializerService, SerializerService>(new ContainerControlledLifetimeManager());
 
             //container.RegisterType<IResourceLoaderService, ResourceLoaderService>(
             //    new ContainerControlledLifetimeManager());
             //container.RegisterType<IPopupService, PopupService>(new ContainerControlledLifetimeManager());
             //container.RegisterType<IInternetService, InternetService>(new ContainerControlledLifetimeManager());
             //container.RegisterType<ILocalStorageService, LocalStorageService>(new ContainerControlledLifetimeManager());
-            //container.RegisterType<ISerializerService, SerializerService>(new ContainerControlledLifetimeManager());
-
 
             //var popupService = Container.Resolve<IPopupService>() as PopupService;
             //popupService?.RegisterPopup("FilterPopup", typeof(FilterMovieUserControl));

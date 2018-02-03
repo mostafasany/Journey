@@ -1,11 +1,22 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Prism.Services;
 using Services.Core;
+using Unity;
 
 namespace Journey.Services.Forms
 {
     public class DialogService : IDialogService
     {
+        private readonly IPageDialogService _pageDialogService;
+
+        public DialogService(IUnityContainer container)
+        {
+            if (container.IsRegistered<IPageDialogService>())
+                _pageDialogService = container.Resolve<IPageDialogService>();
+        }
+
         public string ErrorMessageBody { get; set; }
         public string ErrorMessageTitle { get; set; }
         public string NoInternetMessageBody { get; set; }
@@ -13,27 +24,29 @@ namespace Journey.Services.Forms
 
         public async Task ShowMessageAsync(string content, string title)
         {
-            //var answer = await DisplayAlert("Question?", "Would you like to play a game", "Yes", "No");
+            await _pageDialogService.DisplayAlertAsync(title, content, "Cancel");
         }
 
         public async Task ShowGenericErrorMessageAsync(string content = "", string title = "")
         {
-            //var answer = await DisplayAlert("Question?", "Would you like to play a game", "Yes", "No");
+            await _pageDialogService.DisplayAlertAsync(title, content, "Cancel");
         }
 
         public async Task ShowNoInternetMessageAsync(string content = "", string title = "")
         {
-            //var answer = await DisplayAlert("Question?", "Would you like to play a game", "Yes", "No");
+            await _pageDialogService.DisplayAlertAsync(title, content, "Cancel");
         }
 
         public async Task ShowMessageAsync(string content, string title, IEnumerable<DialogCommand> dialogCommands)
         {
-            //var answer = await DisplayAlert("Question?", "Would you like to play a game", "Yes", "No");
+            await _pageDialogService.DisplayActionSheetAsync(title,
+                dialogCommands.Select(command => ActionSheetButton.CreateButton(command.Label, command.Invoked))
+                    .ToArray());
         }
 
         public async Task ShowToastNotificationAsync(string title, string content)
         {
-            //var answer = await DisplayAlert("Question?", "Would you like to play a game", "Yes", "No");
+            await _pageDialogService.DisplayAlertAsync(title, content, "Cancel");
         }
     }
 }

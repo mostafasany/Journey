@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Windows.Input;
 using Prism.Commands;
+using Prism.Navigation;
 using Unity;
 
 namespace Journey.ViewModels
 {
-    public class LoginPageViewModel : BaseViewModel
+    public class LoginPageViewModel : BaseViewModel, INavigationAware
     {
         public LoginPageViewModel(IUnityContainer container) :
             base(container)
@@ -14,21 +15,34 @@ namespace Journey.ViewModels
 
         #region Events
 
-        public override void OnNavigatedTo(object paramater, bool isBack)
+        public void OnNavigatedFrom(NavigationParameters parameters)
         {
-            base.OnNavigatedTo(paramater, isBack);
-            Intialize();
         }
 
-        public override void OnNavigatingFrom()
+        public void OnNavigatedTo(NavigationParameters parameters)
         {
-            base.OnNavigatingFrom();
         }
 
-        public override void OnNavigatedFrom()
+        public void OnNavigatingTo(NavigationParameters parameters)
         {
-            base.OnNavigatedFrom();
+            var d = parameters["IsLogin"];
         }
+
+        //public override void OnNavigatedTo(object paramater, bool isBack)
+        //{
+        //    base.OnNavigatedTo(paramater, isBack);
+        //    Intialize();
+        //}
+
+        //public override void OnNavigatingFrom()
+        //{
+        //    base.OnNavigatingFrom();
+        //}
+
+        //public override void OnNavigatedFrom()
+        //{
+        //    base.OnNavigatedFrom();
+        //}
 
         public override void OnBackPressed()
         {
@@ -97,7 +111,6 @@ namespace Journey.ViewModels
         {
             try
             {
-                NavigationService.NavigateAsync("Login");
             }
             catch (Exception e)
             {

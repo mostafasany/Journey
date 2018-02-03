@@ -3,11 +3,10 @@ using System.Threading.Tasks;
 using Abstractions.Services.Contracts;
 using Exceptions;
 using Models;
-using Prism.Navigation;
 using Services.Core;
 using Unity;
 
-namespace Abstractions.Services
+namespace Services
 {
     public class ForceUpdateService : BaseService, IForceUpdateService
     {
@@ -16,11 +15,11 @@ namespace Abstractions.Services
 
         public ForceUpdateService(IUnityContainer container, IHttpService httpService,
             ISerializerService serializerService,
-            INavigationService navigationService, ISerializerService serializerService1) : base(container)
+            INavigationService navigationService) : base(container)
         {
             HttpService = httpService;
             _navigationService = navigationService;
-            _serializerService = serializerService1;
+            _serializerService = serializerService;
         }
 
         public string ForceUpdatePageKey { get; set; }
@@ -44,11 +43,9 @@ namespace Abstractions.Services
                 };
                 if (result.IsForceUpdate || result.IsShutdown)
                 {
-                    var parameters =
-                        new NavigationParameters {{"ForceUpdateResults", _serializerService.SerializeToString(result)}};
-                    await _navigationService.GoBackToRootAsync();
-                    await _navigationService.NavigateAsync(ForceUpdatePageKey, parameters);
-
+                    _navigationService.RemoveAllPages();
+                    await _navigationService.Navigate(ForceUpdatePageKey, "ForceUpdate",
+                        _serializerService.SerializeToString(result));
                     return true;
                 }
                 return false;
