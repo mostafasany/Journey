@@ -18,8 +18,6 @@ namespace Journey.iOS
     [Register("AppDelegate")]
     public class AppDelegate : FormsApplicationDelegate, IAuthenticate
     {
-        private MobileServiceClient client;
-
         private MobileServiceUser user;
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
@@ -32,8 +30,7 @@ namespace Journey.iOS
         {
             Forms.Init();
             LoadApplication(new App(new IosInitializer()));
-            client = new MobileServiceClient(Constant.ApplicationUrl);
-
+           
             Journey.App.Init(this);
             return base.FinishedLaunching(app, options);
         }
@@ -46,7 +43,7 @@ namespace Journey.iOS
                 // Sign in with Facebook login using a server-managed flow.
                 if (user == null)
                 {
-                    user = await client
+                    user = await Journey.App.Client
                         .LoginAsync(UIApplication.SharedApplication.KeyWindow.RootViewController,
                                     MobileServiceAuthenticationProvider.Facebook, Constant.AppName);
                     if (user != null)
@@ -69,7 +66,7 @@ namespace Journey.iOS
 
         public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
         {
-            return client.ResumeWithURL(url);
+            return Journey.App.Client.ResumeWithURL(url);
         }
     }
 

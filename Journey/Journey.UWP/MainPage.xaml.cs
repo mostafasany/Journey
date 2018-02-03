@@ -10,13 +10,12 @@ namespace Journey.UWP
 {
     public sealed partial class MainPage : IAuthenticate
     {
-        private readonly MobileServiceClient client;
-        private MobileServiceUser user;
+      
+        private  MobileServiceUser user;
 
         public MainPage()
         {
             InitializeComponent();
-            client = new MobileServiceClient(Constant.ApplicationUrl);
             Journey.App.Init(this);
             LoadApplication(new Journey.App(new UwpInitializer()));
         }
@@ -29,7 +28,7 @@ namespace Journey.UWP
                 // Sign in with Facebook login using a server-managed flow.
                 if (user == null)
                 {
-                    user = await client.LoginAsync(MobileServiceAuthenticationProvider.Facebook,
+                    user = await Journey.App.Client.LoginAsync(MobileServiceAuthenticationProvider.Facebook,
                                                    Constant.AppName);
                     if (user != null)
                     {
