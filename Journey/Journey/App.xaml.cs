@@ -1,20 +1,16 @@
-﻿using System;
-using System.Globalization;
-using Journey.Views;
+﻿using Journey.Views;
 using Prism;
 using Prism.Ioc;
-using Prism.Mvvm;
 using Prism.Unity;
+using Services;
+using Services.Core;
 using Unity;
+using Unity.Lifetime;
 
 namespace Journey
 {
     public partial class App : PrismApplication
     {
-        private const string ViewModelNamespace = "Journey.ViewModels.{0}ViewModel,Journey";
-        private const string UserControlViewModelNamespace = "ViewModels.UserControl.{0}ViewModel,ViewModels";
-        private const string AppCenterSecret = "6db25340-d908-434c-a906-dcd8b914dbba";
-
         public App(IPlatformInitializer initializer = null) : base(initializer)
         {
         }
@@ -24,24 +20,48 @@ namespace Journey
             var container = containerRegistry.GetContainer();
             containerRegistry.RegisterForNavigation<HomePage>();
 
-            container.RegisterInstance(typeof(IUnityContainer), container);
+            RegitserAppServices(container);
+
+            RegitserBuisnessServices(container);
+        }
+
+        private void RegitserAppServices(IUnityContainer container)
+        {
+            container.RegisterInstance(typeof(IUnityContainer), Container);
+            container.RegisterType<IExceptionService, ExceptionService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IHttpService, HttpService>(new ContainerControlledLifetimeManager());
+
+            //container.RegisterType<ILoggerService, LoggerService>(new ContainerControlledLifetimeManager());
+            //container.RegisterType<INavigationService, NavigationService>(new ContainerControlledLifetimeManager());
+            //container.RegisterType<IResourceLoaderService, ResourceLoaderService>(
+            //    new ContainerControlledLifetimeManager());
+            //container.RegisterType<IPopupService, PopupService>(new ContainerControlledLifetimeManager());
+            //container.RegisterType<IInternetService, InternetService>(new ContainerControlledLifetimeManager());
+            //container.RegisterType<ILocalStorageService, LocalStorageService>(new ContainerControlledLifetimeManager());
+            //container.RegisterType<ISerializerService, SerializerService>(new ContainerControlledLifetimeManager());
+
+
+            //var popupService = Container.Resolve<IPopupService>() as PopupService;
+            //popupService?.RegisterPopup("FilterPopup", typeof(FilterMovieUserControl));
+
+            //ConfigureDialogService();
+
+            //ConfigureRateReviewService();
+
+            //ConfigureForceUpdateService();
+
+            //ConfigurePlatformService();
+        }
+
+        private void RegitserBuisnessServices(IUnityContainer container)
+        {
+            // container.RegisterType<IPlacesService, PlacesService>(new ContainerControlledLifetimeManager());
         }
 
         protected override void OnInitialized()
         {
             InitializeComponent();
 
-            ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver(viewType =>
-            {
-                var viewModelTypeName = string.Format(CultureInfo.InvariantCulture, ViewModelNamespace, viewType.Name);
-                //if (viewType.Name.Contains("UserControl"))
-                //    viewModelTypeName = string.Format(CultureInfo.InvariantCulture, UserControlViewModelNamespace,
-                //        viewType.Name);
-                var viewModelType = Type.GetType(viewModelTypeName);
-                return viewModelType;
-            });
-
-            //Container.RegisterType<IPlacesService, PlacesService>(new ContainerControlledLifetimeManager());
             NavigationService.NavigateAsync("HomePage");
         }
 

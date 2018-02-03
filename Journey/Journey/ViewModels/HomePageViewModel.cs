@@ -40,12 +40,12 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        private string _searchText;
+        private string _text = "Hello Mostafa";
 
-        public string SearchText
+        public string Text
         {
-            get => _searchText;
-            set => SetProperty(ref _searchText, value);
+            get => _text;
+            set => SetProperty(ref _text, value);
         }
 
         #endregion
