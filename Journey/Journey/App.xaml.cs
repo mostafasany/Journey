@@ -1,8 +1,10 @@
-﻿using Journey.Views;
+﻿using Abstractions.Services;
+using Journey.Services.Forms;
+using Journey.Views;
 using Prism;
 using Prism.Ioc;
+using Prism.Navigation;
 using Prism.Unity;
-using Services;
 using Services.Core;
 using Unity;
 using Unity.Lifetime;
@@ -27,12 +29,12 @@ namespace Journey
 
         private void RegitserAppServices(IUnityContainer container)
         {
-            container.RegisterInstance(typeof(IUnityContainer), Container);
+            container.RegisterInstance(typeof(IUnityContainer), container);
             container.RegisterType<IExceptionService, ExceptionService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IHttpService, HttpService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<ILoggerService, LoggerService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<INavigationService, PageNavigationService>(new ContainerControlledLifetimeManager());
 
-            //container.RegisterType<ILoggerService, LoggerService>(new ContainerControlledLifetimeManager());
-            //container.RegisterType<INavigationService, NavigationService>(new ContainerControlledLifetimeManager());
             //container.RegisterType<IResourceLoaderService, ResourceLoaderService>(
             //    new ContainerControlledLifetimeManager());
             //container.RegisterType<IPopupService, PopupService>(new ContainerControlledLifetimeManager());
@@ -44,7 +46,7 @@ namespace Journey
             //var popupService = Container.Resolve<IPopupService>() as PopupService;
             //popupService?.RegisterPopup("FilterPopup", typeof(FilterMovieUserControl));
 
-            //ConfigureDialogService();
+            ConfigureDialogService(container);
 
             //ConfigureRateReviewService();
 
@@ -52,6 +54,21 @@ namespace Journey
 
             //ConfigurePlatformService();
         }
+
+        private void ConfigureDialogService(IUnityContainer container)
+        {
+            container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
+            var dialogService = Container.Resolve<IDialogService>() as DialogService;
+            if (dialogService != null)
+            {
+                dialogService.ErrorMessageTitle = "Error Occured";
+                dialogService.ErrorMessageBody = "Please try again later";
+                dialogService.NoInternetMessageBody = "No internet";
+                dialogService.NoInternetMessageTitle =
+                    "No internet connection available,Please reconnect and try again later";
+            }
+        }
+
 
         private void RegitserBuisnessServices(IUnityContainer container)
         {

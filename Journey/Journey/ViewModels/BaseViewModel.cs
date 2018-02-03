@@ -1,8 +1,9 @@
 ﻿using Prism.Mvvm;
+using Prism.Navigation;
 using Services.Core;
 using Unity;
 
-namespace Abstractions.ViewModels
+namespace Journey.ViewModels
 {
     public class BaseViewModel : BindableBase
     {
@@ -16,7 +17,7 @@ namespace Abstractions.ViewModels
             if (Container.IsRegistered<IPopupService>())
                 PopupService = Container.Resolve<IPopupService>();
             if (Container.IsRegistered<INavigationService>())
-                NavigationService = Container.Resolve<INavigationService>();
+                NavigationService = Container.Resolve<PageNavigationService>();
             if (Container.IsRegistered<IInternetService>())
                 InternetService = Container.Resolve<IInternetService>();
             if (Container.IsRegistered<IDialogService>())

@@ -1,6 +1,7 @@
-﻿using Unity;
+﻿using Services.Core;
+using Unity;
 
-namespace Services.Core
+namespace Abstractions.Services.Contracts
 {
     public class BaseService
     {

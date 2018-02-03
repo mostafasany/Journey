@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Input;
-using Abstractions.ViewModels;
 using Prism.Commands;
 using Unity;
 

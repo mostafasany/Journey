@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Abstractions.Services.Contracts;
 using Services.Core;
 using Unity;
 
-namespace Services
+namespace Abstractions.Services
 {
     public class ExceptionService : BaseService, IExceptionService
     {

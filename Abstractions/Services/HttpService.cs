@@ -5,12 +5,13 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Abstractions.Services.Contracts;
 using Exceptions;
 using Newtonsoft.Json;
 using Services.Core;
 using Unity;
 
-namespace Services
+namespace Abstractions.Services
 {
     public class HttpService : BaseService, IHttpService
     {

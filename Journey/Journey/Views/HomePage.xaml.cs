@@ -1,8 +1,6 @@
-﻿using Xamarin.Forms;
-
-namespace Journey.Views
+﻿namespace Journey.Views
 {
-    public partial class HomePage : ContentPage
+    public partial class HomePage : BasePage
     {
         public HomePage()
         {
