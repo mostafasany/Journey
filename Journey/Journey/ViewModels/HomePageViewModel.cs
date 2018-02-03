@@ -1,115 +1,116 @@
-﻿//using System;
-//using System.Windows.Input;
-//using Prism.Commands;
-//using Unity;
+﻿using System;
+using System.Windows.Input;
+using Abstractions.ViewModels;
+using Prism.Commands;
+using Unity;
 
-//namespace ViewModels
-//{
-//    public class HomePageViewModel : BaseViewModel
-//    {
-//        public HomePageViewModel(IUnityContainer container) :
-//            base(container)
-//        {
-//        }
+namespace Journey.ViewModels
+{
+    public class HomePageViewModel : BaseViewModel
+    {
+        public HomePageViewModel(IUnityContainer container) :
+            base(container)
+        {
+        }
 
-//        #region Events
+        #region Events
 
-//        public override void OnNavigatedTo(object paramater, bool isBack)
-//        {
-//            base.OnNavigatedTo(paramater, isBack);
-//            Intialize();
-//        }
+        public override void OnNavigatedTo(object paramater, bool isBack)
+        {
+            base.OnNavigatedTo(paramater, isBack);
+            Intialize();
+        }
 
-//        public override void OnNavigatingFrom()
-//        {
-//            base.OnNavigatingFrom();
-//        }
+        public override void OnNavigatingFrom()
+        {
+            base.OnNavigatingFrom();
+        }
 
-//        public override void OnNavigatedFrom()
-//        {
-//            base.OnNavigatedFrom();
-//        }
+        public override void OnNavigatedFrom()
+        {
+            base.OnNavigatedFrom();
+        }
 
-//        public override void OnBackPressed()
-//        {
-//            base.OnBackPressed();
-//        }
+        public override void OnBackPressed()
+        {
+            base.OnBackPressed();
+        }
 
-//        #endregion
+        #endregion
 
-//        #region Properties
+        #region Properties
 
-//        private string _searchText;
+        private string _searchText;
 
-//        public string SearchText
-//        {
-//            get => _searchText;
-//            set => SetProperty(ref _searchText, value);
-//        }
+        public string SearchText
+        {
+            get => _searchText;
+            set => SetProperty(ref _searchText, value);
+        }
 
-//        #endregion
+        #endregion
 
-//        #region Methods
+        #region Methods
 
-//        public override void Intialize()
-//        {
-//            try
-//            {
-//                ShowProgress();
-//                base.Intialize();
-//            }
-//            catch (Exception e)
-//            {
-//                ExceptionService.HandleAndShowDialog(e);
-//            }
-//            finally
-//            {
-//                HideProgress();
-//            }
-//        }
+        public override void Intialize()
+        {
+            try
+            {
+                ShowProgress();
+                base.Intialize();
+            }
+            catch (Exception e)
+            {
+                ExceptionService.HandleAndShowDialog(e);
+            }
+            finally
+            {
+                HideProgress();
+            }
+        }
 
-//        protected override void Cleanup()
-//        {
-//            try
-//            {
-//                //Here Cleanup any resources
-//                base.Cleanup();
-//            }
-//            catch (Exception e)
-//            {
-//                ExceptionService.HandleAndShowDialog(e);
-//            }
-//        }
+        protected override void Cleanup()
+        {
+            try
+            {
+                //Here Cleanup any resources
+                base.Cleanup();
+            }
+            catch (Exception e)
+            {
+                ExceptionService.HandleAndShowDialog(e);
+            }
+        }
 
-//        #endregion
+        #endregion
 
-//        #region Commands
+        #region Commands
 
-//        #region OpenFilterCommand
+        #region OpenFilterCommand
 
-//        private ICommand _openFilterCommand;
+        private ICommand _openFilterCommand;
 
-//        public ICommand OpenFilterCommand => _openFilterCommand ??
-//                                             (_openFilterCommand =
-//                                                 new DelegateCommand(OpenFilter));
+        public ICommand OpenFilterCommand => _openFilterCommand ??
+                                             (_openFilterCommand =
+                                                 new DelegateCommand(OpenFilter));
 
-//        private void OpenFilter()
-//        {
-//            try
-//            {
-//            }
-//            catch (Exception e)
-//            {
-//                ExceptionService.HandleAndShowDialog(e);
-//            }
-//            finally
-//            {
-//                HideProgress();
-//            }
-//        }
+        private void OpenFilter()
+        {
+            try
+            {
+            }
+            catch (Exception e)
+            {
+                ExceptionService.HandleAndShowDialog(e);
+            }
+            finally
+            {
+                HideProgress();
+            }
+        }
 
-//        #endregion
+        #endregion
 
-//        #endregion
-//    }
-//}
+        #endregion
+    }
+}

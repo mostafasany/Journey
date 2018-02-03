@@ -14,9 +14,18 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Contracts\" />
-    <Folder Include="Views\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Abstractions\Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

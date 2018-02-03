@@ -1,7 +1,8 @@
 ﻿using Prism.Mvvm;
 using Services.Core;
 using Unity;
-namespace ViewModels
+
+namespace Abstractions.ViewModels
 {
     public class BaseViewModel : BindableBase
     {
