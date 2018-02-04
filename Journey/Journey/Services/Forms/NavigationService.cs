@@ -57,7 +57,7 @@ namespace Journey.Services.Forms
             throw new NotImplementedException();
         }
 
-        public async Task<bool> Navigate(string pageToken, object parameter = null, string key = "", bool useModalNavigation = false, bool animated = false)
+        public async Task<bool> Navigate(string pageToken, object parameter = null, string key = "", bool? useModalNavigation = null, bool animated = false)
         {
             try
             {
