@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
-using Journey.Views;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
-using Xamarin.Forms;
 
 namespace Journey.ViewModels
 {

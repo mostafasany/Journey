@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Foundation;
+using Microsoft.WindowsAzure.MobileServices;
 using Prism;
 using Prism.Ioc;
 using UIKit;
@@ -8,7 +9,6 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using Journey.Constants;
 using Journey.Services;
-using Microsoft.WindowsAzure.MobileServices;
 
 namespace Journey.iOS
 {
@@ -18,7 +18,8 @@ namespace Journey.iOS
     [Register("AppDelegate")]
     public class AppDelegate : FormsApplicationDelegate, IAuthenticate
     {
-        private MobileServiceUser user;
+        private MobileServiceUser _user;
+
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -42,23 +43,24 @@ namespace Journey.iOS
             try
             {
                 // Sign in with Facebook login using a server-managed flow.
-                if (user == null)
+                if (_user == null)
                 {
-                    UIWindow window = UIApplication.SharedApplication.KeyWindow;
-                    UIViewController viewController = window.RootViewController;
+                    var window = UIApplication.SharedApplication.KeyWindow;
+                    var viewController = window.RootViewController;
                     if (viewController != null)
                     {
                         while (viewController.PresentedViewController != null)
                             viewController = viewController.PresentedViewController;
 
-                        user = await App.Client.LoginAsync(viewController, MobileServiceAuthenticationProvider.Facebook, Constant.AppName);
+                        _user = await App.Client.LoginAsync(viewController, MobileServiceAuthenticationProvider.Facebook,
+                            Constant.AppName);
                     }
                 }
             }
             catch (Exception ex)
             {
             }
-            return user;
+            return _user;
         }
 
         public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)

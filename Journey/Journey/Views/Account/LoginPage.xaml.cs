@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Journey.Views
+﻿namespace Journey.Views
 {
     public partial class LoginPage : BasePage
     {

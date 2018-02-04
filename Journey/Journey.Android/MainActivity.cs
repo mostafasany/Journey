@@ -10,13 +10,14 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Journey.Constants;
 using Journey.Services;
+
 namespace Journey.Droid
 {
     [Activity(Label = "Journey", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity, IAuthenticate
     {
-        private MobileServiceUser user;
+        private MobileServiceUser _user;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -26,7 +27,7 @@ namespace Journey.Droid
             base.OnCreate(bundle);
 
             Forms.Init(this, bundle);
-            Journey.App.Init((IAuthenticate)this);
+            Journey.App.Init((IAuthenticate) this);
             LoadApplication(new App(new AndroidInitializer()));
         }
 
@@ -34,16 +35,18 @@ namespace Journey.Droid
         {
             try
             {
-                // Sign in with Facebook login using a server-managed flow.
-                user = await Journey.App.Client.LoginAsync(this,
-                    MobileServiceAuthenticationProvider.Facebook, Constant.AppName);
-
+                if (_user == null)
+                {
+                    // Sign in with Facebook login using a server-managed flow.
+                    _user = await Journey.App.Client.LoginAsync(this,
+                        MobileServiceAuthenticationProvider.Facebook, Constant.AppName);
+                }
             }
             catch (Exception ex)
             {
             }
 
-            return user;
+            return _user;
         }
     }
 

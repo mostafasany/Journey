@@ -4,8 +4,8 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
-using Microsoft.WindowsAzure.MobileServices;
 using Xamarin.Forms;
+using Microsoft.WindowsAzure.MobileServices;
 using Application = Windows.UI.Xaml.Application;
 using Frame = Windows.UI.Xaml.Controls.Frame;
 
@@ -96,7 +96,7 @@ namespace Journey.UWP
 
             if (args.Kind == ActivationKind.Protocol)
             {
-                ProtocolActivatedEventArgs protocolArgs = args as ProtocolActivatedEventArgs;
+                var protocolArgs = args as ProtocolActivatedEventArgs;
                 Journey.App.Client.ResumeWithURL(protocolArgs.Uri);
             }
         }

@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
 using Microsoft.WindowsAzure.MobileServices;
 using Prism;
 using Prism.Ioc;
 using Journey.Constants;
 using Journey.Services;
+
 namespace Journey.UWP
 {
     public sealed partial class MainPage : IAuthenticate
     {
-      
-        private  MobileServiceUser user;
+        private MobileServiceUser _user;
 
         public MainPage()
         {
@@ -25,18 +24,16 @@ namespace Journey.UWP
             try
             {
                 // Sign in with Facebook login using a server-managed flow.
-                if (user == null)
-                {
-                    user = await Journey.App.Client.LoginAsync(MobileServiceAuthenticationProvider.Facebook,
-                                                   Constant.AppName);
-                     }
+                if (_user == null)
+                    _user = await Journey.App.Client.LoginAsync(MobileServiceAuthenticationProvider.Facebook,
+                        Constant.AppName);
             }
             catch (Exception ex)
             {
             }
 
 
-            return user;
+            return _user;
         }
     }
 
