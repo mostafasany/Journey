@@ -90,11 +90,11 @@ namespace Journey.ViewModels
                                         (_loginCommand =
                                             new DelegateCommand(Login));
 
-        private void Login()
+        private async void Login()
         {
             try
             {
-                NavigationService.Navigate("LoginPage", "IsLogin", true);
+                await NavigationService.Navigate("LoginPage");
             }
             catch (Exception e)
             {

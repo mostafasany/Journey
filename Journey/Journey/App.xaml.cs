@@ -1,6 +1,9 @@
 ﻿using Abstractions.Services;
+using Journey.Constants;
+using Journey.Services;
 using Journey.Services.Forms;
 using Journey.Views;
+using Microsoft.WindowsAzure.MobileServices;
 using Prism;
 using Prism.Ioc;
 using Prism.Navigation;
@@ -18,6 +21,15 @@ namespace Journey
             //Prism.Common.ApplicationProvider
             // Prism.AppModel.ApplicationStore
             //DeviceService
+        }
+
+        public static IAuthenticate Authenticator { get; private set; }
+        public static MobileServiceClient Client { get; private set; }
+
+        public static void Init(IAuthenticate authenticator)
+        {
+            Authenticator = authenticator;
+            Client = new MobileServiceClient(Constant.ApplicationUrl);
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -83,7 +95,6 @@ namespace Journey
         protected override void OnInitialized()
         {
             InitializeComponent();
-
             NavigationService.NavigateAsync("HomePage");
         }
 

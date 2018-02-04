@@ -9,7 +9,10 @@ namespace Abstractions.Services.Contracts
         void ClearHistory();
         void GoBack();
         void GoForward();
-        Task<bool> Navigate(string pageToken, string key, object parameter);
+
+        Task<bool> Navigate(string pageToken, object parameter = null, string key = "", bool? useModalNavigation = null,
+            bool animated = false);
+
         void RemoveAllPages(string pageToken = null, object parameter = null);
         void RemoveFirstPage(string pageToken = null, object parameter = null);
         void RemoveLastPage(string pageToken = null, object parameter = null);

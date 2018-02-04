@@ -9,6 +9,7 @@
             <Label Text="Login Page"
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="CenterAndExpand" />
+            <Button Text="Login" Command="{Binding LoginCommand}"></Button>
         </StackLayout>
     </ContentPage.Content>
 </local:BasePage>
