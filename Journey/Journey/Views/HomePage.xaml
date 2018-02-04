@@ -3,13 +3,14 @@
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:local="clr-namespace:Journey.Views"
+                xmlns:resources="clr-namespace:Journey.Resources"
                 x:Class="Journey.Views.HomePage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding Text}"
+            <Label Text="{resources:Translate Home_WelcomeMessage}" 
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="CenterAndExpand" />
-            <Button Text="Login" Command="{Binding LoginCommand}"></Button>
+            <Button Text="{resources:Translate Home_LoginAction}"  Command="{Binding LoginCommand}"></Button>
         </StackLayout>
     </ContentPage.Content>
 </local:BasePage>

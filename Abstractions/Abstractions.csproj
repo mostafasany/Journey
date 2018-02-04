@@ -14,7 +14,6 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="Prism.Core" Version="7.0.0.396" />
-    <PackageReference Include="Prism.Forms" Version="7.0.0.396" />
     <PackageReference Include="Unity.Container" Version="5.5.6" />
   </ItemGroup>
 
