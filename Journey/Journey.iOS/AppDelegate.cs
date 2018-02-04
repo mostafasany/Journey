@@ -29,38 +29,35 @@ namespace Journey.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Forms.Init();
+
+            App.Init(this);
+
             LoadApplication(new App(new IosInitializer()));
-           
-            Journey.App.Init(this);
+
             return base.FinishedLaunching(app, options);
         }
 
         public async Task<MobileServiceUser> Authenticate()
         {
-            var message = string.Empty;
             try
             {
                 // Sign in with Facebook login using a server-managed flow.
                 if (user == null)
                 {
-                    user = await Journey.App.Client
-                        .LoginAsync(UIApplication.SharedApplication.KeyWindow.RootViewController,
-                                    MobileServiceAuthenticationProvider.Facebook, Constant.AppName);
-                    if (user != null)
+                    UIWindow window = UIApplication.SharedApplication.KeyWindow;
+                    UIViewController viewController = window.RootViewController;
+                    if (viewController != null)
                     {
-                        message = $"You are now signed-in as {user.UserId}.";
+                        while (viewController.PresentedViewController != null)
+                            viewController = viewController.PresentedViewController;
+
+                        user = await App.Client.LoginAsync(viewController, MobileServiceAuthenticationProvider.Facebook, Constant.AppName);
                     }
                 }
             }
             catch (Exception ex)
             {
-                message = ex.Message;
             }
-
-            // Display the success or failure message.
-            UIAlertView avAlert = new UIAlertView("Sign-in result", message, null, "OK", null);
-            avAlert.Show();
-
             return user;
         }
 

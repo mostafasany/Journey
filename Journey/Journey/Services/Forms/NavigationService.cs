@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Abstractions.Services.Contracts;
 using Exceptions;
 using Prism.Navigation;
 using Unity;
+using Xamarin.Forms;
 using INavigationService = Abstractions.Services.Contracts.INavigationService;
 
 namespace Journey.Services.Forms
@@ -28,7 +30,14 @@ namespace Journey.Services.Forms
 
         public void ClearHistory()
         {
-            throw new NotImplementedException();
+            try
+            {
+                _navigationService.GoBackToRootAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new CoreServiceException(ex);
+            }
         }
 
         public void GoBack()
@@ -48,22 +57,20 @@ namespace Journey.Services.Forms
             throw new NotImplementedException();
         }
 
-        public async Task<bool> Navigate(string pageToken, string key, object parameter)
+        public async Task<bool> Navigate(string pageToken, object parameter = null, string key = "", bool useModalNavigation = false, bool animated = false)
         {
             try
             {
+                NavigationParameters navigationParameters = null;
                 if (parameter != null)
                 {
-                    var parameters = new NavigationParameters
+                    navigationParameters = new NavigationParameters
                     {
                         {key, parameter}
                     };
-                    await _navigationService.NavigateAsync(pageToken, parameters);
+
                 }
-                else
-                {
-                    await _navigationService.NavigateAsync(pageToken);
-                }
+                await _navigationService.NavigateAsync(pageToken, navigationParameters, useModalNavigation, animated);
                 return true;
             }
             catch (Exception ex)

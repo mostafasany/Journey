@@ -11,6 +11,7 @@ using Prism.Unity;
 using Services.Core;
 using Unity;
 using Unity.Lifetime;
+using Xamarin.Forms;
 
 namespace Journey
 {
@@ -28,12 +29,12 @@ namespace Journey
         public static void Init(IAuthenticate authenticator)
         {
             Authenticator = authenticator;
-            Client= new MobileServiceClient(Constant.ApplicationUrl);
+            Client = new MobileServiceClient(Constant.ApplicationUrl);
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            var container = containerRegistry.GetContainer();
+            IUnityContainer container = containerRegistry.GetContainer();
             containerRegistry.RegisterForNavigation<HomePage>();
             containerRegistry.RegisterForNavigation<LoginPage>();
 
@@ -94,7 +95,6 @@ namespace Journey
         protected override void OnInitialized()
         {
             InitializeComponent();
-
             NavigationService.NavigateAsync("HomePage");
         }
 

@@ -14,7 +14,6 @@ namespace Journey.Views
         {
             _viewModel = BindingContext as BaseViewModel;
             LogPageView();
-            //_viewModel?.OnNavigatedTo(null, false);
             base.OnAppearing();
         }
 
@@ -24,11 +23,5 @@ namespace Journey.Views
             var loggerService = _viewModel?.Container.Resolve<ILoggerService>();
             loggerService?.LogPageView(pageName);
         }
-
-        //protected override void OnDisappearing()
-        //{
-        //    _viewModel?.OnNavigatedFrom();
-        //    base.OnDisappearing();
-        //}
     }
 }

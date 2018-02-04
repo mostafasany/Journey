@@ -53,11 +53,24 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>fb150177402246791</string>
 				<string>journeychallenge</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleName</key>
 	<string>Journey</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fb</string>
+		<string>fbauth2</string>
+		<string>fbapi</string>
+		<string>fbshareextension</string>
+		<string>fb-messenger-api</string>
+	</array>
+	<key>FacebookAppID</key>
+	<string>150177402246791</string>
+	<key>FacebookDisplayName</key>
+	<string>Mosa3ed</string>
 </dict>
 </plist>

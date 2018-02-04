@@ -1,4 +1,6 @@
-﻿namespace Journey.Views
+﻿using System;
+
+namespace Journey.Views
 {
     public partial class LoginPage : BasePage
     {

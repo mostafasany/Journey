@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Windows.Input;
+using Journey.Views;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
+using Xamarin.Forms;
 
 namespace Journey.ViewModels
 {
@@ -90,11 +92,11 @@ namespace Journey.ViewModels
                                         (_loginCommand =
                                             new DelegateCommand(Login));
 
-        private void Login()
+        private async void Login()
         {
             try
             {
-                NavigationService.Navigate("LoginPage", "IsLogin", true);
+                await NavigationService.Navigate("LoginPage");
             }
             catch (Exception e)
             {

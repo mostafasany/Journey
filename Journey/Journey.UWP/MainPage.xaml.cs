@@ -22,7 +22,6 @@ namespace Journey.UWP
 
         public async Task<MobileServiceUser> Authenticate()
         {
-            var message = string.Empty;
             try
             {
                 // Sign in with Facebook login using a server-managed flow.
@@ -30,19 +29,12 @@ namespace Journey.UWP
                 {
                     user = await Journey.App.Client.LoginAsync(MobileServiceAuthenticationProvider.Facebook,
                                                    Constant.AppName);
-                    if (user != null)
-                    {
-                        message = string.Format("You are now signed-in as {0}.", user.UserId);
-                    }
-                }
+                     }
             }
             catch (Exception ex)
             {
-                message = string.Format("Authentication Failed: {0}", ex.Message);
             }
 
-            // Display the success or failure message.
-            await new MessageDialog(message, "Sign-in result").ShowAsync();
 
             return user;
         }

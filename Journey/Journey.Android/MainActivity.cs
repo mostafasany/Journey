@@ -16,7 +16,7 @@ namespace Journey.Droid
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity, IAuthenticate
     {
-       private MobileServiceUser user;
+        private MobileServiceUser user;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -26,33 +26,22 @@ namespace Journey.Droid
             base.OnCreate(bundle);
 
             Forms.Init(this, bundle);
-            Journey.App.Init((IAuthenticate) this);
+            Journey.App.Init((IAuthenticate)this);
             LoadApplication(new App(new AndroidInitializer()));
         }
 
         public async Task<MobileServiceUser> Authenticate()
         {
-            var message = string.Empty;
             try
             {
                 // Sign in with Facebook login using a server-managed flow.
                 user = await Journey.App.Client.LoginAsync(this,
                     MobileServiceAuthenticationProvider.Facebook, Constant.AppName);
-                if (user != null)
-                {
-                    message = $"you are now signed-in as {user.UserId}.";
-                }
+
             }
             catch (Exception ex)
             {
-                message = ex.Message;
             }
-
-            // Display the success or failure message.
-            var builder = new AlertDialog.Builder(this);
-            builder.SetMessage(message);
-            builder.SetTitle("Sign-in result");
-            builder.Create().Show();
 
             return user;
         }
