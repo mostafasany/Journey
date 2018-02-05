@@ -8,7 +8,8 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using Journey.Constants;
-using Journey.Services;
+using Journey.Services.Azure;
+
 
 namespace Journey.iOS
 {
@@ -16,7 +17,7 @@ namespace Journey.iOS
     // User Interface of the application, as well as listening (and optionally responding) to 
     // application events from iOS.
     [Register("AppDelegate")]
-    public class AppDelegate : FormsApplicationDelegate, IAuthenticate
+    public class AppDelegate : FormsApplicationDelegate, IAzureAuthenticate
     {
         private MobileServiceUser _user;
 

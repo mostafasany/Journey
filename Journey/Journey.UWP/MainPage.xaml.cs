@@ -4,11 +4,11 @@ using Microsoft.WindowsAzure.MobileServices;
 using Prism;
 using Prism.Ioc;
 using Journey.Constants;
-using Journey.Services;
+using Journey.Services.Azure;
 
 namespace Journey.UWP
 {
-    public sealed partial class MainPage : IAuthenticate
+    public sealed partial class MainPage : IAzureAuthenticate
     {
         private MobileServiceUser _user;
 

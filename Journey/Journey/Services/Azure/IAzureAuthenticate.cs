@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.WindowsAzure.MobileServices;
 
-namespace Journey.Services
+namespace Journey.Services.Azure
 {
-    public interface IAuthenticate
+    public interface IAzureAuthenticate
     {
         Task<MobileServiceUser> Authenticate();
     }

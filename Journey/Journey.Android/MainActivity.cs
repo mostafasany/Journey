@@ -9,13 +9,13 @@ using Prism.Ioc;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Journey.Constants;
-using Journey.Services;
+using Journey.Services.Azure;
 
 namespace Journey.Droid
 {
     [Activity(Label = "Journey", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : FormsAppCompatActivity, IAuthenticate
+    public class MainActivity : FormsAppCompatActivity, IAzureAuthenticate
     {
         private MobileServiceUser _user;
 
@@ -27,7 +27,7 @@ namespace Journey.Droid
             base.OnCreate(bundle);
 
             Forms.Init(this, bundle);
-            Journey.App.Init((IAuthenticate) this);
+            Journey.App.Init((IAzureAuthenticate) this);
             LoadApplication(new App(new AndroidInitializer()));
         }
 

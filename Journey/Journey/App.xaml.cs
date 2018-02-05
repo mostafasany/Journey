@@ -1,7 +1,7 @@
 ﻿using Abstractions.Services;
 using Abstractions.Services.Contracts;
 using Journey.Constants;
-using Journey.Services;
+using Journey.Services.Azure;
 using Journey.Services.Forms;
 using Journey.Views;
 using Microsoft.WindowsAzure.MobileServices;
@@ -24,10 +24,10 @@ namespace Journey
             //DeviceService
         }
 
-        public static IAuthenticate Authenticator { get; private set; }
+        public static IAzureAuthenticate Authenticator { get; private set; }
         public static MobileServiceClient Client { get; private set; }
 
-        public static void Init(IAuthenticate authenticator)
+        public static void Init(IAzureAuthenticate authenticator)
         {
             Authenticator = authenticator;
             Client = new MobileServiceClient(Constant.ApplicationUrl);
