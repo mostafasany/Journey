@@ -10,7 +10,8 @@ namespace Journey.ViewModels
     public class LoginPageViewModel : BaseViewModel, INavigationAware
     {
         private readonly IAzureService _azureService;
-        public LoginPageViewModel(IUnityContainer container,IAzureService azureService) :
+
+        public LoginPageViewModel(IUnityContainer container, IAzureService azureService) :
             base(container)
         {
             _azureService = azureService;
@@ -117,6 +118,11 @@ namespace Journey.ViewModels
                 if (App.Authenticator == null) return;
 
                 var authenticated = await App.Authenticator.Authenticate();
+                if (authenticated == null)
+                {
+                    await DialogService.ShowMessageAsync("Cant login right now!", "Error");
+                    return;
+                }
                 _azureService.CreateOrGetAzureClient(authenticated.UserId,
                     authenticated.MobileServiceAuthenticationToken);
             }
