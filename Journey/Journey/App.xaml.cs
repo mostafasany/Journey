@@ -2,6 +2,8 @@
 using Abstractions.Services.Contracts;
 using Journey.Constants;
 using Journey.Services.Azure;
+using Journey.Services.Buisness.Account;
+using Journey.Services.Buisness.Account.Data;
 using Journey.Services.Forms;
 using Journey.Views;
 using Microsoft.WindowsAzure.MobileServices;
@@ -54,6 +56,8 @@ namespace Journey
             container.RegisterType<Abstractions.Services.Contracts.INavigationService, NavigationService>(
                 new ContainerControlledLifetimeManager());
             container.RegisterType<ISerializerService, SerializerService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<ILocationService, LocationService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<ISettingsService, SettingsService>(new ContainerControlledLifetimeManager());
 
             //container.RegisterType<IResourceLoaderService, ResourceLoaderService>(
             //    new ContainerControlledLifetimeManager());
@@ -91,6 +95,9 @@ namespace Journey
         private void RegitserBuisnessServices(IUnityContainer container)
         {
             container.RegisterType<IAzureService, AzureService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IAccountService, AccountService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IAccountDataService, AccountDataService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IFacebookService, FacebookService>(new ContainerControlledLifetimeManager());
         }
 
         protected override void OnInitialized()
