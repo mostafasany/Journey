@@ -5,10 +5,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Abstractions.Exceptions;
 using Abstractions.Services.Contracts;
-using Exceptions;
 using Newtonsoft.Json;
-using Services.Core;
 using Unity;
 
 namespace Abstractions.Services

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Services.Core
+namespace Abstractions.Services.Contracts
 {
     public interface IRatingReviewDialogService
     {

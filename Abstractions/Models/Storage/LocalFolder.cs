@@ -1,4 +1,4 @@
-﻿namespace Models.Storage
+﻿namespace Abstractions.Models.Storage
 {
     public class LocalFolder
     {

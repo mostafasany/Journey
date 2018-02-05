@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Services.Core
+namespace Abstractions.Services.Contracts
 {
     public interface IDialogService
     {

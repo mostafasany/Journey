@@ -1,6 +1,6 @@
 using System;
 
-namespace Exceptions
+namespace Abstractions.Exceptions
 {
     public class CoreServiceException : Exception
     {

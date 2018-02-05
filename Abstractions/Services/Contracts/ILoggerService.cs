@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Prism.Logging;
 
-namespace Services.Core
+namespace Abstractions.Services.Contracts
 {
     public interface ILoggerService : ILoggerFacade
     {

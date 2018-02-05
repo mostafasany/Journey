@@ -1,4 +1,5 @@
 ﻿using Abstractions.Services;
+using Abstractions.Services.Contracts;
 using Journey.Constants;
 using Journey.Services;
 using Journey.Services.Forms;
@@ -8,9 +9,9 @@ using Prism;
 using Prism.Ioc;
 using Prism.Navigation;
 using Prism.Unity;
-using Services.Core;
 using Unity;
 using Unity.Lifetime;
+using INavigationService = Prism.Navigation.INavigationService;
 
 namespace Journey
 {

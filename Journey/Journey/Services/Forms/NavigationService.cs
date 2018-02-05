@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Exceptions;
+using Abstractions.Exceptions;
 using Prism.Navigation;
 using Unity;
 using INavigationService = Abstractions.Services.Contracts.INavigationService;

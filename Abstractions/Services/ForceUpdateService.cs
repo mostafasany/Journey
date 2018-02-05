@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Abstractions.Exceptions;
+using Abstractions.Models;
 using Abstractions.Services.Contracts;
-using Exceptions;
-using Models;
-using Services.Core;
 using Unity;
 
-namespace Services
+namespace Abstractions.Services
 {
     public class ForceUpdateService : BaseService, IForceUpdateService
     {

@@ -7,10 +7,10 @@
                 x:Class="Journey.Views.HomePage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{resources:Translate Home_WelcomeMessage}" 
+            <Label Text="{resources:Translate Home_WelcomeMessage}"
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="CenterAndExpand" />
-            <Button Text="{resources:Translate Home_LoginAction}"  Command="{Binding LoginCommand}"></Button>
+            <Button Text="{resources:Translate Home_LoginAction}" Command="{Binding LoginCommand}"></Button>
         </StackLayout>
     </ContentPage.Content>
 </local:BasePage>

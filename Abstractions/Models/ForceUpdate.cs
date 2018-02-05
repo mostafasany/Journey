@@ -1,4 +1,4 @@
-﻿namespace Models
+﻿namespace Abstractions.Models
 {
     public class ForceUpdate
     {

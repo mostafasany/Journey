@@ -1,4 +1,4 @@
-﻿namespace Contracts
+﻿namespace Abstractions.Contracts
 {
     public class ForceUpdate
     {

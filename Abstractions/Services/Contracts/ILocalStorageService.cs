@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Models.Storage;
+using Abstractions.Models.Storage;
 
-namespace Services.Core
+namespace Abstractions.Services.Contracts
 {
     public interface ILocalStorageService
     {

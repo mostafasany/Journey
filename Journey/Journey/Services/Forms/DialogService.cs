@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Abstractions.Services.Contracts;
 using Prism.Services;
-using Services.Core;
 using Unity;
 
 namespace Journey.Services.Forms

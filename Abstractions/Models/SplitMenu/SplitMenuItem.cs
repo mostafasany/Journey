@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 using Prism.Mvvm;
 
-namespace Models.SplitMenu
+namespace Abstractions.Models.SplitMenu
 {
     public class SplitMenuItem : BindableBase
     {

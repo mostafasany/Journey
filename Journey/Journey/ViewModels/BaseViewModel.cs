@@ -1,6 +1,5 @@
 ﻿using Abstractions.Services.Contracts;
 using Prism.Mvvm;
-using Services.Core;
 using Unity;
 
 namespace Journey.ViewModels

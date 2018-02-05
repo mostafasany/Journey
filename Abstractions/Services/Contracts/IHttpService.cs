@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Services.Core
+namespace Abstractions.Services.Contracts
 {
     public interface IHttpService
     {

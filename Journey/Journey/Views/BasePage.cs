@@ -1,6 +1,6 @@
 ﻿using System.IO;
+using Abstractions.Services.Contracts;
 using Journey.ViewModels;
-using Services.Core;
 using Unity;
 using Xamarin.Forms;
 

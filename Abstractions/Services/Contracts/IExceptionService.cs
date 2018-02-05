@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-namespace Services.Core
+namespace Abstractions.Services.Contracts
 {
     public interface IExceptionService
     {
