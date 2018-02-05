@@ -11,14 +11,14 @@ namespace Journey.Services.Buisness.Account.Data
 {
     public class AccountDataService : IAccountDataService
     {
-        private readonly IMobileServiceSyncTable<AzureAccount> _accountTable;
+        private readonly IMobileServiceTable<AzureAccount> _accountTable;
         private readonly MobileServiceClient _client;
         private readonly IExceptionService _exceptionService;
 
         public AccountDataService(IAzureService azureService, IExceptionService exceptionService)
         {
             _client = azureService.CreateOrGetAzureClient();
-            _accountTable = _client.GetSyncTable<AzureAccount>();
+            _accountTable = _client.GetTable<AzureAccount>();
             _exceptionService = exceptionService;
         }
 
@@ -57,16 +57,13 @@ namespace Journey.Services.Buisness.Account.Data
                 if (string.IsNullOrEmpty(_client.CurrentUser.MobileServiceAuthenticationToken))
                     return null;
 
-                Tawasol.Models.Account accountDto;
-                AzureAccount azureAccountDto;
+                var azureAccountDto = await _accountTable.LookupAsync(_client.CurrentUser.UserId);
 
-                azureAccountDto = await _accountTable.LookupAsync(_client.CurrentUser.UserId);
+                //if (azureAccountDto != null && string.IsNullOrEmpty(azureAccountDto.Challenge))
+                //    await _accountTable.UpdateAsync(azureAccountDto);
 
-                if (azureAccountDto != null && string.IsNullOrEmpty(azureAccountDto.Challenge))
-                    await _accountTable.UpdateAsync(azureAccountDto);
-
-                if (azureAccountDto == null)
-                    sync = true;
+                //if (azureAccountDto == null)
+                //    sync = true;
 
                 //if (sync && azureAccountDTO == null)
                 //{
@@ -78,7 +75,7 @@ namespace Journey.Services.Buisness.Account.Data
                 //    SyncAccountAsync();
                 //}
 
-                accountDto = AccountDataTranslator.TranslateAccount(azureAccountDto);
+                var accountDto = AccountDataTranslator.TranslateAccount(azureAccountDto);
 
                 return accountDto;
             }

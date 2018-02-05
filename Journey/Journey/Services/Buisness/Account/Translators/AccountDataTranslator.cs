@@ -1,22 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Abstractions.Exceptions;
 using Abstractions.Models;
-using Abstractions.Services.Contracts;
-using CommonServiceLocator;
 using Journey.Services.Buisness.Account.Entity;
 
 namespace Journey.Services.Buisness.Account.Translators
 {
     public static class AccountDataTranslator
     {
-        private static readonly IExceptionService ExceptionService;
-
-        static AccountDataTranslator()
-        {
-            ExceptionService = ServiceLocator.Current.GetInstance<IExceptionService>();
-        }
-
         #region Transaltors
 
         public static AzureAccount TranslateAccount(Tawasol.Models.Account account)
@@ -24,27 +16,24 @@ namespace Journey.Services.Buisness.Account.Translators
             try
             {
                 var accountDto = new AzureAccount();
-                if (account != null)
-                {
-                    if (!string.IsNullOrEmpty(account.Id))
-                        accountDto.Id = account.Id;
-                    accountDto.FName = account.FirstName;
-                    accountDto.LName = account.LastName;
-                    accountDto.Profile = account.Image?.Path;
-                    accountDto.SToken = account.SocialToken;
-                    accountDto.SProvider = account.SocialProvider;
-                    accountDto.SID = account.SID;
-                    accountDto.Email = account.Email;
-                    accountDto.Gender = account.Gender;
-                    accountDto.Status = account.Status;
-                    accountDto.Challenge = account.ChallengeId;
-                }
+                if (account == null) return accountDto;
+                if (!string.IsNullOrEmpty(account.Id))
+                    accountDto.Id = account.Id;
+                accountDto.FName = account.FirstName;
+                accountDto.LName = account.LastName;
+                accountDto.Profile = account.Image?.Path;
+                accountDto.SToken = account.SocialToken;
+                accountDto.SProvider = account.SocialProvider;
+                accountDto.SID = account.SID;
+                accountDto.Email = account.Email;
+                accountDto.Gender = account.Gender;
+                accountDto.Status = account.Status;
+                accountDto.Challenge = account.ChallengeId;
                 return accountDto;
             }
             catch (Exception ex)
             {
-                ExceptionService.Handle(ex);
-                return null;
+                throw new TranslationFailedException("Account", ex.InnerException);
             }
         }
 
@@ -56,8 +45,7 @@ namespace Journey.Services.Buisness.Account.Translators
             }
             catch (Exception ex)
             {
-                ExceptionService.Handle(ex);
-                return null;
+                throw new TranslationFailedException("Account", ex.InnerException);
             }
         }
 
@@ -66,27 +54,24 @@ namespace Journey.Services.Buisness.Account.Translators
             try
             {
                 var accountDto = new Tawasol.Models.Account();
-                if (account != null)
-                {
-                    if (!string.IsNullOrEmpty(account.Id))
-                        accountDto.Id = account.Id;
-                    accountDto.FirstName = account.FName;
-                    accountDto.LastName = account.LName;
-                    accountDto.Image = new Media {Path = account.Profile};
-                    accountDto.SocialToken = account.SToken;
-                    accountDto.SocialProvider = account.SProvider;
-                    accountDto.SID = account.SID;
-                    accountDto.Email = account.Email;
-                    accountDto.Gender = account.Gender;
-                    accountDto.Status = account.Status;
-                    accountDto.ChallengeId = account.Challenge;
-                }
+                if (account == null) return accountDto;
+                if (!string.IsNullOrEmpty(account.Id))
+                    accountDto.Id = account.Id;
+                accountDto.FirstName = account.FName;
+                accountDto.LastName = account.LName;
+                accountDto.Image = new Media {Path = account.Profile};
+                accountDto.SocialToken = account.SToken;
+                accountDto.SocialProvider = account.SProvider;
+                accountDto.SID = account.SID;
+                accountDto.Email = account.Email;
+                accountDto.Gender = account.Gender;
+                accountDto.Status = account.Status;
+                accountDto.ChallengeId = account.Challenge;
                 return accountDto;
             }
             catch (Exception ex)
             {
-                ExceptionService.Handle(ex);
-                return null;
+                throw new TranslationFailedException("Account", ex.InnerException);
             }
         }
 

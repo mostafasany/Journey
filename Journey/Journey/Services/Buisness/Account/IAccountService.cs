@@ -4,6 +4,8 @@ namespace Journey.Services.Buisness.Account
 {
     public interface IAccountService
     {
+        string Token { get; set; }
+
         Tawasol.Models.Account LoggedInAccount { get; set; }
 
         Task<Tawasol.Models.Account> SaveAccountAsync(Tawasol.Models.Account account);

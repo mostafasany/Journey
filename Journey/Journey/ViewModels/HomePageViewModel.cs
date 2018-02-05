@@ -27,11 +27,6 @@ namespace Journey.ViewModels
         {
         }
 
-        public override void OnBackPressed()
-        {
-            base.OnBackPressed();
-        }
-
         #endregion
 
         #region Properties

@@ -13,7 +13,7 @@ using Prism.Navigation;
 using Prism.Unity;
 using Unity;
 using Unity.Lifetime;
-using INavigationService = Prism.Navigation.INavigationService;
+using INavigationService = Abstractions.Services.Contracts.INavigationService;
 
 namespace Journey
 {
@@ -52,9 +52,11 @@ namespace Journey
             container.RegisterType<IExceptionService, ExceptionService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IHttpService, HttpService>(new ContainerControlledLifetimeManager());
             container.RegisterType<ILoggerService, LoggerService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<INavigationService, PageNavigationService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<Abstractions.Services.Contracts.INavigationService, NavigationService>(
+            container.RegisterType<INavigationService, NavigationService>(
                 new ContainerControlledLifetimeManager());
+            container.RegisterType<Prism.Navigation.INavigationService, PageNavigationService>(
+                new ContainerControlledLifetimeManager());
+
             container.RegisterType<ISerializerService, SerializerService>(new ContainerControlledLifetimeManager());
             container.RegisterType<ILocationService, LocationService>(new ContainerControlledLifetimeManager());
             container.RegisterType<ISettingsService, SettingsService>(new ContainerControlledLifetimeManager());
