@@ -15,7 +15,7 @@ namespace Journey.Droid
 {
     [Activity(Label = "Journey", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : FormsAppCompatActivity, IAzureAuthenticate
+    public class MainActivity : FormsAppCompatActivity, IAzureAuthenticateService
     {
         private MobileServiceUser _user;
 
@@ -27,7 +27,7 @@ namespace Journey.Droid
             base.OnCreate(bundle);
 
             Forms.Init(this, bundle);
-            Journey.App.Init((IAzureAuthenticate) this);
+            Journey.App.Init((IAzureAuthenticateService) this);
             LoadApplication(new App(new AndroidInitializer()));
         }
 

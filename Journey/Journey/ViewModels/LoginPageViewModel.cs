@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using Journey.Services.Azure;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
@@ -8,9 +9,11 @@ namespace Journey.ViewModels
 {
     public class LoginPageViewModel : BaseViewModel, INavigationAware
     {
-        public LoginPageViewModel(IUnityContainer container) :
+        private readonly IAzureService _azureService;
+        public LoginPageViewModel(IUnityContainer container,IAzureService azureService) :
             base(container)
         {
+            _azureService = azureService;
         }
 
         #region Events
@@ -111,10 +114,11 @@ namespace Journey.ViewModels
         {
             try
             {
-                if (App.Authenticator != null)
-                {
-                    var authenticated = await App.Authenticator.Authenticate();
-                }
+                if (App.Authenticator == null) return;
+
+                var authenticated = await App.Authenticator.Authenticate();
+                _azureService.CreateOrGetAzureClient(authenticated.UserId,
+                    authenticated.MobileServiceAuthenticationToken);
             }
             catch (Exception e)
             {

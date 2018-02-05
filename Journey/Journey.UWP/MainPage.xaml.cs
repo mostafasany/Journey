@@ -8,7 +8,7 @@ using Journey.Services.Azure;
 
 namespace Journey.UWP
 {
-    public sealed partial class MainPage : IAzureAuthenticate
+    public sealed partial class MainPage : IAzureAuthenticateService
     {
         private MobileServiceUser _user;
 

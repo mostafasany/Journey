@@ -3,7 +3,7 @@ using Microsoft.WindowsAzure.MobileServices;
 
 namespace Journey.Services.Azure
 {
-    public interface IAzureAuthenticate
+    public interface IAzureAuthenticateService
     {
         Task<MobileServiceUser> Authenticate();
     }

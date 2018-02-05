@@ -17,7 +17,7 @@ namespace Journey.iOS
     // User Interface of the application, as well as listening (and optionally responding) to 
     // application events from iOS.
     [Register("AppDelegate")]
-    public class AppDelegate : FormsApplicationDelegate, IAzureAuthenticate
+    public class AppDelegate : FormsApplicationDelegate, IAzureAuthenticateService
     {
         private MobileServiceUser _user;
 

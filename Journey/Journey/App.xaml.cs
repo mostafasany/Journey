@@ -24,10 +24,10 @@ namespace Journey
             //DeviceService
         }
 
-        public static IAzureAuthenticate Authenticator { get; private set; }
+        public static IAzureAuthenticateService Authenticator { get; private set; }
         public static MobileServiceClient Client { get; private set; }
 
-        public static void Init(IAzureAuthenticate authenticator)
+        public static void Init(IAzureAuthenticateService authenticator)
         {
             Authenticator = authenticator;
             Client = new MobileServiceClient(Constant.ApplicationUrl);
@@ -90,7 +90,7 @@ namespace Journey
 
         private void RegitserBuisnessServices(IUnityContainer container)
         {
-            // container.RegisterType<IPlacesService, PlacesService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IAzureService, AzureService>(new ContainerControlledLifetimeManager());
         }
 
         protected override void OnInitialized()
