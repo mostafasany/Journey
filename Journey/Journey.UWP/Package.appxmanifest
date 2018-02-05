@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="f9f3b04f-e768-4630-9b21-0f2c14aa2f05" Publisher="CN=mkhodeir" Version="1.0.0.0" />
+  <Identity Name="f9f3b04f-e768-4630-9b21-0f2c14aa2f05" Publisher="CN=mkhodeir" Version="1.0.2.0" />
   <mp:PhoneIdentity PhoneProductId="f9f3b04f-e768-4630-9b21-0f2c14aa2f05" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Journey.UWP</DisplayName>
+    <DisplayName>Journey</DisplayName>
     <PublisherDisplayName>mkhodeir</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
