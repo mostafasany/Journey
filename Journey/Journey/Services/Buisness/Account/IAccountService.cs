@@ -5,6 +5,8 @@ namespace Journey.Services.Buisness.Account
 {
     public interface IAccountService
     {
+        string AccountTokenKey { get; }
+
         string Token { get; set; }
 
         Tawasol.Models.Account LoggedInAccount { get; set; }

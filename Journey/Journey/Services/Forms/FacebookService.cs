@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Contracts;
+using Abstractions.Exceptions;
 using Abstractions.Models;
 using Abstractions.Services.Contracts;
 using Unity;
@@ -63,8 +64,7 @@ namespace Journey.Services.Forms
             }
             catch (Exception ex)
             {
-                ExceptionService.Handle(ex);
-                return null;
+                throw new CoreServiceException(ex.Message);
             }
         }
 
@@ -72,10 +72,24 @@ namespace Journey.Services.Forms
 
         public void InviteFriends()
         {
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                throw new CoreServiceException(ex.Message);
+            }
         }
 
         public void Share(string urlImage, string message, string name, string link, string description)
         {
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                throw new CoreServiceException(ex.Message);
+            }
         }
     }
 }

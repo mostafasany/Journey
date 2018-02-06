@@ -40,14 +40,6 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        //private string _text;
-
-        //public string Text
-        //{
-        //    get => _text;
-        //    set => SetProperty(ref _text, value);
-        //}
-
         #endregion
 
         #region Methods

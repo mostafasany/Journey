@@ -102,10 +102,20 @@ namespace Journey
             container.RegisterType<IFacebookService, FacebookService>(new ContainerControlledLifetimeManager());
         }
 
-        protected override void OnInitialized()
+        protected override async void OnInitialized()
         {
             InitializeComponent();
-            NavigationService.NavigateAsync("HomePage");
+            var settingsService = Container.Resolve<ISettingsService>();
+            var accountService = Container.Resolve<IAccountService>();
+            if (settingsService != null)
+            {
+                var token = await settingsService.Get(accountService.AccountTokenKey);
+                await NavigationService.NavigateAsync(string.IsNullOrEmpty(token) ? "HomePage" : "LoginPage");
+            }
+            else
+            {
+                await NavigationService.NavigateAsync("HomePage");
+            }
         }
 
         protected override void OnStart()

@@ -13,20 +13,23 @@ namespace Journey.Services.Buisness.Account
 {
     public class AccountService : IAccountService
     {
-        // private const string AccountTokenKey = "AccountToken";
+       
         private readonly IAccountDataService _accountDataService;
 
         private readonly IDialogService _dialogService;
+        private readonly ISettingsService _settingsService;
         private readonly INavigationService _navigationService;
 
-        public AccountService(IAccountDataService accountDataService,
+        public AccountService(IAccountDataService accountDataService,ISettingsService settingsService,
             INavigationService navService, IDialogService dialogService)
         {
             _accountDataService = accountDataService;
             _navigationService = navService;
             _dialogService = dialogService;
+            _settingsService = settingsService;
         }
 
+        public string AccountTokenKey { get; } = "AccountToken";
         public string Token { get; set; }
         public Tawasol.Models.Account LoggedInAccount { get; set; }
 
@@ -104,6 +107,7 @@ namespace Journey.Services.Buisness.Account
                 Token = info.AccessToken;
                 if (string.IsNullOrEmpty(Token))
                     return false;
+                await _settingsService.Set(AccountTokenKey, Token);
                 var account = await GetAccountAsync();
                 if (account == null)
                     return false;

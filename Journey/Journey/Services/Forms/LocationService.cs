@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Abstractions.Exceptions;
 using Abstractions.Models;
 using Abstractions.Services.Contracts;
 
@@ -29,13 +30,20 @@ namespace Journey.Services.Forms
             }
             catch (Exception ex)
             {
-                return 0;
+                throw new CoreServiceException(ex.Message);
             }
         }
 
         public Task<Location> ObtainMyLocationAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new CoreServiceException(ex.Message);
+            }
         }
 
         /// <summary>
