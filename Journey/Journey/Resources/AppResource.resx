@@ -123,4 +123,10 @@
   <data name="Home_WelcomeMessage" xml:space="preserve">
     <value>Hello Mostafa</value>
   </data>
+  <data name="Login_CantLoginMessage" xml:space="preserve">
+    <value>Cant login right now!</value>
+  </data>
+  <data name="Login_CantLoginTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
 </root>

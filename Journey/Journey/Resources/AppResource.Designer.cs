@@ -77,5 +77,23 @@ namespace Journey.Resources {
                 return ResourceManager.GetString("Home_WelcomeMessage", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cant login right now!.
+        /// </summary>
+        internal static string Login_CantLoginMessage {
+            get {
+                return ResourceManager.GetString("Login_CantLoginMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Login_CantLoginTitle {
+            get {
+                return ResourceManager.GetString("Login_CantLoginTitle", resourceCulture);
+            }
+        }
     }
 }

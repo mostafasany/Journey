@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace Journey.Services.Buisness.Account
 {
@@ -12,7 +13,9 @@ namespace Journey.Services.Buisness.Account
 
         Task<Tawasol.Models.Account> GetAccountAsync(bool sync = false);
 
-        Task<bool> LoginFirst();
+        Task<bool> LoginFirstAsync();
+
+        Task<bool> LoginAsync(MobileServiceClient client);
 
         bool IsAccountAuthenticated();
     }

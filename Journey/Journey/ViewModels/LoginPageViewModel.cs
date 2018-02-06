@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Input;
-using Abstractions.Contracts;
-using Abstractions.Models;
+using Journey.Resources;
 using Journey.Services.Azure;
 using Journey.Services.Buisness.Account;
-using Microsoft.WindowsAzure.MobileServices;
 using Prism.Commands;
 using Prism.Navigation;
-using Tawasol.Models;
 using Unity;
 
 namespace Journey.ViewModels
@@ -87,50 +82,6 @@ namespace Journey.ViewModels
             }
         }
 
-        private async void FillUserData(MobileServiceClient client)
-        {
-            try
-            {
-                var socialInfo = await client.InvokeApiAsync<List<Social>>("/.auth/me");
-                var info = socialInfo.FirstOrDefault();
-                _accountService.Token = info.AccessToken;
-                if (string.IsNullOrEmpty(_accountService.Token))
-                {
-                    return;
-                }
-                var account = await _accountService.GetAccountAsync();
-                if (account == null)
-                {
-                    return;
-                }
-                var loggedInAccount = new Account
-                {
-                    FirstName = string.IsNullOrEmpty(account.FirstName)
-                        ? info.Claims?.Where(a => a.Typ.Contains("givenname")).FirstOrDefault()?.Val
-                        : account.FirstName,
-                    LastName = string.IsNullOrEmpty(account.LastName)
-                        ? info.Claims?.Where(a => a.Typ.Contains("surname")).FirstOrDefault()?.Val
-                        : account.LastName,
-                    Email = info.Claims?.Where(a => a.Typ.Contains("emailaddress")).FirstOrDefault()?.Val,
-                    Gender = info.Claims?.Where(a => a.Typ.Contains("gender")).FirstOrDefault()?.Val,
-                    SID = info.Claims?.Where(a => a.Typ.Contains("nameidentifier")).FirstOrDefault()?.Val
-                };
-                var imageUrl = string.Format("http://graph.facebook.com/{0}/picture?type=large", loggedInAccount.SID);
-                loggedInAccount.SocialToken = info.AccessToken;
-                loggedInAccount.SocialProvider = info.ProviderName;
-                loggedInAccount.Image = new Media
-                {
-                    Path = string.IsNullOrEmpty(account.Image.Path) ? imageUrl : account.Image.Path
-                };
-
-                _accountService.LoggedInAccount = loggedInAccount;
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-        }
-
         #endregion
 
         #region Commands
@@ -152,17 +103,18 @@ namespace Journey.ViewModels
                 var authenticated = await App.Authenticator.Authenticate();
                 if (authenticated == null)
                 {
-                    await DialogService.ShowMessageAsync("Cant login right now!", "Error");
+                   
+                    await DialogService.ShowMessageAsync(AppResource.Login_CantLoginMessage, AppResource.Login_CantLoginTitle);
                     return;
                 }
                 var client = _azureService.CreateOrGetAzureClient(authenticated.UserId,
                     authenticated.MobileServiceAuthenticationToken);
 
-                FillUserData(client);
+                await _accountService.LoginAsync(client);
             }
             catch (Exception e)
             {
-                ExceptionService.HandleAndShowDialog(e);
+                ExceptionService.HandleAndShowDialog(e, AppResource.Login_CantLoginMessage);
             }
             finally
             {
