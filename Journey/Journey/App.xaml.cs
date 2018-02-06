@@ -6,7 +6,6 @@ using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Account.Data;
 using Journey.Services.Forms;
 using Journey.Views;
-using Journey.Views.Account;
 using Microsoft.WindowsAzure.MobileServices;
 using Prism;
 using Prism.Ioc;

@@ -5,9 +5,9 @@
                 xmlns:local="clr-namespace:Journey.Views"
                 xmlns:Controls="clr-namespace:Journey.Views.Controls"
                 xmlns:resources="clr-namespace:Journey.Resources"
-                x:Class="Journey.Views.Account.UpdateProfilePage">
+                x:Class="Journey.Views.UpdateProfilePage">
     <ContentPage.Content>
-        <ScrollView HorizontalOptions="Center">
+        <ScrollView  HorizontalOptions="Center">
             <Grid Margin="20" HorizontalOptions="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -19,7 +19,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Image Grid.Column="0" Source="LoginLogo.png" Style="{StaticResource ImageHeaderStyle}" />
+                    <Image x:Name="imgLogo"  Grid.Column="0" Source="" Style="{StaticResource ImageHeaderStyle}" />
                     <Label Grid.Column="1" Text="Update your intial information" Style="{StaticResource LabelHeaderStyle}" />
                 </Grid>
                 <StackLayout Grid.Row="1" Orientation="Vertical" HorizontalOptions="Center">

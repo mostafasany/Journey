@@ -2,7 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Journey</AssemblyName>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\loading.png" />
+    <None Remove="Assets\LoginLogo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\loading.png" />
+    <EmbeddedResource Include="Assets\LoginLogo.png" />
+    <EmbeddedResource Include="LoginLogo.png" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Mobile.Client" Version="4.0.2" />
