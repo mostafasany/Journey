@@ -5,8 +5,111 @@
                         xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
                         x:Class="Journey.App">
     <Application.Resources>
-
-        <!-- Application resource dictionary -->
-
+        <ResourceDictionary>
+            <Color x:Key="Primary">#591587</Color>
+            <Color x:Key="PrimaryDark">#591587</Color>
+            <Color x:Key="LightBackgroundColor">#FFFFFF</Color>
+            <Color x:Key="DarkBackgroundColor">#ebebeb</Color>
+            <Color x:Key="PlaceholderTextColor">#ebebeb</Color>
+            <Color x:Key="LightTextColor">#591587</Color>
+            <Color x:Key="DarkTextColor">#591587</Color>
+            <Color x:Key="FacebookColor">#591587</Color>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="#591587" />
+                <Setter Property="BarTextColor" Value="White" />
+            </Style>
+            <Style TargetType="ActivityIndicator" x:Key="ActivityIndicatorStyle">
+                <Setter Property="Color" Value="{StaticResource Primary}" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="WidthRequest" Value="30" />
+                <Setter Property="HeightRequest" Value="30" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style TargetType="Entry" x:Key="EntryFormStyle">
+                <Setter Property="PlaceholderColor" Value="{StaticResource PlaceholderTextColor}" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="Margin" Value="0,0,0,15" />
+                <Setter Property="HeightRequest" Value="40" />
+            </Style>
+            <Style TargetType="Editor" x:Key="EditorFormStyle">
+                <Setter Property="HeightRequest" Value="120" />
+                <Setter Property="TextColor" Value="{StaticResource LightTextColor}" />
+                <Setter Property="Margin" Value="0,0,0,15" />
+                <Setter Property="BackgroundColor" Value="#ededed" />
+            </Style>
+            <Style TargetType="Label" x:Key="WalkthroughtLabelStyle">
+                <Setter Property="TextColor" Value="{StaticResource LightTextColor}" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="Margin" Value="40,20" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+            <Style TargetType="Image" x:Key="WalkthroughtImageStyle">
+                <Setter Property="Aspect" Value="AspectFill" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style TargetType="Label" x:Key="LabelEntryStyle">
+                <Setter Property="TextColor" Value="{StaticResource LightTextColor}" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+            </Style>
+            <Style TargetType="Label" x:Key="LabelListItemStyle">
+                <Setter Property="TextColor" Value="{StaticResource LightTextColor}" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="Margin" Value="5,0" />
+            </Style>
+            <Style TargetType="Picker" x:Key="PickerFormStyle">
+                <Setter Property="TextColor" Value="{StaticResource LightTextColor}" />
+            </Style>
+            <Style TargetType="Label" x:Key="LabelHeaderStyle">
+                <Setter Property="TextColor" Value="{StaticResource LightTextColor}" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style TargetType="Image" x:Key="ImageHeaderStyle">
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="WidthRequest" Value="40" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="VerticalOptions" Value="Start" />
+            </Style>
+            <Style TargetType="Image" x:Key="IconStyle">
+                <Setter Property="HeightRequest" Value="30" />
+                <Setter Property="WidthRequest" Value="30" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style TargetType="Button" x:Key="PrimaryButtonStyle">
+                <Setter Property="BackgroundColor" Value="{StaticResource LightTextColor}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BorderRadius" Value="0" />
+                <Setter Property="BorderWidth" Value="0" />
+            </Style>
+            <Style TargetType="Button" x:Key="SecondaryButtonStyle">
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="TextColor" Value="{StaticResource LightTextColor}" />
+                <Setter Property="BorderColor" Value="{StaticResource LightTextColor}" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="BorderRadius" Value="0" />
+            </Style>
+            <Style TargetType="Button" x:Key="FacebookButtonStyle">
+                <Setter Property="BackgroundColor" Value="{StaticResource FacebookColor}" />
+                <Setter Property="TextColor" Value="#ffffff" />
+                <Setter Property="BorderColor" Value="{StaticResource LightTextColor}" />
+                <Setter Property="BorderWidth" Value="0" />
+                <Setter Property="BorderRadius" Value="0" />
+            </Style>
+            <Style TargetType="Image" x:Key="ImageBodyStyle">
+                <Setter Property="HeightRequest" Value="120" />
+                <Setter Property="WidthRequest" Value="120" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="VerticalOptions" Value="Start" />
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </prism:PrismApplication>

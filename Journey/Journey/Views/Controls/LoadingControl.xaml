@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid BackgroundColor="Transparent" RowSpacing="0" ColumnSpacing="0" 
+      VerticalOptions="Center" HorizontalOptions="FillAndExpand" 
+      xmlns="http://xamarin.com/schemas/2014/forms" 
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      x:Class="Journey.Views.Controls.LoadingControl"
+      xmlns:Controls="clr-namespace:Tawasol.Controls;assembly=Tawasol">
+    
+    <Image x:Name="loading" Source="loading.png"
+           Style="{StaticResource IconStyle}" VerticalOptions="Center
+           " HorizontalOptions="Center" />
+</Grid>

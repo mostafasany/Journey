@@ -129,4 +129,16 @@
   <data name="Login_CantLoginTitle" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="UpdateProfile_Finish" xml:space="preserve">
+    <value>Finish</value>
+  </data>
+  <data name="UpdateProfile_FirstName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="UpdateProfile_LastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="UpdateProfile_Upload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
 </root>

@@ -95,5 +95,41 @@ namespace Journey.Resources {
                 return ResourceManager.GetString("Login_CantLoginTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finish.
+        /// </summary>
+        internal static string UpdateProfile_Finish {
+            get {
+                return ResourceManager.GetString("UpdateProfile_Finish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First name.
+        /// </summary>
+        internal static string UpdateProfile_FirstName {
+            get {
+                return ResourceManager.GetString("UpdateProfile_FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name.
+        /// </summary>
+        internal static string UpdateProfile_LastName {
+            get {
+                return ResourceManager.GetString("UpdateProfile_LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload.
+        /// </summary>
+        internal static string UpdateProfile_Upload {
+            get {
+                return ResourceManager.GetString("UpdateProfile_Upload", resourceCulture);
+            }
+        }
     }
 }

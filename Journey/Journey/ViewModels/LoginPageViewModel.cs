@@ -95,14 +95,19 @@ namespace Journey.ViewModels
                 var authenticated = await App.Authenticator.Authenticate();
                 if (authenticated == null)
                 {
-                   
+
                     await DialogService.ShowMessageAsync(AppResource.Login_CantLoginMessage, AppResource.Login_CantLoginTitle);
                     return;
                 }
                 var client = _azureService.CreateOrGetAzureClient(authenticated.UserId,
                     authenticated.MobileServiceAuthenticationToken);
 
-                await _accountService.LoginAsync(client);
+                bool isLoggedIn = await _accountService.LoginAsync(client);
+                if (isLoggedIn)
+                    await NavigationService.Navigate("UpdateProfilePage");
+                else
+                    await DialogService.ShowMessageAsync(AppResource.Login_CantLoginMessage, AppResource.Login_CantLoginTitle);
+
             }
             catch (Exception e)
             {
