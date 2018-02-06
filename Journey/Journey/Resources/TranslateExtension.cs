@@ -23,4 +23,20 @@ namespace Journey.Resources
             return resourceManager.GetString(Text, CultureInfo.CurrentCulture);
         }
     }
+
+    //[ContentProperty("Placeholder")]
+    //public class TranslateExtension : IMarkupExtension
+    //{
+    //    public string Text { get; set; }
+
+    //    public object ProvideValue(IServiceProvider serviceProvider)
+    //    {
+    //        if (Text == null)
+    //            return null;
+    //        var resourceManager = new ResourceManager(Constant.ResourceId,
+    //            typeof(TranslateExtension).GetTypeInfo().Assembly);
+
+    //        return resourceManager.GetString(Text, CultureInfo.CurrentCulture);
+    //    }
+    //}
 }

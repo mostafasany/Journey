@@ -6,6 +6,7 @@ using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Account.Data;
 using Journey.Services.Forms;
 using Journey.Views;
+using Journey.Views.Account;
 using Microsoft.WindowsAzure.MobileServices;
 using Prism;
 using Prism.Ioc;
@@ -40,7 +41,7 @@ namespace Journey
             var container = containerRegistry.GetContainer();
             containerRegistry.RegisterForNavigation<HomePage>();
             containerRegistry.RegisterForNavigation<LoginPage>();
-
+            containerRegistry.RegisterForNavigation<UpdateProfilePage>();
             RegitserAppServices(container);
 
             RegitserBuisnessServices(container);
@@ -110,7 +111,7 @@ namespace Journey
             if (settingsService != null)
             {
                 var token = await settingsService.Get(accountService.AccountTokenKey);
-                await NavigationService.NavigateAsync(string.IsNullOrEmpty(token) ? "HomePage" : "LoginPage");
+                await NavigationService.NavigateAsync(string.IsNullOrEmpty(token) ? "UpdateProfilePage" : "LoginPage");
             }
             else
             {
