@@ -156,4 +156,19 @@
   <data name="UpdateProfile_Welcome" xml:space="preserve">
     <value>Update your intial information</value>
   </data>
+    <data name="Camera" xml:space="preserve">
+    <value>Camera</value>
+  </data>
+ <data name="Gallery" xml:space="preserve">
+    <value>Gallery</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+    <data name="UploadPhoto_Title" xml:space="preserve">
+    <value>"Upload your profile picture"</value>
+  </data>
+      <data name="UploadPhoto_Message" xml:space="preserve">
+    <value>"Pick from Photo/ Gallery"</value>
+  </data>
 </root>

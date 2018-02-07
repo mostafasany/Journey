@@ -8,7 +8,7 @@
                 x:Class="Journey.Views.UpdateProfilePage">
     <ContentPage.Content>
         <ScrollView>
-            <Grid Margin="20">
+            <Grid Margin="20,50">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -37,7 +37,7 @@
                     <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
                                              VerticalOptions="Center" Margin="0,20,0,0" />
                 </StackLayout>
-                <Button Grid.Row="2" Text="{resources:Translate UpdateProfile_Finish}" HorizontalOptions="Center"
+                <Button Grid.Row="2" Text="{resources:Translate UpdateProfile_Finish}"
                         Command="{Binding FinishCommand}" Style="{StaticResource PrimaryButtonStyle}" />
             </Grid>
         </ScrollView>

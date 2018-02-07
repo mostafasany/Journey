@@ -125,7 +125,7 @@ namespace Journey.ViewModels
                     {
                         new DialogCommand
                         {
-                            Label = "Camera",
+                        Label = AppResource.Camera,
                             Invoked = async() =>
                                 {
                                    var media=await CrossMedia.Current.TakePhotoAsync(
@@ -136,13 +136,13 @@ namespace Journey.ViewModels
                                     {
                                         Path = media.Path,
                                         SourceArray = array,
-                                        //Ext = media.Ext,
+                                Ext =Path.GetExtension(media.Path),
                                     };
                                 }
                         },
                         new DialogCommand
                         {
-                            Label = "Gallery",
+                        Label = AppResource.Gallery,
                             Invoked =async () =>
                             {
                                 var media=await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions());
@@ -152,17 +152,17 @@ namespace Journey.ViewModels
                                 {
                                     Path = media.Path,
                                     SourceArray = array,
-                                    //Ext = media.Ext,
+                                Ext =Path.GetExtension(media.Path),
                                 };
                             }
                         },
                         new DialogCommand
                         {
-                            Label = "Cancel"
+                        Label = AppResource.Cancel
                         }
                     };
 
-                await DialogService.ShowMessageAsync("Take Photo/", "Upload your profile picture", commands);
+                await DialogService.ShowMessageAsync(AppResource.UploadPhoto_Message, AppResource.UploadPhoto_Title, commands);
 
             }
             catch (Exception e)

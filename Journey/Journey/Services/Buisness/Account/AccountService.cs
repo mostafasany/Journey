@@ -36,8 +36,8 @@ namespace Journey.Services.Buisness.Account
         {
             try
             {
-                await _accountDataService.AddUpdateAccountAsync(account);
-                return account;
+               var savedAccount= await _accountDataService.AddUpdateAccountAsync(account);
+                return savedAccount;
             }
             catch (Exception ex)
             {
@@ -105,7 +105,7 @@ namespace Journey.Services.Buisness.Account
                 Token = info.AccessToken;
                 if (string.IsNullOrEmpty(Token))
                     return false;
-                await _settingsService.Set(AccountTokenKey, Token);
+               
                 var account = await GetAccountAsync();
                
                 var loggedInAccount = new Models.Account.Account
@@ -128,8 +128,8 @@ namespace Journey.Services.Buisness.Account
                     Path = string.IsNullOrEmpty(account?.Image?.Path) ? imageUrl : account?.Image?.Path
                 };
 
-                LoggedInAccount = await SaveAccountAsync(LoggedInAccount);
-
+                LoggedInAccount = await SaveAccountAsync(loggedInAccount);
+                await _settingsService.Set(AccountTokenKey, Token);
                 return true;
             }
             catch (Exception ex)

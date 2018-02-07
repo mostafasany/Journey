@@ -77,7 +77,7 @@ namespace Journey.Services.Buisness.Account.Data
             }
             catch (Exception ex)
             {
-                throw new DataServiceException(ex);
+                return null;
             }
         }
 

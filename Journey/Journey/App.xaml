@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -105,8 +105,8 @@
                 <Setter Property="BorderRadius" Value="0" />
             </Style>
             <Style TargetType="Image" x:Key="ImageBodyStyle">
-                <Setter Property="HeightRequest" Value="120" />
-                <Setter Property="WidthRequest" Value="120" />
+                <Setter Property="HeightRequest" Value="160" />
+                <Setter Property="WidthRequest" Value="160" />
                 <Setter Property="HorizontalOptions" Value="Start" />
                 <Setter Property="VerticalOptions" Value="Start" />
             </Style>
