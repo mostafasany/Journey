@@ -12,7 +12,6 @@ namespace Journey.Services.Forms
         {
             try
             {
-              
             }
             catch (Exception ex)
             {
@@ -24,7 +23,6 @@ namespace Journey.Services.Forms
         {
             try
             {
-
             }
             catch (Exception ex)
             {
@@ -36,7 +34,6 @@ namespace Journey.Services.Forms
         {
             try
             {
-
             }
             catch (Exception e)
             {
@@ -48,7 +45,6 @@ namespace Journey.Services.Forms
         {
             try
             {
-
             }
             catch (Exception ex)
             {

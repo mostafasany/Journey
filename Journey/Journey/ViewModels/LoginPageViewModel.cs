@@ -95,19 +95,19 @@ namespace Journey.ViewModels
                 var authenticated = await App.Authenticator.Authenticate();
                 if (authenticated == null)
                 {
-
-                    await DialogService.ShowMessageAsync(AppResource.Login_CantLoginMessage, AppResource.Login_CantLoginTitle);
+                    await DialogService.ShowMessageAsync(AppResource.Login_CantLoginMessage,
+                        AppResource.Login_CantLoginTitle);
                     return;
                 }
                 var client = _azureService.CreateOrGetAzureClient(authenticated.UserId,
                     authenticated.MobileServiceAuthenticationToken);
 
-                bool isLoggedIn = await _accountService.LoginAsync(client);
+                var isLoggedIn = await _accountService.SoicalLoginAndSaveAsync(client);
                 if (isLoggedIn)
-                    await NavigationService.Navigate("UpdateProfilePage");
+                    await NavigationService.Navigate("UpdateProfilePage", _accountService.LoggedInAccount, "Account");
                 else
-                    await DialogService.ShowMessageAsync(AppResource.Login_CantLoginMessage, AppResource.Login_CantLoginTitle);
-
+                    await DialogService.ShowMessageAsync(AppResource.Login_CantLoginMessage,
+                        AppResource.Login_CantLoginTitle);
             }
             catch (Exception e)
             {

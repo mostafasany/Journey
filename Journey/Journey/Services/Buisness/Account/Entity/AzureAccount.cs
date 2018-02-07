@@ -6,15 +6,8 @@ namespace Journey.Services.Buisness.Account.Entity
 {
     public class AzureFriend : AzureAccount
     {
-        string friends; //Not Exits in Account table
-
-
         [JsonProperty(PropertyName = "friends")]
-        public string Friend
-        {
-            get { return friends; }
-            set { friends = value; }
-        }
+        public string Friend { get; set; }
     }
 
     //public class AzureAccountChallenge : AzureAccount
@@ -33,100 +26,43 @@ namespace Journey.Services.Buisness.Account.Entity
 
     public class AzureAccount
     {
-        string id = string.Empty;
-        string fName = string.Empty;
-        string lName = string.Empty;
-        string sID = string.Empty;
-        string sToken = string.Empty;
-        string sProvider = string.Empty;
-        string email = string.Empty;
-        string gender = string.Empty;
-        string status = string.Empty;
-        string profile = string.Empty;
-        string challenge = string.Empty; //Not Exits in Account table
-
         [JsonProperty(PropertyName = "id")]
-        public string Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
+        public string Id { get; set; } = string.Empty;
 
         [JsonProperty(PropertyName = "fname")]
-        public string FName
-        {
-            get { return fName; }
-            set { fName = value; }
-        }
+        public string FName { get; set; } = string.Empty;
 
         [JsonProperty(PropertyName = "lName")]
-        public string LName
-        {
-            get { return lName; }
-            set { lName = value; }
-        }
+        public string LName { get; set; } = string.Empty;
 
         [JsonProperty(PropertyName = "status")]
-        public string Status
-        {
-            get { return status; }
-            set { status = value; }
-        }
+        public string Status { get; set; } = string.Empty;
 
 
         [JsonProperty(PropertyName = "profile")]
-        public string Profile
-        {
-            get { return profile; }
-            set { profile = value; }
-        }
+        public string Profile { get; set; } = string.Empty;
 
         [JsonProperty(PropertyName = "sToken")]
-        public string SToken
-        {
-            get { return sToken; }
-            set { sToken = value; }
-        }
+        public string SToken { get; set; } = string.Empty;
 
 
         [JsonProperty(PropertyName = "sID")]
-        public string SID
-        {
-            get { return sID; }
-            set { sID = value; }
-        }
+        public string SID { get; set; } = string.Empty;
 
 
         [JsonProperty(PropertyName = "sProvider")]
-        public string SProvider
-        {
-            get { return sProvider; }
-            set { sProvider = value; }
-        }
+        public string SProvider { get; set; } = string.Empty;
 
         [JsonProperty(PropertyName = "email")]
-        public string Email
-        {
-            get { return email; }
-            set { email = value; }
-        }
+        public string Email { get; set; } = string.Empty;
 
 
         [JsonProperty(PropertyName = "gender")]
-        public string Gender
-        {
-            get { return gender; }
-            set { gender = value; }
-        }
-
+        public string Gender { get; set; } = string.Empty;
 
 
         [JsonProperty(PropertyName = "challenge")]
-        public string Challenge
-        {
-            get { return challenge; }
-            set { challenge = value; }
-        }
+        public string Challenge { get; set; } = string.Empty;
 
 
         [JsonIgnore]

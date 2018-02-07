@@ -9,15 +9,15 @@ namespace Journey.Services.Buisness.Account
 
         string Token { get; set; }
 
-        Tawasol.Models.Account LoggedInAccount { get; set; }
+        Models.Account.Account LoggedInAccount { get; set; }
 
-        Task<Tawasol.Models.Account> SaveAccountAsync(Tawasol.Models.Account account);
+        Task<Models.Account.Account> SaveAccountAsync(Models.Account.Account account);
 
-        Task<Tawasol.Models.Account> GetAccountAsync(bool sync = false);
+        Task<Models.Account.Account> GetAccountAsync(bool sync = false);
 
         Task<bool> LoginFirstAsync();
 
-        Task<bool> LoginAsync(MobileServiceClient client);
+        Task<bool> SoicalLoginAndSaveAsync(MobileServiceClient client);
 
         bool IsAccountAuthenticated();
     }

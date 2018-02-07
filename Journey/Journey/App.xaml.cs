@@ -4,6 +4,7 @@ using Journey.Constants;
 using Journey.Services.Azure;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Account.Data;
+using Journey.Services.Buisness.Blob;
 using Journey.Services.Forms;
 using Journey.Views;
 using Microsoft.WindowsAzure.MobileServices;
@@ -60,6 +61,7 @@ namespace Journey
             container.RegisterType<ISerializerService, SerializerService>(new ContainerControlledLifetimeManager());
             container.RegisterType<ILocationService, LocationService>(new ContainerControlledLifetimeManager());
             container.RegisterType<ISettingsService, SettingsService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IBlobService, BlobService>(new ContainerControlledLifetimeManager());
 
             //container.RegisterType<IResourceLoaderService, ResourceLoaderService>(
             //    new ContainerControlledLifetimeManager());

@@ -1,7 +1,11 @@
-﻿namespace Tawasol.Models
+﻿namespace Journey.Models.Account
 {
     public class AccountWeeklyUpdate : Account
     {
+        private double distanceCovered;
+
+        private int numberOfWorkouts;
+
         public AccountWeeklyUpdate(Account account)
         {
             FirstName = account.FirstName;
@@ -10,7 +14,6 @@
             Image = account.Image;
         }
 
-        private double distanceCovered;
         public double DistanceCovered
         {
             get => distanceCovered;
@@ -19,7 +22,6 @@
 
         public string DistanceCoveredWithUnit => $"{DistanceCovered} Km";
 
-        private int numberOfWorkouts;
         public int NumberOfWorkouts
         {
             get => numberOfWorkouts;

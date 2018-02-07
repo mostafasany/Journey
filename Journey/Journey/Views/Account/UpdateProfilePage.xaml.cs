@@ -1,6 +1,4 @@
-﻿using Xamarin.Forms;
-
-namespace Journey.Views
+﻿namespace Journey.Views
 {
     public partial class UpdateProfilePage : BasePage
     {

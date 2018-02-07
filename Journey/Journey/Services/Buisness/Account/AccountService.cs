@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Contracts;
+using Abstractions.Exceptions;
 using Abstractions.Models;
 using Abstractions.Services.Contracts;
-using Exceptions;
 using Journey.Services.Buisness.Account.Data;
 using Microsoft.WindowsAzure.MobileServices;
 
@@ -13,14 +13,13 @@ namespace Journey.Services.Buisness.Account
 {
     public class AccountService : IAccountService
     {
-       
         private readonly IAccountDataService _accountDataService;
 
         private readonly IDialogService _dialogService;
-        private readonly ISettingsService _settingsService;
         private readonly INavigationService _navigationService;
+        private readonly ISettingsService _settingsService;
 
-        public AccountService(IAccountDataService accountDataService,ISettingsService settingsService,
+        public AccountService(IAccountDataService accountDataService, ISettingsService settingsService,
             INavigationService navService, IDialogService dialogService)
         {
             _accountDataService = accountDataService;
@@ -31,9 +30,9 @@ namespace Journey.Services.Buisness.Account
 
         public string AccountTokenKey { get; } = "AccountToken";
         public string Token { get; set; }
-        public Tawasol.Models.Account LoggedInAccount { get; set; }
+        public Models.Account.Account LoggedInAccount { get; set; }
 
-        public async Task<Tawasol.Models.Account> SaveAccountAsync(Tawasol.Models.Account account)
+        public async Task<Models.Account.Account> SaveAccountAsync(Models.Account.Account account)
         {
             try
             {
@@ -46,12 +45,12 @@ namespace Journey.Services.Buisness.Account
             }
         }
 
-        public async Task<Tawasol.Models.Account> GetAccountAsync(bool sync = false)
+        public async Task<Models.Account.Account> GetAccountAsync(bool sync = false)
         {
             try
             {
-                if (LoggedInAccount != null && !sync)
-                    return LoggedInAccount;
+                //if (LoggedInAccount != null && !sync)
+                //    return LoggedInAccount;
 
                 if (string.IsNullOrEmpty(Token))
                     return null;
@@ -73,23 +72,22 @@ namespace Journey.Services.Buisness.Account
         {
             try
             {
-                if (string.IsNullOrEmpty(Token))
-                {
-                    var commands =
-                        new List<DialogCommand>
+                if (!string.IsNullOrEmpty(Token)) return true;
+
+                var commands =
+                    new List<DialogCommand>
+                    {
+                        new DialogCommand
                         {
-                            new DialogCommand
-                            {
-                                Label = "Ok",
-                                Invoked = () => { _navigationService.Navigate("LoginPage"); }
-                            },
-                            new DialogCommand
-                            {
-                                Label = "Cancel"
-                            }
-                        };
-                    await _dialogService.ShowMessageAsync("Login!", "Do you want to login", commands);
-                }
+                            Label = "Ok",
+                            Invoked = () => { _navigationService.Navigate("LoginPage"); }
+                        },
+                        new DialogCommand
+                        {
+                            Label = "Cancel"
+                        }
+                    };
+                await _dialogService.ShowMessageAsync("Login!", "Do you want to login", commands);
                 return true;
             }
             catch (Exception ex)
@@ -98,7 +96,7 @@ namespace Journey.Services.Buisness.Account
             }
         }
 
-        public async Task<bool> LoginAsync(MobileServiceClient client)
+        public async Task<bool> SoicalLoginAndSaveAsync(MobileServiceClient client)
         {
             try
             {
@@ -111,7 +109,7 @@ namespace Journey.Services.Buisness.Account
                 var account = await GetAccountAsync();
                 if (account == null)
                     return false;
-                var loggedInAccount = new Tawasol.Models.Account
+                var loggedInAccount = new Models.Account.Account
                 {
                     FirstName = string.IsNullOrEmpty(account.FirstName)
                         ? info.Claims?.Where(a => a.Typ.Contains("givenname")).FirstOrDefault()?.Val
@@ -131,7 +129,8 @@ namespace Journey.Services.Buisness.Account
                     Path = string.IsNullOrEmpty(account.Image.Path) ? imageUrl : account.Image.Path
                 };
 
-                LoggedInAccount = loggedInAccount;
+                LoggedInAccount = await SaveAccountAsync(LoggedInAccount);
+
                 return true;
             }
             catch (Exception ex)

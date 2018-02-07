@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
+using Abstractions.Exceptions;
 using Journey.Constants;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -15,28 +16,19 @@ namespace Journey.Resources
 
         public object ProvideValue(IServiceProvider serviceProvider)
         {
-            if (Text == null)
-                return null;
-            var resourceManager = new ResourceManager(Constant.ResourceId,
-                typeof(TranslateExtension).GetTypeInfo().Assembly);
+            try
+            {
+                if (Text == null)
+                    return null;
+                var resourceManager = new ResourceManager(Constant.ResourceId,
+                    typeof(TranslateExtension).GetTypeInfo().Assembly);
 
-            return resourceManager.GetString(Text, CultureInfo.CurrentCulture);
+                return resourceManager.GetString(Text, CultureInfo.CurrentCulture);
+            }
+            catch (Exception ex)
+            {
+                throw new CoreServiceException(ex.Message, ex);
+            }
         }
     }
-
-    //[ContentProperty("Placeholder")]
-    //public class TranslateExtension : IMarkupExtension
-    //{
-    //    public string Text { get; set; }
-
-    //    public object ProvideValue(IServiceProvider serviceProvider)
-    //    {
-    //        if (Text == null)
-    //            return null;
-    //        var resourceManager = new ResourceManager(Constant.ResourceId,
-    //            typeof(TranslateExtension).GetTypeInfo().Assembly);
-
-    //        return resourceManager.GetString(Text, CultureInfo.CurrentCulture);
-    //    }
-    //}
 }

@@ -1,26 +1,28 @@
-﻿namespace Tawasol.Models
+﻿namespace Journey.Models.Account
 {
     public class ChallengeAccount : Account
     {
+        private int exp;
+
+        private bool liked;
+
+        private int likes;
+
         public ChallengeAccount(Account account)
         {
-            this.SocialToken = account.SocialToken;
-            this.SocialProvider = account.SocialProvider;
-            this.Email = account.Email;
-            this.Gender = account.Gender;
-            this.FirstName = account.FirstName;
-            this.LastName = account.LastName;
-            this.Id = account.Id;
-            this.Image = account.Image;
+            SocialToken = account.SocialToken;
+            SocialProvider = account.SocialProvider;
+            Email = account.Email;
+            Gender = account.Gender;
+            FirstName = account.FirstName;
+            LastName = account.LastName;
+            Id = account.Id;
+            Image = account.Image;
         }
 
-        private int exp;
         public int Exp
         {
-            get
-            {
-                return exp;
-            }
+            get => exp;
             set
             {
                 exp = value;
@@ -28,13 +30,9 @@
             }
         }
 
-        private int likes;
         public int Likes
         {
-            get
-            {
-                return likes;
-            }
+            get => likes;
             set
             {
                 likes = value;
@@ -42,13 +40,9 @@
             }
         }
 
-        private bool liked;
         public bool Liked
         {
-            get
-            {
-                return liked;
-            }
+            get => liked;
             set
             {
                 liked = value;
@@ -58,20 +52,8 @@
         }
 
 
-        public bool NotLiked
-        {
-            get
-            {
-                return !Liked;
-            }
-        }
+        public bool NotLiked => !Liked;
 
-        public string FormatedExpPoint
-        {
-            get
-            {
-                return string.Format("{0} {1}", Exp, "Exp");
-            }
-        }
+        public string FormatedExpPoint => string.Format("{0} {1}", Exp, "Exp");
     }
 }

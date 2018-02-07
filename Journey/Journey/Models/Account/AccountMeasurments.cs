@@ -1,15 +1,13 @@
-﻿using System.Collections.Generic;
-
-namespace Tawasol.Models
+﻿namespace Journey.Models.Account
 {
     public class AccountMeasurments : Account
     {
         public AccountMeasurments(Account account)
         {
-            this.SocialToken = account.SocialToken;
-            this.SocialProvider = account.SocialProvider;
-            this.Email = account.Email;
-            this.Gender = account.Gender;
+            SocialToken = account.SocialToken;
+            SocialProvider = account.SocialProvider;
+            Email = account.Email;
+            Gender = account.Gender;
             FirstName = account.FirstName;
             LastName = account.LastName;
             Id = account.Id;
@@ -22,6 +20,5 @@ namespace Tawasol.Models
         //    get => measuremnts;
         //    set => SetProperty(ref measuremnts, value);
         //}
-
     }
 }

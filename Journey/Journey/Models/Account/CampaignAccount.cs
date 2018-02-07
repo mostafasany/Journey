@@ -1,36 +1,37 @@
-﻿using System.Collections.Generic;
-using Abstractions.Models;
-namespace Tawasol.Models
+﻿namespace Journey.Models.Account
 {
     public class CampaignAccount : Account
     {
+        private int exp;
+
+        private bool liked;
+
+        private int likes;
+
         public CampaignAccount(Account account)
         {
-            this.SocialToken = account.SocialToken;
-            this.SocialProvider = account.SocialProvider;
-            this.Email = account.Email;
-            this.Gender = account.Gender;
+            SocialToken = account.SocialToken;
+            SocialProvider = account.SocialProvider;
+            Email = account.Email;
+            Gender = account.Gender;
             FirstName = account.FirstName;
             LastName = account.LastName;
             Id = account.Id;
             Image = account.Image;
         }
 
-        private int exp;
         public int Exp
         {
             get => exp;
             set => SetProperty(ref exp, value);
         }
 
-        private int likes;
         public int Likes
         {
             get => likes;
             set => SetProperty(ref likes, value);
         }
 
-        private bool liked;
         public bool Liked
         {
             get => liked;

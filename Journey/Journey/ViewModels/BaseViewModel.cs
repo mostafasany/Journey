@@ -46,6 +46,11 @@ namespace Journey.ViewModels
             IsLoading = true;
         }
 
+        protected bool IsProgress()
+        {
+            return IsLoading;
+        }
+
         protected void HideProgress()
         {
             IsLoading = false;

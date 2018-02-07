@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Abstractions.Services.Contracts;
+using Abstractions.Exceptions;
 using Journey.Services.Azure;
 using Journey.Services.Buisness.Account.Entity;
 using Journey.Services.Buisness.Account.Translators;
 using Microsoft.WindowsAzure.MobileServices;
-using Microsoft.WindowsAzure.MobileServices.Sync;
 
 namespace Journey.Services.Buisness.Account.Data
 {
@@ -13,16 +12,14 @@ namespace Journey.Services.Buisness.Account.Data
     {
         private readonly IMobileServiceTable<AzureAccount> _accountTable;
         private readonly MobileServiceClient _client;
-        private readonly IExceptionService _exceptionService;
 
-        public AccountDataService(IAzureService azureService, IExceptionService exceptionService)
+        public AccountDataService(IAzureService azureService)
         {
             _client = azureService.CreateOrGetAzureClient();
             _accountTable = _client.GetTable<AzureAccount>();
-            _exceptionService = exceptionService;
         }
 
-        public async Task<Tawasol.Models.Account> AddUpdateAccountAsync(Tawasol.Models.Account account)
+        public async Task<Models.Account.Account> AddUpdateAccountAsync(Models.Account.Account account)
         {
             try
             {
@@ -30,10 +27,10 @@ namespace Journey.Services.Buisness.Account.Data
                     return null;
 
                 var accountDto = AccountDataTranslator.TranslateAccount(account);
-                var existingaccount = await GetAccountAsync();
-                if (string.IsNullOrEmpty(account.FirstName)) //Means it came from Facebook Login "Not Data" so Migrate
-                    accountDto = AccountDataTranslator.TranslateAccount(existingaccount);
-                if (existingaccount == null)
+                //var existingaccount = await GetAccountAsync();
+                //if (string.IsNullOrEmpty(account.FirstName)) //Means it came from Facebook Login "Not Data" so Migrate
+                //    accountDto = AccountDataTranslator.TranslateAccount(existingaccount);
+                if (string.IsNullOrEmpty(accountDto.Id))
                     await _accountTable.InsertAsync(accountDto);
                 else
                     await _accountTable.UpdateAsync(accountDto);
@@ -43,14 +40,13 @@ namespace Journey.Services.Buisness.Account.Data
             }
             catch (Exception ex)
             {
-                _exceptionService.Handle(ex);
-                return null;
+                throw new DataServiceException(ex);
             }
         }
 
 
         //TODO: There shouldnt be two request to get user , it should call the account api and it returns challengeid if exist  
-        public async Task<Tawasol.Models.Account> GetAccountAsync(bool sync = false)
+        public async Task<Models.Account.Account> GetAccountAsync(bool sync = false)
         {
             try
             {
@@ -81,27 +77,34 @@ namespace Journey.Services.Buisness.Account.Data
             }
             catch (Exception ex)
             {
-                _exceptionService.Handle(ex);
-                return null;
+                throw new DataServiceException(ex);
             }
         }
 
 
         public bool IsAccountAuthenticated()
         {
-            return _client.CurrentUser != null &&
-                   !string.IsNullOrEmpty(_client.CurrentUser.MobileServiceAuthenticationToken);
+            try
+            {
+                return _client.CurrentUser != null &&
+                       !string.IsNullOrEmpty(_client.CurrentUser.MobileServiceAuthenticationToken);
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(ex);
+            }
         }
-
-        //        // The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
-        //    {
-
-        //    try
-        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
-        //{
+        //        await this.Client.SyncContext.PushAsync();
 
         //private async Task<AzureAccount> SyncAccountAsync()
-        //        await this.Client.SyncContext.PushAsync();
+        //{
+        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
+
+        //    try
+        //    {
+
+
+        //        // The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
         //        // Use a different query name for each unique query in your program.
         //        await this.accountTable.PullAsync("account", this.accountTable.CreateQuery());
 

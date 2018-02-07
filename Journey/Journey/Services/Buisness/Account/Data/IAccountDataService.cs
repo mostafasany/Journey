@@ -4,8 +4,8 @@ namespace Journey.Services.Buisness.Account.Data
 {
     public interface IAccountDataService
     {
-        Task<Tawasol.Models.Account> GetAccountAsync(bool sync = false);
-        Task<Tawasol.Models.Account> AddUpdateAccountAsync(Tawasol.Models.Account account);
+        Task<Models.Account.Account> GetAccountAsync(bool sync = false);
+        Task<Models.Account.Account> AddUpdateAccountAsync(Models.Account.Account account);
         bool IsAccountAuthenticated();
     }
 }

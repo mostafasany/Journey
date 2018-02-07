@@ -5,40 +5,17 @@ namespace Abstractions.Contracts
     //id,name,talking_about_count,checkins,location,picture.type(large)
     public class FacebookLocation
     {
-        public string id
-        {
-            get;
-            set;
-        }
+        public string id { get; set; }
 
-        public string name
-        {
-            get;
-            set;
-        }
-        public int talking_about_count
-        {
-            get;
-            set;
-        }
+        public string name { get; set; }
 
-        public int checkins
-        {
-            get;
-            set;
-        }
+        public int talking_about_count { get; set; }
 
-        public FacebookLocationObj location
-        {
-            get;
-            set;
-        }
+        public int checkins { get; set; }
 
-        public FacebookPictureRoot picture
-        {
-            get;
-            set;
-        }
+        public FacebookLocationObj location { get; set; }
+
+        public FacebookPictureRoot picture { get; set; }
     }
 
     //"location": {
@@ -52,54 +29,23 @@ namespace Abstractions.Contracts
     //},
     public class FacebookLocationObj
     {
-        public string city
-        {
-            get;
-            set;
-        }
+        public string city { get; set; }
 
-        public string country
-        {
-            get;
-            set;
-        }
-        public string state
-        {
-            get;
-            set;
-        }
+        public string country { get; set; }
 
-        public string street
-        {
-            get;
-            set;
-        }
+        public string state { get; set; }
 
-        public string zip
-        {
-            get;
-            set;
-        }
-        public double latitude
-        {
-            get;
-            set;
-        }
+        public string street { get; set; }
 
-        public double longitude
-        {
-            get;
-            set;
-        }
+        public string zip { get; set; }
 
+        public double latitude { get; set; }
+
+        public double longitude { get; set; }
     }
 
     public class FacebookLocationRoot
     {
-        public List<FacebookLocation> data
-        {
-            get;
-            set;
-        }
+        public List<FacebookLocation> data { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace Journey.Services.Forms
         private const double MinLocationDistanceInKm = 0.5;
 
         private const string ApiMe = "https://graph.facebook.com/me?fields=id,name,picture.type(large)";
+
         private const string ApiSearch =
                 "https://graph.facebook.com/search?q={0}&distance={1}&type={2}&center={3},{4}&fields=id,name,talking_about_count,checkins,location,picture.type(large)"
             ;

@@ -11,7 +11,7 @@ namespace Journey.Services.Buisness.Account.Translators
     {
         #region Transaltors
 
-        public static AzureAccount TranslateAccount(Tawasol.Models.Account account)
+        public static AzureAccount TranslateAccount(Models.Account.Account account)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace Journey.Services.Buisness.Account.Translators
             }
         }
 
-        public static List<Tawasol.Models.Account> TranslateAccounts(List<AzureAccount> accounts)
+        public static List<Models.Account.Account> TranslateAccounts(List<AzureAccount> accounts)
         {
             try
             {
@@ -49,11 +49,11 @@ namespace Journey.Services.Buisness.Account.Translators
             }
         }
 
-        public static Tawasol.Models.Account TranslateAccount(AzureAccount account)
+        public static Models.Account.Account TranslateAccount(AzureAccount account)
         {
             try
             {
-                var accountDto = new Tawasol.Models.Account();
+                var accountDto = new Models.Account.Account();
                 if (account == null) return accountDto;
                 if (!string.IsNullOrEmpty(account.Id))
                     accountDto.Id = account.Id;

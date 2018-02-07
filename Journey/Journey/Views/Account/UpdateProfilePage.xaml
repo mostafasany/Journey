@@ -7,7 +7,7 @@
                 xmlns:resources="clr-namespace:Journey.Resources"
                 x:Class="Journey.Views.UpdateProfilePage">
     <ContentPage.Content>
-        <ScrollView  HorizontalOptions="Center">
+        <ScrollView HorizontalOptions="Center">
             <Grid Margin="20" HorizontalOptions="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -19,17 +19,26 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Image x:Name="imgLogo"  Grid.Column="0" Source="" Style="{StaticResource ImageHeaderStyle}" />
-                    <Label Grid.Column="1" Text="Update your intial information" Style="{StaticResource LabelHeaderStyle}" />
+                    <Image x:Name="imgLogo" Grid.Column="0" Source="" Style="{StaticResource ImageHeaderStyle}" />
+                    <Label Grid.Column="1" Text="Update your intial information"
+                           Style="{StaticResource LabelHeaderStyle}" />
                 </Grid>
                 <StackLayout Grid.Row="1" Orientation="Vertical" HorizontalOptions="Center">
-                    <Entry Text="{Binding LoggedInAccount.FirstName,Mode=TwoWay}" Placeholder="{resources:Translate UpdateProfile_FirstName}" Style="{StaticResource EntryFormStyle}" WidthRequest="200" />
-                    <Entry Text="{Binding LoggedInAccount.LastName,Mode=TwoWay}" Placeholder="{resources:Translate UpdateProfile_LastName}" Style="{StaticResource EntryFormStyle}" WidthRequest="200" />
-                    <Image Source="{Binding LoggedInAccount.Image.Source}" Style="{StaticResource ImageBodyStyle}" HorizontalOptions="Center" />
-                    <Button Text="{resources:Translate UpdateProfile_Upload}" Command="{Binding OnUploadImageCommand}" Style="{StaticResource SecondaryButtonStyle}" />
-                    <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,20,0,0" />
+                    <Entry Text="{Binding LoggedInAccount.FirstName,Mode=TwoWay}"
+                           Placeholder="{resources:Translate UpdateProfile_FirstName}"
+                           Style="{StaticResource EntryFormStyle}" WidthRequest="200" />
+                    <Entry Text="{Binding LoggedInAccount.LastName,Mode=TwoWay}"
+                           Placeholder="{resources:Translate UpdateProfile_LastName}"
+                           Style="{StaticResource EntryFormStyle}" WidthRequest="200" />
+                    <Image Source="{Binding LoggedInAccount.Image.Source}" Style="{StaticResource ImageBodyStyle}"
+                           HorizontalOptions="Center" />
+                    <Button Text="{resources:Translate UpdateProfile_Upload}" Command="{Binding UploadImageCommand}"
+                            Style="{StaticResource SecondaryButtonStyle}" />
+                    <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsBusy}" HorizontalOptions="Center"
+                                             VerticalOptions="Center" Margin="0,20,0,0" />
                 </StackLayout>
-                <Button Grid.Row="2" Text="{resources:Translate UpdateProfile_Finish}" Command="{Binding OnFinishCommand}" Style="{StaticResource PrimaryButtonStyle}" />
+                <Button Grid.Row="2" Text="{resources:Translate UpdateProfile_Finish}"
+                        Command="{Binding FinishCommand}" Style="{StaticResource PrimaryButtonStyle}" />
             </Grid>
         </ScrollView>
     </ContentPage.Content>

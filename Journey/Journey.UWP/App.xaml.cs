@@ -33,10 +33,10 @@ namespace Journey.UWP
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-#if DEBUG
-            if (Debugger.IsAttached)
-                DebugSettings.EnableFrameRateCounter = true;
-#endif
+//#if DEBUG
+//            if (Debugger.IsAttached)
+//                DebugSettings.EnableFrameRateCounter = true;
+//#endif
 
             var rootFrame = Window.Current.Content as Frame;
 

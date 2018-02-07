@@ -1,19 +1,26 @@
 ﻿using System;
 using System.Windows.Input;
+using Abstractions.Services.Contracts;
+using Journey.Constants;
+using Journey.Models.Account;
 using Journey.Services.Buisness.Account;
 using Prism.Commands;
 using Prism.Navigation;
-using Tawasol.Models;
 using Unity;
 
 namespace Journey.ViewModels
 {
     public class UpdateProfilePageViewModel : BaseViewModel, INavigationAware
     {
-        public UpdateProfilePageViewModel(IUnityContainer container, IAccountService accountService) :
+        private readonly IAccountService _accountService;
+        private readonly IBlobService _blobService;
+
+        public UpdateProfilePageViewModel(IUnityContainer container, IAccountService accountService,
+            IBlobService blobService) :
             base(container)
         {
             _accountService = accountService;
+            _blobService = blobService;
         }
 
         #region Events
@@ -22,12 +29,13 @@ namespace Journey.ViewModels
         {
         }
 
-        public  async void OnNavigatedTo(NavigationParameters parameters)
+        public async void OnNavigatedTo(NavigationParameters parameters)
         {
             try
             {
-               ShowProgress();
-                LoggedInAccount = await _accountService.GetAccountAsync();
+                ShowProgress();
+                LoggedInAccount = parameters.GetValue<Account>("Account");
+                // LoggedInAccount = await _accountService.GetAccountAsync();
             }
             catch (Exception ex)
             {
@@ -47,12 +55,12 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        private Account loggedInAccount;
+        private Account _loggedInAccount;
 
         public Account LoggedInAccount
         {
-            get => loggedInAccount;
-            set => SetProperty(ref loggedInAccount, value);
+            get => _loggedInAccount;
+            set => SetProperty(ref _loggedInAccount, value);
         }
 
         #endregion
@@ -93,20 +101,72 @@ namespace Journey.ViewModels
 
         #region Commands
 
-        #region LoginCommand
+        #region UploadImageCommand
 
-        private ICommand _loginCommand;
-        private readonly IAccountService _accountService;
+        private ICommand _uploadImageCommand;
 
-        public ICommand LoginCommand => _loginCommand ??
-                                        (_loginCommand =
-                                            new DelegateCommand(Login));
 
-        private async void Login()
+        public ICommand UploadImageCommand => _uploadImageCommand ??
+                                              (_uploadImageCommand =
+                                                  new DelegateCommand(UploadImage));
+
+        private async void UploadImage()
         {
             try
             {
-                await NavigationService.Navigate("LoginPage");
+            }
+            catch (Exception e)
+            {
+                ExceptionService.HandleAndShowDialog(e);
+            }
+            finally
+            {
+                HideProgress();
+            }
+        }
+
+        #endregion
+
+        #region FinishCommand
+
+        private ICommand _finishCommand;
+
+
+        public ICommand FinishCommand => _finishCommand ??
+                                         (_finishCommand =
+                                             new DelegateCommand(Finish));
+
+        private async void Finish()
+        {
+            try
+            {
+                if (IsProgress())
+                    return;
+
+                if (string.IsNullOrEmpty(LoggedInAccount.FirstName))
+                {
+                    await DialogService.ShowMessageAsync("Error", "You must have First name");
+                    return;
+                }
+                else if (string.IsNullOrEmpty(LoggedInAccount?.Image?.Path))
+                {
+                    await DialogService.ShowMessageAsync("Error", "You must have Profile picture");
+                    return;
+                }
+
+                ShowProgress();
+                if (LoggedInAccount.Image?.SourceArray != null)
+                {
+                    var id = Guid.NewGuid();
+                    var ex = LoggedInAccount.Image.Ext;
+                    if (string.IsNullOrEmpty(ex))
+                        ex = Constant.DefaultImageExt;
+                    var fileName = string.Format("{0}.{1}", id, ex);
+                    var path = await _blobService.UploadAsync(LoggedInAccount.Image.SourceArray, fileName);
+                    LoggedInAccount.Image.Path = path;
+                }
+                LoggedInAccount = await _accountService.SaveAccountAsync(LoggedInAccount);
+                await NavigationService.Navigate("Home");
             }
             catch (Exception e)
             {
