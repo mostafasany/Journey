@@ -7,20 +7,20 @@
                 xmlns:resources="clr-namespace:Journey.Resources"
                 x:Class="Journey.Views.UpdateProfilePage">
     <ContentPage.Content>
-        <ScrollView HorizontalOptions="Center">
-            <Grid Margin="20" HorizontalOptions="Center">
+        <ScrollView>
+            <Grid Margin="20">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Margin="0,0,0,20">
+                <Grid Grid.Row="0" Margin="0,0,0,20" HorizontalOptions="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Controls:ImageControl PortablePath="Journey.Assets.LoginLogo.png" Grid.Column="0"  Style="{StaticResource ImageHeaderStyle}" />
-                    <Label Grid.Column="1" Text="Update your intial information"
+                    <Label Grid.Column="1" Text="{resources:Translate UpdateProfile_Welcome}"
                            Style="{StaticResource LabelHeaderStyle}" />
                 </Grid>
                 <StackLayout Grid.Row="1" Orientation="Vertical" HorizontalOptions="Center">
@@ -37,7 +37,7 @@
                     <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
                                              VerticalOptions="Center" Margin="0,20,0,0" />
                 </StackLayout>
-                <Button Grid.Row="2" Text="{resources:Translate UpdateProfile_Finish}"
+                <Button Grid.Row="2" Text="{resources:Translate UpdateProfile_Finish}" HorizontalOptions="Center"
                         Command="{Binding FinishCommand}" Style="{StaticResource PrimaryButtonStyle}" />
             </Grid>
         </ScrollView>

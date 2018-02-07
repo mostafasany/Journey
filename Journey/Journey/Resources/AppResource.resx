@@ -141,16 +141,19 @@
   <data name="UpdateProfile_Upload" xml:space="preserve">
     <value>Upload</value>
   </data>
-    <data name="AppName" xml:space="preserve">
+  <data name="AppName" xml:space="preserve">
     <value>Journey</value>
   </data>
-     <data name="UpdateProfile_FirstNameRequired" xml:space="preserve">
+  <data name="UpdateProfile_FirstNameRequired" xml:space="preserve">
     <value>You must have First name</value>
   </data>
-      <data name="UpdateProfile_ImageRequired" xml:space="preserve">
+  <data name="UpdateProfile_ImageRequired" xml:space="preserve">
     <value>You must have Profile picture</value>
   </data>
-      <data name="Error" xml:space="preserve">
+  <data name="Error" xml:space="preserve">
     <value>Error</value>
+  </data>
+  <data name="UpdateProfile_Welcome" xml:space="preserve">
+    <value>Update your intial information</value>
   </data>
 </root>
