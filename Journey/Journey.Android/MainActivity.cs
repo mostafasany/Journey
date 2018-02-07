@@ -8,8 +8,11 @@ using Prism;
 using Prism.Ioc;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using Journey.Constants;
 using Journey.Services.Azure;
+using Permission = Android.Content.PM.Permission;
 
 namespace Journey.Droid
 {
@@ -28,6 +31,7 @@ namespace Journey.Droid
 
             Forms.Init(this, bundle);
             Journey.App.Init((IAzureAuthenticateService) this);
+            Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
             LoadApplication(new App(new AndroidInitializer()));
         }
 
@@ -47,6 +51,12 @@ namespace Journey.Droid
             }
 
             return _user;
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            //base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 

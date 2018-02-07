@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Abstractions.Models;
 using Abstractions.Services.Contracts;
 using Journey.Constants;
 using Journey.Models.Account;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
@@ -35,8 +41,7 @@ namespace Journey.ViewModels
             try
             {
                 ShowProgress();
-                LoggedInAccount = parameters.GetValue<Account>("Account");
-                // LoggedInAccount = await _accountService.GetAccountAsync();
+                LoggedInAccount = parameters.GetValue<Account>("Account") ?? new Account();
             }
             catch (Exception ex)
             {
@@ -115,6 +120,50 @@ namespace Journey.ViewModels
         {
             try
             {
+                var commands =
+                    new List<DialogCommand>
+                    {
+                        new DialogCommand
+                        {
+                            Label = "Camera",
+                            Invoked = async() =>
+                                {
+                                   var media=await CrossMedia.Current.TakePhotoAsync(
+                                        new StoreCameraMediaOptions {AllowCropping = true});
+                                    Stream s=media.GetStream();
+                                 var array=  ReadFully(s);
+                                    LoggedInAccount.Image = new Media()
+                                    {
+                                        Path = media.Path,
+                                        SourceArray = array,
+                                        //Ext = media.Ext,
+                                    };
+                                }
+                        },
+                        new DialogCommand
+                        {
+                            Label = "Gallery",
+                            Invoked =async () =>
+                            {
+                                var media=await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions());
+                                Stream s=media.GetStream();
+                                var array=  ReadFully(s);
+                                LoggedInAccount.Image = new Media()
+                                {
+                                    Path = media.Path,
+                                    SourceArray = array,
+                                    //Ext = media.Ext,
+                                };
+                            }
+                        },
+                        new DialogCommand
+                        {
+                            Label = "Cancel"
+                        }
+                    };
+
+                await DialogService.ShowMessageAsync("Take Photo/", "Upload your profile picture", commands);
+
             }
             catch (Exception e)
             {
@@ -123,6 +172,20 @@ namespace Journey.ViewModels
             finally
             {
                 HideProgress();
+            }
+        }
+
+        public static byte[] ReadFully(Stream input)
+        {
+            byte[] buffer = new byte[16 * 1024];
+            using (MemoryStream ms = new MemoryStream())
+            {
+                int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                return ms.ToArray();
             }
         }
 
@@ -146,7 +209,7 @@ namespace Journey.ViewModels
 
                 if (string.IsNullOrEmpty(LoggedInAccount.FirstName))
                 {
-                    await DialogService.ShowMessageAsync(AppResource.UpdateProfile_FirstNameRequired,AppResource.Error);
+                    await DialogService.ShowMessageAsync(AppResource.UpdateProfile_FirstNameRequired, AppResource.Error);
                     return;
                 }
                 else if (string.IsNullOrEmpty(LoggedInAccount?.Image?.Path))

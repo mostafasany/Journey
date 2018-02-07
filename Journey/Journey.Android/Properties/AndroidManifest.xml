@@ -3,9 +3,23 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0"
           package="com.oneapp.journey">
   <uses-sdk android:minSdkVersion="15" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.CAMERA" />
+  <uses-permission android:name="android.permission.CAPTURE_SECURE_VIDEO_OUTPUT" />
+  <uses-permission android:name="android.permission.CAPTURE_VIDEO_OUTPUT" />
   <application android:label="Journey.Android">
+    <provider android:name="android.support.v4.content.FileProvider"
+              android:authorities="com.oneapp.journey.fileprovider"
+              android:exported="false"
+              android:grantUriPermissions="true">
+      <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                 android:resource="@xml/file_paths"></meta-data>
+    </provider>
     <activity android:name="com.microsoft.windowsazure.mobileservices.authentication.RedirectUrlActivity"
               android:launchMode="singleTop" android:noHistory="true">
+      
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -13,5 +27,6 @@
         <data android:scheme="journeychallenge" android:host="easyauth.callback" />
       </intent-filter>
     </activity>
+    
   </application>
 </manifest>
