@@ -11,9 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="LoginLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Assets\loading.png" />
     <EmbeddedResource Include="Assets\LoginLogo.png" />
-    <EmbeddedResource Include="LoginLogo.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -112,7 +112,7 @@ namespace Journey
             if (settingsService != null)
             {
                 var token = await settingsService.Get(accountService.AccountTokenKey);
-                await NavigationService.NavigateAsync(string.IsNullOrEmpty(token) ? "UpdateProfilePage" : "LoginPage");
+                await NavigationService.NavigateAsync(string.IsNullOrEmpty(token) ? "LoginPage" : "HomePage");
             }
             else
             {

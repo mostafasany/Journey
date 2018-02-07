@@ -55,7 +55,7 @@ namespace Journey.Services.Forms
                         Name = location.name,
                         Near = _locationService.DistanceBetweenPlaces(lng, lat, location.location.longitude,
                             location.location.latitude),
-                        Media = new Media {Path = location.picture?.data?.url}
+                        Image  = location.picture?.data?.url
                     };
                     locations.Add(fr);
                 }

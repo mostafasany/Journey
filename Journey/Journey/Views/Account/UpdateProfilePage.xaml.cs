@@ -5,7 +5,6 @@
         public UpdateProfilePage()
         {
             InitializeComponent();
-            //imgLogo.Source = ImageSource.FromResource("Journey.LoginLogo.png");
         }
     }
 }

@@ -107,16 +107,15 @@ namespace Journey.Services.Buisness.Account
                     return false;
                 await _settingsService.Set(AccountTokenKey, Token);
                 var account = await GetAccountAsync();
-                if (account == null)
-                    return false;
+               
                 var loggedInAccount = new Models.Account.Account
                 {
-                    FirstName = string.IsNullOrEmpty(account.FirstName)
+                    FirstName = string.IsNullOrEmpty(account?.FirstName)
                         ? info.Claims?.Where(a => a.Typ.Contains("givenname")).FirstOrDefault()?.Val
-                        : account.FirstName,
-                    LastName = string.IsNullOrEmpty(account.LastName)
+                        : account?.FirstName,
+                    LastName = string.IsNullOrEmpty(account?.LastName)
                         ? info.Claims?.Where(a => a.Typ.Contains("surname")).FirstOrDefault()?.Val
-                        : account.LastName,
+                        : account?.LastName,
                     Email = info.Claims?.Where(a => a.Typ.Contains("emailaddress")).FirstOrDefault()?.Val,
                     Gender = info.Claims?.Where(a => a.Typ.Contains("gender")).FirstOrDefault()?.Val,
                     SID = info.Claims?.Where(a => a.Typ.Contains("nameidentifier")).FirstOrDefault()?.Val
@@ -126,7 +125,7 @@ namespace Journey.Services.Buisness.Account
                 loggedInAccount.SocialProvider = info.ProviderName;
                 loggedInAccount.Image = new Media
                 {
-                    Path = string.IsNullOrEmpty(account.Image.Path) ? imageUrl : account.Image.Path
+                    Path = string.IsNullOrEmpty(account?.Image?.Path) ? imageUrl : account?.Image?.Path
                 };
 
                 LoggedInAccount = await SaveAccountAsync(LoggedInAccount);

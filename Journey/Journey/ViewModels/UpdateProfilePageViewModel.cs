@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Abstractions.Services.Contracts;
 using Journey.Constants;
 using Journey.Models.Account;
+using Journey.Resources;
 using Journey.Services.Buisness.Account;
 using Prism.Commands;
 using Prism.Navigation;
@@ -145,12 +146,12 @@ namespace Journey.ViewModels
 
                 if (string.IsNullOrEmpty(LoggedInAccount.FirstName))
                 {
-                    await DialogService.ShowMessageAsync("Error", "You must have First name");
+                    await DialogService.ShowMessageAsync(AppResource.UpdateProfile_FirstNameRequired,AppResource.Error);
                     return;
                 }
                 else if (string.IsNullOrEmpty(LoggedInAccount?.Image?.Path))
                 {
-                    await DialogService.ShowMessageAsync("Error", "You must have Profile picture");
+                    await DialogService.ShowMessageAsync(AppResource.UpdateProfile_ImageRequired, AppResource.Error);
                     return;
                 }
 
@@ -166,7 +167,7 @@ namespace Journey.ViewModels
                     LoggedInAccount.Image.Path = path;
                 }
                 LoggedInAccount = await _accountService.SaveAccountAsync(LoggedInAccount);
-                await NavigationService.Navigate("Home");
+                await NavigationService.Navigate("HomePage");
             }
             catch (Exception e)
             {
