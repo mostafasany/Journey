@@ -89,6 +89,7 @@
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="BorderRadius" Value="0" />
                 <Setter Property="BorderWidth" Value="0" />
+                <Setter Property="WidthRequest" Value="200" />
             </Style>
             <Style TargetType="Button" x:Key="SecondaryButtonStyle">
                 <Setter Property="BackgroundColor" Value="White" />
@@ -96,6 +97,7 @@
                 <Setter Property="BorderColor" Value="{StaticResource LightTextColor}" />
                 <Setter Property="BorderWidth" Value="1" />
                 <Setter Property="BorderRadius" Value="0" />
+                <Setter Property="WidthRequest" Value="200" />
             </Style>
             <Style TargetType="Button" x:Key="FacebookButtonStyle">
                 <Setter Property="BackgroundColor" Value="{StaticResource FacebookColor}" />
@@ -103,6 +105,7 @@
                 <Setter Property="BorderColor" Value="{StaticResource LightTextColor}" />
                 <Setter Property="BorderWidth" Value="0" />
                 <Setter Property="BorderRadius" Value="0" />
+                <Setter Property="WidthRequest" Value="200" />
             </Style>
             <Style TargetType="Image" x:Key="ImageBodyStyle">
                 <Setter Property="HeightRequest" Value="160" />
