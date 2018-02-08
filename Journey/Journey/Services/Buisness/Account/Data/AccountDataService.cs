@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Services.Azure;
-using Journey.Services.Buisness.Account.Entity;
+using Journey.Services.Buisness.Account.Dto;
 using Journey.Services.Buisness.Account.Translators;
 using Microsoft.WindowsAzure.MobileServices;
 

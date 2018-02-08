@@ -6,6 +6,8 @@ using Journey.Services.Azure;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Account.Data;
 using Journey.Services.Buisness.Blob;
+using Journey.Services.Buisness.Post;
+using Journey.Services.Buisness.Post.Data;
 using Journey.Services.Forms;
 using Journey.Views;
 using Microsoft.WindowsAzure.MobileServices;
@@ -16,6 +18,8 @@ using Prism.Unity;
 using Unity;
 using Unity.Lifetime;
 using INavigationService = Abstractions.Services.Contracts.INavigationService;
+using LoginPage = Journey.Views.LoginPage;
+using UpdateProfilePage = Journey.Views.UpdateProfilePage;
 
 namespace Journey
 {
@@ -102,6 +106,8 @@ namespace Journey
         {
             container.RegisterType<IAzureService, AzureService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IAccountService, AccountService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IPostService, PostService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IPostDataService, PostDataService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IAccountDataService, AccountDataService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IFacebookService, FacebookService>(new ContainerControlledLifetimeManager());
         }

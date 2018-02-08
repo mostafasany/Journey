@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Abstractions.Exceptions;
 using Journey.Models;
-using Journey.Services.Buisness.Account.Entity;
+using Journey.Services.Buisness.Account.Dto;
 
 namespace Journey.Services.Buisness.Account.Translators
 {

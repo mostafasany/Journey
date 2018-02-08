@@ -2,7 +2,7 @@
 using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json;
 
-namespace Journey.Services.Buisness.Account.Entity
+namespace Journey.Services.Buisness.Account.Dto
 {
     public class AzureFriend : AzureAccount
     {
