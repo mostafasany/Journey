@@ -120,7 +120,7 @@ namespace Journey
             if (settingsService != null)
             {
                 var token = await settingsService.Get(accountService.AccountTokenKey);
-                await NavigationService.NavigateAsync(string.IsNullOrEmpty(token) ? "LoginPage" : "HomePage");
+                await NavigationService.NavigateAsync(string.IsNullOrEmpty(token) ? "HomePage" : "HomePage");
             }
             else
             {

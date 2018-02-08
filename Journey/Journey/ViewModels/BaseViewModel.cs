@@ -41,6 +41,13 @@ namespace Journey.ViewModels
             private set => SetProperty(ref _isLoading, value);
         }
 
+
+        public bool IsNotLoading
+        {
+            get => !IsLoading;
+
+        }
+
         protected void ShowProgress()
         {
             IsLoading = true;
