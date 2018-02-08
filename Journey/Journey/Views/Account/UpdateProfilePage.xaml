@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -19,7 +19,8 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Controls:ImageControl PortablePath="Journey.Assets.LoginLogo.png" Grid.Column="0"  Style="{StaticResource ImageHeaderStyle}" />
+                    <Controls:ImageControl PortablePath="Journey.Assets.LoginLogo.png" Grid.Column="0"
+                                           Style="{StaticResource ImageHeaderStyle}" />
                     <Label Grid.Column="1" Text="{resources:Translate UpdateProfile_Welcome}"
                            Style="{StaticResource LabelHeaderStyle}" />
                 </Grid>

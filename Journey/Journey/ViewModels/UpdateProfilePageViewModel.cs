@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using Abstractions.Models;
 using Abstractions.Services.Contracts;
 using Journey.Constants;
+using Journey.Models;
 using Journey.Models.Account;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
-using Plugin.Media;
-using Plugin.Media.Abstractions;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
@@ -21,13 +17,15 @@ namespace Journey.ViewModels
     {
         private readonly IAccountService _accountService;
         private readonly IBlobService _blobService;
+        private readonly IMediaService<Media> _mediaService;
 
         public UpdateProfilePageViewModel(IUnityContainer container, IAccountService accountService,
-            IBlobService blobService) :
+            IBlobService blobService, IMediaService<Media> mediaService) :
             base(container)
         {
             _accountService = accountService;
             _blobService = blobService;
+            _mediaService = mediaService;
         }
 
         #region Events
@@ -36,7 +34,7 @@ namespace Journey.ViewModels
         {
         }
 
-        public async void OnNavigatedTo(NavigationParameters parameters)
+        public void OnNavigatedTo(NavigationParameters parameters)
         {
             try
             {
@@ -125,50 +123,22 @@ namespace Journey.ViewModels
                     {
                         new DialogCommand
                         {
-                        Label = AppResource.Camera,
-                            Invoked = async() =>
-                                {
-                                   var media=await CrossMedia.Current.TakePhotoAsync(
-                                        new StoreCameraMediaOptions {AllowCropping = true});
-                                    Stream s=media.GetStream();
-                                 var array=  ReadFully(s);
-                                    LoggedInAccount.Image = new Media()
-                                    {
-                                        Path = media.Path,
-                                        SourceArray = array,
-                                Ext =Path.GetExtension(media.Path),
-                                    };
-                                }
+                            Label = AppResource.Camera,
+                            Invoked = async () => { LoggedInAccount.Image = await _mediaService.TakePhotoAsync(); }
                         },
                         new DialogCommand
                         {
-                        Label = AppResource.Gallery,
-                            Invoked =async () =>
-                            {
-                            var media=await CrossMedia.Current.PickPhotoAsync(
-                                new PickMediaOptions
-                            {
-                                PhotoSize=PhotoSize.Medium,
-                                
-                            });
-                                Stream s=media.GetStream();
-                                var array=  ReadFully(s);
-                                LoggedInAccount.Image = new Media()
-                                {
-                                    Path = media.Path,
-                                    SourceArray = array,
-                                Ext =Path.GetExtension(media.Path),
-                                };
-                            }
+                            Label = AppResource.Gallery,
+                            Invoked = async () => { LoggedInAccount.Image = await _mediaService.PickPhotoAsync(); }
                         },
                         new DialogCommand
                         {
-                        Label = AppResource.Cancel
+                            Label = AppResource.Cancel
                         }
                     };
 
-                await DialogService.ShowMessageAsync(AppResource.UploadPhoto_Message, AppResource.UploadPhoto_Title, commands);
-
+                await DialogService.ShowMessageAsync(AppResource.UploadPhoto_Message, AppResource.UploadPhoto_Title,
+                    commands);
             }
             catch (Exception e)
             {
@@ -177,20 +147,6 @@ namespace Journey.ViewModels
             finally
             {
                 HideProgress();
-            }
-        }
-
-        public static byte[] ReadFully(Stream input)
-        {
-            byte[] buffer = new byte[16 * 1024];
-            using (MemoryStream ms = new MemoryStream())
-            {
-                int read;
-                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
-                {
-                    ms.Write(buffer, 0, read);
-                }
-                return ms.ToArray();
             }
         }
 
@@ -214,7 +170,8 @@ namespace Journey.ViewModels
 
                 if (string.IsNullOrEmpty(LoggedInAccount.FirstName))
                 {
-                    await DialogService.ShowMessageAsync(AppResource.UpdateProfile_FirstNameRequired, AppResource.Error);
+                    await DialogService.ShowMessageAsync(AppResource.UpdateProfile_FirstNameRequired,
+                        AppResource.Error);
                     return;
                 }
                 else if (string.IsNullOrEmpty(LoggedInAccount?.Image?.Path))

@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using Abstractions.Models;
+﻿using System.Threading.Tasks;
 
 namespace Abstractions.Services.Contracts
 {
-    //public interface IMediaService
-    //{
-    //    event ImageChangedEventHandler ImageChangedEventHandler;
-    //    void ImageChanged(List<Media> images);
-    //    void OpenGallery();
-    //    void OpenCamera();
-    //    void PickAsync();
-    //}
+    public interface IMediaService<T>
+    {
+        //event ImageChangedEventHandler ImageChangedEventHandler;
+        //void ImageChanged(List<Media> images);
+        Task<T> TakePhotoAsync();
+
+        Task<T> PickPhotoAsync();
+        Task<T> PickVideoAsync();
+        Task<T> TakeVideoAsync();
+    }
 
     //public delegate void ImageChangedEventHandler(object sender, ImageChangedArgs e);
 

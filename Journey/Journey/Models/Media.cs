@@ -2,7 +2,7 @@
 using System.IO;
 using Xamarin.Forms;
 
-namespace Abstractions.Models
+namespace Journey.Models
 {
     public class Media
     {
@@ -24,12 +24,14 @@ namespace Abstractions.Models
             {
                 ImageSource temp = null;
                 if (Path != null && Path.ToLower().Contains("http"))
+                {
                     temp = ImageSource.FromUri(new Uri(Path));
+                }
                 else
                 {
                     if (SourceArray != null)
                     {
-                        MemoryStream stream = new MemoryStream(SourceArray);
+                        var stream = new MemoryStream(SourceArray);
                         temp = ImageSource.FromStream(() => stream);
                     }
                     //else if(TempSource!=null)

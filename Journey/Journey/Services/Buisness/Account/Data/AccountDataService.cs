@@ -32,17 +32,11 @@ namespace Journey.Services.Buisness.Account.Data
                 //if (string.IsNullOrEmpty(account.FirstName)) //Means it came from Facebook Login "Not Data" so Migrate
                 //    accountDto = AccountDataTranslator.TranslateAccount(existingaccount);
                 if (add)
-                {
-                   
                     await _accountTable.InsertAsync(accountDto);
-                }
-                  
+
                 else
-                {
-         
                     await _accountTable.UpdateAsync(accountDto);
-                }
-                  
+
                 //accountDto = await SyncAccountAsync();
                 account = AccountDataTranslator.TranslateAccount(accountDto);
                 return account;
@@ -103,14 +97,14 @@ namespace Journey.Services.Buisness.Account.Data
                 throw new DataServiceException(ex);
             }
         }
-        //        await this.Client.SyncContext.PushAsync();
-
-        //private async Task<AzureAccount> SyncAccountAsync()
-        //{
-        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
+        //    {
 
         //    try
-        //    {
+        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
+        //{
+
+        //private async Task<AzureAccount> SyncAccountAsync()
+        //        await this.Client.SyncContext.PushAsync();
 
 
         //        // The first parameter is a query name that is used internally by the client SDK to implement incremental sync.

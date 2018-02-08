@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Contracts;
 using Abstractions.Exceptions;
-using Abstractions.Models;
 using Abstractions.Services.Contracts;
+using Journey.Models;
 using Journey.Services.Buisness.Account.Data;
 using Microsoft.WindowsAzure.MobileServices;
 
@@ -32,11 +32,11 @@ namespace Journey.Services.Buisness.Account
         public string Token { get; set; }
         public Models.Account.Account LoggedInAccount { get; set; }
 
-        public async Task<Models.Account.Account> SaveAccountAsync(Models.Account.Account account,bool add)
+        public async Task<Models.Account.Account> SaveAccountAsync(Models.Account.Account account, bool add)
         {
             try
             {
-                var savedAccount= await _accountDataService.AddUpdateAccountAsync(account,add);
+                var savedAccount = await _accountDataService.AddUpdateAccountAsync(account, add);
                 return savedAccount;
             }
             catch (Exception ex)
@@ -105,28 +105,25 @@ namespace Journey.Services.Buisness.Account
                 Token = info.AccessToken;
                 if (string.IsNullOrEmpty(Token))
                     return false;
-               
+
                 var account = await GetAccountAsync(); //Save only if no new data , dont need to update everytime
                 if (account == null)
                 {
                     var loggedInAccount = new Models.Account.Account
                     {
-                        FirstName = string.IsNullOrEmpty(account?.FirstName)
-                            ? info.Claims?.Where(a => a.Typ.Contains("givenname")).FirstOrDefault()?.Val
-                            : account?.FirstName,
-                        LastName = string.IsNullOrEmpty(account?.LastName)
-                            ? info.Claims?.Where(a => a.Typ.Contains("surname")).FirstOrDefault()?.Val
-                            : account?.LastName,
+                        FirstName = info.Claims?.Where(a => a.Typ.Contains("givenname")).FirstOrDefault()?.Val,
+                        LastName = info.Claims?.Where(a => a.Typ.Contains("surname")).FirstOrDefault()?.Val,
                         Email = info.Claims?.Where(a => a.Typ.Contains("emailaddress")).FirstOrDefault()?.Val,
                         Gender = info.Claims?.Where(a => a.Typ.Contains("gender")).FirstOrDefault()?.Val,
                         SID = info.Claims?.Where(a => a.Typ.Contains("nameidentifier")).FirstOrDefault()?.Val
                     };
-                    var imageUrl = string.Format("http://graph.facebook.com/{0}/picture?type=large", loggedInAccount.SID);
+                    var imageUrl = string.Format("http://graph.facebook.com/{0}/picture?type=large",
+                        loggedInAccount.SID);
                     loggedInAccount.SocialToken = info.AccessToken;
                     loggedInAccount.SocialProvider = info.ProviderName;
                     loggedInAccount.Image = new Media
                     {
-                        Path = string.IsNullOrEmpty(account?.Image?.Path) ? imageUrl : account?.Image?.Path
+                        Path = imageUrl
                     };
                     loggedInAccount.Id = client.CurrentUser.UserId;
 

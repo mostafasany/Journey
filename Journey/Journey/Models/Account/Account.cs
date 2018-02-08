@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Abstractions.Models;
 using Prism.Mvvm;
 
 namespace Journey.Models.Account

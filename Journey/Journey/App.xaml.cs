@@ -1,6 +1,7 @@
 ﻿using Abstractions.Services;
 using Abstractions.Services.Contracts;
 using Journey.Constants;
+using Journey.Models;
 using Journey.Services.Azure;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Account.Data;
@@ -53,6 +54,7 @@ namespace Journey
             container.RegisterType<IExceptionService, ExceptionService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IHttpService, HttpService>(new ContainerControlledLifetimeManager());
             container.RegisterType<ILoggerService, LoggerService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IMediaService<Media>, MediaService>(new ContainerControlledLifetimeManager());
             container.RegisterType<INavigationService, NavigationService>(
                 new ContainerControlledLifetimeManager());
             container.RegisterType<Prism.Navigation.INavigationService, PageNavigationService>(
