@@ -19,7 +19,7 @@ namespace Journey.Services.Buisness.Account.Data
             _accountTable = _client.GetTable<AzureAccount>();
         }
 
-        public async Task<Models.Account.Account> AddUpdateAccountAsync(Models.Account.Account account)
+        public async Task<Models.Account.Account> AddUpdateAccountAsync(Models.Account.Account account, bool add)
         {
             try
             {
@@ -27,13 +27,22 @@ namespace Journey.Services.Buisness.Account.Data
                     return null;
 
                 var accountDto = AccountDataTranslator.TranslateAccount(account);
+
                 //var existingaccount = await GetAccountAsync();
                 //if (string.IsNullOrEmpty(account.FirstName)) //Means it came from Facebook Login "Not Data" so Migrate
                 //    accountDto = AccountDataTranslator.TranslateAccount(existingaccount);
-                if (string.IsNullOrEmpty(accountDto.Id))
+                if (add)
+                {
+                   
                     await _accountTable.InsertAsync(accountDto);
+                }
+                  
                 else
+                {
+         
                     await _accountTable.UpdateAsync(accountDto);
+                }
+                  
                 //accountDto = await SyncAccountAsync();
                 account = AccountDataTranslator.TranslateAccount(accountDto);
                 return account;

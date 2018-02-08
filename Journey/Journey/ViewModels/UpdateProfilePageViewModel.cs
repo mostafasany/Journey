@@ -145,7 +145,12 @@ namespace Journey.ViewModels
                         Label = AppResource.Gallery,
                             Invoked =async () =>
                             {
-                                var media=await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions());
+                            var media=await CrossMedia.Current.PickPhotoAsync(
+                                new PickMediaOptions
+                            {
+                                PhotoSize=PhotoSize.Medium,
+                                
+                            });
                                 Stream s=media.GetStream();
                                 var array=  ReadFully(s);
                                 LoggedInAccount.Image = new Media()
@@ -225,11 +230,11 @@ namespace Journey.ViewModels
                     var ex = LoggedInAccount.Image.Ext;
                     if (string.IsNullOrEmpty(ex))
                         ex = Constant.DefaultImageExt;
-                    var fileName = string.Format("{0}.{1}", id, ex);
+                    var fileName = string.Format("{0}{1}", id, ex);
                     var path = await _blobService.UploadAsync(LoggedInAccount.Image.SourceArray, fileName);
                     LoggedInAccount.Image.Path = path;
                 }
-                LoggedInAccount = await _accountService.SaveAccountAsync(LoggedInAccount);
+                LoggedInAccount = await _accountService.SaveAccountAsync(LoggedInAccount, false);
                 await NavigationService.Navigate("HomePage");
             }
             catch (Exception e)

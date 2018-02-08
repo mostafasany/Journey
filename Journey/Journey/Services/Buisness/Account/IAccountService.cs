@@ -11,7 +11,7 @@ namespace Journey.Services.Buisness.Account
 
         Models.Account.Account LoggedInAccount { get; set; }
 
-        Task<Models.Account.Account> SaveAccountAsync(Models.Account.Account account);
+        Task<Models.Account.Account> SaveAccountAsync(Models.Account.Account account, bool add);
 
         Task<Models.Account.Account> GetAccountAsync(bool sync = false);
 
