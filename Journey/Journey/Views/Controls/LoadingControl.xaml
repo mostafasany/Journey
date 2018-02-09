@@ -7,6 +7,6 @@
       x:Class="Journey.Views.Controls.LoadingControl"
       xmlns:Controls="clr-namespace:Journey.Views.Controls">
 
-    <Controls:ImageControl PortablePath="Journey.Assets.loading.png" x:Name="loading"
+    <Controls:ImageControl PortablePath="loading.png" x:Name="loading"
                            Style="{StaticResource IconStyle}" VerticalOptions="Center" HorizontalOptions="Center" />
 </Grid>

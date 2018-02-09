@@ -17,7 +17,7 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Text="{resources:Translate AppName}" HorizontalOptions="Center"
                    VerticalOptions="Center" Font="30" TextColor="{StaticResource Primary}" />
-            <Controls:ImageControl PortablePath="Journey.Assets.LoginLogo.png" Grid.Row="1" Margin="0,30,0,0"
+            <Controls:ImageControl PortablePath="LoginLogo.png" Grid.Row="1" Margin="0,30,0,0"
                                    HorizontalOptions="Center" VerticalOptions="Start" WidthRequest="200"
                                    HeightRequest="200" />
             <Controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"

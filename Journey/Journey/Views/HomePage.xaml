@@ -4,8 +4,120 @@
                 xmlns:local="clr-namespace:Journey.Views"
                 xmlns:Controls="clr-namespace:Journey.Views.Controls"
                 xmlns:resources="clr-namespace:Journey.Resources"
+                xmlns:selectors="clr-namespace:Journey.Views.Selectors"
                 x:Class="Journey.Views.HomePage">
-    
+    <ContentPage.Resources>
+        <DataTemplate x:Key="CampaignTemplate">
+        </DataTemplate>
+
+        <!-- <DataTemplate x:Key="CampaignTemplate">
+            <Controls:UnSelectableViewCell>
+                <ViewCell.View>
+                    <StackLayout BackgroundColor="White" Opacity="{Binding Post.Opacity}" Orientation="Vertical" Margin="0,0,0,5">
+                        <Grid Margin="4,12,4,0" HorizontalOptions="Fill">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Post.Message}" FontSize="14" TextColor="{StaticResource Primary}" HorizontalOptions="Start" VerticalOptions="Center" />
+                            <StackLayout Grid.Column="1" Orientation="Horizontal" Margin="0,0,5,0">
+                                <Image Source="timer.png" Style="{StaticResource IconStyle}" VerticalOptions="Center" />
+                                <Label Text="{Binding Post.Timer}" FontSize="14" TextColor="{StaticResource Primary}" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </StackLayout>
+                        </Grid>
+                        <Controls:ImageViewerControl x:Name="parent" IsEnabled="{Binding Post.IsNotExpired}" Margin="0,8" ItemsSource="{Binding Post.CampaignAccounts}" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                            <Controls:ImageViewerControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout BackgroundColor="White">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.OnCampaignGalleryDetailsCommand, Source={x:Reference Name=parent}}" CommandParameter="{Binding MediaList}" />
+                                        </StackLayout.GestureRecognizers>
+                                        <Controls:CustomImage Source="{Binding Image.Source}" HeightRequest="120" Aspect="AspectFit" HorizontalOptions="Center" />
+                                        <Image Source="fav.png" Style="{StaticResource IconStyle}" IsVisible="{Binding NotLiked}">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Path=BindingContext.OnPostCampaignLikeCommand, Source={x:Reference Name=parent}}" CommandParameter="{Binding}" />
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                        <Image Source="unfav.png" Style="{StaticResource IconStyle}" IsVisible="{Binding Liked}">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Path=BindingContext.OnPostCampaignLikeCommand, Source={x:Reference Name=parent}}" CommandParameter="{Binding}" />
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                        <Button Margin="10,0,10,5" Text="See Details" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding Path=BindingContext.OpenCampainDetailsCommand, Source={x:Reference Name=parent}}" CommandParameter="{Binding}" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </Controls:ImageViewerControl.ItemTemplate>
+                        </Controls:ImageViewerControl>
+                    </StackLayout>
+                </ViewCell.View>
+            </Controls:UnSelectableViewCell>
+        </DataTemplate>
+        <DataTemplate x:Key="PeopleYouKnowTemplate">
+            <Controls:UnSelectableViewCell>
+                <ViewCell.View>
+                    <StackLayout x:Name="parent" BackgroundColor="White" Opacity="{Binding Post.Opacity}" Orientation="Vertical" Margin="0,0,0,5">
+                        <Label Margin="4,12,4,0" Text="People you may know" FontSize="14" TextColor="{StaticResource Primary}" HorizontalOptions="Start" VerticalOptions="Center" />
+                        <Controls:ImageViewerControl Margin="0,8" ItemsSource="{Binding Post.PeopleYouKnowAccounts}" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                            <Controls:ImageViewerControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,5">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.OnPeopleYouMayKnowCommand, Source={x:Reference Name=parent}}" CommandParameter="{Binding}" />
+                                        </Grid.GestureRecognizers>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Row="0" Text="{Binding Name}" TextColor="Black" FontSize="14" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" />
+                                        <Controls:CustomImage Grid.Row="1" Source="{Binding Image.Source}" HeightRequest="120" Aspect="AspectFit" HorizontalOptions="Center" />
+                                        <Button Grid.Row="2" IsVisible="{Binding NotFollowing}" Text="Follow" HorizontalOptions="Center" WidthRequest="100" Command="{Binding Path=BindingContext.OnFollowCommand, Source={x:Reference Name=parent}}" CommandParameter="{Binding}" VerticalOptions="Center" Style="{StaticResource SecondaryButtonStyle}" />
+                                        <Button Grid.Row="2" IsVisible="{Binding Following}" Text="UnFollow" HorizontalOptions="Center" WidthRequest="100" Command="{Binding Path=BindingContext.OnFollowCommand, Source={x:Reference Name=parent}}" CommandParameter="{Binding}" VerticalOptions="Center" Style="{StaticResource SecondaryButtonStyle}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </Controls:ImageViewerControl.ItemTemplate>
+                        </Controls:ImageViewerControl>
+                    </StackLayout>
+                </ViewCell.View>
+            </Controls:UnSelectableViewCell>
+        </DataTemplate>
+        <DataTemplate x:Key="WeeklyTemplate">
+            <Controls:UnSelectableViewCell>
+                <ViewCell.View>
+                    <Grid Margin="0,0,0,5" BackgroundColor="White" HeightRequest="150">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" FontSize="18" HorizontalTextAlignment="Center" Text="Congratulations Mostafa, Mostafa has Bet Sarah in the weekly Challange" Margin="10,10" Style="{StaticResource LabelHeaderStyle}" />
+                        <StackLayout Grid.Row="1" Orientation="Horizontal">
+                            <Label FontAttributes="Bold" Text="{Binding Post.Winner.Name}" Style="{StaticResource LabelHeaderStyle}" />
+                            <Label Text="has run " Style="{StaticResource LabelHeaderStyle}" />
+                            <Label Text="{Binding Post.Winner.DistanceCoveredWithUnit} " Style="{StaticResource LabelHeaderStyle}" />
+                            <Label Text="and " Style="{StaticResource LabelHeaderStyle}" />
+                            <Label FontAttributes="Bold" Text="{Binding Post.Looser.Name}" Style="{StaticResource LabelHeaderStyle}" />
+                            <Label Text="has run " Style="{StaticResource LabelHeaderStyle}" />
+                            <Label Text="{Binding Post.Looser.DistanceCoveredWithUnit} " Style="{StaticResource LabelHeaderStyle}" />
+                        </StackLayout>
+                        <StackLayout Grid.Row="2" Orientation="Horizontal">
+                            <Label FontAttributes="Bold" Text="{Binding Post.Winner.Name}" Style="{StaticResource LabelHeaderStyle}" />
+                            <Label Text="exercise " Style="{StaticResource LabelHeaderStyle}" />
+                            <Label Text="{Binding Post.Winner.NumberOfWorkouts} " Style="{StaticResource LabelHeaderStyle}" />
+                            <Label Text=" times " Style="{StaticResource LabelHeaderStyle}" />
+                            <Label Text="and " Style="{StaticResource LabelHeaderStyle}" />
+                            <Label FontAttributes="Bold" Text="{Binding Post.Looser.Name}" Style="{StaticResource LabelHeaderStyle}" />
+                            <Label Text="exercise " Style="{StaticResource LabelHeaderStyle}" />
+                            <Label Text="{Binding Post.Looser.NumberOfWorkouts} " Style="{StaticResource LabelHeaderStyle}" />
+                            <Label Text=" times" Style="{StaticResource LabelHeaderStyle}" />
+                        </StackLayout>
+                    </Grid>
+                </ViewCell.View>
+            </Controls:UnSelectableViewCell>
+        </DataTemplate>
+        <selectors:PostTemplateSelector x:Key="PostTemplateSelector" WeeklyTemplate="{StaticResource WeeklyTemplate}" PostTemplate="{StaticResource PostTemplate}" AdsTemplate="{StaticResource AdsTemplate}" PeopleYouKnowTemplate="{StaticResource PeopleYouKnowTemplate}" CampaignTemplate="{StaticResource CampaignTemplate}" />-->
+
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
@@ -16,8 +128,9 @@
             <Grid Grid.Row="0" BackgroundColor="White" HeightRequest="75">
                 <SearchBar Margin="0,5,0,0" HorizontalOptions="StartAndExpand" BackgroundColor="White" VerticalOptions="Center" WidthRequest="400" Focused="Handle_Focused" Placeholder="Search for friends" Text="{Binding SearchKeyword,Mode=TwoWay}" SearchCommand="{Binding OnSearchCommand}" />
                 <Controls:LoadingControl IsVisible="{Binding IsLoading}" HorizontalOptions="End" VerticalOptions="Center" Margin="20,0" />
-                <Image x:Name="img" HorizontalOptions="End" IsVisible="{Binding IsNotLoading}" VerticalOptions="Center" Margin="20,0" Source="loading.png" Style="{StaticResource IconStyle}" />
+                <Controls:ImageControl x:Name="img" HorizontalOptions="End" IsVisible="{Binding IsNotLoading}" VerticalOptions="Center" Margin="20,0" PortablePath="loading.png" Style="{StaticResource IconStyle}" />
             </Grid>
+            
             <!--<ListView x:Name="lst" CachingStrategy="RecycleElement" ItemsSource="{Binding PostsViewModels}" Grid.Row="1" SeparatorVisibility="None" ItemTemplate="{StaticResource PostTemplateSelector}" HasUnevenRows="true" BackgroundColor="#d3d3d3" ItemAppearing="Handle_ItemAppearing" IsPullToRefreshEnabled="true"
                       IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true" RefreshCommand="{Binding OnRefreshPostsCommand}">
                 <ListView.Header>
@@ -36,9 +149,9 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Controls:CustomImage Grid.Column="0" Margin="5" Source="{Binding Image.Path}" WidthRequest="50" HeightRequest="50" Style="{StaticResource ImageHeaderStyle}">
-                                <Controls:CustomImage.Transformations>
+                                --><!--<Controls:CustomImage.Transformations>
                                     <fftransformations:CircleTransformation />
-                                </Controls:CustomImage.Transformations>
+                                </Controls:CustomImage.Transformations>--><!--
                             </Controls:CustomImage>
                             <Label Grid.Column="1" FontSize="12" Text="{Binding WelcomeMessage}" TextColor="{StaticResource LightTextColor}" HorizontalOptions="Start" VerticalOptions="Center" />
                             <Grid Grid.Column="2" IsVisible="{Binding IsNotBusy}" Margin="15,0">
@@ -58,8 +171,9 @@
                         </Grid>
                     </Grid>
                 </ListView.Header>
-            </ListView>
-            <Controls:NavigationBar Grid.Row="2" />-->
+            </ListView>-->
+          
+            <!--    <Controls:NavigationBar Grid.Row="2" />-->
         </Grid>
     </ContentPage.Content>
 </local:BasePage>

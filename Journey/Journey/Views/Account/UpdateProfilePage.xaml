@@ -19,7 +19,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Controls:ImageControl PortablePath="Journey.Assets.LoginLogo.png" Grid.Column="0"
+                    <Controls:ImageControl PortablePath="LoginLogo.png" Grid.Column="0"
                                            Style="{StaticResource ImageHeaderStyle}" />
                     <Label Grid.Column="1" Text="{resources:Translate UpdateProfile_Welcome}"
                            Style="{StaticResource LabelHeaderStyle}" />
