@@ -1,6 +1,8 @@
-﻿namespace Journey.Views.Controls
+﻿using Xamarin.Forms;
+
+namespace Journey.Views.Controls
 {
-    public class CustomImage //: CachedImage
+    public class CustomImage : Image
     {
         //DownsampleToViewSize = true;
         //// LoadingPlaceholder = "icon.png";

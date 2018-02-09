@@ -24,8 +24,8 @@ namespace Journey.Views
         }
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-           // if (_vm.PostsViewModels != null && _vm.PostsViewModels.FirstOrDefault() != null)
-               // lst.ScrollTo(_vm.PostsViewModels.FirstOrDefault(), ScrollToPosition.Center, false);
+            if (_vm.PostsViewModels != null && _vm.PostsViewModels.FirstOrDefault() != null)
+                lst.ScrollTo(_vm.PostsViewModels.FirstOrDefault(), ScrollToPosition.Center, false);
         }
 
         void Handle_ItemAppearing(object sender, ItemVisibilityEventArgs e)

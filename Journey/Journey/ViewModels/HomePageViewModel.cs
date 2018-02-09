@@ -45,10 +45,6 @@ namespace Journey.ViewModels
             {
                 ExceptionService.Handle(ex);
             }
-            finally
-            {
-                HideProgress();
-            }
         }
 
         public void OnNavigatingTo(NavigationParameters parameters)
