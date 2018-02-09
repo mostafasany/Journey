@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
+using FFImageLoading.Forms.WinUWP;
 using Microsoft.WindowsAzure.MobileServices;
 using Prism;
 using Prism.Ioc;
@@ -16,6 +18,7 @@ namespace Journey.UWP
         {
             InitializeComponent();
             Journey.App.Init(this);
+            CachedImageRenderer.Init();
             LoadApplication(new Journey.App(new UwpInitializer()));
         }
 
@@ -26,7 +29,7 @@ namespace Journey.UWP
                 // Sign in with Facebook login using a server-managed flow.
                 if (_user == null)
                     _user = await Journey.App.Client.LoginAsync(MobileServiceAuthenticationProvider.Facebook,
-                        Constant.AppName);
+                        Constants.Constant.AppName);
             }
             catch (Exception ex)
             {
