@@ -9,7 +9,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using Journey.Constants;
 using Journey.Services.Azure;
-
+using FFImageLoading.Forms.Touch;
+using FFImageLoading.Transformations;
 
 namespace Journey.iOS
 {
@@ -33,7 +34,10 @@ namespace Journey.iOS
             Forms.Init();
 
             App.Init(this);
+            CachedImageRenderer.Init();
 
+            //https://github.com/luberda-molinet/FFImageLoading/issues/462
+            var ignore = new CircleTransformation();
             LoadApplication(new App(new IosInitializer()));
 
             return base.FinishedLaunching(app, options);

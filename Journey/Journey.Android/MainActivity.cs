@@ -13,6 +13,7 @@ using Plugin.Permissions.Abstractions;
 using Journey.Constants;
 using Journey.Services.Azure;
 using Permission = Android.Content.PM.Permission;
+using FFImageLoading.Forms.Droid;
 
 namespace Journey.Droid
 {
@@ -30,6 +31,7 @@ namespace Journey.Droid
             base.OnCreate(bundle);
 
             Forms.Init(this, bundle);
+            CachedImageRenderer.Init(false);
             Journey.App.Init((IAzureAuthenticateService) this);
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
             LoadApplication(new App(new AndroidInitializer()));

@@ -166,7 +166,7 @@
     <value>Cancel</value>
   </data>
     <data name="UploadPhoto_Title" xml:space="preserve">
-    <value>"Upload your profile picture"</value>
+    <value>Upload your profile picture</value>
   </data>
       <data name="UploadPhoto_Message" xml:space="preserve">
     <value>"Pick from Photo/ Gallery"</value>

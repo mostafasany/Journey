@@ -6,7 +6,7 @@ namespace Journey.Services.Buisness.Account
     public interface IAccountService
     {
         string AccountTokenKey { get; }
-
+        string AccountIdKey { get; }
         string Token { get; set; }
 
         Models.Account.Account LoggedInAccount { get; set; }

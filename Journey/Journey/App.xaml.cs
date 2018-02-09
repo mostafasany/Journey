@@ -117,11 +117,18 @@ namespace Journey
         {
             InitializeComponent();
             var settingsService = Container.Resolve<ISettingsService>();
-            var accountService = Container.Resolve<IAccountService>();
+
             if (settingsService != null)
             {
-                var token = await settingsService.Get(accountService.AccountTokenKey);
-                await NavigationService.NavigateAsync(string.IsNullOrEmpty(token) ? "HomePage" : "HomePage");
+                var azureService = Container.Resolve<IAzureService>();
+                var accountService = Container.Resolve<IAccountService>();
+                var userToken = await settingsService.Get(accountService.AccountTokenKey);
+                var userId = await settingsService.Get(accountService.AccountIdKey);
+                accountService.Token = userToken;
+
+                azureService.CreateOrGetAzureClient(userId, userToken);
+
+                await NavigationService.NavigateAsync(string.IsNullOrEmpty(userId) ? "LoginPage" : "HomePage");
             }
             else
             {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" xmlns:selectors="clr-namespace:Journey.Views.Selectors" x:Class="Journey.Views.HomePage">
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" xmlns:selectors="clr-namespace:Journey.Views.Selectors" x:Class="Journey.Views.HomePage">
     <ContentPage.Resources>
         <ResourceDictionary>
-             <DataTemplate x:Key="ScaleTemplate">
+            <DataTemplate x:Key="ScaleTemplate">
                 <StackLayout Orientation="Vertical">
                     <Label Text="{Binding Title}" HorizontalOptions="Center" />
                     <Controls:CustomImage Source="{Binding Image.Source}" Aspect="AspectFit" WidthRequest="50" HeightRequest="50" />
@@ -37,9 +37,9 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Controls:CustomImage Grid.Column="0" Grid.RowSpan="3" Source="{Binding Post.Account.Image.Path}" VerticalOptions="Start" HorizontalOptions="Start" WidthRequest="50" HeightRequest="70">
-                                    <!-- <Controls:CustomImage.Transformations>
+                                    <Controls:CustomImage.Transformations>
                                         <fftransformations:CircleTransformation />
-                                    </Controls:CustomImage.Transformations>-->
+                                    </Controls:CustomImage.Transformations>
                                 </Controls:CustomImage>
                                 <Label Grid.Column="1" Grid.Row="0" Text="{Binding Post.Account.Name}" TextColor="Black" FontSize="14" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
                                 <Controls:ImageControl Grid.Column="1" Grid.Row="0" PortablePath="more.png" HorizontalOptions="End" Style="{StaticResource IconStyle}">
@@ -127,11 +127,17 @@
                     </ViewCell.View>
                 </Controls:UnSelectableViewCell>
             </DataTemplate>
-            <selectors:PostTemplateSelector x:Key="PostTemplateSelector"  PostTemplate="{StaticResource PostTemplate}" AdsTemplate="{StaticResource AdsTemplate}"/>
+            <selectors:PostTemplateSelector x:Key="PostTemplateSelector" PostTemplate="{StaticResource PostTemplate}" AdsTemplate="{StaticResource AdsTemplate}" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid RowSpacing="0" Margin="0,25,0,0">
+        <Grid RowSpacing="0">
+            <Grid.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,25,0,0" />
+                    <On Platform="Android, WinPhone, Windows" Value="0,0,0,0" />
+                </OnPlatform>
+            </Grid.Margin>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -143,46 +149,46 @@
                 <Controls:ImageControl x:Name="img" HorizontalOptions="End" IsVisible="{Binding IsNotLoading}" VerticalOptions="Center" Margin="20,0" PortablePath="loading.png" Style="{StaticResource IconStyle}" />
             </Grid>
             <ListView x:Name="lst" CachingStrategy="RecycleElement" ItemsSource="{Binding PostsViewModels}" Grid.Row="1" SeparatorVisibility="None" ItemTemplate="{StaticResource PostTemplateSelector}" HasUnevenRows="true" BackgroundColor="#d3d3d3" ItemAppearing="Handle_ItemAppearing" IsPullToRefreshEnabled="true"
-            IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true" RefreshCommand="{Binding OnRefreshPostsCommand}">
-            <ListView.Header>
-                <Grid RowSpacing="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" BackgroundColor="White" HeightRequest="60" Margin="0,5">
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OnNewPostCommand}" />
-                        </Grid.GestureRecognizers>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Controls:CustomImage Grid.Column="0" Margin="5" Source="{Binding Image.Path}" WidthRequest="50" HeightRequest="50" Style="{StaticResource ImageHeaderStyle}">
-                            <!--<Controls:CustomImage.Transformations>
-                                <fftransformations:CircleTransformation />
-                            </Controls:CustomImage.Transformations>-->
-                        </Controls:CustomImage>
-                        <Label Grid.Column="1" FontSize="12" Text="{Binding WelcomeMessage}" TextColor="{StaticResource LightTextColor}" HorizontalOptions="Start" VerticalOptions="Center" />
-                        <Grid Grid.Column="2" IsVisible="{Binding IsNotBusy}" Margin="15,0">
-                            <Controls:ImageControl IsVisible="{Binding IsLoggedOut}" PortablePath="exit.png" Aspect="AspectFit" Style="{StaticResource IconStyle}">
-                                <Controls:CustomImage.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding OnLoginCommand}" />
-                                </Controls:CustomImage.GestureRecognizers>
-                            </Controls:ImageControl>
+                IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true" RefreshCommand="{Binding OnRefreshPostsCommand}">
+                <ListView.Header>
+                    <Grid RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" BackgroundColor="White" HeightRequest="60" Margin="0,5">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OnNewPostCommand}" />
+                            </Grid.GestureRecognizers>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Controls:CustomImage Grid.Column="0" Margin="5" Source="{Binding Image.Path}" WidthRequest="50" HeightRequest="50" Style="{StaticResource ImageHeaderStyle}">
+                                <Controls:CustomImage.Transformations>
+                                    <fftransformations:CircleTransformation />
+                                </Controls:CustomImage.Transformations>
+                            </Controls:CustomImage>
+                            <Label Grid.Column="1" FontSize="12" Text="{Binding WelcomeMessage}" TextColor="{StaticResource LightTextColor}" HorizontalOptions="Start" VerticalOptions="Center" />
+                            <Grid Grid.Column="2" IsVisible="{Binding IsNotBusy}" Margin="15,0">
+                                <Controls:ImageControl IsVisible="{Binding IsLoggedOut}" PortablePath="exit.png" Aspect="AspectFit" Style="{StaticResource IconStyle}">
+                                    <Controls:CustomImage.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding OnLoginCommand}" />
+                                    </Controls:CustomImage.GestureRecognizers>
+                                </Controls:ImageControl>
+                            </Grid>
+                        </Grid>
+                        <Grid x:Name="grdStartChallange" Margin="0,15,0,0" Grid.Row="1" RowSpacing="0" IsVisible="{Binding HasNotActiveChallenge}">
+                            <Controls:CustomImage Aspect="AspectFill" Source="http://bit.ly/2gPXM5h" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                            <StackLayout Orientation="Vertical">
+                                <Label Margin="0,5" Text="Start Your new challenge" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" TextColor="White" />
+                                <Button Margin="0,0,0,5" Text="Start" Command="{Binding OnStartNewChallengeCommand}" WidthRequest="150" HorizontalOptions="Center" FontSize="14" Style="{StaticResource SecondaryButtonStyle}" />
+                            </StackLayout>
                         </Grid>
                     </Grid>
-                    <Grid x:Name="grdStartChallange" Margin="0,15,0,0" Grid.Row="1" RowSpacing="0" IsVisible="{Binding HasNotActiveChallenge}">
-                        <Controls:CustomImage Aspect="AspectFill" Source="http://bit.ly/2gPXM5h" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
-                        <StackLayout Orientation="Vertical">
-                            <Label Margin="0,5" Text="Start Your new challenge" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" TextColor="White" />
-                            <Button Margin="0,0,0,5" Text="Start" Command="{Binding OnStartNewChallengeCommand}" WidthRequest="150" HorizontalOptions="Center" FontSize="14" Style="{StaticResource SecondaryButtonStyle}" />
-                        </StackLayout>
-                    </Grid>
-                </Grid>
-            </ListView.Header>
-        </ListView>
+                </ListView.Header>
+            </ListView>
         </Grid>
     </ContentPage.Content>
 </local:BasePage>

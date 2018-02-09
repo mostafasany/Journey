@@ -29,6 +29,7 @@ namespace Journey.Services.Buisness.Account
         }
 
         public string AccountTokenKey { get; } = "AccountToken";
+        public string AccountIdKey { get; } = "AccountId";
         public string Token { get; set; }
         public Models.Account.Account LoggedInAccount { get; set; }
 
@@ -130,7 +131,8 @@ namespace Journey.Services.Buisness.Account
                     LoggedInAccount = await SaveAccountAsync(loggedInAccount, true);
                 }
 
-                await _settingsService.Set(AccountTokenKey, Token);
+                await _settingsService.Set(AccountTokenKey, client.CurrentUser.MobileServiceAuthenticationToken);
+                await _settingsService.Set(AccountIdKey, client.CurrentUser.UserId);
                 return true;
             }
             catch (Exception ex)
