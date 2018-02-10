@@ -4,10 +4,10 @@ using Journey.Models.Account;
 using Journey.Models.Post;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Post;
+using Journey.Services.Buisness.PostComment;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
-using Tawasol.Services;
 
 namespace Journey.ViewModels
 {

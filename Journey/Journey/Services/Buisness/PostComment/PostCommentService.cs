@@ -1,12 +1,12 @@
-﻿using Journey.Models.Post;
-using Journey.Services.Buisness.Post;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
-using Tawasol.Services.Data;
+using Journey.Models.Post;
+using Journey.Services.Buisness.Post;
+using Journey.Services.Buisness.PostComment.Data;
 
-namespace Tawasol.Services
+namespace Journey.Services.Buisness.PostComment
 {
     public class PostCommentService : IPostCommentService
     {

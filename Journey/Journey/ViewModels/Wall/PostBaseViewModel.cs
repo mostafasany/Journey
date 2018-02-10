@@ -237,7 +237,7 @@ namespace Journey.ViewModels.Wall
             try
             {
                 if (_post.MediaList.Any())
-                    await NavigationService.Navigate("GalleryDetailsPage", _post.MediaList);
+                    await NavigationService.Navigate("MediaPage", _post.MediaList);
             }
             catch (Exception ex)
             {

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Abstractions.Exceptions;
+using Journey.Models.Post;
+using Journey.Services.Azure;
+using Journey.Services.Buisness.Post.Dto;
+using Journey.Services.Buisness.Post.Translators;
 using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.Sync;
-using Journey.Services.Buisness.Post.Dto;
-using Journey.Models.Post;
-using Journey.Services.Buisness.Post.Translators;
-using Abstractions.Exceptions;
-using Journey.Services.Azure;
 
-namespace Tawasol.Services.Data
+namespace Journey.Services.Buisness.PostComment.Data
 {
     public class PostCommentDataService :  IPostCommentDataService
     {

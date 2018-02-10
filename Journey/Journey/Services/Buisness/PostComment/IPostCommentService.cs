@@ -1,8 +1,8 @@
-﻿using Journey.Models.Post;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Journey.Models.Post;
 
-namespace Tawasol.Services
+namespace Journey.Services.Buisness.PostComment
 {
     public interface IPostCommentService
     {

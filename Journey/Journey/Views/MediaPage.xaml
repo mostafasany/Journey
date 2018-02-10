@@ -6,7 +6,29 @@
                 xmlns:Controls="clr-namespace:Journey.Views.Controls"
                 xmlns:resources="clr-namespace:Journey.Resources"
                 x:Class="Journey.Views.MediaPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="MediaTemplate">
+                <Controls:UnSelectableViewCell>
+                    <ViewCell.View>
+                        <Image Margin="0,0,0,5" Source="{Binding Source}" WidthRequest="500" HeightRequest="300" Aspect="AspectFill" VerticalOptions="Fill" HorizontalOptions="Fill" />
+                    </ViewCell.View>
+                </Controls:UnSelectableViewCell>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        
+        <Grid RowSpacing="0" Margin="10,40,10,40">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Source="clear.png" Style="{StaticResource IconStyle}" HorizontalOptions="End">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+            <ListView Grid.Row="1" HasUnevenRows="true" ItemTemplate="{StaticResource MediaTemplate}" BackgroundColor="White" ItemsSource="{Binding MediaList}" HorizontalOptions="Fill" />
+        </Grid>
     </ContentPage.Content>
 </local:BasePage>

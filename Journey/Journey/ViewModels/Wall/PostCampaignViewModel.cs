@@ -64,7 +64,7 @@
 //            try
 //            {
 //                if (mediaList.Any())
-//                    NavigationService.PushModalAsync(new GalleryDetailsPage(mediaList));
+//                    NavigationService.PushModalAsync(new MediaPage(mediaList));
 //            }
 //            catch (Exception ex)
 //            {

@@ -325,7 +325,7 @@ namespace Journey.ViewModels
                 else if (media is Media)
                     mList.Add(media as Media);
 
-                await NavigationService.Navigate("GalleryDetailsPage", mList);
+                await NavigationService.Navigate("MediaPage", mList);
             }
             catch (Exception ex)
             {

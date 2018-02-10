@@ -8,6 +8,8 @@ using Journey.Services.Buisness.Account.Data;
 using Journey.Services.Buisness.Blob;
 using Journey.Services.Buisness.Post;
 using Journey.Services.Buisness.Post.Data;
+using Journey.Services.Buisness.PostComment;
+using Journey.Services.Buisness.PostComment.Data;
 using Journey.Services.Forms;
 using Journey.Views;
 using Microsoft.WindowsAzure.MobileServices;
@@ -15,8 +17,6 @@ using Prism;
 using Prism.Ioc;
 using Prism.Navigation;
 using Prism.Unity;
-using Tawasol.Services;
-using Tawasol.Services.Data;
 using Unity;
 using Unity.Lifetime;
 using INavigationService = Abstractions.Services.Contracts.INavigationService;
@@ -136,7 +136,7 @@ namespace Journey
 
                 azureService.CreateOrGetAzureClient(userId, userToken);
 
-                await NavigationService.NavigateAsync(string.IsNullOrEmpty(userId) ? "NewCommentPage" : "NewCommentPage");
+                await NavigationService.NavigateAsync(string.IsNullOrEmpty(userId) ? "MediaPage" : "MediaPage");
             }
             else
             {
