@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using Journey.Models.Account;
 using Journey.Models.Post;
 using Journey.Services.Buisness.Account;
-using Journey.Services.Buisness.Post;
 using Journey.Services.Buisness.PostComment;
 using Prism.Commands;
 using Prism.Navigation;
@@ -94,7 +93,7 @@ namespace Journey.ViewModels
         }
 
         private string PostId;
-   
+
         #endregion
 
         #region Methods

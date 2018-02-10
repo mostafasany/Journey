@@ -51,7 +51,7 @@ namespace Journey.Services.Buisness.Account
             try
             {
                 if (LoggedInAccount != null && !sync)
-                   return LoggedInAccount;
+                    return LoggedInAccount;
 
                 if (string.IsNullOrEmpty(Token))
                     return null;

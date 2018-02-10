@@ -14,16 +14,35 @@ namespace Journey.Models.Post
 
     public class PostBase : BindableBase
     {
-        public string Challenge { get; set; }
+        private Account.Account account;
+
+        private ObservableCollection<Comment> comments;
+
+        private int commentsCount;
+
+        private DateTime dateTime;
+
+        private string feed;
 
         private string id;
+
+        private bool liked;
+
+        private int likesCount;
+
+        private ObservableCollection<Media> mediaList;
+
+        private PostType postType;
+
+        private int sharesCount;
+        public string Challenge { get; set; }
+
         public string Id
         {
             get => id;
             set => SetProperty(ref id, value);
         }
 
-        private DateTime dateTime;
         public DateTime DateTime
         {
             get => dateTime;
@@ -36,41 +55,32 @@ namespace Journey.Models.Post
 
         public string FormatedDate => DateHelper.Format(dateTime);
 
-
-        private Account.Account account;
         public Account.Account Account
         {
             get => account;
             set => SetProperty(ref account, value);
         }
 
-        private ObservableCollection<Media> mediaList;
         public ObservableCollection<Media> MediaList
         {
             get => mediaList;
             set => SetProperty(ref mediaList, value);
         }
 
-        public bool HasMediaList
-        {
-            get => MediaList != null && MediaList.Count > 0;
-        }
+        public bool HasMediaList => MediaList != null && MediaList.Count > 0;
 
-        private string feed;
         public string Feed
         {
             get => feed;
             set => SetProperty(ref feed, value);
         }
 
-        private PostType postType;
         public PostType PostType
         {
             get => postType;
             set => SetProperty(ref postType, value);
         }
 
-        private bool liked;
         public bool Liked
         {
             get => liked;
@@ -84,28 +94,24 @@ namespace Journey.Models.Post
 
         public bool NotLiked => !Liked;
 
-        private ObservableCollection<Comment> comments;
         public ObservableCollection<Comment> Comments
         {
             get => comments;
             set => SetProperty(ref comments, value);
         }
 
-        private int likesCount;
         public int LikesCount
         {
             get => likesCount;
             set => SetProperty(ref likesCount, value);
         }
 
-        private int commentsCount;
         public int CommentsCount
         {
             get => commentsCount;
             set => SetProperty(ref commentsCount, value);
         }
 
-        private int sharesCount;
         public int SharesCount
         {
             get => sharesCount;
@@ -113,4 +119,3 @@ namespace Journey.Models.Post
         }
     }
 }
-

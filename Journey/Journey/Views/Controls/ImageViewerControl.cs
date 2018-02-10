@@ -1,26 +1,11 @@
-﻿using Xamarin.Forms;
-using System.Collections;
+﻿using System.Collections;
+using Xamarin.Forms;
 
 //https://github.com/rasmuschristensen/XamarinFormsImageGallery
 namespace Journey.Views.Controls
 {
     public class ImageViewerControl : ScrollView
     {
-        readonly StackLayout _imageStack;
-        public ImageViewerControl()
-        {
-            this.Orientation = ScrollOrientation.Horizontal;
-
-            _imageStack = new StackLayout
-            {
-                Orientation = StackOrientation.Horizontal,
-                HorizontalOptions = LayoutOptions.Center
-            };
-            this.Content = _imageStack;
-        }
-
-
-
         public static readonly BindableProperty ItemsSourceProperty =
             BindableProperty.Create<ImageViewerControl, IList>(
                 view => view.ItemsSource,
@@ -28,34 +13,44 @@ namespace Journey.Views.Controls
                 BindingMode.TwoWay,
                 propertyChanging: (bindableObject, oldValue, newValue) =>
                 {
-                    ((ImageViewerControl)bindableObject).ItemsSourceChanging();
+                    ((ImageViewerControl) bindableObject).ItemsSourceChanging();
                 },
                 propertyChanged: (bindableObject, oldValue, newValue) =>
                 {
-                    ((ImageViewerControl)bindableObject).ItemsSourceChanged(bindableObject, oldValue, newValue);
+                    ((ImageViewerControl) bindableObject).ItemsSourceChanged(bindableObject, oldValue, newValue);
                 }
             );
 
-        public IList ItemsSource
-        {
-            get
-            {
-                return (IList)GetValue(ItemsSourceProperty);
-            }
-            set
-            {
+        private readonly StackLayout _imageStack;
 
-                SetValue(ItemsSourceProperty, value);
-            }
+        public ImageViewerControl()
+        {
+            Orientation = ScrollOrientation.Horizontal;
+
+            _imageStack = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal,
+                HorizontalOptions = LayoutOptions.Center
+            };
+            Content = _imageStack;
         }
 
-        void ItemsSourceChanging()
+        public IList ItemsSource
+        {
+            get => (IList) GetValue(ItemsSourceProperty);
+            set => SetValue(ItemsSourceProperty, value);
+        }
+
+
+        public DataTemplate ItemTemplate { get; set; }
+
+        private void ItemsSourceChanging()
         {
             if (ItemsSource == null)
                 return;
         }
 
-        void ItemsSourceChanged(BindableObject bindable, IList oldValue, IList newValue)
+        private void ItemsSourceChanged(BindableObject bindable, IList oldValue, IList newValue)
         {
             if (ItemsSource == null)
                 return;
@@ -72,25 +67,13 @@ namespace Journey.Views.Controls
                     //i++;
                     //if (i == 4)
                     //break;
-                    var view = (View)ItemTemplate.CreateContent();
+                    var view = (View) ItemTemplate.CreateContent();
                     var bindableObject = view as BindableObject;
                     if (bindableObject != null)
                         bindableObject.BindingContext = newItem;
                     _imageStack.Children.Add(view);
-
                 }
             }
-
         }
-
-
-
-        public DataTemplate ItemTemplate
-        {
-            get;
-            set;
-        }
-
     }
 }
-

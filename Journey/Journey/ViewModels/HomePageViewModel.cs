@@ -56,7 +56,7 @@ namespace Journey.ViewModels
         #region Properties
 
         public Media Image => LoggedInAccount == null
-            ? new Media { Path = "http://bit.ly/2zBffZy" }
+            ? new Media {Path = "http://bit.ly/2zBffZy"}
             : _loggedInAccount.Image;
 
         private Account _loggedInAccount;

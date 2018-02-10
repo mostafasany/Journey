@@ -1,11 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using Journey.Models;
-using Journey.Models.Account;
-using Journey.Models.Post;
 using Journey.Services.Buisness.Account;
-using Journey.Services.Buisness.Post;
 using Journey.Services.Buisness.PostComment;
 using Prism.Commands;
 using Prism.Navigation;
@@ -36,7 +32,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                MediaList = parameters.GetValue<IEnumerable<Media>>("Media") ??null;
+                MediaList = parameters.GetValue<IEnumerable<Media>>("Media") ?? null;
             }
             catch (Exception e)
             {
@@ -54,12 +50,10 @@ namespace Journey.ViewModels
         #region Properties
 
         private IEnumerable<Media> mediaList;
+
         public IEnumerable<Media> MediaList
         {
-            get
-            {
-                return mediaList;
-            }
+            get => mediaList;
             set
             {
                 mediaList = value;
@@ -107,7 +101,6 @@ namespace Journey.ViewModels
 
         #region OnCloseCommand
 
-
         public DelegateCommand OnCloseCommand => new DelegateCommand(OnClose);
 
         private async void OnClose()
@@ -115,9 +108,7 @@ namespace Journey.ViewModels
             //NavigationService.PopModalAsync();
         }
 
-
         #endregion
-
 
         #endregion
     }

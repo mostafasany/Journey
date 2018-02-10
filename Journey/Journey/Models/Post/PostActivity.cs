@@ -2,24 +2,27 @@
 
 namespace Journey.Models.Post
 {
-    public class PostActivity: BindableBase
+    public class PostActivity : BindableBase
     {
         private string action;
+
+        private string activity;
+
+
+        private Media image;
+
         public string Action
         {
             get => action;
             set => SetProperty(ref action, value);
         }
 
-        private string activity;
         public string Activity
         {
             get => activity;
             set => SetProperty(ref activity, value);
         }
 
-
-        private Media image;
         public Media Image
         {
             get => image;
@@ -27,4 +30,3 @@ namespace Journey.Models.Post
         }
     }
 }
-

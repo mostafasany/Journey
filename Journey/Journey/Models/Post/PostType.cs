@@ -6,6 +6,8 @@ namespace Journey.Models.Post
     {
         private int id;
 
+        protected string PosterName;
+
         public int Id
         {
             get => id;
@@ -17,8 +19,6 @@ namespace Journey.Models.Post
         public string FormatedExpPoint => $"+ {GetExpPoint()} Exp";
 
         public int ExpPoint => GetExpPoint();
-
-        protected string PosterName;
 
         protected abstract int GetExpPoint();
 
@@ -113,6 +113,3 @@ namespace Journey.Models.Post
 //    }
 
 //}
-
-
-

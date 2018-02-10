@@ -20,8 +20,6 @@ using Prism.Unity;
 using Unity;
 using Unity.Lifetime;
 using INavigationService = Abstractions.Services.Contracts.INavigationService;
-using LoginPage = Journey.Views.LoginPage;
-using UpdateProfilePage = Journey.Views.UpdateProfilePage;
 
 namespace Journey
 {
@@ -116,7 +114,8 @@ namespace Journey
             container.RegisterType<IPostService, PostService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IPostDataService, PostDataService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IPostCommentService, PostCommentService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IPostCommentDataService, PostCommentDataService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IPostCommentDataService, PostCommentDataService>(
+                new ContainerControlledLifetimeManager());
             container.RegisterType<IAccountDataService, AccountDataService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IFacebookService, FacebookService>(new ContainerControlledLifetimeManager());
         }
@@ -136,7 +135,7 @@ namespace Journey
 
                 azureService.CreateOrGetAzureClient(userId, userToken);
 
-                await NavigationService.NavigateAsync(string.IsNullOrEmpty(userId) ? "MediaPage" : "MediaPage");
+                await NavigationService.NavigateAsync(string.IsNullOrEmpty(userId) ? "LoginPage" : "HomePage");
             }
             else
             {

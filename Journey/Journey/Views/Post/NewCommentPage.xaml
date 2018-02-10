@@ -21,10 +21,16 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Controls:CustomImage Grid.Column="0" Grid.RowSpan="3" Source="{Binding Account.Image.Path}" VerticalOptions="Start" HorizontalOptions="Start" WidthRequest="60" HeightRequest="60" />
-                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding Account.Name}" TextColor="Black" FontSize="14" FontAttributes="Bold" VerticalOptions="Start" HorizontalOptions="Start" />
-                            <Label Grid.Column="1" Grid.Row="1" Text="{Binding CommentText}" TextColor="Black" FontSize="14" VerticalOptions="Start" HorizontalOptions="Start" />
-                            <Label Grid.Column="1" Grid.Row="2" Text="{Binding FormatedDate}" TextColor="Black" FontSize="12" VerticalOptions="Start" HorizontalOptions="Start" />
+                            <Controls:CustomImage Grid.Column="0" Grid.RowSpan="3"
+                                                  Source="{Binding Account.Image.Path}" VerticalOptions="Start"
+                                                  HorizontalOptions="Start" WidthRequest="60" HeightRequest="60" />
+                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding Account.Name}" TextColor="Black"
+                                   FontSize="14" FontAttributes="Bold" VerticalOptions="Start"
+                                   HorizontalOptions="Start" />
+                            <Label Grid.Column="1" Grid.Row="1" Text="{Binding CommentText}" TextColor="Black"
+                                   FontSize="14" VerticalOptions="Start" HorizontalOptions="Start" />
+                            <Label Grid.Column="1" Grid.Row="2" Text="{Binding FormatedDate}" TextColor="Black"
+                                   FontSize="12" VerticalOptions="Start" HorizontalOptions="Start" />
                         </Grid>
                     </ViewCell.View>
                 </Controls:UnSelectableViewCell>
@@ -44,20 +50,27 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Image Grid.Row="0" Source="clear.png" Style="{StaticResource IconStyle}" Margin="5,0" HorizontalOptions="End">
+            <Image Grid.Row="0" Source="clear.png" Style="{StaticResource IconStyle}" Margin="5,0"
+                   HorizontalOptions="End">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
                 </Image.GestureRecognizers>
             </Image>
-            <ListView Grid.Row="1" SeparatorVisibility="None" RowHeight="100" ItemTemplate="{StaticResource CommentTemplate}" BackgroundColor="White" ItemsSource="{Binding Comments}" HorizontalOptions="Start" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true" RefreshCommand="{Binding OnPullRefreshRequestCommand}"/>
-            <Controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" Margin="20,0" />
+            <ListView Grid.Row="1" SeparatorVisibility="None" RowHeight="100"
+                      ItemTemplate="{StaticResource CommentTemplate}" BackgroundColor="White"
+                      ItemsSource="{Binding Comments}" HorizontalOptions="Start" IsPullToRefreshEnabled="true"
+                      IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
+                      RefreshCommand="{Binding OnPullRefreshRequestCommand}" />
+            <Controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsBusy}" HorizontalOptions="Center"
+                                     VerticalOptions="Center" Margin="20,0" />
             <Label Grid.Row="3" Margin="0,20,0,5" Text="Leave Comment" />
             <Grid Grid.Row="4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Editor Grid.Column="0" Text="{Binding NewComment}" Style="{StaticResource EditorFormStyle}" HeightRequest="100" />
+                <Editor Grid.Column="0" Text="{Binding NewComment}" Style="{StaticResource EditorFormStyle}"
+                        HeightRequest="100" />
                 <Image Grid.Column="1" Source="check.png" Style="{StaticResource IconStyle}">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnNewCommentCommand}" />

@@ -2,8 +2,8 @@
 {
     public class PostAd : PostBase
     {
-
         private Media image;
+
         public Media Image
         {
             get => image;
@@ -11,6 +11,5 @@
         }
 
         public string DeepLink { get; set; }
-
     }
 }

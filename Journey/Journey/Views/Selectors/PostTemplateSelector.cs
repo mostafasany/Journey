@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Journey.Views.Selectors
 {
@@ -10,7 +7,9 @@ namespace Journey.Views.Selectors
         public DataTemplate PostTemplate { get; set; }
         public DataTemplate AdsTemplate { get; set; }
         public DataTemplate CampaignTemplate { get; set; }
+
         public DataTemplate PeopleYouKnowTemplate { get; set; }
+
         // public DataTemplate ScaleMeasurmentsTemplate { get; set; }
         public DataTemplate WeeklyTemplate { get; set; }
 
@@ -38,7 +37,7 @@ namespace Journey.Views.Selectors
             //}
             //else
             //{
-                return PostTemplate;
+            return PostTemplate;
             //}
         }
     }

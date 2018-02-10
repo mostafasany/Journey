@@ -7,6 +7,6 @@
                 xmlns:resources="clr-namespace:Journey.Resources"
                 x:Class="Journey.Views.ChooseLocationPage">
     <ContentPage.Content>
-        
+
     </ContentPage.Content>
 </local:BasePage>
