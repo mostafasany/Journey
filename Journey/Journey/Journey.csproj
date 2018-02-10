@@ -117,6 +117,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\MediaPage.xaml.cs">
+      <DependentUpon>MediaPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Account\UpdateProfilePage.xaml.cs">
       <DependentUpon>UpdateProfilePage.xaml</DependentUpon>
     </Compile>
@@ -125,6 +128,15 @@
     </Compile>
     <Compile Update="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Post\ChooseLocationPage.xaml.cs">
+      <DependentUpon>ChooseLocationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Post\NewCommentPage.xaml.cs">
+      <DependentUpon>NewCommentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Post\NewPostPage.xaml.cs">
+      <DependentUpon>NewPostPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

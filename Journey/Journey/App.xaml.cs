@@ -15,6 +15,8 @@ using Prism;
 using Prism.Ioc;
 using Prism.Navigation;
 using Prism.Unity;
+using Tawasol.Services;
+using Tawasol.Services.Data;
 using Unity;
 using Unity.Lifetime;
 using INavigationService = Abstractions.Services.Contracts.INavigationService;
@@ -47,6 +49,10 @@ namespace Journey
             containerRegistry.RegisterForNavigation<HomePage>();
             containerRegistry.RegisterForNavigation<LoginPage>();
             containerRegistry.RegisterForNavigation<UpdateProfilePage>();
+            containerRegistry.RegisterForNavigation<NewPostPage>();
+            containerRegistry.RegisterForNavigation<NewCommentPage>();
+            containerRegistry.RegisterForNavigation<ChooseLocationPage>();
+            containerRegistry.RegisterForNavigation<MediaPage>();
             RegitserAppServices(container);
 
             RegitserBuisnessServices(container);
@@ -109,6 +115,8 @@ namespace Journey
             container.RegisterType<IAccountService, AccountService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IPostService, PostService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IPostDataService, PostDataService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IPostCommentService, PostCommentService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IPostCommentDataService, PostCommentDataService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IAccountDataService, AccountDataService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IFacebookService, FacebookService>(new ContainerControlledLifetimeManager());
         }
@@ -128,7 +136,7 @@ namespace Journey
 
                 azureService.CreateOrGetAzureClient(userId, userToken);
 
-                await NavigationService.NavigateAsync(string.IsNullOrEmpty(userId) ? "LoginPage" : "HomePage");
+                await NavigationService.NavigateAsync(string.IsNullOrEmpty(userId) ? "NewCommentPage" : "NewCommentPage");
             }
             else
             {

@@ -2,16 +2,7 @@
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" xmlns:selectors="clr-namespace:Journey.Views.Selectors" x:Class="Journey.Views.HomePage">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <DataTemplate x:Key="ScaleTemplate">
-                <StackLayout Orientation="Vertical">
-                    <Label Text="{Binding Title}" HorizontalOptions="Center" />
-                    <Controls:CustomImage Source="{Binding Image.Source}" Aspect="AspectFit" WidthRequest="50" HeightRequest="50" />
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                        <Controls:CustomImage Source="{Binding Indictor.Source}" Aspect="AspectFit" WidthRequest="20" HeightRequest="20" />
-                        <Label Text="{Binding MeasureWithUnit}" HorizontalOptions="Center" />
-                    </StackLayout>
-                </StackLayout>
-            </DataTemplate>
+           
             <DataTemplate x:Key="PostTemplate">
                 <Controls:UnSelectableViewCell>
                     <ViewCell.View>
