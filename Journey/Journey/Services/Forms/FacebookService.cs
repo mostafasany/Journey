@@ -71,6 +71,8 @@ namespace Journey.Services.Forms
 
         public string FacebookToken { get; set; }
 
+        public string FacebookTokenKey { get; } = "FacebookToken";
+
         public void InviteFriends()
         {
             try

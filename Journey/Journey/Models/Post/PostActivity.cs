@@ -9,7 +9,7 @@ namespace Journey.Models.Post
         private string activity;
 
 
-        private Media image;
+        private string image;
 
         public string Action
         {
@@ -23,7 +23,7 @@ namespace Journey.Models.Post
             set => SetProperty(ref activity, value);
         }
 
-        public Media Image
+        public string Image
         {
             get => image;
             set => SetProperty(ref image, value);

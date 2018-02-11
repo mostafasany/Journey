@@ -42,6 +42,7 @@
     <None Remove="Assets\timer.png" />
     <None Remove="Assets\unfav.png" />
     <None Remove="Assets\exit.png" />
+    <None Remove="Assets\videothumbnail.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -84,6 +85,7 @@
     <EmbeddedResource Include="Assets\timer.png" />
     <EmbeddedResource Include="Assets\unfav.png" />
     <EmbeddedResource Include="Assets\exit.png" />
+    <EmbeddedResource Include="Assets\videothumbnail.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -98,6 +100,7 @@
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.3.4" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.3.4" />
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.3.4" />
+    <PackageReference Include="Xam.Plugin.Geolocator" Version="4.2.0" />
   </ItemGroup>
 
   <ItemGroup>

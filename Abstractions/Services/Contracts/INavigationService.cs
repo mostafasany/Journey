@@ -7,7 +7,7 @@ namespace Abstractions.Services.Contracts
         bool CanGoBack();
         bool CanGoForward();
         void ClearHistory();
-        void GoBack();
+        void GoBack(object parameter = null, string key = "");
         void GoForward();
 
         Task<bool> Navigate(string pageToken, object parameter = null, string key = "", bool? useModalNavigation = null,

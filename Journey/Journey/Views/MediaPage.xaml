@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:local="clr-namespace:Journey.Views"
-                xmlns:Controls="clr-namespace:Journey.Views.Controls"
-                xmlns:resources="clr-namespace:Journey.Resources"
-                x:Class="Journey.Views.MediaPage">
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.MediaPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="MediaTemplate">
                 <Controls:UnSelectableViewCell>
                     <ViewCell.View>
-                        <Image Margin="0,0,0,5" Source="{Binding Source}" WidthRequest="500" HeightRequest="300"
-                               Aspect="AspectFill" VerticalOptions="Fill" HorizontalOptions="Fill" />
+                        <Image Margin="0,0,0,5" Source="{Binding Thumbnail}" WidthRequest="500" HeightRequest="300" Aspect="AspectFill" VerticalOptions="Fill" HorizontalOptions="Fill" />
                     </ViewCell.View>
                 </Controls:UnSelectableViewCell>
             </DataTemplate>
@@ -29,8 +22,7 @@
                     <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
                 </Image.GestureRecognizers>
             </Controls:ImageControl>
-            <ListView Grid.Row="1" HasUnevenRows="true" ItemTemplate="{StaticResource MediaTemplate}"
-                      BackgroundColor="White" ItemsSource="{Binding MediaList}" HorizontalOptions="Fill" />
+            <ListView Grid.Row="1" HasUnevenRows="true" ItemTemplate="{StaticResource MediaTemplate}" BackgroundColor="White" ItemsSource="{Binding MediaList}" HorizontalOptions="Fill" />
         </Grid>
     </ContentPage.Content>
 </local:BasePage>

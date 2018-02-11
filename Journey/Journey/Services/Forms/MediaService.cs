@@ -25,6 +25,7 @@ namespace Journey.Services.Forms
                 var image = new Media
                 {
                     Path = media.Path,
+                    Thumbnail=media.Path,
                     SourceArray = array,
                     Ext = Path.GetExtension(media.Path)
                 };
@@ -46,8 +47,11 @@ namespace Journey.Services.Forms
                 var image = new Media
                 {
                     Path = media.Path,
+                    Thumbnail = "http://bit.ly/2EiCAic",
                     SourceArray = array,
-                    Ext = Path.GetExtension(media.Path)
+                    Ext = Path.GetExtension(media.Path),
+                    Type= MediaType.Video
+                     
                 };
                 return image;
             }
@@ -67,6 +71,7 @@ namespace Journey.Services.Forms
                 var image = new Media
                 {
                     Path = media.Path,
+                    Thumbnail = media.Path,
                     SourceArray = array,
                     Ext = Path.GetExtension(media.Path)
                 };
@@ -88,8 +93,10 @@ namespace Journey.Services.Forms
                 var image = new Media
                 {
                     Path = media.Path,
+                    Thumbnail = "http://bit.ly/2EiCAic",
                     SourceArray = array,
-                    Ext = Path.GetExtension(media.Path)
+                    Ext = Path.GetExtension(media.Path),
+                    Type = MediaType.Video,
                 };
                 return image;
             }

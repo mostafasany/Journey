@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Abstractions.Models;
 using Abstractions.Services.Contracts;
+using Plugin.Geolocator;
 
 namespace Journey.Services.Forms
 {
@@ -34,11 +35,32 @@ namespace Journey.Services.Forms
             }
         }
 
-        public Task<Location> ObtainMyLocationAsync()
+        public async Task<Location> ObtainMyLocationAsync()
         {
             try
             {
-                return null;
+                var locator = CrossGeolocator.Current;
+                locator.DesiredAccuracy = 100;
+
+                Plugin.Geolocator.Abstractions.Position position = null;
+                var task = Task.Run(() => locator.GetPositionAsync(TimeSpan.FromSeconds(2), null, true));
+                if (task.Wait(TimeSpan.FromSeconds(2)))
+                {
+                    position = task.Result;
+                }
+                if (position == null)
+                    position = await locator.GetPositionAsync(TimeSpan.FromSeconds(1), null, true);
+
+                //CrossExternalMaps.Current.NavigateTo("teste", latitude, longitude);
+                //var locator = CrossGeolocator.Current;
+                //locator.DesiredAccuracy = 50;
+
+                Location loc = new Location
+                {
+                    Lat = position.Latitude,
+                    Lng = position.Longitude
+                };
+                return loc;
             }
             catch (Exception ex)
             {

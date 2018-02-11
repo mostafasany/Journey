@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Abstractions.Models;
 using Abstractions.Services.Contracts;
 using Journey.Constants;
 using Journey.Models;
@@ -45,6 +46,14 @@ namespace Journey.ViewModels
         {
             try
             {
+                if (parameters.GetNavigationMode() == NavigationMode.Back)
+                {
+                    var location = parameters.GetValue<Location>("Location");
+                    if(location!=null)
+                    NewPost.Location = new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
+
+                }
+
                 LoggedInAccount = await _accountService.GetAccountAsync();
             }
             catch (Exception e)
@@ -252,12 +261,12 @@ namespace Journey.ViewModels
                         new DialogCommand
                         {
                             Label = AppResource.Camera,
-                            Invoked = async () => { AddImage(await _mediaService.TakePhotoAsync()); }
+                        Invoked = async () => { AddMedia(await _mediaService.TakePhotoAsync()); }
                         },
                         new DialogCommand
                         {
                             Label = "Video",
-                            Invoked = async () => { AddImage(await _mediaService.TakeVideoAsync()); }
+                        Invoked = async () => { AddMedia(await _mediaService.TakeVideoAsync()); }
                         },
                         new DialogCommand
                         {
@@ -274,7 +283,7 @@ namespace Journey.ViewModels
             }
         }
 
-        private void AddImage(Media media)
+        private void AddMedia(Media media)
         {
             try
             {
@@ -310,23 +319,18 @@ namespace Journey.ViewModels
 
         #region OnGalleryDetailsCommand
 
-        private DelegateCommand<object> _onGalleryDetailsCommand;
+        private DelegateCommand _onGalleryDetailsCommand;
 
-        public DelegateCommand<object> OnGalleryDetailsCommand => _onGalleryDetailsCommand ??
+        public DelegateCommand OnGalleryDetailsCommand => _onGalleryDetailsCommand ??
                                                                   (_onGalleryDetailsCommand =
-                                                                      new DelegateCommand<object>(OnGalleryDetails));
+                                                                      new DelegateCommand(OnGalleryDetails));
 
-        private async void OnGalleryDetails(object media)
+        private async void OnGalleryDetails()
         {
             try
             {
-                var mList = new List<Media>();
-                if (media is List<Media>)
-                    mList = media as List<Media>;
-                else if (media is Media)
-                    mList.Add(media as Media);
-
-                await NavigationService.Navigate("MediaPage", mList,"Media");
+               
+                await NavigationService.Navigate("MediaPage", NewPost.MediaList, "Media");
             }
             catch (Exception ex)
             {

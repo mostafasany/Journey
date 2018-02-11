@@ -38,11 +38,17 @@ namespace Journey.Services.Forms
             }
         }
 
-        public void GoBack()
+        public void GoBack(object parameter = null, string key = "")
         {
             try
             {
-                _navigationService.GoBackAsync();
+                NavigationParameters navigationParameters = null;
+                if (parameter != null)
+                    navigationParameters = new NavigationParameters
+                    {
+                        {key, parameter}
+                    };
+                _navigationService.GoBackAsync(navigationParameters);
             }
             catch (Exception ex)
             {

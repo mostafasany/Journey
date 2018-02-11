@@ -82,7 +82,7 @@ namespace Journey.Services.Buisness.Post.Translators
                     {
                         postDto.MediaList = new ObservableCollection<Media>();
                         foreach (var image in images)
-                            postDto.MediaList.Add(new Media {Path = image});
+                            postDto.MediaList.Add(new Media {Path = image,Thumbnail=image});
                     }
                 }
                 catch (Exception ex)

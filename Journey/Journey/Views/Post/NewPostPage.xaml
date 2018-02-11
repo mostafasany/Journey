@@ -17,13 +17,13 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <!-- <RowDefinition Height="Auto" />-->
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Controls:CustomImage Grid.RowSpan="3" Grid.Column="0" Source="{Binding LoggedInAccount.Image.Path}" HorizontalOptions="Start" WidthRequest="80" HeightRequest="80" />
+                    <Controls:CustomImage Grid.RowSpan="2" Grid.Column="0" Source="{Binding LoggedInAccount.Image.Path}" HorizontalOptions="Start" WidthRequest="80" HeightRequest="80" />
                     <Grid Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill">
                         <Label Text="{Binding LoggedInAccount.Name}" FontAttributes="Bold" TextColor="Black" FontSize="14" HorizontalOptions="Start" />
                         <Controls:ImageControl Grid.Row="0" PortablePath="clear.png" Style="{StaticResource IconStyle}" HorizontalOptions="End">
@@ -32,14 +32,14 @@
                             </Image.GestureRecognizers>
                         </Controls:ImageControl>
                     </Grid>
-                    <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" IsVisible="{Binding Post.HasActivity}">
+                    <!-- <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" IsVisible="{Binding Post.HasActivity}">
                         <Label Text="{Binding NewPost.Activity.Action}" TextColor="Black" FontSize="12" HorizontalOptions="Start" VerticalOptions="Center" />
-                        <Controls:CustomImage Source="{Binding NewPost.Activity.Image.Path}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
+                        <Controls:CustomImage Source="{Binding NewPost.Activity.Image}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
                         <Label Text="{Binding NewPost.Activity.Activity}" FontAttributes="Bold" TextColor="Black" FontSize="14" HorizontalOptions="Start" VerticalOptions="Center" LineBreakMode="NoWrap" />
-                    </StackLayout>
-                    <StackLayout Grid.Row="2" Grid.Column="1" Orientation="Horizontal" IsVisible="{Binding Post.HasLocation}">
+                    </StackLayout>-->
+                    <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" IsVisible="{Binding Post.HasLocation}">
                         <Label Text="{Binding NewPost.Location.Action}" TextColor="Black" FontSize="12" HorizontalOptions="Start" VerticalOptions="Center" />
-                        <Controls:CustomImage Source="{Binding  NewPost.Location.Image.Path}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
+                        <Controls:CustomImage Source="{Binding  NewPost.Location.Image}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
                         <Label Text="{Binding  NewPost.Location.Activity}" FontAttributes="Bold" TextColor="Black" FontSize="14" HorizontalOptions="Start" VerticalOptions="Center" LineBreakMode="NoWrap" />
                     </StackLayout>
                 </Grid>
@@ -60,11 +60,11 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="Add post to your current challenge" />
+                    <Label Grid.Column="0" Text=i"Add post to your current challenge" />
                     <Switch Grid.Column="1" IsToggled="{Binding AddPostToChallenge,Mode=TwoWay}" />
                 </Grid>-->
                 <Controls:LoadingControl Grid.Row="3" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" Margin="20,0" />
-                <Controls:ImageViewerControl Grid.Row="4" ItemsSource="{Binding NewPost.MediaList}" Margin="0,10" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
+                <Controls:ImageViewerControl x:Name="parent" Grid.Row="4" ItemsSource="{Binding NewPost.MediaList}" Margin="0,10" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
                     <Controls:ImageViewerControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Grid.Row="0" Margin="10,10">
@@ -72,14 +72,14 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <Controls:CustomImage Grid.Row="0" PortablePath="clear.png" VerticalOptions="Center" HorizontalOptions="End" WidthRequest="20" HeightRequest="20">
+                                <Controls:ImageControl Grid.Row="0" PortablePath="clear.png" VerticalOptions="Center" HorizontalOptions="End" WidthRequest="20" HeightRequest="20">
                                     <Controls:CustomImage.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={StaticResource Locator} ,Path=NewPostViewModel.OnImageDeleteCommand}" CommandParameter="{Binding}" />
+                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.OnImageDeleteCommand, Source={x:Reference Name=parent}}" CommandParameter="{Binding}" />
                                     </Controls:CustomImage.GestureRecognizers>
-                                </Controls:CustomImage>
-                                <Controls:CustomImage Grid.Row="1" PortablePath="{Binding Source}" HeightRequest="100" Aspect="AspectFit">
+                                </Controls:ImageControl>
+                                <Controls:CustomImage Grid.Row="1" Source="{Binding Thumbnail}" HeightRequest="120" Aspect="AspectFit">
                                     <Controls:CustomImage.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={StaticResource Locator} ,Path=NewPostViewModel.OnGalleryDetailsCommand}" CommandParameter="{Binding}" />
+                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.OnGalleryDetailsCommand, Source={x:Reference Name=parent}}" />
                                     </Controls:CustomImage.GestureRecognizers>
                                 </Controls:CustomImage>
                             </Grid>
@@ -87,7 +87,7 @@
                     </Controls:ImageViewerControl.ItemTemplate>
                 </Controls:ImageViewerControl>
                 <Controls:ImageViewerControl Grid.Row="5" BackgroundColor="White" ItemsSource="{Binding NewPost.Measuremnts}" Margin="0,10" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" ItemTemplate="{StaticResource ScaleTemplate}" />
-                <Controls:ImageControl Grid.Row="6" PortablePath="check.png" Style="{StaticResource IconStyle}">
+                <Controls:ImageControl Grid.Row="6" PortablePath="check.png" Style="{StaticResource IconStyle}" WidthRequest="40" HeightRequest="40">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnNewPostCommand}" />
                     </Image.GestureRecognizers>
@@ -100,12 +100,12 @@
                         <!-- <ColumnDefinition Width="*" />-->
                     </Grid.ColumnDefinitions>
                     <!--      <Label Text="Add Location and More" HorizontalOptions="End" Margin="0,5,0,0" />-->
-                    <Controls:ImageControl Grid.Column="0" PortablePath="camera.png" Style="{StaticResource IconStyle}">
+                    <Controls:ImageControl Grid.Column="0" PortablePath="camera.png" Style="{StaticResource IconStyle}" WidthRequest="40" HeightRequest="40">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnAddPhotoOrVideoCommand}" CommandParameter="{Binding}" />
                         </Image.GestureRecognizers>
                     </Controls:ImageControl>
-                    <Controls:ImageControl Grid.Column="1" PortablePath="location.png" Style="{StaticResource IconStyle}">
+                    <Controls:ImageControl Grid.Column="1" PortablePath="location.png" Style="{StaticResource IconStyle}" WidthRequest="40" HeightRequest="40">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnCheckInCommand}" CommandParameter="{Binding}" />
                         </Image.GestureRecognizers>

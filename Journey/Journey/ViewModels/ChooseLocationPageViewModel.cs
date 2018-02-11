@@ -138,8 +138,7 @@ namespace Journey.ViewModels
 
         private async void OnSelectedLocation(Location selectedLocation)
         {
-            //AccountService.CheckInLocationChanged(selectedLocation);
-            NavigationService.GoBack();
+            NavigationService.GoBack(selectedLocation,"Location");
         }
 
 

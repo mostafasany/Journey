@@ -10,7 +10,7 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="{Binding Image.Path}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="70" HeightRequest="70" />
+                            <Controls:CustomImage Grid.Column="0" Source="{Binding Image}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="70" HeightRequest="70" />
                             <StackLayout Grid.Column="1">
                                 <Label Text="{Binding Name}" TextColor="Black" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
                                 <Label Text="{Binding NearFormated}" TextColor="Gray" FontSize="12" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
@@ -32,7 +32,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Controls:ImageControl Grid.Column="0" PortablePath="clear.png" Style="{StaticResource IconStyle}" Margin="5,0">
+                <Controls:ImageControl Grid.Column="0" PortablePath="clear.png" Style="{StaticResource IconStyle}" HorizontalOptions="End" Margin="5,0">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
                     </Image.GestureRecognizers>

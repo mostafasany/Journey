@@ -130,6 +130,8 @@ namespace Journey
             {
                 var azureService = Container.Resolve<IAzureService>();
                 var accountService = Container.Resolve<IAccountService>();
+                var facebookService = Container.Resolve<IFacebookService>();
+                facebookService.FacebookToken = await settingsService.Get(facebookService.FacebookTokenKey);
                 var userToken = await settingsService.Get(accountService.AccountTokenKey);
                 var userId = await settingsService.Get(accountService.AccountIdKey);
                 accountService.Token = userToken;

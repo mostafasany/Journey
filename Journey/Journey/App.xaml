@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
                         xmlns:Controls="clr-namespace:Journey.Views.Controls"
@@ -33,7 +33,7 @@
                 <Setter Property="HeightRequest" Value="40" />
             </Style>
             <Style TargetType="Editor" x:Key="EditorFormStyle">
-                <Setter Property="HeightRequest" Value="120" />
+                <Setter Property="HeightRequest" Value="150" />
                 <Setter Property="TextColor" Value="{StaticResource LightTextColor}" />
                 <Setter Property="Margin" Value="0,0,0,15" />
                 <Setter Property="BackgroundColor" Value="#ededed" />

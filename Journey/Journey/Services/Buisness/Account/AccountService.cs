@@ -18,14 +18,16 @@ namespace Journey.Services.Buisness.Account
         private readonly IDialogService _dialogService;
         private readonly INavigationService _navigationService;
         private readonly ISettingsService _settingsService;
+        private readonly IFacebookService _facebookService;
 
         public AccountService(IAccountDataService accountDataService, ISettingsService settingsService,
-            INavigationService navService, IDialogService dialogService)
+                              INavigationService navService, IDialogService dialogService,IFacebookService facebookService)
         {
             _accountDataService = accountDataService;
             _navigationService = navService;
             _dialogService = dialogService;
             _settingsService = settingsService;
+            _facebookService = facebookService;
         }
 
         public string AccountTokenKey { get; } = "AccountToken";
@@ -130,7 +132,8 @@ namespace Journey.Services.Buisness.Account
 
                     LoggedInAccount = await SaveAccountAsync(loggedInAccount, true);
                 }
-
+                _facebookService.FacebookToken = info.AccessToken;
+                await _settingsService.Set(_facebookService.FacebookTokenKey, info.AccessToken);
                 await _settingsService.Set(AccountTokenKey, client.CurrentUser.MobileServiceAuthenticationToken);
                 await _settingsService.Set(AccountIdKey, client.CurrentUser.UserId);
                 return true;
