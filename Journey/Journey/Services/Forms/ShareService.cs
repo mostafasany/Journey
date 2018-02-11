@@ -1,6 +1,8 @@
-﻿using Abstractions.Exceptions;
+﻿using System;
+using Abstractions.Exceptions;
 using Abstractions.Services.Contracts;
 using Plugin.Share;
+using Plugin.Share.Abstractions;
 
 namespace Journey.Services.Forms
 {
@@ -10,14 +12,14 @@ namespace Journey.Services.Forms
         {
             try
             {
-                CrossShare.Current.Share(new Plugin.Share.Abstractions.ShareMessage
+                CrossShare.Current.Share(new ShareMessage
                 {
                     Text = text,
                     Title = title,
                     Url = url
                 });
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 throw new CoreServiceException(ex);
             }

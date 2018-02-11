@@ -122,6 +122,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\Account\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\MediaPage.xaml.cs">
       <DependentUpon>MediaPage.xaml</DependentUpon>
     </Compile>

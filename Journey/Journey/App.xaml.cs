@@ -52,6 +52,7 @@ namespace Journey
             containerRegistry.RegisterForNavigation<ChooseLocationPage>();
             containerRegistry.RegisterForNavigation<MediaPage>();
             containerRegistry.RegisterForNavigation<VideoPage>();
+            containerRegistry.RegisterForNavigation<ProfilePage>();
             RegitserAppServices(container);
 
             RegitserBuisnessServices(container);

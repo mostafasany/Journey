@@ -19,6 +19,8 @@ namespace Journey.Services.Buisness.Account
 
         Task<bool> SoicalLoginAndSaveAsync(MobileServiceClient client);
 
+        Task<bool> LogoutAsync();
+
         bool IsAccountAuthenticated();
     }
 }

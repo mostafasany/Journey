@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using Abstractions.Services.Contracts;
 using Journey.Models.Post;
+using Journey.Resources;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Post;
 using Prism.Commands;
@@ -58,27 +59,28 @@ namespace Journey.ViewModels.Wall
                 {
                     var deleteCommand = new DialogCommand
                     {
-                        Label = "Delete",
+                        Label = AppResource.Post_Delete,
                         Invoked = async () =>
                         {
                             var status = await _postService.DeletePostAsync(_post);
                             if (!status)
-                                await DialogService.ShowMessageAsync("Error", "Error while deleting your post");
+                                await DialogService.ShowMessageAsync(AppResource.Error, AppResource.Post_DeleteError);
                         }
                     };
 
                     var reportCommand = new DialogCommand
                     {
-                        Label = "Report",
+                        Label = AppResource.Post_Report,
                         Invoked = async () =>
                         {
-                            await DialogService.ShowMessageAsync("Sent", "Your report has been sent");
+                            await DialogService.ShowMessageAsync(AppResource.Post_ReportSentTitle,
+                                AppResource.Post_ReportSentMessage);
                         }
                     };
 
                     var cancelCommand = new DialogCommand
                     {
-                        Label = "Cancel"
+                        Label = AppResource.Cancel
                     };
 
                     var loggedInAccount = await _accountService.GetAccountAsync();

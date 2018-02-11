@@ -155,5 +155,21 @@ namespace Journey.Services.Buisness.Account
                 throw new BuisnessException(ex.Message);
             }
         }
+
+        public async Task<bool> LogoutAsync()
+        {
+            try
+            {
+                await _settingsService.Remove(_facebookService.FacebookTokenKey);
+                await _settingsService.Remove(AccountTokenKey);
+                await _settingsService.Remove(AccountIdKey);
+                LoggedInAccount = null;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new BuisnessException(ex.Message);
+            }
+        }
     }
 }
