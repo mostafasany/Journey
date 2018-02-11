@@ -1,4 +1,5 @@
-﻿using Abstractions.Services.Contracts;
+﻿using Abstractions.Exceptions;
+using Abstractions.Services.Contracts;
 using Plugin.Share;
 
 namespace Journey.Services.Forms
@@ -18,7 +19,7 @@ namespace Journey.Services.Forms
             }
             catch (System.Exception ex)
             {
-               
+                throw new CoreServiceException(ex);
             }
         }
     }
