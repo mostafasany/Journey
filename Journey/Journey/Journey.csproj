@@ -102,6 +102,7 @@
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.3.4" />
     <PackageReference Include="Xam.Plugin.Geolocator" Version="4.2.0" />
     <PackageReference Include="Plugin.MediaManager" Version="0.4.5" />
+    <PackageReference Include="Plugin.Share" Version="7.1.1" />
   </ItemGroup>
 
   <ItemGroup>
