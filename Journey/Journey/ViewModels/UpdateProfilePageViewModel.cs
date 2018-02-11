@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Input;
 using Abstractions.Services.Contracts;
-using Journey.Constants;
 using Journey.Models;
 using Journey.Models.Account;
 using Journey.Resources;

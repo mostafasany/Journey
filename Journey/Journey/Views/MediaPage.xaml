@@ -1,13 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.MediaPage">
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls"
+                xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.MediaPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="MediaTemplate">
                 <Controls:UnSelectableViewCell>
                     <ViewCell.View>
-                        <Controls:CustomImage Margin="0,0,0,5" Source="{Binding Thumbnail}" WidthRequest="500" HeightRequest="300" Aspect="AspectFill" VerticalOptions="Fill" HorizontalOptions="Fill">
+                        <Controls:CustomImage Margin="0,0,0,5" Source="{Binding Thumbnail}" WidthRequest="500"
+                                              HeightRequest="300" Aspect="AspectFill" VerticalOptions="Fill"
+                                              HorizontalOptions="Fill">
                             <Controls:CustomImage.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Path=BindingContext.OnGalleryDetailsCommand, Source={x:Reference Name=parent}}" CommandParameter="{Binding}" />
+                                <TapGestureRecognizer
+                                    Command="{Binding Path=BindingContext.OnGalleryDetailsCommand, Source={x:Reference Name=parent}}"
+                                    CommandParameter="{Binding}" />
                             </Controls:CustomImage.GestureRecognizers>
                         </Controls:CustomImage>
                     </ViewCell.View>
@@ -21,12 +28,14 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Controls:ImageControl Grid.Row="0" PortablePath="clear.png" Style="{StaticResource IconStyle}" HorizontalOptions="End">
+            <Controls:ImageControl Grid.Row="0" PortablePath="clear.png" Style="{StaticResource IconStyle}"
+                                   HorizontalOptions="End">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
                 </Image.GestureRecognizers>
             </Controls:ImageControl>
-            <ListView Grid.Row="1" x:Name="parent" HasUnevenRows="true" ItemTemplate="{StaticResource MediaTemplate}" BackgroundColor="White" ItemsSource="{Binding MediaList}" HorizontalOptions="Fill" />
+            <ListView Grid.Row="1" x:Name="parent" HasUnevenRows="true" ItemTemplate="{StaticResource MediaTemplate}"
+                      BackgroundColor="White" ItemsSource="{Binding MediaList}" HorizontalOptions="Fill" />
         </Grid>
     </ContentPage.Content>
 </local:BasePage>

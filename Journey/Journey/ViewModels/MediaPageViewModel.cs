@@ -33,7 +33,7 @@ namespace Journey.ViewModels
             try
             {
                 if (parameters.GetNavigationMode() == NavigationMode.New)
-                MediaList = parameters.GetValue<IEnumerable<Media>>("Media") ?? null;
+                    MediaList = parameters.GetValue<IEnumerable<Media>>("Media") ?? null;
             }
             catch (Exception e)
             {
@@ -105,8 +105,8 @@ namespace Journey.ViewModels
         private DelegateCommand<Media> _onGalleryDetailsCommand;
 
         public DelegateCommand<Media> OnGalleryDetailsCommand => _onGalleryDetailsCommand ??
-                                                                  (_onGalleryDetailsCommand =
-                                                                   new DelegateCommand<Media>(OnGalleryDetails));
+                                                                 (_onGalleryDetailsCommand =
+                                                                     new DelegateCommand<Media>(OnGalleryDetails));
 
         private async void OnGalleryDetails(Media media)
         {

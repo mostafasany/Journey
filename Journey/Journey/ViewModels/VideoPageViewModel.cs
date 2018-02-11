@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Journey.Models;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.PostComment;
@@ -32,7 +31,6 @@ namespace Journey.ViewModels
         {
             try
             {
-
                 Media = parameters.GetValue<Media>("Media") ?? null;
             }
             catch (Exception e)
@@ -99,8 +97,6 @@ namespace Journey.ViewModels
         #endregion
 
         #region Commands
-
-
 
         #region OnCloseCommand
 

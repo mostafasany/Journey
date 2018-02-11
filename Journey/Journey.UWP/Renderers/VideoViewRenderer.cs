@@ -1,6 +1,7 @@
 ﻿using Plugin.MediaManager.Abstractions.Enums;
-using Plugin.MediaManager.Forms;
-using Plugin.MediaManager.Forms.UWP;
+using Journey.Views.Controls;
+using Plugin.MediaManager;
+using Journey.UWP.Renderers;
 using Xamarin.Forms.Platform.UWP;
 using Size = Windows.Foundation.Size;
 

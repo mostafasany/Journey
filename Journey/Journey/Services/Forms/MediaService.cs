@@ -13,6 +13,7 @@ namespace Journey.Services.Forms
     internal class MediaService : IMediaService<Media>
     {
         private const string VideoPlaceHolderPath = "http://bit.ly/2EiCAic";
+
         public async Task<Media> PickPhotoAsync()
         {
             try
@@ -27,7 +28,7 @@ namespace Journey.Services.Forms
                 var image = new Media
                 {
                     Path = media.Path,
-                    Thumbnail=media.Path,
+                    Thumbnail = media.Path,
                     SourceArray = array,
                     Ext = Path.GetExtension(media.Path)
                 };
@@ -52,8 +53,7 @@ namespace Journey.Services.Forms
                     Thumbnail = VideoPlaceHolderPath,
                     SourceArray = array,
                     Ext = Path.GetExtension(media.Path),
-                    Type= MediaType.Video
-                     
+                    Type = MediaType.Video
                 };
                 return image;
             }
@@ -67,7 +67,8 @@ namespace Journey.Services.Forms
         {
             try
             {
-                var media = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions {AllowCropping = true,CompressionQuality = 92});
+                var media = await CrossMedia.Current.TakePhotoAsync(
+                    new StoreCameraMediaOptions {AllowCropping = true, CompressionQuality = 92});
                 var stream = media.GetStream();
                 var array = ReadFully(stream);
                 var image = new Media
@@ -89,7 +90,8 @@ namespace Journey.Services.Forms
         {
             try
             {
-                var media = await CrossMedia.Current.TakeVideoAsync(new StoreVideoOptions{Quality=VideoQuality.Low,CompressionQuality=70});
+                var media = await CrossMedia.Current.TakeVideoAsync(
+                    new StoreVideoOptions {Quality = VideoQuality.Low, CompressionQuality = 70});
                 var stream = media.GetStream();
                 var array = ReadFully(stream);
                 var image = new Media
@@ -98,7 +100,7 @@ namespace Journey.Services.Forms
                     Thumbnail = VideoPlaceHolderPath,
                     SourceArray = array,
                     Ext = Path.GetExtension(media.Path),
-                    Type = MediaType.Video,
+                    Type = MediaType.Video
                 };
                 return image;
             }

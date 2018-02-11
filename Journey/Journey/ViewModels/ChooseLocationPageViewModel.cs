@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using Abstractions.Models;
 using Abstractions.Services.Contracts;
-using Journey.Services.Buisness.Account;
-using Journey.Services.Buisness.Post;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
@@ -15,12 +13,40 @@ namespace Journey.ViewModels
         private readonly IFacebookService _facebookService;
         private readonly ILocationService _locationService;
 
-        public ChooseLocationPageViewModel(IUnityContainer container, ILocationService locationService, IFacebookService facebookService) :
+        public ChooseLocationPageViewModel(IUnityContainer container, ILocationService locationService,
+            IFacebookService facebookService) :
             base(container)
         {
             _locationService = locationService;
             _facebookService = facebookService;
         }
+
+        #region Methods
+
+        public override async void Intialize()
+        {
+            try
+            {
+                ShowProgress();
+
+                var position = await _locationService.ObtainMyLocationAsync();
+                if (position != null)
+                    Locations = await _facebookService.GetLocationsAsync(Name, position.Lat, position.Lng);
+
+                SelectedLocation = null;
+                base.Intialize();
+            }
+            catch (Exception e)
+            {
+                ExceptionService.HandleAndShowDialog(e);
+            }
+            finally
+            {
+                HideProgress();
+            }
+        }
+
+        #endregion
 
         #region Events
 
@@ -48,13 +74,11 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        string name;
+        private string name;
+
         public string Name
         {
-            get
-            {
-                return name;
-            }
+            get => name;
             set
             {
                 name = value;
@@ -62,15 +86,13 @@ namespace Journey.ViewModels
             }
         }
 
-        List<Location> originalLocations;
+        private List<Location> originalLocations;
 
-        List<Location> locations;
+        private List<Location> locations;
+
         public List<Location> Locations
         {
-            get
-            {
-                return locations;
-            }
+            get => locations;
             set
             {
                 locations = value;
@@ -78,13 +100,11 @@ namespace Journey.ViewModels
             }
         }
 
-        Location selectedLocation;
+        private Location selectedLocation;
+
         public Location SelectedLocation
         {
-            get
-            {
-                return selectedLocation;
-            }
+            get => selectedLocation;
             set
             {
                 if (selectedLocation == value)
@@ -93,45 +113,14 @@ namespace Journey.ViewModels
                 RaisePropertyChanged();
                 if (value != null)
                     OnSelectedLocationCommand.Execute(value);
-
             }
         }
-
-
-        #endregion
-
-        #region Methods
-
-        public override async void Intialize()
-        {
-            try
-            {
-                ShowProgress();
-
-                var position = await _locationService.ObtainMyLocationAsync();
-                if (position != null)
-                    Locations = await _facebookService.GetLocationsAsync(Name, position.Lat, position.Lng);
-
-                SelectedLocation = null;
-                base.Intialize();
-            }
-            catch (Exception e)
-            {
-                ExceptionService.HandleAndShowDialog(e);
-            }
-            finally
-            {
-                HideProgress();
-            }
-        }
-
 
         #endregion
 
         #region Commands
 
         #region OnSelectedLocationCommand
-
 
         public DelegateCommand<Location> OnSelectedLocationCommand => new DelegateCommand<Location>(OnSelectedLocation);
 
@@ -140,11 +129,9 @@ namespace Journey.ViewModels
             NavigationService.GoBack(selectedLocation, "Location");
         }
 
-
         #endregion
 
         #region OnSearchCommand
-
 
         //public DelegateCommand OnSearchCommand => new DelegateCommand(OnSearch);
 
@@ -169,11 +156,9 @@ namespace Journey.ViewModels
         //    }
         //}
 
-
         #endregion
 
         #region OnCloseCommand
-
 
         public DelegateCommand OnCloseCommand => new DelegateCommand(OnClose);
 
@@ -182,9 +167,7 @@ namespace Journey.ViewModels
             NavigationService.GoBack();
         }
 
-
         #endregion
-
 
         #endregion
     }

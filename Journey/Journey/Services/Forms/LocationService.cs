@@ -4,6 +4,7 @@ using Abstractions.Exceptions;
 using Abstractions.Models;
 using Abstractions.Services.Contracts;
 using Plugin.Geolocator;
+using Plugin.Geolocator.Abstractions;
 
 namespace Journey.Services.Forms
 {
@@ -42,12 +43,10 @@ namespace Journey.Services.Forms
                 var locator = CrossGeolocator.Current;
                 locator.DesiredAccuracy = 100;
 
-                Plugin.Geolocator.Abstractions.Position position = null;
+                Position position = null;
                 var task = Task.Run(() => locator.GetPositionAsync(TimeSpan.FromSeconds(2), null, true));
                 if (task.Wait(TimeSpan.FromSeconds(2)))
-                {
                     position = task.Result;
-                }
                 if (position == null)
                     position = await locator.GetPositionAsync(TimeSpan.FromSeconds(1), null, true);
 
@@ -55,7 +54,7 @@ namespace Journey.Services.Forms
                 //var locator = CrossGeolocator.Current;
                 //locator.DesiredAccuracy = 50;
 
-                Location loc = new Location
+                var loc = new Location
                 {
                     Lat = position.Latitude,
                     Lng = position.Longitude

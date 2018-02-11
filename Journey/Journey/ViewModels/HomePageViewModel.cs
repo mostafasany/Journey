@@ -32,7 +32,7 @@ namespace Journey.ViewModels
 
         #region Events
 
-        void _postService_PostStatusChangedEventHandler(object sender, PostStatusChangedArgs e)
+        private void _postService_PostStatusChangedEventHandler(object sender, PostStatusChangedArgs e)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace Journey.ViewModels
                         RaisePropertyChanged(nameof(PostsViewModels));
                         HideProgress();
                     }
-                    catch (System.Exception ex)
+                    catch (Exception ex)
                     {
                         ExceptionService.Handle(ex);
                         OnRefreshPosts();
@@ -71,7 +71,6 @@ namespace Journey.ViewModels
                     {
                         HideProgress();
                     }
-
                 }
                 else if (e.Status == PostStatus.CommentsUpdated)
                 {
@@ -119,7 +118,7 @@ namespace Journey.ViewModels
         #region Properties
 
         public Media Image => LoggedInAccount == null
-            ? new Media { Path = "http://bit.ly/2zBffZy" }
+            ? new Media {Path = "http://bit.ly/2zBffZy"}
             : _loggedInAccount.Image;
 
         private Account _loggedInAccount;

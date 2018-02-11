@@ -40,7 +40,6 @@ namespace Journey.Views
 
             if (posts.Count - 2 <= viewCellIndex)
                 _vm.OnGetMorePostsCommand.Execute(null);
-
         }
 
         private void Handle_Focused(object sender, FocusEventArgs e)

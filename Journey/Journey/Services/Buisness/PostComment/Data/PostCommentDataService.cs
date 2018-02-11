@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Models.Post;
@@ -52,11 +51,11 @@ namespace Journey.Services.Buisness.PostComment.Data
                 List<AzurePostComments> comments = null;
                 //// comments = await Client.InvokeApiAsync<List<AzurePostComments>>(api, HttpMethod.Get, null);
                 //if (sync)
-                    //comments = await SyncCommentAsync(post);
+                //comments = await SyncCommentAsync(post);
                 if (comments == null || comments.Count == 0)
                     comments = await azureComment.Where(po => po.Post == post).ToListAsync();
                 //if (comments == null || comments.Count == 0)
-                    //comments = await SyncCommentAsync(post);
+                //comments = await SyncCommentAsync(post);
                 if (comments == null || comments.Count == 0)
                     return null;
 
@@ -87,14 +86,14 @@ namespace Journey.Services.Buisness.PostComment.Data
                 throw new DataServiceException(ex);
             }
         }
-
-        //public async Task<List<AzurePostComments>> SyncCommentAsync(string post)
-        //{
-        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
+        //        await _client.SyncContext.PushAsync();
+        //    {
 
         //    try
-        //    {
-        //        await _client.SyncContext.PushAsync();
+        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
+        //{
+
+        //public async Task<List<AzurePostComments>> SyncCommentAsync(string post)
 
         //        // The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
         //        // Use a different query name for each unique query in your program.

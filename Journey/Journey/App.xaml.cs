@@ -119,7 +119,6 @@ namespace Journey
                 new ContainerControlledLifetimeManager());
             container.RegisterType<IAccountDataService, AccountDataService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IFacebookService, FacebookService>(new ContainerControlledLifetimeManager());
-           
         }
 
         protected override async void OnInitialized()

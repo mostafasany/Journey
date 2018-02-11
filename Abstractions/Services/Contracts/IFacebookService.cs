@@ -10,6 +10,7 @@ namespace Abstractions.Services.Contracts
         //https://stackoverflow.com/questions/17107933/facebook-app-request-not-sending-to-facebook-friends-through-facebook-android-sd
         //https://developers.facebook.com/quickstarts/1066414026732641/?platform=app-links-host
         string FacebookTokenKey { get; }
+
         string FacebookToken { get; set; }
 
         void InviteFriends();

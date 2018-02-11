@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using Xamarin.Forms;
 
 namespace Journey.Models
@@ -32,9 +31,7 @@ namespace Journey.Models
                 //}
                 //else{
                 if (Thumbnail != null && Thumbnail.ToLower().Contains("http"))
-                    {
                     temp = ImageSource.FromUri(new Uri(Thumbnail));
-                    }  
                 //}
 
                 //else

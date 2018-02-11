@@ -35,7 +35,6 @@ namespace Journey.ViewModels
             {
                 PostId = parameters.GetValue<string>("Post") ?? "";
                 Intialize();
-              
             }
             catch (Exception e)
             {

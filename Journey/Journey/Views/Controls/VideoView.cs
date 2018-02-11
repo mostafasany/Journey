@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Plugin.MediaManager;
 using Plugin.MediaManager.Abstractions.Enums;
 using Plugin.MediaManager.Abstractions.Implementations;
 using Xamarin.Forms;
@@ -29,31 +29,31 @@ namespace Journey.Views.Controls
 
         public string Source
         {
-            get { return (string)GetValue(SourceProperty); }
-            set { SetValue(SourceProperty, value); }
+            get => (string) GetValue(SourceProperty);
+            set => SetValue(SourceProperty, value);
         }
 
         public VideoAspectMode AspectMode
         {
-            get { return (VideoAspectMode)GetValue(AspectModeProperty); }
-            set { SetValue(AspectModeProperty, value); }
+            get => (VideoAspectMode) GetValue(AspectModeProperty);
+            set => SetValue(AspectModeProperty, value);
         }
 
         private static void OnAspectModeChanged(BindableObject bindable, object oldvalue, object newvalue)
         {
-            Plugin.MediaManager.CrossMediaManager.Current.VideoPlayer.AspectMode = ((VideoAspectMode)newvalue);
+            CrossMediaManager.Current.VideoPlayer.AspectMode = (VideoAspectMode) newvalue;
         }
 
         private static void OnSourceChanged(BindableObject bindable, object oldvalue, object newvalue)
         {
             var video = new MediaFile
             {
-                Url = (string)newvalue,
+                Url = (string) newvalue,
                 Type = MediaFileType.Video
             };
 
             //Auto play by adding video to the queue and then play
-            Plugin.MediaManager.CrossMediaManager.Current.Play(video);
+            CrossMediaManager.Current.Play(video);
         }
     }
 }

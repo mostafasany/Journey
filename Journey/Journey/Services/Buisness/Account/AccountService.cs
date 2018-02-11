@@ -16,12 +16,12 @@ namespace Journey.Services.Buisness.Account
         private readonly IAccountDataService _accountDataService;
 
         private readonly IDialogService _dialogService;
+        private readonly IFacebookService _facebookService;
         private readonly INavigationService _navigationService;
         private readonly ISettingsService _settingsService;
-        private readonly IFacebookService _facebookService;
 
         public AccountService(IAccountDataService accountDataService, ISettingsService settingsService,
-                              INavigationService navService, IDialogService dialogService,IFacebookService facebookService)
+            INavigationService navService, IDialogService dialogService, IFacebookService facebookService)
         {
             _accountDataService = accountDataService;
             _navigationService = navService;

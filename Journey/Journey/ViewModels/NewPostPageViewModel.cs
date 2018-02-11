@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows.Input;
 using Abstractions.Models;
 using Abstractions.Services.Contracts;
-using Journey.Constants;
 using Journey.Models;
 using Journey.Models.Account;
 using Journey.Models.Post;
@@ -50,8 +49,8 @@ namespace Journey.ViewModels
                 {
                     var location = parameters.GetValue<Location>("Location");
                     if (location != null)
-                        NewPost.Location = new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
-
+                        NewPost.Location =
+                            new PostActivity {Action = "At", Activity = location.Name, Image = location.Image};
                 }
 
                 LoggedInAccount = await _accountService.GetAccountAsync();
@@ -89,7 +88,7 @@ namespace Journey.ViewModels
             set => SetProperty(ref newPost, value);
         }
 
-        private bool addPostToChallenge = false;
+        private bool addPostToChallenge;
 
         public bool AddPostToChallenge
         {
@@ -188,7 +187,7 @@ namespace Journey.ViewModels
                     {
                         new DialogCommand
                         {
-                           Label = AppResource.Yes,
+                            Label = AppResource.Yes,
                             Invoked = Post
                         },
                         new DialogCommand
@@ -255,12 +254,12 @@ namespace Journey.ViewModels
                         new DialogCommand
                         {
                             Label = AppResource.Camera,
-                        Invoked = async () => { AddMedia(await _mediaService.TakePhotoAsync()); }
+                            Invoked = async () => { AddMedia(await _mediaService.TakePhotoAsync()); }
                         },
                         new DialogCommand
                         {
-                        Label = AppResource.Video,
-                        Invoked = async () => { AddMedia(await _mediaService.TakeVideoAsync()); }
+                            Label = AppResource.Video,
+                            Invoked = async () => { AddMedia(await _mediaService.TakeVideoAsync()); }
                         },
                         new DialogCommand
                         {
@@ -285,7 +284,6 @@ namespace Journey.ViewModels
             var list = NewPost.MediaList.ToList();
             list.Add(media);
             NewPost.MediaList = new ObservableCollection<Media>(list);
-
         }
 
         #endregion
@@ -310,8 +308,8 @@ namespace Journey.ViewModels
         private DelegateCommand _onGalleryDetailsCommand;
 
         public DelegateCommand OnGalleryDetailsCommand => _onGalleryDetailsCommand ??
-                                                                  (_onGalleryDetailsCommand =
-                                                                      new DelegateCommand(OnGalleryDetails));
+                                                          (_onGalleryDetailsCommand =
+                                                              new DelegateCommand(OnGalleryDetails));
 
         private async void OnGalleryDetails()
         {

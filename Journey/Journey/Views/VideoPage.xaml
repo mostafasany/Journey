@@ -1,17 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.VideoPage">
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls"
+                xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.VideoPage">
     <ContentPage.Content>
         <Grid RowSpacing="0" Margin="10,20" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Controls:ImageControl Grid.Row="0" PortablePath="clear.png" Style="{StaticResource IconStyle}" HorizontalOptions="End">
+            <Controls:ImageControl Grid.Row="0" PortablePath="clear.png" Style="{StaticResource IconStyle}"
+                                   HorizontalOptions="End">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
                 </Image.GestureRecognizers>
             </Controls:ImageControl>
-            <Controls:VideoView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Source="{Binding Media.Path}" AspectMode="AspectFill" />
+            <Controls:VideoView Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                Source="{Binding Media.Path}" AspectMode="AspectFill" />
         </Grid>
     </ContentPage.Content>
 </local:BasePage>
