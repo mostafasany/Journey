@@ -11,6 +11,7 @@ using Journey.Constants;
 using Journey.Services.Azure;
 using FFImageLoading.Forms.Touch;
 using FFImageLoading.Transformations;
+using Journey.iOS.Renderers;
 
 namespace Journey.iOS
 {
@@ -35,7 +36,7 @@ namespace Journey.iOS
 
             App.Init(this);
             CachedImageRenderer.Init();
-
+            VideoViewRenderer.Init();
             //https://github.com/luberda-molinet/FFImageLoading/issues/462
             var ignore = new CircleTransformation();
             LoadApplication(new App(new IosInitializer()));
