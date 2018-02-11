@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using Abstractions.Exceptions;
 using Journey.Models;
 using Journey.Models.Post;
@@ -11,6 +12,7 @@ namespace Journey.Services.Buisness.Post.Translators
 {
     public static class PostDataTranslators
     {
+        private const string VideoPlaceHolderPath = "http://bit.ly/2EiCAic";
         #region Transaltors
 
         public static AzurePost TranslatePost(Models.Post.Post post, string account, List<string> images)
@@ -47,7 +49,7 @@ namespace Journey.Services.Buisness.Post.Translators
                     Id = post.Account,
                     LastName = post.Lname,
                     FirstName = post.Fname,
-                    Image = new Media {Path = post.Profile}
+                    Image = new Media { Path = post.Profile }
                 };
                 postDto.LikesCount = post.Likes;
                 postDto.SharesCount = post.Shares;
@@ -82,7 +84,13 @@ namespace Journey.Services.Buisness.Post.Translators
                     {
                         postDto.MediaList = new ObservableCollection<Media>();
                         foreach (var image in images)
-                            postDto.MediaList.Add(new Media {Path = image,Thumbnail=image});
+                            postDto.MediaList.Add(new Media
+                            {
+                                Path = image,
+                                Ext = Path.GetExtension(image),
+                                Type = Path.GetExtension(image) == ".mp4" ? MediaType.Video : MediaType.Image,
+                                Thumbnail = Path.GetExtension(image) == ".mp4" ? VideoPlaceHolderPath : image,
+                            });
                     }
                 }
                 catch (Exception ex)
@@ -141,7 +149,7 @@ namespace Journey.Services.Buisness.Post.Translators
                     {
                         FirstName = comment.Fname,
                         LastName = comment.Lname,
-                        Image = new Media {Path = comment.Profile}
+                        Image = new Media { Path = comment.Profile }
                     };
                     commentDto.CommentText = comment.Comment;
                     commentDto.PostId = comment.Post;

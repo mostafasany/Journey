@@ -185,8 +185,6 @@ namespace Journey.ViewModels
                 {
                     var id = Guid.NewGuid();
                     var ex = LoggedInAccount.Image.Ext;
-                    if (string.IsNullOrEmpty(ex))
-                        ex = Constant.DefaultImageExt;
                     var fileName = string.Format("{0}{1}", id, ex);
                     var path = await _blobService.UploadAsync(LoggedInAccount.Image.SourceArray, fileName);
                     LoggedInAccount.Image.Path = path;

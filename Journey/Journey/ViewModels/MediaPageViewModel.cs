@@ -99,6 +99,28 @@ namespace Journey.ViewModels
 
         #region Commands
 
+        #region OnGalleryDetailsCommand
+
+        private DelegateCommand<Media> _onGalleryDetailsCommand;
+
+        public DelegateCommand<Media> OnGalleryDetailsCommand => _onGalleryDetailsCommand ??
+                                                                  (_onGalleryDetailsCommand =
+                                                                   new DelegateCommand<Media>(OnGalleryDetails));
+
+        private async void OnGalleryDetails(Media media)
+        {
+            try
+            {
+               // await NavigationService.Navigate("MediaPage", NewPost.MediaList, "Media");
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.HandleAndShowDialog(ex);
+            }
+        }
+
+        #endregion
+
         #region OnCloseCommand
 
         public DelegateCommand OnCloseCommand => new DelegateCommand(OnClose);

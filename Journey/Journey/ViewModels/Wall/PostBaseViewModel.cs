@@ -178,7 +178,7 @@ namespace Journey.ViewModels.Wall
             {
                 var isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
-                    await NavigationService.Navigate("NewCommentPage", _post.Id,"Post");
+                    await NavigationService.Navigate("NewCommentPage", _post.Id, "Post");
             }
             catch (Exception ex)
             {
@@ -237,7 +237,7 @@ namespace Journey.ViewModels.Wall
             try
             {
                 if (_post.MediaList.Any())
-                    await NavigationService.Navigate("MediaPage", _post.MediaList,"Media");
+                    await NavigationService.Navigate("MediaPage", _post.MediaList, "Media");
             }
             catch (Exception ex)
             {

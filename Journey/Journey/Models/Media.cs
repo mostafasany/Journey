@@ -23,22 +23,32 @@ namespace Journey.Models
             get
             {
                 ImageSource temp = null;
-                if (Path != null && Path.ToLower().Contains("http"))
-                {
-                    temp = ImageSource.FromUri(new Uri(Path));
-                }
-                else
-                {
-                    if (SourceArray != null)
+                //if(Type==MediaType.Video)
+                //{
+                //    if (Th != null && Path.ToLower().Contains("http"))
+                //    {
+                //        temp = ImageSource.FromUri(new Uri(Path));
+                //    }
+                //}
+                //else{
+                if (Thumbnail != null && Thumbnail.ToLower().Contains("http"))
                     {
-                        var stream = new MemoryStream(SourceArray);
-                        temp = ImageSource.FromStream(() => stream);
-                    }
-                    //else if(TempSource!=null)
-                    //{
-                    //  return TempSource;
-                    //}
-                }
+                    temp = ImageSource.FromUri(new Uri(Thumbnail));
+                    }  
+                //}
+
+                //else
+                //{
+                //    if (SourceArray != null)
+                //    {
+                //        var stream = new MemoryStream(SourceArray);
+                //        temp = ImageSource.FromStream(() => stream);
+                //    }
+                //    //else if(TempSource!=null)
+                //    //{
+                //    //  return TempSource;
+                //    //}
+                //}
                 return temp;
             }
         }

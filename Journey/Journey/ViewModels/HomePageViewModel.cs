@@ -27,7 +27,7 @@ namespace Journey.ViewModels
         {
             _postService = postService;
             _accountService = accountService;
-            _postService.PostStatusChangedEventHandler+=_postService_PostStatusChangedEventHandler;
+            _postService.PostStatusChangedEventHandler += _postService_PostStatusChangedEventHandler;
         }
 
         #region Events

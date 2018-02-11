@@ -5,7 +5,11 @@
             <DataTemplate x:Key="MediaTemplate">
                 <Controls:UnSelectableViewCell>
                     <ViewCell.View>
-                        <Controls:CustomImage Margin="0,0,0,5" Source="{Binding Thumbnail}" WidthRequest="500" HeightRequest="300" Aspect="AspectFill" VerticalOptions="Fill" HorizontalOptions="Fill" />
+                        <Controls:CustomImage Margin="0,0,0,5" Source="{Binding Thumbnail}" WidthRequest="500" HeightRequest="300" Aspect="AspectFill" VerticalOptions="Fill" HorizontalOptions="Fill">
+                            <Controls:CustomImage.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Path=BindingContext.OnGalleryDetailsCommand, Source={x:Reference Name=parent}}" CommandParameter="{Binding}" />
+                            </Controls:CustomImage.GestureRecognizers>
+                        </Controls:CustomImage>
                     </ViewCell.View>
                 </Controls:UnSelectableViewCell>
             </DataTemplate>
@@ -22,7 +26,7 @@
                     <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
                 </Image.GestureRecognizers>
             </Controls:ImageControl>
-            <ListView Grid.Row="1" HasUnevenRows="true" ItemTemplate="{StaticResource MediaTemplate}" BackgroundColor="White" ItemsSource="{Binding MediaList}" HorizontalOptions="Fill" />
+            <ListView Grid.Row="1" x:Name="parent" HasUnevenRows="true" ItemTemplate="{StaticResource MediaTemplate}" BackgroundColor="White" ItemsSource="{Binding MediaList}" HorizontalOptions="Fill" />
         </Grid>
     </ContentPage.Content>
 </local:BasePage>
