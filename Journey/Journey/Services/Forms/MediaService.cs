@@ -68,7 +68,7 @@ namespace Journey.Services.Forms
             try
             {
                 var media = await CrossMedia.Current.TakePhotoAsync(
-                    new StoreCameraMediaOptions {AllowCropping = true, CompressionQuality = 92});
+                    new StoreCameraMediaOptions {AllowCropping = true, CompressionQuality = 92,});
                 var stream = media.GetStream();
                 var array = ReadFully(stream);
                 var image = new Media

@@ -268,7 +268,7 @@ namespace Journey.ViewModels
                     };
 
                 await DialogService.ShowMessageAsync("", AppResource.NewPost_UploadMedia,
-                    commands);
+                  commands);
             }
             catch (Exception ex)
             {
