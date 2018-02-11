@@ -1,12 +1,45 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:local="clr-namespace:Journey.Views"
-                xmlns:Controls="clr-namespace:Journey.Views.Controls"
-                xmlns:resources="clr-namespace:Journey.Resources"
-                x:Class="Journey.Views.ChooseLocationPage">
+<?xml version="1.0" encoding="utf-8"?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.ChooseLocationPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="LocationTemplate">
+                <Controls:UnSelectableViewCell>
+                    <ViewCell.View>
+                        <Grid Padding="5" BackgroundColor="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="{Binding Image.Path}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="70" HeightRequest="70" />
+                            <StackLayout Grid.Column="1">
+                                <Label Text="{Binding Name}" TextColor="Black" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
+                                <Label Text="{Binding NearFormated}" TextColor="Gray" FontSize="12" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell.View>
+                </Controls:UnSelectableViewCell>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-
+        <Grid RowSpacing="0" Margin="10,20,10,40">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Controls:ImageControl Grid.Column="0" PortablePath="clear.png" Style="{StaticResource IconStyle}" Margin="5,0">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
+                    </Image.GestureRecognizers>
+                </Controls:ImageControl>
+                </Grid>
+            <ListView Grid.Row="1" SeparatorVisibility="None" RowHeight="80" ItemTemplate="{StaticResource LocationTemplate}" BackgroundColor="White" ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedLocation,Mode=TwoWay}" HorizontalOptions="Start" />
+            <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
+        </Grid>
     </ContentPage.Content>
 </local:BasePage>

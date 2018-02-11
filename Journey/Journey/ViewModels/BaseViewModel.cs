@@ -38,7 +38,7 @@ namespace Journey.ViewModels
         public bool IsLoading
         {
             get => _isLoading;
-            private set
+            set
             {
                 SetProperty(ref _isLoading, value);
                 RaisePropertyChanged(nameof(IsNotLoading));
@@ -48,14 +48,14 @@ namespace Journey.ViewModels
 
         public bool IsNotLoading => !IsLoading;
 
-        protected void ShowProgress()
-        {
-            IsLoading = true;
-        }
-
         protected bool IsProgress()
         {
             return IsLoading;
+        }
+
+        protected void ShowProgress()
+        {
+            IsLoading = true;
         }
 
         protected void HideProgress()

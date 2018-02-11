@@ -15,7 +15,7 @@ namespace Journey.Views
             InitializeComponent();
             var tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.Tapped += TapGestureRecognizer_Tapped;
-            img.GestureRecognizers.Add(tapGestureRecognizer);
+            //img.GestureRecognizers.Add(tapGestureRecognizer);
         }
 
         protected override void OnAppearing()
@@ -40,6 +40,7 @@ namespace Journey.Views
 
             if (posts.Count - 2 <= viewCellIndex)
                 _vm.OnGetMorePostsCommand.Execute(null);
+
         }
 
         private void Handle_Focused(object sender, FocusEventArgs e)

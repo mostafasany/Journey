@@ -32,6 +32,7 @@ namespace Journey.ViewModels
             _postService = postService;
             _blobService = blobService;
             _accountService = accountService;
+            NewPost = new Post();
         }
 
         #region Events
@@ -79,7 +80,7 @@ namespace Journey.ViewModels
             set => SetProperty(ref newPost, value);
         }
 
-        private bool addPostToChallenge = true;
+        private bool addPostToChallenge = false;
 
         public bool AddPostToChallenge
         {
@@ -187,7 +188,7 @@ namespace Journey.ViewModels
                         }
                     };
 
-                await DialogService.ShowMessageAsync("Are you sure to Post", "",
+                await DialogService.ShowMessageAsync("", "Are you sure to Post",
                     commands);
             }
             catch (Exception ex)
@@ -196,7 +197,7 @@ namespace Journey.ViewModels
             }
             finally
             {
-                ShowProgress();
+                HideProgress();
             }
         }
 
@@ -325,7 +326,7 @@ namespace Journey.ViewModels
                 else if (media is Media)
                     mList.Add(media as Media);
 
-                await NavigationService.Navigate("MediaPage", mList);
+                await NavigationService.Navigate("MediaPage", mList,"Media");
             }
             catch (Exception ex)
             {
@@ -354,6 +355,17 @@ namespace Journey.ViewModels
             {
                 ExceptionService.Handle(ex);
             }
+        }
+
+        #endregion
+
+        #region OnCloseCommand
+
+        public DelegateCommand OnCloseCommand => new DelegateCommand(OnClose);
+
+        private async void OnClose()
+        {
+            NavigationService.GoBack();
         }
 
         #endregion

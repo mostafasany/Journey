@@ -105,7 +105,7 @@ namespace Journey.ViewModels
 
         private async void OnClose()
         {
-            //NavigationService.PopModalAsync();
+            NavigationService.GoBack();
         }
 
         #endregion

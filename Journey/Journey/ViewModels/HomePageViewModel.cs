@@ -37,13 +37,12 @@ namespace Journey.ViewModels
         {
             try
             {
-                ShowProgress();
                 IsPullRefreshLoading = false;
                 Intialize();
             }
             catch (Exception ex)
             {
-                ExceptionService.Handle(ex);
+                ExceptionService.HandleAndShowDialog(ex);
             }
         }
 
@@ -56,7 +55,7 @@ namespace Journey.ViewModels
         #region Properties
 
         public Media Image => LoggedInAccount == null
-            ? new Media {Path = "http://bit.ly/2zBffZy"}
+            ? new Media { Path = "http://bit.ly/2zBffZy" }
             : _loggedInAccount.Image;
 
         private Account _loggedInAccount;
@@ -320,7 +319,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                ShowProgress();
+                // ShowProgress();
                 _pageNo++;
                 var nextPageItems = await _postService.GetPostsAsync(_pageNo);
                 if (nextPageItems != null && nextPageItems.Count > 0)
@@ -335,7 +334,7 @@ namespace Journey.ViewModels
             }
             finally
             {
-                HideProgress();
+                //HideProgress();
             }
         }
 

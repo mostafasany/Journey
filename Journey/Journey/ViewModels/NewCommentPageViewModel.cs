@@ -34,7 +34,8 @@ namespace Journey.ViewModels
             try
             {
                 PostId = parameters.GetValue<string>("Post") ?? "";
-                LoggedInAccount = await _accountService.GetAccountAsync();
+                Intialize();
+              
             }
             catch (Exception e)
             {
@@ -98,12 +99,18 @@ namespace Journey.ViewModels
 
         #region Methods
 
-        public override void Intialize()
+        public override async void Intialize()
         {
             try
             {
                 ShowProgress();
                 base.Intialize();
+                LoggedInAccount = await _accountService.GetAccountAsync();
+                Comments = new System.Collections.ObjectModel.ObservableCollection<Comment>();
+
+                var postDTo = await _postCommentService.GetCommentsAsync(PostId, true);
+                if (postDTo != null)
+                    Comments = new System.Collections.ObjectModel.ObservableCollection<Comment>(postDTo);
             }
             catch (Exception e)
             {
@@ -172,7 +179,7 @@ namespace Journey.ViewModels
 
         private async void OnClose()
         {
-            //NavigationService.PopModalAsync();
+            NavigationService.GoBack();
         }
 
         #endregion

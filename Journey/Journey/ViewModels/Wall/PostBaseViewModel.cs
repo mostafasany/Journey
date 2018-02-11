@@ -88,7 +88,7 @@ namespace Journey.ViewModels.Wall
                         cancelCommand
                     };
 
-                    await DialogService.ShowMessageAsync("What action you need", "", commands);
+                    await DialogService.ShowMessageAsync("", "What action you need", commands);
                 }
             }
             catch (Exception ex)
@@ -178,7 +178,7 @@ namespace Journey.ViewModels.Wall
             {
                 var isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
-                    await NavigationService.Navigate("CommentPage", _post.Id);
+                    await NavigationService.Navigate("NewCommentPage", _post.Id,"Post");
             }
             catch (Exception ex)
             {
@@ -237,7 +237,7 @@ namespace Journey.ViewModels.Wall
             try
             {
                 if (_post.MediaList.Any())
-                    await NavigationService.Navigate("MediaPage", _post.MediaList);
+                    await NavigationService.Navigate("MediaPage", _post.MediaList,"Media");
             }
             catch (Exception ex)
             {
