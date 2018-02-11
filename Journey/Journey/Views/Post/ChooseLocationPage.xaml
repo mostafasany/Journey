@@ -27,17 +27,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Controls:ImageControl Grid.Column="0" PortablePath="clear.png" Style="{StaticResource IconStyle}" HorizontalOptions="End" Margin="5,0">
+            <Controls:ImageControl  PortablePath="clear.png" Style="{StaticResource IconStyle}" HorizontalOptions="End" Margin="5,0">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
                     </Image.GestureRecognizers>
                 </Controls:ImageControl>
-                </Grid>
             <ListView Grid.Row="1" SeparatorVisibility="None" RowHeight="80" ItemTemplate="{StaticResource LocationTemplate}" BackgroundColor="White" ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedLocation,Mode=TwoWay}" HorizontalOptions="Start" />
             <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
         </Grid>

@@ -49,8 +49,8 @@ namespace Journey.ViewModels
                 if (parameters.GetNavigationMode() == NavigationMode.Back)
                 {
                     var location = parameters.GetValue<Location>("Location");
-                    if(location!=null)
-                    NewPost.Location = new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
+                    if (location != null)
+                        NewPost.Location = new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
 
                 }
 
@@ -188,7 +188,7 @@ namespace Journey.ViewModels
                     {
                         new DialogCommand
                         {
-                            Label = "Yes",
+                           Label = AppResource.Yes,
                             Invoked = Post
                         },
                         new DialogCommand
@@ -197,7 +197,7 @@ namespace Journey.ViewModels
                         }
                     };
 
-                await DialogService.ShowMessageAsync("", "Are you sure to Post",
+                await DialogService.ShowMessageAsync("", AppResource.NewPost_NewPostMessage,
                     commands);
             }
             catch (Exception ex)
@@ -231,7 +231,7 @@ namespace Journey.ViewModels
             var post = await _postService.AddPostAsync(NewPost, imagesPath);
             if (post == null)
             {
-                await DialogService.ShowMessageAsync("Error", "Error while uploading your post");
+                await DialogService.ShowMessageAsync(AppResource.Error, AppResource.NewPost_NewPostError);
                 return;
             }
             // SelectedActivity = null;
@@ -265,7 +265,7 @@ namespace Journey.ViewModels
                         },
                         new DialogCommand
                         {
-                            Label = "Video",
+                        Label = AppResource.Video,
                         Invoked = async () => { AddMedia(await _mediaService.TakeVideoAsync()); }
                         },
                         new DialogCommand
@@ -274,30 +274,24 @@ namespace Journey.ViewModels
                         }
                     };
 
-                await DialogService.ShowMessageAsync(AppResource.UploadPhoto_Message, AppResource.UploadPhoto_Title,
+                await DialogService.ShowMessageAsync("", AppResource.NewPost_UploadMedia,
                     commands);
             }
             catch (Exception ex)
             {
-                ExceptionService.Handle(ex);
+                ExceptionService.HandleAndShowDialog(ex);
             }
         }
 
         private void AddMedia(Media media)
         {
-            try
-            {
-                if (NewPost.MediaList == null)
-                    NewPost.MediaList = new ObservableCollection<Media>();
+            if (NewPost.MediaList == null)
+                NewPost.MediaList = new ObservableCollection<Media>();
 
-                var list = NewPost.MediaList.ToList();
-                list.Add(media);
-                NewPost.MediaList = new ObservableCollection<Media>(list);
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.Handle(ex);
-            }
+            var list = NewPost.MediaList.ToList();
+            list.Add(media);
+            NewPost.MediaList = new ObservableCollection<Media>(list);
+
         }
 
         #endregion
@@ -329,12 +323,11 @@ namespace Journey.ViewModels
         {
             try
             {
-               
                 await NavigationService.Navigate("MediaPage", NewPost.MediaList, "Media");
             }
             catch (Exception ex)
             {
-                ExceptionService.Handle(ex);
+                ExceptionService.HandleAndShowDialog(ex);
             }
         }
 
@@ -357,7 +350,7 @@ namespace Journey.ViewModels
             }
             catch (Exception ex)
             {
-                ExceptionService.Handle(ex);
+                ExceptionService.HandleAndShowDialog(ex);
             }
         }
 

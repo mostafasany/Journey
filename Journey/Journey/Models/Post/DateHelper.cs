@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Journey.Resources;
 
 namespace Journey.Models.Post
 {
@@ -15,9 +16,9 @@ namespace Journey.Models.Post
         public static string GiveMeADateTime(this DateTime date)
         {
             if (date == DateTime.Now)
-                return "Today";
+                return AppResource.Date_Today;
             if (date == DateTime.Now.AddDays(1))
-                return "Tomorrow";
+                return AppResource.Date_Tomorrow;
             return string.Format("({0}) {1}", date.DayOfWeek.ToString().Substring(0, 3), date.ToString("dd/M/yy"));
         }
 
@@ -28,24 +29,24 @@ namespace Journey.Models.Post
                 var years = timesince.Days / 365;
                 if (timesince.Days % 365 != 0)
                     years += 1;
-                return $"{years} {(years == 1 ? "year" : "years")} ago";
+                return $"{years} {(years == 1 ? AppResource.Date_Year : AppResource.Date_Years)} {AppResource.Date_Ago}";
             }
             if (timesince.Days > 30)
             {
                 var months = timesince.Days / 30;
                 if (timesince.Days % 31 != 0)
                     months += 1;
-                return $"{months} {(months == 1 ? "month" : "months")} ago";
+                return $"{months} {(months == 1 ? AppResource.Date_Month : AppResource.Date_Months)} {AppResource.Date_Ago}";
             }
             if (timesince.Days > 0)
-                return $"{timesince.Days} {(timesince.Days == 1 ? "day" : "days")} ago";
+                return $"{timesince.Days} {(timesince.Days == 1 ? AppResource.Date_Day : AppResource.Date_Days)} {AppResource.Date_Ago}";
             if (timesince.Hours > 0)
-                return $"{timesince.Hours} {(timesince.Hours == 1 ? "hour" : "hours")} ago";
+                return $"{timesince.Hours} {(timesince.Hours == 1 ? AppResource.Date_Hour : AppResource.Date_Hours)} {AppResource.Date_Ago}";
             if (timesince.Minutes > 0)
-                return $"{timesince.Minutes} {(timesince.Minutes == 1 ? "minute" : "minutes")} ago";
+                return $"{timesince.Minutes} {(timesince.Minutes == 1 ? AppResource.Date_Minute : AppResource.Date_Minutes)} {AppResource.Date_Ago}";
             if (timesince.Seconds > 5)
-                return $"{timesince.Seconds} seconds ago";
-            return "just now";
+                return $"{timesince.Seconds} {AppResource.Date_Seconds} {AppResource.Date_Ago}";
+            return AppResource.Date_JustNow;
         }
 
         public static string Format(double seconds)

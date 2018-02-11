@@ -131,6 +131,24 @@ namespace Journey.Resources {
             }
         }
         
+        internal static string Video {
+            get {
+                return ResourceManager.GetString("Video", resourceCulture);
+            }
+        }
+        
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
         internal static string Gallery {
             get {
                 return ResourceManager.GetString("Gallery", resourceCulture);
@@ -152,6 +170,132 @@ namespace Journey.Resources {
         internal static string UploadPhoto_Message {
             get {
                 return ResourceManager.GetString("UploadPhoto_Message", resourceCulture);
+            }
+        }
+        
+        internal static string NewPost_NewPostMessage {
+            get {
+                return ResourceManager.GetString("NewPost_NewPostMessage", resourceCulture);
+            }
+        }
+        
+        internal static string NewPost_NewPostError {
+            get {
+                return ResourceManager.GetString("NewPost_NewPostError", resourceCulture);
+            }
+        }
+        
+        internal static string NewPost_UploadMedia {
+            get {
+                return ResourceManager.GetString("NewPost_UploadMedia", resourceCulture);
+            }
+        }
+        
+        internal static string NewPost_NewPostFeedPlaceholder {
+            get {
+                return ResourceManager.GetString("NewPost_NewPostFeedPlaceholder", resourceCulture);
+            }
+        }
+        
+        internal static string Home_WelcomeMessage_Login {
+            get {
+                return ResourceManager.GetString("Home_WelcomeMessage_Login", resourceCulture);
+            }
+        }
+        
+        internal static string Home_WelcomeMessage_Logout {
+            get {
+                return ResourceManager.GetString("Home_WelcomeMessage_Logout", resourceCulture);
+            }
+        }
+        
+        internal static string Date_Year {
+            get {
+                return ResourceManager.GetString("Date_Year", resourceCulture);
+            }
+        }
+        
+        internal static string Date_Years {
+            get {
+                return ResourceManager.GetString("Date_Years", resourceCulture);
+            }
+        }
+        
+        internal static string Date_Month {
+            get {
+                return ResourceManager.GetString("Date_Month", resourceCulture);
+            }
+        }
+        
+        internal static string Date_Months {
+            get {
+                return ResourceManager.GetString("Date_Months", resourceCulture);
+            }
+        }
+        
+        internal static string Date_Day {
+            get {
+                return ResourceManager.GetString("Date_Day", resourceCulture);
+            }
+        }
+        
+        internal static string Date_Days {
+            get {
+                return ResourceManager.GetString("Date_Days", resourceCulture);
+            }
+        }
+        
+        internal static string Date_Hour {
+            get {
+                return ResourceManager.GetString("Date_Hour", resourceCulture);
+            }
+        }
+        
+        internal static string Date_Hours {
+            get {
+                return ResourceManager.GetString("Date_Hours", resourceCulture);
+            }
+        }
+        
+        internal static string Date_Minute {
+            get {
+                return ResourceManager.GetString("Date_Minute", resourceCulture);
+            }
+        }
+        
+        internal static string Date_Minutes {
+            get {
+                return ResourceManager.GetString("Date_Minutes", resourceCulture);
+            }
+        }
+        
+        internal static string Date_Seconds {
+            get {
+                return ResourceManager.GetString("Date_Seconds", resourceCulture);
+            }
+        }
+        
+        internal static string Date_JustNow {
+            get {
+                return ResourceManager.GetString("Date_JustNow", resourceCulture);
+            }
+        }
+        
+        internal static string Date_Today {
+            get {
+                return ResourceManager.GetString("Date_Today", resourceCulture);
+            }
+        }
+        
+        internal static string Date_Tomorrow {
+            get {
+                return ResourceManager.GetString("Date_Tomorrow", resourceCulture);
+            }
+        }
+        
+        internal static string Date_Ago {
+            get {
+                return ResourceManager.GetString("Date_Ago", resourceCulture);
             }
         }
     }

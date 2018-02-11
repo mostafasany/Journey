@@ -53,7 +53,7 @@
                     <Picker Grid.Column="1" WidthRequest="200" ItemsSource="{Binding SelectedActivity.ActivityList}"
                             SelectedItem="{Binding SelectedSubActivity,Mode=TwoWay}" HorizontalOptions="Start" />
                 </Grid>-->
-                <Label Grid.Row="1" Margin="5,5" Text="Say something about these photos" />
+                <Label Grid.Row="1" Margin="5,5" Text="{resources:Translate NewPost_NewPostFeedPlaceholder}" />
                 <Editor Grid.Row="2" Text="{Binding NewPost.Feed}" Style="{StaticResource EditorFormStyle}" />
                 <!--  <Grid Grid.Row="4" IsVisible="{Binding LoggedInAccount.HasActiveChallenge}" Margin="5,0">
                     <Grid.ColumnDefinitions>

@@ -106,11 +106,11 @@ namespace Journey.ViewModels
                 ShowProgress();
                 base.Intialize();
                 LoggedInAccount = await _accountService.GetAccountAsync();
-                Comments = new System.Collections.ObjectModel.ObservableCollection<Comment>();
+                Comments = new ObservableCollection<Comment>();
 
                 var postDTo = await _postCommentService.GetCommentsAsync(PostId, true);
                 if (postDTo != null)
-                    Comments = new System.Collections.ObjectModel.ObservableCollection<Comment>(postDTo);
+                    Comments = new ObservableCollection<Comment>(postDTo);
             }
             catch (Exception e)
             {
@@ -163,7 +163,7 @@ namespace Journey.ViewModels
             }
             catch (Exception ex)
             {
-                ExceptionService.Handle(ex);
+                ExceptionService.HandleAndShowDialog(ex);
             }
             finally
             {

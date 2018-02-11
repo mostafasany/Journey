@@ -28,7 +28,7 @@ namespace Journey.ViewModels
         {
         }
 
-        public void OnNavigatedTo(NavigationParameters parameters)
+        public async void OnNavigatedTo(NavigationParameters parameters)
         {
             try
             {
@@ -107,12 +107,11 @@ namespace Journey.ViewModels
             try
             {
                 ShowProgress();
-               
+
                 var position = await _locationService.ObtainMyLocationAsync();
                 if (position != null)
                     Locations = await _facebookService.GetLocationsAsync(Name, position.Lat, position.Lng);
 
-                // originalLocations = Locations;
                 SelectedLocation = null;
                 base.Intialize();
             }
@@ -126,7 +125,7 @@ namespace Journey.ViewModels
             }
         }
 
-       
+
         #endregion
 
         #region Commands
@@ -138,7 +137,7 @@ namespace Journey.ViewModels
 
         private async void OnSelectedLocation(Location selectedLocation)
         {
-            NavigationService.GoBack(selectedLocation,"Location");
+            NavigationService.GoBack(selectedLocation, "Location");
         }
 
 
@@ -186,7 +185,7 @@ namespace Journey.ViewModels
 
         #endregion
 
-       
+
         #endregion
     }
 }

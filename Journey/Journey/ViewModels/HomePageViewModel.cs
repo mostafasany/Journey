@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Journey.Models;
 using Journey.Models.Account;
 using Journey.Models.Post;
+using Journey.Resources;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Post;
 using Journey.ViewModels.Wall;
@@ -25,9 +27,71 @@ namespace Journey.ViewModels
         {
             _postService = postService;
             _accountService = accountService;
+            _postService.PostStatusChangedEventHandler+=_postService_PostStatusChangedEventHandler;
         }
 
         #region Events
+
+        void _postService_PostStatusChangedEventHandler(object sender, PostStatusChangedArgs e)
+        {
+            try
+            {
+                if (e.Status == PostStatus.InProgress)
+                {
+                    ShowProgress();
+                    return;
+                }
+
+                if (e.Post == null || string.IsNullOrEmpty(e.Post.Id))
+                    return;
+
+                var postVM = PostsViewModels.FirstOrDefault(a => a.Post.Id == e.Post.Id);
+                if (e.Status == PostStatus.Deleted)
+                {
+                    PostsViewModels.Remove(postVM);
+                    HideProgress();
+                }
+                else if (e.Status == PostStatus.Added)
+                {
+                    try
+                    {
+                        //TODO:Sometimes It Crashed if i removed isrefresh from add post service
+                        e.Post.Account = LoggedInAccount;
+                        var pVm = PostToPostViewModel(e.Post);
+                        PostsViewModels.Insert(0, pVm);
+                        RaisePropertyChanged(nameof(PostsViewModels));
+                        HideProgress();
+                    }
+                    catch (System.Exception ex)
+                    {
+                        ExceptionService.Handle(ex);
+                        OnRefreshPosts();
+                    }
+                    finally
+                    {
+                        HideProgress();
+                    }
+
+                }
+                else if (e.Status == PostStatus.CommentsUpdated)
+                {
+                    var index = PostsViewModels.IndexOf(postVM);
+                    if (index >= 0)
+                    {
+                        if (postVM.Post != null)
+                            postVM.Post.CommentsCount++;
+                        PostsViewModels[index] = postVM;
+                    }
+
+                    HideProgress();
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.HandleAndShowDialog(ex);
+                HideProgress();
+            }
+        }
 
         public void OnNavigatedFrom(NavigationParameters parameters)
         {
@@ -76,8 +140,8 @@ namespace Journey.ViewModels
             get
             {
                 if (!string.IsNullOrEmpty(_loggedInAccount?.FirstName))
-                    return LoggedInAccount.FirstName + ", Want to share an update";
-                return "Login to share an update";
+                    return string.Format(AppResource.Home_WelcomeMessage_Login, LoggedInAccount.FirstName);
+                return AppResource.Home_WelcomeMessage_Logout;
             }
         }
 

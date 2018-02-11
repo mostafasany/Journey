@@ -5,14 +5,14 @@
             <DataTemplate x:Key="MediaTemplate">
                 <Controls:UnSelectableViewCell>
                     <ViewCell.View>
-                        <Image Margin="0,0,0,5" Source="{Binding Thumbnail}" WidthRequest="500" HeightRequest="300" Aspect="AspectFill" VerticalOptions="Fill" HorizontalOptions="Fill" />
+                        <Controls:CustomImage Margin="0,0,0,5" Source="{Binding Thumbnail}" WidthRequest="500" HeightRequest="300" Aspect="AspectFill" VerticalOptions="Fill" HorizontalOptions="Fill" />
                     </ViewCell.View>
                 </Controls:UnSelectableViewCell>
             </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid RowSpacing="0" Margin="10,40,10,40">
+        <Grid RowSpacing="0" Margin="10,20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
