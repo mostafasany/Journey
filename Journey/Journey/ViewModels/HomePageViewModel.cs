@@ -118,7 +118,7 @@ namespace Journey.ViewModels
         #region Properties
 
         public Media Image => LoggedInAccount == null
-            ? new Media {Path = "http://bit.ly/2zBffZy"}
+            ? new Media { Path = "http://bit.ly/2zBffZy" }
             : _loggedInAccount.Image;
 
         private Account _loggedInAccount;
@@ -153,6 +153,7 @@ namespace Journey.ViewModels
         }
 
         public bool IsLoggedOut => LoggedInAccount == null;
+        public bool IsLoggedIn => LoggedInAccount != null;
 
         private ObservableCollection<PostBaseViewModel> _postsViewModels;
 
@@ -211,13 +212,13 @@ namespace Journey.ViewModels
 
         private async Task LoadPosts()
         {
-            if (_postService.RefreshPosts)
-            {
-                _pageNo = 0;
+            //if (_postService.RefreshPosts)
+            //{
+            _pageNo = 0;
 
-                var postsList = await _postService.GetPostsAsync(_pageNo, null, _postService.RefreshPosts);
-                SetPostViewModel(postsList);
-            }
+            var postsList = await _postService.GetPostsAsync(_pageNo, null, _postService.RefreshPosts);
+            SetPostViewModel(postsList);
+            //}
         }
 
         private void SetPostViewModel(List<PostBase> posts)
@@ -248,6 +249,7 @@ namespace Journey.ViewModels
             }
 
             RaisePropertyChanged(nameof(IsLoggedOut));
+            RaisePropertyChanged(nameof(IsLoggedIn));
         }
 
         private void UpdateChallengeBanner()
@@ -361,6 +363,29 @@ namespace Journey.ViewModels
                 var isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
                     await NavigationService.Navigate("SearchFriendPage");
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.Handle(ex);
+            }
+        }
+
+        #endregion
+
+        #region OnProfileCommand
+
+        private ICommand _onProfileCommand;
+
+        public ICommand OnProfileCommand => _onProfileCommand ??
+                                                  (_onProfileCommand =
+                                                   new DelegateCommand(OnProfile));
+
+        private async void OnProfile()
+        {
+            try
+            {
+
+                await NavigationService.Navigate("ProfilePage");
             }
             catch (Exception ex)
             {

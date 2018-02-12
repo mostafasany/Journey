@@ -43,6 +43,7 @@
     <None Remove="Assets\unfav.png" />
     <None Remove="Assets\exit.png" />
     <None Remove="Assets\videothumbnail.png" />
+    <None Remove="Assets\moreWhite.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -86,6 +87,7 @@
     <EmbeddedResource Include="Assets\unfav.png" />
     <EmbeddedResource Include="Assets\exit.png" />
     <EmbeddedResource Include="Assets\videothumbnail.png" />
+    <EmbeddedResource Include="Assets\moreWhite.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -264,4 +264,14 @@
   <data name="Post_ReportSentTitle" xml:space="preserve">
     <value>Sent</value>
   </data>
+
+    <data name="Profile_SetMonthlyGoal" xml:space="preserve">
+    <value>Set Monlthly Goal</value>
+  </data>
+     <data name="Profile_UpdateMeasurment" xml:space="preserve">
+    <value>Update Measurments</value>
+  </data>
+     <data name="More" xml:space="preserve">
+    <value>More</value>
+  </data>
 </root>

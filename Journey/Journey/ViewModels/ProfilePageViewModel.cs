@@ -184,7 +184,7 @@ namespace Journey.ViewModels
             {
                 var logoutCommand = new DialogCommand
                 {
-                    Label = AppResource.Logout,
+                    Label = AppResource.Yes,
                     Invoked = async () =>
                     {
                         await _accountService.LogoutAsync();
@@ -217,7 +217,7 @@ namespace Journey.ViewModels
 
         private void OnEditProfile()
         {
-            NavigationService.Navigate("UpdateProfilePage");
+            NavigationService.Navigate("UpdateProfilePage", LoggedInAccount, "Account");
         }
 
         #endregion
@@ -243,6 +243,48 @@ namespace Journey.ViewModels
                 ExceptionService.Handle(ex);
             }
         }
+
+        #endregion
+
+        #region OnMoreCommand
+
+
+        public DelegateCommand OnMoreCommand => new DelegateCommand(OnMore);
+
+        private async void OnMore()
+        {
+            try
+            {
+                var commands =
+                    new List<DialogCommand>
+                    {
+                        new DialogCommand
+                        {
+                            Label = AppResource.Profile_SetMonthlyGoal,
+                        Invoked =  () => { AddMode = true;}
+                        },
+                        new DialogCommand
+                        {
+                        Label = AppResource.Profile_UpdateMeasurment,
+                        Invoked =  () => { NavigationService.Navigate("UpdateMeasurmentPage"); }
+                        },
+                        new DialogCommand
+                        {
+                        Label = AppResource.Logout,
+                        Invoked =  () => { OnLogoutCommand.Execute(); }
+                        }
+                    };
+
+                await DialogService.ShowMessageAsync("", AppResource.More,
+                    commands);
+
+            }
+            catch (System.Exception ex)
+            {
+                ExceptionService.Handle(ex);
+            }
+        }
+
 
         #endregion
 
