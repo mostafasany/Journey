@@ -7,17 +7,17 @@ namespace Journey.Services.Buisness.Measurment
 {
     public interface IAccountMeasurmentService
     {
-        event ScaleMeasurmentsChangedEventHandler ScaleMeasurmentsChangedHandler;
+        //event ScaleMeasurmentsChangedEventHandler ScaleMeasurmentsChangedHandler;
 
         Task<List<ScaleMeasurment>> GetMeasurmentsAsync(bool sync = false);
 
-        Task UpdateScaleMeasurments(List<ScaleMeasurment> measurments);
+        Task<List<ScaleMeasurment>> UpdateScaleMeasurments(List<ScaleMeasurment> measurments);
     }
 
-    public delegate void ScaleMeasurmentsChangedEventHandler(object sender, ScaleMeasurmentsChangedArgs e);
+    //public delegate void ScaleMeasurmentsChangedEventHandler(object sender, ScaleMeasurmentsChangedArgs e);
 
-    public class ScaleMeasurmentsChangedArgs : EventArgs
-    {
-        public List<ScaleMeasurment> Measuremnts { get; set; }
-    }
+    //public class ScaleMeasurmentsChangedArgs : EventArgs
+    //{
+    //    public List<ScaleMeasurment> Measuremnts { get; set; }
+    //}
 }

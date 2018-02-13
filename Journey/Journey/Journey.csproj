@@ -128,6 +128,9 @@
     <Compile Update="Views\Account\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Account\UpdateMeasurmentPage.xaml.cs">
+      <DependentUpon>UpdateMeasurmentPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\MediaPage.xaml.cs">
       <DependentUpon>MediaPage.xaml</DependentUpon>
     </Compile>
