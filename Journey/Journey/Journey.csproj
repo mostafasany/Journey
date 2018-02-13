@@ -110,6 +110,7 @@
   <ItemGroup>
     <Folder Include="Contracts\" />
     <Folder Include="Services\Buisness\Account\Dto\" />
+    <Folder Include="Services\Buisness\Measurment\Dto\" />
     <Folder Include="Services\Buisness\Post\Dto\" />
     <Folder Include="ViewModels\Wall\" />
   </ItemGroup>
