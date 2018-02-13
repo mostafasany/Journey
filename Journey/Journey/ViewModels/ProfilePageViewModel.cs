@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Services.Contracts;
 using Journey.Models.Account;
 using Journey.Models.Post;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
+using Journey.Services.Buisness.Goal;
+using Journey.Services.Buisness.Measurment;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
@@ -15,11 +18,15 @@ namespace Journey.ViewModels
     public class ProfilePageViewModel : BaseViewModel, INavigationAware
     {
         private readonly IAccountService _accountService;
+        private readonly IAccountGoalService _accountGoalService;
+        private readonly IAccountMeasurmentService _accountMeasurmentService;
 
-        public ProfilePageViewModel(IUnityContainer container, IAccountService accountService) :
+        public ProfilePageViewModel(IUnityContainer container, IAccountService accountService, IAccountGoalService accountGoalService, IAccountMeasurmentService accountMeasurmentService) :
             base(container)
         {
             _accountService = accountService;
+            _accountGoalService = accountGoalService;
+            _accountMeasurmentService = accountMeasurmentService;
         }
 
         #region Events
@@ -129,6 +136,8 @@ namespace Journey.ViewModels
                 ShowProgress();
                 IsPullRefreshLoading = false;
                 await LoadAccount(false);
+                await LoadGoal(false);
+                await LoadMeasurments(false);
                 base.Intialize();
             }
             catch (Exception e)
@@ -155,6 +164,56 @@ namespace Journey.ViewModels
             {
                 ExceptionService.Handle(ex);
             }
+        }
+
+        private async Task LoadGoal(bool sync)
+        {
+            try
+            {
+                var accountGoal = await _accountGoalService.GetAccountGoalAsync(sync);
+                if (accountGoal != null)
+                    LoggedInAccount.AccountGoal = accountGoal;
+                else
+                    await DialogService.ShowMessageAsync(AppResource.Error, AppResource.Account_ErrorGetData);
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.Handle(ex);
+            }
+        }
+
+        private async Task LoadMeasurments(bool sync)
+        {
+            try
+            {
+                if (Measuremnts == null || Measuremnts.Count == 0 || sync)
+                {
+                    var measu = await _accountMeasurmentService.GetMeasurmentsAsync(sync);
+                    if (measu != null)
+                    {
+                        Measuremnts = measu;
+                    }
+                    else
+                    {
+                        await DialogService.ShowMessageAsync(AppResource.Error, AppResource.Account_ErrorGetData);
+                        return;
+                    }
+                }
+
+                if (LoggedInAccount.AccountGoal == null)
+                {
+                    LoggedInAccount.AccountGoal = new AccountGoal();
+                }
+                if (LoggedInAccount.AccountGoal?.Weight == null || LoggedInAccount.AccountGoal.Weight == 0)
+                {
+                    LoggedInAccount.AccountGoal.Weight = Measuremnts.FirstOrDefault(a => a.Title == "Weight").Measure;
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.Handle(ex);
+            }
+
         }
 
         protected override void Cleanup()
