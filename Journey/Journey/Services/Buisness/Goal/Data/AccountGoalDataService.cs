@@ -12,14 +12,14 @@ namespace Tawasol.Services.Data
 {
     public class AccountGoalDataService : IAccountGoalDataService
     {
-        IMobileServiceSyncTable<AzureAccountGoal> accountGoalTable;
+        IMobileServiceTable<AzureAccountGoal> accountGoalTable;
 
         private readonly MobileServiceClient _client;
 
         public AccountGoalDataService(IAzureService azureService)
         {
             _client = azureService.CreateOrGetAzureClient();
-            this.accountGoalTable = _client.GetSyncTable<AzureAccountGoal>();
+            this.accountGoalTable = _client.GetTable<AzureAccountGoal>();
         }
 
         public async Task<AccountGoal> AddUpdateAccountGoalAsync(AccountGoal bodyWeight)
