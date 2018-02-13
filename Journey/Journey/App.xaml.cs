@@ -112,7 +112,7 @@ namespace Journey
         private void RegitserBuisnessServices(IUnityContainer container)
         {
             container.RegisterType<IAzureService, AzureService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IAccountService, AccountService>(new ContainerControlledLifetimeManager());
+          
             container.RegisterType<IPostService, PostService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IPostDataService, PostDataService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IPostCommentService, PostCommentService>(new ContainerControlledLifetimeManager());
@@ -120,6 +120,7 @@ namespace Journey
                 new ContainerControlledLifetimeManager());
             container.RegisterType<IAccountDataService, AccountDataService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IFacebookService, FacebookService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IAccountService, AccountService>(new ContainerControlledLifetimeManager());
         }
 
         protected override async void OnInitialized()

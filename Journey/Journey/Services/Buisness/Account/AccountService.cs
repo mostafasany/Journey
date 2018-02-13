@@ -32,7 +32,11 @@ namespace Journey.Services.Buisness.Account
 
         public string AccountTokenKey { get; } = "AccountToken";
         public string AccountIdKey { get; } = "AccountId";
-        public string Token { get; set; }
+        public string Token
+        { 
+            get; 
+            set; 
+        }
         public Models.Account.Account LoggedInAccount { get; set; }
 
         public async Task<Models.Account.Account> SaveAccountAsync(Models.Account.Account account, bool add)
@@ -56,7 +60,10 @@ namespace Journey.Services.Buisness.Account
                     return LoggedInAccount;
 
                 if (string.IsNullOrEmpty(Token))
+                {
                     return null;
+                }
+                    
 
                 LoggedInAccount = await _accountDataService.GetAccountAsync(sync);
 

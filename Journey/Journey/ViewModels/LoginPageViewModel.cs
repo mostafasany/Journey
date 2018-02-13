@@ -14,11 +14,11 @@ namespace Journey.ViewModels
         private readonly IAccountService _accountService;
         private readonly IAzureService _azureService;
 
-        public LoginPageViewModel(IUnityContainer container, IAzureService azureService,
-            AccountService accountService) :
+        public LoginPageViewModel(IUnityContainer container, IAzureService azureService) :
             base(container)
         {
-            _accountService = accountService;
+            //TODO:THis shouldnt exits it should be injected but sometimes account service resolved twice cause override eachother
+            _accountService = container.Resolve<IAccountService>();
             _azureService = azureService;
         }
 
