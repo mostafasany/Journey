@@ -9,21 +9,20 @@ namespace Journey.Services.Buisness.Measurment
 {
     public class AccountMeasurmentService : IAccountMeasurmentService
     {
-        private readonly IAccountMeasurmentDataService accountDataService;
+        private readonly IAccountMeasurmentDataService _accountDataService;
 
-        public AccountMeasurmentService(IAccountMeasurmentDataService _accountDataService)
+        public AccountMeasurmentService(IAccountMeasurmentDataService accountDataService)
         {
-            accountDataService = _accountDataService;
+            _accountDataService = accountDataService;
         }
 
-        public event ScaleMeasurmentsChangedEventHandler ScaleMeasurmentsChangedHandler;
+      //  public event ScaleMeasurmentsChangedEventHandler ScaleMeasurmentsChangedHandler;
 
         public async Task<List<ScaleMeasurment>> GetMeasurmentsAsync(bool sync = false)
         {
             try
             {
-                var measuremnts = new List<ScaleMeasurment>();
-                measuremnts = await accountDataService.GetAccountMeasurmentAsync(sync);
+                var measuremnts = await _accountDataService.GetAccountMeasurmentAsync(sync);
                 return measuremnts;
             }
             catch (Exception ex)
@@ -33,10 +32,11 @@ namespace Journey.Services.Buisness.Measurment
         }
 
 
-        public async Task UpdateScaleMeasurments(List<ScaleMeasurment> measurments)
+        public async Task<List<ScaleMeasurment>> UpdateScaleMeasurments(List<ScaleMeasurment> measurments)
         {
-            measurments = await accountDataService.AddUpdateAccountMeasurmentAsync(measurments);
-            ScaleMeasurmentsChangedHandler?.Invoke(this, new ScaleMeasurmentsChangedArgs {Measuremnts = measurments});
+            measurments = await _accountDataService.AddUpdateAccountMeasurmentAsync(measurments);
+            return measurments;
+            //  ScaleMeasurmentsChangedHandler?.Invoke(this, new ScaleMeasurmentsChangedArgs {Measuremnts = measurments});
         }
     }
 }

@@ -40,8 +40,13 @@ namespace Journey.ViewModels
         {
             try
             {
-                //if (parameters.GetNavigationMode() == NavigationMode.New)
-                //    MediaList = parameters.GetValue<IEnumerable<Media>>("Media") ?? null;
+                if (parameters.GetNavigationMode() == NavigationMode.Back)
+                {
+                    var measurments = parameters.GetValue<List<ScaleMeasurment>>("Measurments");
+                    if (measurments != null)
+                        Measuremnts = measurments;
+                }
+
                 Intialize();
             }
             catch (Exception e)
