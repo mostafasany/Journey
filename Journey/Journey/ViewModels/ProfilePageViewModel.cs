@@ -17,11 +17,12 @@ namespace Journey.ViewModels
 {
     public class ProfilePageViewModel : BaseViewModel, INavigationAware
     {
-        private readonly IAccountService _accountService;
         private readonly IAccountGoalService _accountGoalService;
         private readonly IAccountMeasurmentService _accountMeasurmentService;
+        private readonly IAccountService _accountService;
 
-        public ProfilePageViewModel(IUnityContainer container, IAccountService accountService, IAccountGoalService accountGoalService, IAccountMeasurmentService accountMeasurmentService) :
+        public ProfilePageViewModel(IUnityContainer container, IAccountService accountService,
+            IAccountGoalService accountGoalService, IAccountMeasurmentService accountMeasurmentService) :
             base(container)
         {
             _accountService = accountService;
@@ -35,7 +36,7 @@ namespace Journey.ViewModels
         {
         }
 
-        public async void OnNavigatedTo(NavigationParameters parameters)
+        public  void OnNavigatedTo(NavigationParameters parameters)
         {
             try
             {
@@ -58,71 +59,71 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        private Account loggedInAccount;
+        private Account _loggedInAccount;
 
         public Account LoggedInAccount
         {
-            get => loggedInAccount;
-            set => SetProperty(ref loggedInAccount, value);
+            get => _loggedInAccount;
+            set => SetProperty(ref _loggedInAccount, value);
         }
 
-        private bool isPullRefreshLoading;
+        private bool _isPullRefreshLoading;
 
         public bool IsPullRefreshLoading
         {
-            get => isPullRefreshLoading;
-            set => SetProperty(ref isPullRefreshLoading, value);
+            get => _isPullRefreshLoading;
+            set => SetProperty(ref _isPullRefreshLoading, value);
         }
 
-        private List<ScaleMeasurment> measuremnts;
+        private List<ScaleMeasurment> _measuremnts;
 
         public List<ScaleMeasurment> Measuremnts
         {
-            get => measuremnts;
-            set => SetProperty(ref measuremnts, value);
+            get => _measuremnts;
+            set => SetProperty(ref _measuremnts, value);
         }
 
 
-        private Account friend;
+        private Account _friend;
 
         public Account Friend
         {
-            get => friend;
-            set => SetProperty(ref friend, value);
+            get => _friend;
+            set => SetProperty(ref _friend, value);
         }
 
 
-        private double goal;
+        private double _goal;
 
         public double Goal
         {
-            get => goal;
-            set => SetProperty(ref goal, value);
+            get => _goal;
+            set => SetProperty(ref _goal, value);
         }
 
-        private DateTime end = DateTime.Now;
+        private DateTime _end = DateTime.Now;
 
         public DateTime End
         {
-            get => end;
-            set => SetProperty(ref end, value);
+            get => _end;
+            set => SetProperty(ref _end, value);
         }
 
-        private DateTime start = DateTime.Now;
+        private DateTime _start = DateTime.Now;
 
         public DateTime Start
         {
-            get => start;
-            set => SetProperty(ref start, value);
+            get => _start;
+            set => SetProperty(ref _start, value);
         }
 
 
-        private bool addMode;
+        private bool _addMode;
 
         public bool AddMode
         {
-            get => addMode;
-            set => SetProperty(ref addMode, value);
+            get => _addMode;
+            set => SetProperty(ref _addMode, value);
         }
 
         #endregion
@@ -201,19 +202,14 @@ namespace Journey.ViewModels
                 }
 
                 if (LoggedInAccount.AccountGoal == null)
-                {
                     LoggedInAccount.AccountGoal = new AccountGoal();
-                }
                 if (LoggedInAccount.AccountGoal?.Weight == null || LoggedInAccount.AccountGoal.Weight == 0)
-                {
                     LoggedInAccount.AccountGoal.Weight = Measuremnts.FirstOrDefault(a => a.Title == "Weight").Measure;
-                }
             }
             catch (Exception ex)
             {
                 ExceptionService.Handle(ex);
             }
-
         }
 
         protected override void Cleanup()
@@ -285,7 +281,7 @@ namespace Journey.ViewModels
 
         public DelegateCommand OnAddGoalCommand => new DelegateCommand(OnAddGoal);
 
-        private async void OnAddGoal()
+        private  void OnAddGoal()
         {
             try
             {
@@ -307,7 +303,6 @@ namespace Journey.ViewModels
 
         #region OnMoreCommand
 
-
         public DelegateCommand OnMoreCommand => new DelegateCommand(OnMore);
 
         private async void OnMore()
@@ -320,30 +315,28 @@ namespace Journey.ViewModels
                         new DialogCommand
                         {
                             Label = AppResource.Profile_SetMonthlyGoal,
-                        Invoked =  () => { AddMode = true;}
+                            Invoked = () => { AddMode = true; }
                         },
                         new DialogCommand
                         {
-                        Label = AppResource.Profile_UpdateMeasurment,
-                        Invoked =  () => { NavigationService.Navigate("UpdateMeasurmentPage"); }
+                            Label = AppResource.Profile_UpdateMeasurment,
+                            Invoked = () => { NavigationService.Navigate("UpdateMeasurmentPage"); }
                         },
                         new DialogCommand
                         {
-                        Label = AppResource.Logout,
-                        Invoked =  () => { OnLogoutCommand.Execute(); }
+                            Label = AppResource.Logout,
+                            Invoked = () => { OnLogoutCommand.Execute(); }
                         }
                     };
 
                 await DialogService.ShowMessageAsync("", AppResource.More,
                     commands);
-
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 ExceptionService.Handle(ex);
             }
         }
-
 
         #endregion
 

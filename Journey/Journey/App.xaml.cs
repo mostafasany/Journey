@@ -115,7 +115,7 @@ namespace Journey
         private void RegitserBuisnessServices(IUnityContainer container)
         {
             container.RegisterType<IAzureService, AzureService>(new ContainerControlledLifetimeManager());
-          
+
             container.RegisterType<IPostService, PostService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IPostDataService, PostDataService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IPostCommentService, PostCommentService>(new ContainerControlledLifetimeManager());
@@ -126,10 +126,13 @@ namespace Journey
             container.RegisterType<IAccountService, AccountService>(new ContainerControlledLifetimeManager());
 
             container.RegisterType<IAccountGoalService, AccountGoalService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IAccountGoalDataService, AccountGoalDataService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IAccountGoalDataService, AccountGoalDataService>(
+                new ContainerControlledLifetimeManager());
 
-            container.RegisterType<IAccountMeasurmentService, AccountMeasurmentService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IAccountMeasurmentDataService, AccountMeasurmentDataService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IAccountMeasurmentService, AccountMeasurmentService>(
+                new ContainerControlledLifetimeManager());
+            container.RegisterType<IAccountMeasurmentDataService, AccountMeasurmentDataService>(
+                new ContainerControlledLifetimeManager());
         }
 
         protected override async void OnInitialized()
