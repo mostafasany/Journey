@@ -48,7 +48,7 @@ namespace Journey.Services.Buisness.Account
             }
             catch (Exception ex)
             {
-                throw new BuisnessException(ex.Message);
+                throw new BusinessException(ex.Message);
             }
         }
 
@@ -74,7 +74,7 @@ namespace Journey.Services.Buisness.Account
             }
             catch (Exception ex)
             {
-                throw new BuisnessException(ex.Message);
+                throw new BusinessException(ex.Message);
             }
         }
 
@@ -102,7 +102,7 @@ namespace Journey.Services.Buisness.Account
             }
             catch (Exception ex)
             {
-                throw new BuisnessException(ex.Message);
+                throw new BusinessException(ex.Message);
             }
         }
 
@@ -147,7 +147,7 @@ namespace Journey.Services.Buisness.Account
             }
             catch (Exception ex)
             {
-                throw new BuisnessException(ex.Message);
+                throw new BusinessException(ex.Message);
             }
         }
 
@@ -159,7 +159,7 @@ namespace Journey.Services.Buisness.Account
             }
             catch (Exception ex)
             {
-                throw new BuisnessException(ex.Message);
+                throw new BusinessException(ex.Message);
             }
         }
 
@@ -175,7 +175,7 @@ namespace Journey.Services.Buisness.Account
             }
             catch (Exception ex)
             {
-                throw new BuisnessException(ex.Message);
+                throw new BusinessException(ex.Message);
             }
         }
     }

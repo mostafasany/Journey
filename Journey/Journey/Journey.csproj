@@ -108,7 +108,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\" />
     <Folder Include="Services\Buisness\Account\Dto\" />
     <Folder Include="Services\Buisness\Goal\Dto\" />
     <Folder Include="Services\Buisness\Measurment\Dto\" />

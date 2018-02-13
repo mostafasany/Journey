@@ -2,13 +2,13 @@
 
 namespace Abstractions.Exceptions
 {
-    public class BuisnessException : Exception
+    public class BusinessException : Exception
     {
-        public BuisnessException(string message) : base(message)
+        public BusinessException(string message) : base(message)
         {
         }
 
-        public BuisnessException(string message, Exception innerException) : base(message, innerException)
+        public BusinessException(string message, Exception innerException) : base(message, innerException)
         {
         }
     }

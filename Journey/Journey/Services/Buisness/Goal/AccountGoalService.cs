@@ -26,7 +26,7 @@ namespace Journey.Services.Buisness.Goal
 
             catch (Exception ex)
             {
-                throw new BuisnessException(ex.Message, ex);
+                throw new BusinessException(ex.Message, ex);
             }
         }
 
@@ -40,7 +40,7 @@ namespace Journey.Services.Buisness.Goal
 
             catch (Exception ex)
             {
-                throw new BuisnessException(ex.Message, ex);
+                throw new BusinessException(ex.Message, ex);
             }
         }
     }
