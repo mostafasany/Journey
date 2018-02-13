@@ -15,7 +15,7 @@ namespace Journey.Views.Controls
                     try
                     {
                         (bindable as ImageControl).Source = Device.RuntimePlatform == Device.UWP
-                            ? ImageSource.FromFile(val)
+                            ? ImageSource.FromFile("Assets/" + val)
                             : ImageSource.FromResource("Journey.Assets." + val);
                     }
                     catch (Exception e)
