@@ -7,7 +7,9 @@ using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Account.Data;
 using Journey.Services.Buisness.Blob;
 using Journey.Services.Buisness.Goal;
+using Journey.Services.Buisness.Goal.Data;
 using Journey.Services.Buisness.Measurment;
+using Journey.Services.Buisness.Measurment.Data;
 using Journey.Services.Buisness.Post;
 using Journey.Services.Buisness.Post.Data;
 using Journey.Services.Buisness.PostComment;
@@ -19,7 +21,6 @@ using Prism;
 using Prism.Ioc;
 using Prism.Navigation;
 using Prism.Unity;
-using Tawasol.Services.Data;
 using Unity;
 using Unity.Lifetime;
 using INavigationService = Abstractions.Services.Contracts.INavigationService;
@@ -57,7 +58,7 @@ namespace Journey
             containerRegistry.RegisterForNavigation<VideoPage>();
             containerRegistry.RegisterForNavigation<ProfilePage>();
             containerRegistry.RegisterForNavigation<UpdateMeasurmentPage>();
-            
+
             RegitserAppServices(container);
 
             RegitserBuisnessServices(container);

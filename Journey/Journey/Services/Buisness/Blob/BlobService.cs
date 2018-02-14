@@ -20,29 +20,36 @@ namespace Journey.Services.Buisness.Blob
 
         public async Task<string> UploadAsync(Stream stream, string fileName)
         {
-            var connectionString = string.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}",
-                AzureBlobUserName, AzureBlobKey);
+            try
+            {
+                var connectionString = string.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}",
+                    AzureBlobUserName, AzureBlobKey);
 
-            var storageAccount = CloudStorageAccount.Parse(connectionString);
-            // Create the blob client.
-            var blobClient = storageAccount.CreateCloudBlobClient();
+                var storageAccount = CloudStorageAccount.Parse(connectionString);
+                // Create the blob client.
+                var blobClient = storageAccount.CreateCloudBlobClient();
 
-            // Retrieve reference to a previously created container.
-            var container = blobClient.GetContainerReference("post");
+                // Retrieve reference to a previously created container.
+                var container = blobClient.GetContainerReference("post");
 
-            // Create the container if it doesn't already exist.
-            await container.CreateIfNotExistsAsync();
+                // Create the container if it doesn't already exist.
+                await container.CreateIfNotExistsAsync();
 
 
-            // Retrieve reference to a blob named "myblob".
-            var blockBlob = container.GetBlockBlobReference(fileName);
+                // Retrieve reference to a blob named "myblob".
+                var blockBlob = container.GetBlockBlobReference(fileName);
 
-            // Create the "myblob" blob with the text "Hello, world!"
-            await blockBlob.UploadFromStreamAsync(stream);
+                // Create the "myblob" blob with the text "Hello, world!"
+                await blockBlob.UploadFromStreamAsync(stream);
 
-            var fileNewPath = string.Format("{0}/{1}/{2}", AzureBlobBaseUrl, AzurePostContainerName, fileName);
+                var fileNewPath = string.Format("{0}/{1}/{2}", AzureBlobBaseUrl, AzurePostContainerName, fileName);
 
-            return fileNewPath;
+                return fileNewPath;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
         }
 
         public async Task<string> UploadAsync(byte[] bytes, string fileName)

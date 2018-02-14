@@ -1,25 +1,26 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
-using Microsoft.WindowsAzure.MobileServices;
-using Microsoft.WindowsAzure.MobileServices.Sync;
 using Journey.Models.Account;
 using Journey.Services.Azure;
 using Journey.Services.Buisness.Goal.Dto;
 using Journey.Services.Buisness.Goal.Translators;
+using Microsoft.WindowsAzure.MobileServices;
+using Microsoft.WindowsAzure.MobileServices.Sync;
 
-namespace Tawasol.Services.Data
+namespace Journey.Services.Buisness.Goal.Data
 {
     public class AccountGoalDataService : IAccountGoalDataService
     {
-        IMobileServiceTable<AzureAccountGoal> accountGoalTable;
+        private readonly IMobileServiceSyncTable<AzureAccountGoal> _accountGoalTable;
 
         private readonly MobileServiceClient _client;
 
         public AccountGoalDataService(IAzureService azureService)
         {
             _client = azureService.CreateOrGetAzureClient();
-            this.accountGoalTable = _client.GetTable<AzureAccountGoal>();
+            _accountGoalTable = _client.GetSyncTable<AzureAccountGoal>();
         }
 
         public async Task<AccountGoal> AddUpdateAccountGoalAsync(AccountGoal bodyWeight)
@@ -29,8 +30,9 @@ namespace Tawasol.Services.Data
                 if (bodyWeight == null)
                     return null;
 
-                AzureAccountGoal accountGoalDto = AccountGoalDataTranslator.TranslateAccountGoal(bodyWeight, _client.CurrentUser.UserId);
-                await accountGoalTable.InsertAsync(accountGoalDto);
+                var accountGoalDto =
+                    AccountGoalDataTranslator.TranslateAccountGoal(bodyWeight, _client.CurrentUser.UserId);
+                await _accountGoalTable.InsertAsync(accountGoalDto);
 
                 //var syncedAccountGoalDto = await SyncGoalAsync();
                 //if (syncedAccountGoalDto != null)
@@ -38,9 +40,8 @@ namespace Tawasol.Services.Data
 
                 bodyWeight = AccountGoalDataTranslator.TranslateAccountGoal(accountGoalDto);
                 return bodyWeight;
-
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 throw new DataServiceException(ex.Message, ex);
             }
@@ -50,42 +51,39 @@ namespace Tawasol.Services.Data
         {
             try
             {
-                AzureAccountGoal returnedData = null;
-
                 //if (sync)
                 //{
                 //    returnedData = await SyncGoalAsync();
                 //}
 
-                if (returnedData == null)
-                {
-                    string account = _client.CurrentUser.UserId;
-                    returnedData = (await accountGoalTable.CreateQuery().Where(acc => acc.Account == account).OrderByDescending(abc => abc.CreatedAt).ToListAsync()).FirstOrDefault();
-                }
+                //if (returnedData == null)
+                //{
+                var account = _client.CurrentUser.UserId;
+                var returnedData = (await _accountGoalTable.CreateQuery().Where(acc => acc.Account == account)
+                    .OrderByDescending(abc => abc.CreatedAt).ToListAsync()).FirstOrDefault();
+                //}
                 //if (returnedData == null)
                 //{
                 //    returnedData = await SyncGoalAsync();
                 //}
                 if (returnedData == null)
-                {
                     return null;
-                }
 
                 var accountGoal = AccountGoalDataTranslator.TranslateAccountGoal(returnedData);
                 return accountGoal;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                throw new DataServiceException(ex.Message,ex);
+                throw new DataServiceException(ex.Message, ex);
             }
         }
-
-        //public async Task<AzureAccountGoal> SyncGoalAsync()
-        //{
-        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
+        //    {
 
         //    try
-        //    {
+        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
+        //{
+
+        //public async Task<AzureAccountGoal> SyncGoalAsync()
         //        await this.Client.SyncContext.PushAsync();
 
         //        // The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
@@ -134,6 +132,5 @@ namespace Tawasol.Services.Data
         //    }
         //    return null;
         //}
-
     }
 }

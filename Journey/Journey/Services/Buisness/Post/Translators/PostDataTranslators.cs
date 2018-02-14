@@ -6,6 +6,7 @@ using Abstractions.Exceptions;
 using Journey.Models;
 using Journey.Models.Post;
 using Journey.Services.Buisness.Post.Dto;
+using Journey.Services.Buisness.PostComment.Dto;
 using Newtonsoft.Json;
 
 namespace Journey.Services.Buisness.Post.Translators
@@ -14,7 +15,6 @@ namespace Journey.Services.Buisness.Post.Translators
     {
         private const string VideoPlaceHolderPath = "http://bit.ly/2EiCAic";
 
-        #region Transaltors
 
         public static AzurePost TranslatePost(Models.Post.Post post, string account, List<string> images)
         {
@@ -35,7 +35,7 @@ namespace Journey.Services.Buisness.Post.Translators
             }
             catch (Exception ex)
             {
-                throw new TranslationFailedException(ex.Message, ex);
+                throw new TranslationFailedException("Post", ex);
             }
         }
 
@@ -61,22 +61,25 @@ namespace Journey.Services.Buisness.Post.Translators
                 {
                     postDto.Activity = JsonConvert.DeserializeObject<PostActivity>(post.Activity);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
+                    // ignored
                 }
                 try
                 {
                     postDto.Location = JsonConvert.DeserializeObject<PostActivity>(post.Location);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
+                    // ignored
                 }
                 try
                 {
                     postDto.Measuremnts = JsonConvert.DeserializeObject<List<ScaleMeasurment>>(post.Measurements);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
+                    // ignored
                 }
                 try
                 {
@@ -94,8 +97,9 @@ namespace Journey.Services.Buisness.Post.Translators
                             });
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
+                    // ignored
                 }
             }
             return postDto;
@@ -115,7 +119,7 @@ namespace Journey.Services.Buisness.Post.Translators
             }
             catch (Exception ex)
             {
-                throw new TranslationFailedException(ex.Message, ex);
+                throw new TranslationFailedException("Post", ex);
             }
         }
 
@@ -135,7 +139,7 @@ namespace Journey.Services.Buisness.Post.Translators
             }
             catch (Exception ex)
             {
-                throw new TranslationFailedException(ex.Message, ex);
+                throw new TranslationFailedException("Post", ex);
             }
         }
 
@@ -161,7 +165,7 @@ namespace Journey.Services.Buisness.Post.Translators
             }
             catch (Exception ex)
             {
-                throw new TranslationFailedException(ex.Message, ex);
+                throw new TranslationFailedException("Post", ex);
             }
         }
 
@@ -180,10 +184,8 @@ namespace Journey.Services.Buisness.Post.Translators
             }
             catch (Exception ex)
             {
-                throw new TranslationFailedException(ex.Message, ex);
+                throw new TranslationFailedException("Post", ex);
             }
         }
-
-        #endregion
     }
 }

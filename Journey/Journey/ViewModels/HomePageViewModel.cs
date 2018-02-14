@@ -45,10 +45,10 @@ namespace Journey.ViewModels
                 if (e.Post == null || string.IsNullOrEmpty(e.Post.Id))
                     return;
 
-                var postVM = PostsViewModels.FirstOrDefault(a => a.Post.Id == e.Post.Id);
+                var postVm = PostsViewModels.FirstOrDefault(a => a.Post.Id == e.Post.Id);
                 if (e.Status == PostStatus.Deleted)
                 {
-                    PostsViewModels.Remove(postVM);
+                    PostsViewModels.Remove(postVm);
                     HideProgress();
                 }
                 else if (e.Status == PostStatus.Added)
@@ -74,12 +74,12 @@ namespace Journey.ViewModels
                 }
                 else if (e.Status == PostStatus.CommentsUpdated)
                 {
-                    var index = PostsViewModels.IndexOf(postVM);
+                    var index = PostsViewModels.IndexOf(postVm);
                     if (index >= 0)
                     {
-                        if (postVM.Post != null)
-                            postVM.Post.CommentsCount++;
-                        PostsViewModels[index] = postVM;
+                        if (postVm.Post != null)
+                            postVm.Post.CommentsCount++;
+                        PostsViewModels[index] = postVm;
                     }
 
                     HideProgress();
@@ -100,8 +100,11 @@ namespace Journey.ViewModels
         {
             try
             {
-                IsPullRefreshLoading = false;
-                Intialize();
+                if (parameters.GetNavigationMode() == NavigationMode.New)
+                {
+                    IsPullRefreshLoading = false;
+                    Intialize();
+                }
             }
             catch (Exception ex)
             {

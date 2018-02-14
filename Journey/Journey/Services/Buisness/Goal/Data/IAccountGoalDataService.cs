@@ -1,7 +1,7 @@
-﻿using Journey.Models.Account;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Journey.Models.Account;
 
-namespace Tawasol.Services.Data
+namespace Journey.Services.Buisness.Goal.Data
 {
     public interface IAccountGoalDataService
     {

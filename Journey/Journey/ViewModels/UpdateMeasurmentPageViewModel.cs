@@ -12,13 +12,15 @@ namespace Journey.ViewModels
     {
         private readonly IAccountMeasurmentService _accountMeasurmentService;
 
-        public UpdateMeasurmentPageViewModel(IUnityContainer container, IAccountMeasurmentService accountMeasurmentService) :
+        private List<ScaleMeasurment> _measuremnts;
+
+        public UpdateMeasurmentPageViewModel(IUnityContainer container,
+            IAccountMeasurmentService accountMeasurmentService) :
             base(container)
         {
             _accountMeasurmentService = accountMeasurmentService;
         }
 
-        private List<ScaleMeasurment> _measuremnts;
         public List<ScaleMeasurment> Measuremnts
         {
             get => _measuremnts;
@@ -57,7 +59,6 @@ namespace Journey.ViewModels
 
         #region OnContinueCommand
 
-
         public DelegateCommand OnContinueCommand => new DelegateCommand(OnContinue);
 
 
@@ -83,7 +84,6 @@ namespace Journey.ViewModels
             {
                 HideProgress();
             }
-
         }
 
 
@@ -112,7 +112,10 @@ namespace Journey.ViewModels
 
         }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 668c4d405a3c62072fabbd735718139899b5cbcf
         #endregion
 
         #endregion

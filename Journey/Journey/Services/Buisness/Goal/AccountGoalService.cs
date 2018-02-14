@@ -2,28 +2,26 @@
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Models.Account;
-using Tawasol.Services.Data;
+using Journey.Services.Buisness.Goal.Data;
 
 namespace Journey.Services.Buisness.Goal
 {
     public class AccountGoalService : IAccountGoalService
     {
-        private readonly IAccountGoalDataService accountDataService;
+        private readonly IAccountGoalDataService _accountDataService;
 
-        public AccountGoalService(IAccountGoalDataService _accountDataService)
+        public AccountGoalService(IAccountGoalDataService accountDataService)
         {
-            accountDataService = _accountDataService;
+            _accountDataService = accountDataService;
         }
 
         public async Task<AccountGoal> AddAccountGoal(AccountGoal goal)
         {
             try
             {
-                var accountGoal = new AccountGoal();
-                accountGoal = await accountDataService.AddUpdateAccountGoalAsync(goal);
+                var accountGoal = await _accountDataService.AddUpdateAccountGoalAsync(goal);
                 return accountGoal;
             }
-
             catch (Exception ex)
             {
                 throw new BusinessException(ex.Message, ex);
@@ -34,10 +32,9 @@ namespace Journey.Services.Buisness.Goal
         {
             try
             {
-                var accountGoals = await accountDataService.GetAccountGoalAsync(sync);
+                var accountGoals = await _accountDataService.GetAccountGoalAsync(sync);
                 return accountGoals;
             }
-
             catch (Exception ex)
             {
                 throw new BusinessException(ex.Message, ex);

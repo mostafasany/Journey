@@ -10,14 +10,20 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Label Text="{Binding Title}" Margin="5,0" FontAttributes="Bold" Style="{StaticResource LabelHeaderStyle}" />
-                            <Entry Grid.Column="1" WidthRequest="150" Keyboard="Numeric" HorizontalOptions="Center" TextColor="Black" Text="{Binding Measure}" />
+                            <Label Text="{Binding Title}" Margin="5,0" FontAttributes="Bold"
+                                   Style="{StaticResource LabelHeaderStyle}" />
+                            <Entry Grid.Column="1" WidthRequest="150" Keyboard="Numeric" HorizontalOptions="Center"
+                                   TextColor="Black" Text="{Binding Measure}" />
                         </Grid>
                     </ViewCell.View>
                 </Controls:UnSelectableViewCell>
             </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 668c4d405a3c62072fabbd735718139899b5cbcf
     <ContentPage.Content>
         <Grid Margin="10" HorizontalOptions="Center">
             <Grid.RowDefinitions>
@@ -30,6 +36,7 @@
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+<<<<<<< HEAD
                 <Controls:ImageControl Grid.Column="0" PortablePath="back.png" Style="{StaticResource ImageHeaderStyle}">
                     <Controls:ImageControl.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnBackCommand}" CommandParameter="{Binding}" />
@@ -40,6 +47,18 @@
             <ListView Grid.Row="1" RowHeight="50" IsVisible="{Binding IsNotLoading}" SeparatorVisibility="None" ItemsSource="{Binding Measuremnts}" ItemTemplate="{StaticResource ScaleTemplate}" />
             <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
             <Button Grid.Row="2" Text="{resources:Translate Continue}" VerticalOptions="End" Command="{Binding OnContinueCommand}" Style="{StaticResource PrimaryButtonStyle}" />
+=======
+                <Controls:ImageControl Grid.Column="0" PortablePath="LoginLogo.png"
+                                       Style="{StaticResource ImageHeaderStyle}" />
+                <Label Grid.Column="1" Text="Update your measurments" Style="{StaticResource LabelHeaderStyle}" />
+            </Grid>
+            <ListView Grid.Row="1" RowHeight="50" IsVisible="{Binding IsNotLoading}" SeparatorVisibility="None"
+                      ItemsSource="{Binding Measuremnts}" ItemTemplate="{StaticResource ScaleTemplate}" />
+            <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
+                                     VerticalOptions="Center" />
+            <Button Grid.Row="2" Text="Continue" VerticalOptions="End" Command="{Binding OnContinueCommand}"
+                    Style="{StaticResource PrimaryButtonStyle}" />
+>>>>>>> 668c4d405a3c62072fabbd735718139899b5cbcf
         </Grid>
     </ContentPage.Content>
 </local:BasePage>

@@ -2,7 +2,7 @@
 using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json;
 
-namespace Journey.Services.Buisness.Post.Dto
+namespace Journey.Services.Buisness.PostComment.Dto
 {
     public class AzurePostComments
     {
