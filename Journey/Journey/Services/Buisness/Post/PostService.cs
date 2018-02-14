@@ -115,7 +115,15 @@ namespace Journey.Services.Buisness.Post
 
         public void PostStatusChanged(PostBase post, PostStatus status)
         {
-            PostStatusChangedEventHandler?.Invoke(this, new PostStatusChangedArgs {Post = post, Status = status});
+            try
+            {
+                PostStatusChangedEventHandler?.Invoke(this, new PostStatusChangedArgs { Post = post, Status = status });
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
+           
         }
     }
 }

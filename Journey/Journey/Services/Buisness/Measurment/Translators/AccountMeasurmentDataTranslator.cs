@@ -10,7 +10,6 @@ namespace Journey.Services.Buisness.Measurment.Translators
 {
     public static class AccountMeasurmentDataTranslator
     {
-        #region Transaltors
 
         public static AzureAccountMeasurements TranslateAccountMeasurments(string account,
             List<ScaleMeasurment> accountMeasurments)
@@ -108,52 +107,5 @@ namespace Journey.Services.Buisness.Measurment.Translators
                 throw new TranslationFailedException("Measurments", ex.InnerException);
             }
         }
-
-        //public static AccountGoal TranslateAccountGoal(AzureAccountGoal accountGoal)
-        //{
-        //    try
-        //    {
-        //        var accountDto = new AccountGoal();
-        //        if (accountGoal != null)
-        //        {
-        //            accountDto.Weight = accountGoal.Weight;
-        //            accountDto.Goal = accountGoal.Goal;
-        //            accountDto.Start = accountGoal.Start;
-        //            accountDto.End = accountGoal.End;
-        //        }
-
-        //        return accountDto;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ExceptionService.Handle(ex);
-        //        return null;
-        //    }
-        //}
-
-
-        //public static AzureAccountGoal TranslateAccountGoal(AccountGoal accountGoal, string account)
-        //{
-        //    try
-        //    {
-        //        AzureAccountGoal accountDto = new AzureAccountGoal();
-        //        if (accountGoal != null)
-        //        {
-        //            accountDto.Account = account;
-        //            accountDto.Weight = accountGoal.Weight;
-        //            accountDto.Goal = accountGoal.Goal;
-        //            accountDto.Start = accountGoal.Start;
-        //            accountDto.End = accountGoal.End;
-        //        }
-        //        return accountDto;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ExceptionService.Handle(ex);
-        //        return null;
-        //    }
-        //}
-
-        #endregion
     }
 }

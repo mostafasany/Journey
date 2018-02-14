@@ -3,24 +3,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Models;
-using Microsoft.WindowsAzure.MobileServices;
-using Microsoft.WindowsAzure.MobileServices.Sync;
 using Journey.Models.Post;
 using Journey.Services.Azure;
 using Journey.Services.Buisness.Measurment.Dto;
 using Journey.Services.Buisness.Measurment.Translators;
+using Microsoft.WindowsAzure.MobileServices;
 
-namespace Tawasol.Services.Data
+namespace Journey.Services.Buisness.Measurment.Data
 {
     public class AccountMeasurmentDataService : IAccountMeasurmentDataService
     {
-        IMobileServiceTable<AzureAccountMeasurements> accountMeasurementsTable;
+        readonly IMobileServiceTable<AzureAccountMeasurements> _accountMeasurementsTable;
         private readonly MobileServiceClient _client;
 
         public AccountMeasurmentDataService(IAzureService azureService)
         {
             _client = azureService.CreateOrGetAzureClient();
-            this.accountMeasurementsTable = _client.GetTable<AzureAccountMeasurements>();
+            _accountMeasurementsTable = _client.GetTable<AzureAccountMeasurements>();
         }
 
         public async Task<List<ScaleMeasurment>> AddUpdateAccountMeasurmentAsync(List<ScaleMeasurment> accountMeasurments)
@@ -33,7 +32,7 @@ namespace Tawasol.Services.Data
                 string account = _client.CurrentUser.UserId;
                 AzureAccountMeasurements accountMeasureDto = AccountMeasurmentDataTranslator.TranslateAccountMeasurments(account, accountMeasurments);
 
-                await accountMeasurementsTable.InsertAsync(accountMeasureDto);
+                await _accountMeasurementsTable.InsertAsync(accountMeasureDto);
 
                 //var syncedData = await SyncMeasurmentsAsync();
 
@@ -54,17 +53,15 @@ namespace Tawasol.Services.Data
         {
             try
             {
-                AzureAccountMeasurements returnedData = null;
-
                 //if (sync)
                 //{
                 //    returnedData = await SyncMeasurmentsAsync();
                 //}
-                if (returnedData == null)
-                {
+                //if (returnedData == null)
+                //{
                     string account = _client.CurrentUser.UserId;
-                    returnedData = (await accountMeasurementsTable.CreateQuery().Where(acc => acc.Account == account).OrderByDescending(acc => acc.CreatedAt).ToListAsync())?.FirstOrDefault();
-                }
+                    var returnedData = (await _accountMeasurementsTable.CreateQuery().Where(acc => acc.Account == account).OrderByDescending(acc => acc.CreatedAt).ToListAsync())?.FirstOrDefault();
+                //}
                 //if (returnedData == null)
                 //{
                 //    returnedData = await SyncMeasurmentsAsync();
@@ -86,13 +83,57 @@ namespace Tawasol.Services.Data
 
         private async Task<List<ScaleMeasurment>> GetEmptyMeasurmentsAsync()
         {
-            List<ScaleMeasurment> measuremnts = new List<ScaleMeasurment>();
-            measuremnts.Add(new ScaleMeasurment { UpIndictor = true, Title = "Weight", Unit = "KG", Measure = 0, Image = new Media { Path = "http://bit.ly/2z9lPaA" } });
-            measuremnts.Add(new ScaleMeasurment { UpIndictor = true, Title = "Muscle", Unit = "%", Measure = 0, Image = new Media { Path = "http://bit.ly/2gEeJ2t" } });
-            measuremnts.Add(new ScaleMeasurment { UpIndictor = false, Title = "Fat", Unit = "%", Measure = 0, Image = new Media { Path = "http://bit.ly/2xnWzbZ" } });
-            measuremnts.Add(new ScaleMeasurment { UpIndictor = false, Title = "BMI", Unit = "", Measure = 0, Image = new Media { Path = "http://bit.ly/2yRyMER" } });
-            measuremnts.Add(new ScaleMeasurment { UpIndictor = true, Title = "BMR", Unit = "Kcal", Measure = 0, Image = new Media { Path = "http://bit.ly/2yRzwd7" } });
-            measuremnts.Add(new ScaleMeasurment { UpIndictor = true, Title = "Water", Unit = "%", Measure = 0, Image = new Media { Path = "http://bit.ly/2yR2J9j" } });
+            List<ScaleMeasurment> measuremnts = new List<ScaleMeasurment>
+            {
+                new ScaleMeasurment
+                {
+                    UpIndictor = true,
+                    Title = "Weight",
+                    Unit = "KG",
+                    Measure = 0,
+                    Image = new Media {Path = "http://bit.ly/2z9lPaA"}
+                },
+                new ScaleMeasurment
+                {
+                    UpIndictor = true,
+                    Title = "Muscle",
+                    Unit = "%",
+                    Measure = 0,
+                    Image = new Media {Path = "http://bit.ly/2gEeJ2t"}
+                },
+                new ScaleMeasurment
+                {
+                    UpIndictor = false,
+                    Title = "Fat",
+                    Unit = "%",
+                    Measure = 0,
+                    Image = new Media {Path = "http://bit.ly/2xnWzbZ"}
+                },
+                new ScaleMeasurment
+                {
+                    UpIndictor = false,
+                    Title = "BMI",
+                    Unit = "",
+                    Measure = 0,
+                    Image = new Media {Path = "http://bit.ly/2yRyMER"}
+                },
+                new ScaleMeasurment
+                {
+                    UpIndictor = true,
+                    Title = "BMR",
+                    Unit = "Kcal",
+                    Measure = 0,
+                    Image = new Media {Path = "http://bit.ly/2yRzwd7"}
+                },
+                new ScaleMeasurment
+                {
+                    UpIndictor = true,
+                    Title = "Water",
+                    Unit = "%",
+                    Measure = 0,
+                    Image = new Media {Path = "http://bit.ly/2yR2J9j"}
+                }
+            };
 
             return measuremnts;
         }

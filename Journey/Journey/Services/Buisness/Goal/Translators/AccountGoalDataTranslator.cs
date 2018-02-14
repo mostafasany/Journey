@@ -7,22 +7,20 @@ namespace Journey.Services.Buisness.Goal.Translators
 {
     public static class AccountGoalDataTranslator
     {
-        #region Transaltors
-
         public static AccountGoal TranslateAccountGoal(AzureAccountGoal accountGoal)
         {
             try
             {
-                var accountDto = new AccountGoal();
+                var accountGoalDto = new AccountGoal();
                 if (accountGoal != null)
                 {
-                    accountDto.Weight = accountGoal.Weight;
-                    accountDto.Goal = accountGoal.Goal;
-                    accountDto.Start = accountGoal.Start;
-                    accountDto.End = accountGoal.End;
+                    accountGoalDto.Weight = accountGoal.Weight;
+                    accountGoalDto.Goal = accountGoal.Goal;
+                    accountGoalDto.Start = accountGoal.Start;
+                    accountGoalDto.End = accountGoal.End;
                 }
 
-                return accountDto;
+                return accountGoalDto;
             }
             catch (Exception ex)
             {
@@ -35,16 +33,16 @@ namespace Journey.Services.Buisness.Goal.Translators
         {
             try
             {
-                var accountDto = new AzureAccountGoal();
+                var accountGoalDto = new AzureAccountGoal();
                 if (accountGoal != null)
                 {
-                    accountDto.Account = account;
-                    accountDto.Weight = accountGoal.Weight;
-                    accountDto.Goal = accountGoal.Goal;
-                    accountDto.Start = accountGoal.Start;
-                    accountDto.End = accountGoal.End;
+                    accountGoalDto.Account = account;
+                    accountGoalDto.Weight = accountGoal.Weight;
+                    accountGoalDto.Goal = accountGoal.Goal;
+                    accountGoalDto.Start = accountGoal.Start;
+                    accountGoalDto.End = accountGoal.End;
                 }
-                return accountDto;
+                return accountGoalDto;
             }
             catch (Exception ex)
             {
@@ -52,6 +50,5 @@ namespace Journey.Services.Buisness.Goal.Translators
             }
         }
 
-        #endregion
     }
 }

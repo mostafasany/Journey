@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Models.Post;
-using Tawasol.Services.Data;
+using Journey.Services.Buisness.Measurment.Data;
 
 namespace Journey.Services.Buisness.Measurment
 {
@@ -15,8 +15,6 @@ namespace Journey.Services.Buisness.Measurment
         {
             _accountDataService = accountDataService;
         }
-
-      //  public event ScaleMeasurmentsChangedEventHandler ScaleMeasurmentsChangedHandler;
 
         public async Task<List<ScaleMeasurment>> GetMeasurmentsAsync(bool sync = false)
         {
@@ -31,12 +29,17 @@ namespace Journey.Services.Buisness.Measurment
             }
         }
 
-
         public async Task<List<ScaleMeasurment>> UpdateScaleMeasurments(List<ScaleMeasurment> measurments)
         {
-            measurments = await _accountDataService.AddUpdateAccountMeasurmentAsync(measurments);
-            return measurments;
-            //  ScaleMeasurmentsChangedHandler?.Invoke(this, new ScaleMeasurmentsChangedArgs {Measuremnts = measurments});
+            try
+            {
+                measurments = await _accountDataService.AddUpdateAccountMeasurmentAsync(measurments);
+                return measurments;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
         }
     }
 }

@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Models.Post;
 using Journey.Services.Azure;
-using Journey.Services.Buisness.Post.Dto;
 using Journey.Services.Buisness.Post.Translators;
+using Journey.Services.Buisness.PostComment.Dto;
 using Microsoft.WindowsAzure.MobileServices;
 
 namespace Journey.Services.Buisness.PostComment.Data
@@ -13,12 +13,12 @@ namespace Journey.Services.Buisness.PostComment.Data
     public class PostCommentDataService : IPostCommentDataService
     {
         private readonly MobileServiceClient _client;
-        private readonly IMobileServiceTable<AzurePostComments> azureComment;
+        private readonly IMobileServiceTable<AzurePostComments> _azureComment;
 
         public PostCommentDataService(IAzureService azureService)
         {
             _client = azureService.CreateOrGetAzureClient();
-            azureComment = _client.GetTable<AzurePostComments>();
+            _azureComment = _client.GetTable<AzurePostComments>();
         }
 
         public async Task<Comment> AddCommentAsync(string comment, string post)
@@ -30,7 +30,7 @@ namespace Journey.Services.Buisness.PostComment.Data
                 var account = _client.CurrentUser.UserId;
                 var commentDto = PostDataTranslators.TranslateComment(comment, post, account);
 
-                await azureComment.InsertAsync(commentDto);
+                await _azureComment.InsertAsync(commentDto);
 
                 //await SyncCommentAsync(post);
 
@@ -48,12 +48,11 @@ namespace Journey.Services.Buisness.PostComment.Data
         {
             try
             {
-                List<AzurePostComments> comments = null;
                 //// comments = await Client.InvokeApiAsync<List<AzurePostComments>>(api, HttpMethod.Get, null);
                 //if (sync)
                 //comments = await SyncCommentAsync(post);
-                if (comments == null || comments.Count == 0)
-                    comments = await azureComment.Where(po => po.Post == post).ToListAsync();
+                //if (comments == null || comments.Count == 0)
+                    var comments = await _azureComment.Where(po => po.Post == post).ToListAsync();
                 //if (comments == null || comments.Count == 0)
                 //comments = await SyncCommentAsync(post);
                 if (comments == null || comments.Count == 0)
@@ -64,7 +63,7 @@ namespace Journey.Services.Buisness.PostComment.Data
             }
             catch (Exception ex)
             {
-                throw new DataServiceException(ex);
+                throw new DataServiceException(ex.Message,ex);
             }
         }
 
@@ -75,7 +74,7 @@ namespace Journey.Services.Buisness.PostComment.Data
                 if (string.IsNullOrEmpty(comment))
                     return false;
 
-                await azureComment.DeleteAsync(new AzurePostComments {Id = comment});
+                await _azureComment.DeleteAsync(new AzurePostComments {Id = comment});
 
                 //await SyncCommentAsync(post);
 
@@ -83,7 +82,7 @@ namespace Journey.Services.Buisness.PostComment.Data
             }
             catch (Exception ex)
             {
-                throw new DataServiceException(ex);
+                throw new DataServiceException(ex.Message, ex);
             }
         }
         //        await _client.SyncContext.PushAsync();

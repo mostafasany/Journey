@@ -48,9 +48,10 @@ namespace Journey.Services.Buisness.Account.Data
         }
 
 
-        //TODO: There shouldnt be two request to get user , it should call the account api and it returns challengeid if exist  
+       
         public async Task<Models.Account.Account> GetAccountAsync(bool sync = false)
-        {
+        { 
+            //TODO: There shouldnt be two request to get user , it should call the account api and it returns challengeid if exist  
             try
             {
                 if (string.IsNullOrEmpty(_client.CurrentUser.MobileServiceAuthenticationToken))
@@ -78,7 +79,7 @@ namespace Journey.Services.Buisness.Account.Data
 
                 return accountDto;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
