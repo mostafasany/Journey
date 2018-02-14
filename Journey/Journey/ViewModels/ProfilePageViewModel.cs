@@ -36,7 +36,7 @@ namespace Journey.ViewModels
         {
         }
 
-        public  void OnNavigatedTo(NavigationParameters parameters)
+        public void OnNavigatedTo(NavigationParameters parameters)
         {
             try
             {
@@ -286,7 +286,7 @@ namespace Journey.ViewModels
 
         public DelegateCommand OnAddGoalCommand => new DelegateCommand(OnAddGoal);
 
-        private  void OnAddGoal()
+        private async void OnAddGoal()
         {
             try
             {
@@ -295,7 +295,7 @@ namespace Journey.ViewModels
                 LoggedInAccount.AccountGoal.Goal = Goal;
                 LoggedInAccount.AccountGoal.Start = Start;
                 LoggedInAccount.AccountGoal.End = End;
-                //LoggedInAccount.AccountGoal = await accountGoalService.AddAccountGoal(LoggedInAccount.AccountGoal);
+                LoggedInAccount.AccountGoal = await _accountGoalService.AddAccountGoal(LoggedInAccount.AccountGoal);
                 Goal = 0;
             }
             catch (Exception ex)
