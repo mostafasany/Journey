@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
@@ -13,7 +14,7 @@ namespace Journey.Services.Buisness.Measurment.Data
 {
     public class AccountMeasurmentDataService : IAccountMeasurmentDataService
     {
-        readonly IMobileServiceTable<AzureAccountMeasurements> _accountMeasurementsTable;
+        private readonly IMobileServiceTable<AzureAccountMeasurements> _accountMeasurementsTable;
         private readonly MobileServiceClient _client;
 
         public AccountMeasurmentDataService(IAzureService azureService)
@@ -22,15 +23,17 @@ namespace Journey.Services.Buisness.Measurment.Data
             _accountMeasurementsTable = _client.GetTable<AzureAccountMeasurements>();
         }
 
-        public async Task<List<ScaleMeasurment>> AddUpdateAccountMeasurmentAsync(List<ScaleMeasurment> accountMeasurments)
+        public async Task<List<ScaleMeasurment>> AddUpdateAccountMeasurmentAsync(
+            List<ScaleMeasurment> accountMeasurments)
         {
             try
             {
                 if (accountMeasurments == null)
                     return null;
 
-                string account = _client.CurrentUser.UserId;
-                AzureAccountMeasurements accountMeasureDto = AccountMeasurmentDataTranslator.TranslateAccountMeasurments(account, accountMeasurments);
+                var account = _client.CurrentUser.UserId;
+                var accountMeasureDto =
+                    AccountMeasurmentDataTranslator.TranslateAccountMeasurments(account, accountMeasurments);
 
                 await _accountMeasurementsTable.InsertAsync(accountMeasureDto);
 
@@ -39,11 +42,12 @@ namespace Journey.Services.Buisness.Measurment.Data
                 //if (syncedData != null)
                 //    syncedData = accountMeasureDto;
 
-                accountMeasurments = AccountMeasurmentDataTranslator.TranslateAccountMeasurments(account, accountMeasureDto);
+                accountMeasurments =
+                    AccountMeasurmentDataTranslator.TranslateAccountMeasurments(account, accountMeasureDto);
 
                 return accountMeasurments;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 throw new DataServiceException(ex.Message, ex);
             }
@@ -59,23 +63,23 @@ namespace Journey.Services.Buisness.Measurment.Data
                 //}
                 //if (returnedData == null)
                 //{
-                    string account = _client.CurrentUser.UserId;
-                    var returnedData = (await _accountMeasurementsTable.CreateQuery().Where(acc => acc.Account == account).OrderByDescending(acc => acc.CreatedAt).ToListAsync())?.FirstOrDefault();
+                var account = _client.CurrentUser.UserId;
+                var returnedData = (await _accountMeasurementsTable.CreateQuery().Where(acc => acc.Account == account)
+                    .OrderByDescending(acc => acc.CreatedAt).ToListAsync())?.FirstOrDefault();
                 //}
                 //if (returnedData == null)
                 //{
                 //    returnedData = await SyncMeasurmentsAsync();
                 //}
                 if (returnedData == null)
-                {
                     return await GetEmptyMeasurmentsAsync();
-                }
 
-                var measuremnts = AccountMeasurmentDataTranslator.TranslateAccountMeasurments(_client.CurrentUser.UserId, returnedData);
+                var measuremnts =
+                    AccountMeasurmentDataTranslator.TranslateAccountMeasurments(_client.CurrentUser.UserId,
+                        returnedData);
                 return measuremnts;
-
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 throw new DataServiceException(ex.Message, ex);
             }
@@ -83,7 +87,7 @@ namespace Journey.Services.Buisness.Measurment.Data
 
         private async Task<List<ScaleMeasurment>> GetEmptyMeasurmentsAsync()
         {
-            List<ScaleMeasurment> measuremnts = new List<ScaleMeasurment>
+            var measuremnts = new List<ScaleMeasurment>
             {
                 new ScaleMeasurment
                 {
@@ -137,16 +141,15 @@ namespace Journey.Services.Buisness.Measurment.Data
 
             return measuremnts;
         }
+        //        await this.Client.SyncContext.PushAsync();
+        //    {
 
+        //    try
+        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
+        //{
 
 
         //public async Task<AzureAccountMeasurements> SyncMeasurmentsAsync()
-        //{
-        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
-
-        //    try
-        //    {
-        //        await this.Client.SyncContext.PushAsync();
 
         //        // The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
         //        // Use a different query name for each unique query in your program.
@@ -192,8 +195,5 @@ namespace Journey.Services.Buisness.Measurment.Data
         //    }
         //    return null;
         //}
-
-
-
     }
 }

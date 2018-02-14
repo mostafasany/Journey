@@ -48,9 +48,8 @@ namespace Journey.Services.Buisness.Account.Data
         }
 
 
-       
         public async Task<Models.Account.Account> GetAccountAsync(bool sync = false)
-        { 
+        {
             //TODO: There shouldnt be two request to get user , it should call the account api and it returns challengeid if exist  
             try
             {
@@ -98,14 +97,14 @@ namespace Journey.Services.Buisness.Account.Data
                 throw new DataServiceException(ex);
             }
         }
-        //    {
-
-        //    try
-        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
-        //{
+        //        await this.Client.SyncContext.PushAsync();
 
         //private async Task<AzureAccount> SyncAccountAsync()
-        //        await this.Client.SyncContext.PushAsync();
+        //{
+        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
+
+        //    try
+        //    {
 
 
         //        // The first parameter is a query name that is used internally by the client SDK to implement incremental sync.

@@ -105,7 +105,6 @@ namespace Journey.ViewModels
                     IsPullRefreshLoading = false;
                     Intialize();
                 }
-               
             }
             catch (Exception ex)
             {

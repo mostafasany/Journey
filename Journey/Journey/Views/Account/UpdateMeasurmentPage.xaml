@@ -13,15 +13,17 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Label Text="{Binding Title}" Margin="5,0" FontAttributes="Bold" Style="{StaticResource LabelHeaderStyle}" />
-                            <Entry Grid.Column="1" WidthRequest="150" Keyboard="Numeric" HorizontalOptions="Center" TextColor="Black" Text="{Binding Measure}" />
+                            <Label Text="{Binding Title}" Margin="5,0" FontAttributes="Bold"
+                                   Style="{StaticResource LabelHeaderStyle}" />
+                            <Entry Grid.Column="1" WidthRequest="150" Keyboard="Numeric" HorizontalOptions="Center"
+                                   TextColor="Black" Text="{Binding Measure}" />
                         </Grid>
                     </ViewCell.View>
                 </Controls:UnSelectableViewCell>
             </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+
     <ContentPage.Content>
         <Grid Margin="10" HorizontalOptions="Center">
             <Grid.RowDefinitions>
@@ -34,12 +36,16 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Controls:ImageControl Grid.Column="0" PortablePath="LoginLogo.png" Style="{StaticResource ImageHeaderStyle}" />
+                <Controls:ImageControl Grid.Column="0" PortablePath="LoginLogo.png"
+                                       Style="{StaticResource ImageHeaderStyle}" />
                 <Label Grid.Column="1" Text="Update your measurments" Style="{StaticResource LabelHeaderStyle}" />
             </Grid>
-            <ListView Grid.Row="1" RowHeight="50" IsVisible="{Binding IsNotLoading}" SeparatorVisibility="None" ItemsSource="{Binding Measuremnts}" ItemTemplate="{StaticResource ScaleTemplate}" />
-            <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Button Grid.Row="2" Text="Continue" VerticalOptions="End" Command="{Binding OnContinueCommand}" Style="{StaticResource PrimaryButtonStyle}" />
+            <ListView Grid.Row="1" RowHeight="50" IsVisible="{Binding IsNotLoading}" SeparatorVisibility="None"
+                      ItemsSource="{Binding Measuremnts}" ItemTemplate="{StaticResource ScaleTemplate}" />
+            <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
+                                     VerticalOptions="Center" />
+            <Button Grid.Row="2" Text="Continue" VerticalOptions="End" Command="{Binding OnContinueCommand}"
+                    Style="{StaticResource PrimaryButtonStyle}" />
         </Grid>
     </ContentPage.Content>
 </local:BasePage>

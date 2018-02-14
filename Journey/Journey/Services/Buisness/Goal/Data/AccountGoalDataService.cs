@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Models.Account;
@@ -12,7 +13,7 @@ namespace Journey.Services.Buisness.Goal.Data
 {
     public class AccountGoalDataService : IAccountGoalDataService
     {
-        readonly IMobileServiceSyncTable<AzureAccountGoal> _accountGoalTable;
+        private readonly IMobileServiceSyncTable<AzureAccountGoal> _accountGoalTable;
 
         private readonly MobileServiceClient _client;
 
@@ -29,7 +30,8 @@ namespace Journey.Services.Buisness.Goal.Data
                 if (bodyWeight == null)
                     return null;
 
-                AzureAccountGoal accountGoalDto = AccountGoalDataTranslator.TranslateAccountGoal(bodyWeight, _client.CurrentUser.UserId);
+                var accountGoalDto =
+                    AccountGoalDataTranslator.TranslateAccountGoal(bodyWeight, _client.CurrentUser.UserId);
                 await _accountGoalTable.InsertAsync(accountGoalDto);
 
                 //var syncedAccountGoalDto = await SyncGoalAsync();
@@ -38,9 +40,8 @@ namespace Journey.Services.Buisness.Goal.Data
 
                 bodyWeight = AccountGoalDataTranslator.TranslateAccountGoal(accountGoalDto);
                 return bodyWeight;
-
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 throw new DataServiceException(ex.Message, ex);
             }
@@ -57,33 +58,32 @@ namespace Journey.Services.Buisness.Goal.Data
 
                 //if (returnedData == null)
                 //{
-                    string account = _client.CurrentUser.UserId;
-                    var returnedData = (await _accountGoalTable.CreateQuery().Where(acc => acc.Account == account).OrderByDescending(abc => abc.CreatedAt).ToListAsync()).FirstOrDefault();
+                var account = _client.CurrentUser.UserId;
+                var returnedData = (await _accountGoalTable.CreateQuery().Where(acc => acc.Account == account)
+                    .OrderByDescending(abc => abc.CreatedAt).ToListAsync()).FirstOrDefault();
                 //}
                 //if (returnedData == null)
                 //{
                 //    returnedData = await SyncGoalAsync();
                 //}
                 if (returnedData == null)
-                {
                     return null;
-                }
 
                 var accountGoal = AccountGoalDataTranslator.TranslateAccountGoal(returnedData);
                 return accountGoal;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                throw new DataServiceException(ex.Message,ex);
+                throw new DataServiceException(ex.Message, ex);
             }
         }
-
-        //public async Task<AzureAccountGoal> SyncGoalAsync()
-        //{
-        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
+        //    {
 
         //    try
-        //    {
+        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
+        //{
+
+        //public async Task<AzureAccountGoal> SyncGoalAsync()
         //        await this.Client.SyncContext.PushAsync();
 
         //        // The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
@@ -132,6 +132,5 @@ namespace Journey.Services.Buisness.Goal.Data
         //    }
         //    return null;
         //}
-
     }
 }

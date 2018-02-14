@@ -12,13 +12,15 @@ namespace Journey.ViewModels
     {
         private readonly IAccountMeasurmentService _accountMeasurmentService;
 
-        public UpdateMeasurmentPageViewModel(IUnityContainer container, IAccountMeasurmentService accountMeasurmentService) :
+        private List<ScaleMeasurment> _measuremnts;
+
+        public UpdateMeasurmentPageViewModel(IUnityContainer container,
+            IAccountMeasurmentService accountMeasurmentService) :
             base(container)
         {
             _accountMeasurmentService = accountMeasurmentService;
         }
 
-        private List<ScaleMeasurment> _measuremnts;
         public List<ScaleMeasurment> Measuremnts
         {
             get => _measuremnts;
@@ -29,7 +31,6 @@ namespace Journey.ViewModels
 
         #region OnContinueCommand
 
-
         public DelegateCommand OnContinueCommand => new DelegateCommand(OnContinue);
 
 
@@ -39,11 +40,11 @@ namespace Journey.ViewModels
             {
                 if (IsProgress())
                     return;
-               ShowProgress();
+                ShowProgress();
                 if (Measuremnts == null)
                     return;
 
-               var measurments= await _accountMeasurmentService.UpdateScaleMeasurments(Measuremnts);
+                var measurments = await _accountMeasurmentService.UpdateScaleMeasurments(Measuremnts);
 
                 NavigationService.GoBack(measurments, "Measurments");
             }
@@ -53,9 +54,8 @@ namespace Journey.ViewModels
             }
             finally
             {
-             HideProgress();
+                HideProgress();
             }
-
         }
 
         public void OnNavigatedFrom(NavigationParameters parameters)
@@ -75,13 +75,14 @@ namespace Journey.ViewModels
             }
             finally
             {
-               HideProgress();
+                HideProgress();
             }
         }
 
         public void OnNavigatingTo(NavigationParameters parameters)
         {
         }
+
         #endregion
 
         #endregion

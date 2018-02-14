@@ -49,6 +49,5 @@ namespace Journey.Services.Buisness.Goal.Translators
                 throw new TranslationFailedException("Goal", ex.InnerException);
             }
         }
-
     }
 }

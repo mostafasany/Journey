@@ -10,7 +10,6 @@ namespace Journey.Services.Buisness.Measurment.Translators
 {
     public static class AccountMeasurmentDataTranslator
     {
-
         public static AzureAccountMeasurements TranslateAccountMeasurments(string account,
             List<ScaleMeasurment> accountMeasurments)
         {
