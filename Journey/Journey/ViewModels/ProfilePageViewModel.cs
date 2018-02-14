@@ -46,8 +46,10 @@ namespace Journey.ViewModels
                     if (measurments != null)
                         Measuremnts = measurments;
                 }
-
-                Intialize();
+                if (parameters.GetNavigationMode() == NavigationMode.New)
+                {
+                    Intialize();
+                }
             }
             catch (Exception e)
             {
