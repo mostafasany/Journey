@@ -111,11 +111,6 @@ namespace Journey.ViewModels
             }
 
         }
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 668c4d405a3c62072fabbd735718139899b5cbcf
         #endregion
 
         #endregion

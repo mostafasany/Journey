@@ -317,6 +317,11 @@ namespace Journey.ViewModels
                 var commands =
                     new List<DialogCommand>
                     {
+                    new DialogCommand
+                        {
+                            Label = AppResource.Edit,
+                            Invoked = () => OnEditProfile(),
+                        },
                         new DialogCommand
                         {
                             Label = AppResource.Profile_SetMonthlyGoal,

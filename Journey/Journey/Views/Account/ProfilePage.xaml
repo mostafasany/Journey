@@ -1,15 +1,11 @@
-<<<<<<< HEAD
-<?xml version="1.0" encoding="utf-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.ProfilePage">
-=======
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" 
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:local="clr-namespace:Journey.Views"
                 xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-                xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources"
+                xmlns:Controls="clr-namespace:Journey.Views.Controls"
+                xmlns:resources="clr-namespace:Journey.Resources"
                 x:Class="Journey.Views.ProfilePage">
->>>>>>> 668c4d405a3c62072fabbd735718139899b5cbcf
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="GalleryTemplate">
@@ -26,7 +22,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+                                </Grid.ColumnDefinitions>
                             <Label Text="{Binding Title}" Margin="5,0" FontAttributes="Bold" Style="{StaticResource LabelHeaderStyle}" />
                             <Grid Grid.Column="1" BackgroundColor="{Binding Color}" WidthRequest="100">
                                 <Label HorizontalOptions="Center" TextColor="White" Text="{Binding MeasureWithUnit}" Style="{StaticResource LabelHeaderStyle}" />
@@ -49,35 +45,39 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="30" />
                 </Grid.ColumnDefinitions>
                 <Controls:ImageControl Grid.Column="0" PortablePath="backwhite.png" Style="{StaticResource ImageHeaderStyle}">
                     <Controls:ImageControl.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnBackCommand}" CommandParameter="{Binding}" />
                     </Controls:ImageControl.GestureRecognizers>
                 </Controls:ImageControl>
-                <Label Grid.Column="1" TextColor="White" Text="{Binding LoggedInAccount.Name}" Style="{StaticResource LabelHeaderStyle}" HorizontalOptions="Center" />
+                 <StackLayout Grid.Column="1" Orientation="Horizontal" HorizontalOptions="Center">
+                  
+                 <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+
+                    <Controls:CustomImage Source="{Binding LoggedInAccount.Image.Path}" Style="{StaticResource ImageHeaderStyle}">
+                        <Controls:CustomImage.Transformations>
+                            <fftransformations:CircleTransformation />
+                        </Controls:CustomImage.Transformations>
+                    </Controls:CustomImage>
+                  </StackLayout>
+                 
+                <Label TextColor="White" Text="{Binding LoggedInAccount.Name}" Style="{StaticResource LabelHeaderStyle}" HorizontalOptions="Center" />
+                 </StackLayout>
+                    <Controls:ImageControl Grid.Column="2" PortablePath="moreWhite.png" Aspect="AspectFit" Style="{StaticResource IconStyle}" HorizontalOptions="End">
+                    <Controls:ImageControl.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnMoreCommand}" CommandParameter="{Binding}" />
+                    </Controls:ImageControl.GestureRecognizers>
+                </Controls:ImageControl>
             </Grid>
             <Grid Grid.Row="1" BackgroundColor="{StaticResource Primary}" Padding="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <StackLayout Grid.Row="0" Orientation="Vertical" HorizontalOptions="Start">
-                    <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding OnEditProfileCommand}" />
-                    </StackLayout.GestureRecognizers>
-                    <Controls:CustomImage Grid.Row="0" Source="{Binding LoggedInAccount.Image.Path}" Style="{StaticResource ImageHeaderStyle}">
-                        <Controls:CustomImage.Transformations>
-                            <fftransformations:CircleTransformation />
-                        </Controls:CustomImage.Transformations>
-                    </Controls:CustomImage>
-                    <Label TextColor="White" Text="Edit" Style="{StaticResource LabelHeaderStyle}" HorizontalOptions="Center" />
-                </StackLayout>
-                <Controls:ImageControl PortablePath="moreWhite.png" Aspect="AspectFit" Style="{StaticResource IconStyle}" HorizontalOptions="End">
-                    <Controls:ImageControl.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding OnMoreCommand}" CommandParameter="{Binding}" />
-                    </Controls:ImageControl.GestureRecognizers>
-                </Controls:ImageControl>
+               
+             
                 <Grid Grid.Row="1" IsVisible="{Binding IsNotLoading}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />

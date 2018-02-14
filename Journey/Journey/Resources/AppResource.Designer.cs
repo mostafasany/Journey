@@ -370,5 +370,11 @@ namespace Journey.Resources {
                 return ResourceManager.GetString("Continue", resourceCulture);
             }
         }
+        
+        internal static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
     }
 }
