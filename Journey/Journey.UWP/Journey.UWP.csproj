@@ -115,6 +115,8 @@
   <ItemGroup>
     <Content Include="Assets\add.png" />
     <Content Include="Assets\addWhite.png" />
+    <Content Include="Assets\back.png" />
+    <Content Include="Assets\backwhite.png" />
     <Content Include="Assets\camera.png" />
     <Content Include="Assets\check.png" />
     <Content Include="Assets\clear.png" />
