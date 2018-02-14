@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Prism.Navigation;
@@ -72,6 +73,31 @@ namespace Journey.Services.Forms
                     {
                         {key, parameter}
                     };
+                await _navigationService.NavigateAsync(pageToken, navigationParameters, useModalNavigation, animated);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new CoreServiceException(ex);
+            }
+        }
+
+        public async Task<bool> Navigate(string pageToken,Dictionary<string,object> parameters,
+           bool? useModalNavigation = null, bool animated = false)
+        {
+            try
+            {
+                NavigationParameters navigationParameters = null;
+                if (parameters != null)
+                {
+                    navigationParameters = new NavigationParameters();
+                    foreach (var parameter in parameters)
+                    {
+                        navigationParameters.Add(parameter.Key,parameter.Value);
+                    }
+                }
+                   
+                
                 await _navigationService.NavigateAsync(pageToken, navigationParameters, useModalNavigation, animated);
                 return true;
             }

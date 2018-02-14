@@ -371,9 +371,21 @@ namespace Journey.Resources {
             }
         }
         
-        internal static string Edit {
+        internal static string Profile_Edit {
             get {
-                return ResourceManager.GetString("Edit", resourceCulture);
+                return ResourceManager.GetString("Profile_Edit", resourceCulture);
+            }
+        }
+        
+        internal static string CurrentWeight {
+            get {
+                return ResourceManager.GetString("CurrentWeight", resourceCulture);
+            }
+        }
+        
+        internal static string Home_StartNewChallenge {
+            get {
+                return ResourceManager.GetString("Home_StartNewChallenge", resourceCulture);
             }
         }
     }

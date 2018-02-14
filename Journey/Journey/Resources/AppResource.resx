@@ -280,7 +280,14 @@
    <data name="Continue" xml:space="preserve">
     <value>Continue</value>
   </data>
-    <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <data name="Profile_Edit" xml:space="preserve">
+    <value>Edit Profile</value>
   </data>
+      <data name="CurrentWeight" xml:space="preserve">
+    <value>Current Weight</value>
+  </data>
+     <data name="Home_StartNewChallenge" xml:space="preserve">
+    <value>Start Your new challenge</value>
+  </data>
+
 </root>

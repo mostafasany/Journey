@@ -36,7 +36,7 @@ namespace Journey.ViewModels
         {
         }
 
-        public void OnNavigatedTo(NavigationParameters parameters)
+        public async void OnNavigatedTo(NavigationParameters parameters)
         {
             try
             {
@@ -44,7 +44,12 @@ namespace Journey.ViewModels
                 {
                     var measurments = parameters.GetValue<List<ScaleMeasurment>>("Measurments");
                     if (measurments != null)
+                    {
                         Measuremnts = measurments;
+                        LoggedInAccount.AccountGoal.Weight = Measuremnts.FirstOrDefault().Measure;
+                        LoggedInAccount.AccountGoal = await _accountGoalService.AddAccountGoal(LoggedInAccount.AccountGoal);
+                    }
+
                 }
                 if (parameters.GetNavigationMode() == NavigationMode.New)
                 {
@@ -279,7 +284,13 @@ namespace Journey.ViewModels
 
         private void OnEditProfile()
         {
-            NavigationService.Navigate("UpdateProfilePage", LoggedInAccount, "Account");
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                {"Account", LoggedInAccount},
+                {"ShowBack", true}
+
+            };
+            NavigationService.Navigate("UpdateProfilePage", parameters);
         }
 
         #endregion
@@ -321,7 +332,7 @@ namespace Journey.ViewModels
                     {
                     new DialogCommand
                         {
-                            Label = AppResource.Edit,
+                        Label = AppResource.Profile_Edit,
                             Invoked = () => OnEditProfile(),
                         },
                         new DialogCommand

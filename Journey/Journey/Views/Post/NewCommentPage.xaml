@@ -1,11 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:local="clr-namespace:Journey.Views"
-                xmlns:Controls="clr-namespace:Journey.Views.Controls"
-                xmlns:resources="clr-namespace:Journey.Resources"
-                x:Class="Journey.Views.NewCommentPage">
+<?xml version="1.0" encoding="utf-8"?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" x:Class="Journey.Views.NewCommentPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="CommentTemplate">
@@ -21,16 +15,14 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Controls:CustomImage Grid.Column="0" Grid.RowSpan="3"
-                                                  Source="{Binding Account.Image.Path}" VerticalOptions="Start"
-                                                  HorizontalOptions="Start" WidthRequest="60" HeightRequest="60" />
-                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding Account.Name}" TextColor="Black"
-                                   FontSize="14" FontAttributes="Bold" VerticalOptions="Start"
-                                   HorizontalOptions="Start" />
-                            <Label Grid.Column="1" Grid.Row="1" Text="{Binding CommentText}" TextColor="Black"
-                                   FontSize="14" VerticalOptions="Start" HorizontalOptions="Start" />
-                            <Label Grid.Column="1" Grid.Row="2" Text="{Binding FormatedDate}" TextColor="Black"
-                                   FontSize="12" VerticalOptions="Start" HorizontalOptions="Start" />
+                            <Controls:CustomImage Grid.Column="0" Grid.RowSpan="3" Source="{Binding Account.Image.Path}" VerticalOptions="Start" HorizontalOptions="Start" WidthRequest="60" HeightRequest="60">
+                                <Controls:CustomImage.Transformations>
+                                    <fftransformations:CircleTransformation />
+                                </Controls:CustomImage.Transformations>
+                            </Controls:CustomImage>
+                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding Account.Name}" TextColor="Black" FontSize="14" FontAttributes="Bold" VerticalOptions="Start" HorizontalOptions="Start" />
+                            <Label Grid.Column="1" Grid.Row="1" Text="{Binding CommentText}" TextColor="Black" FontSize="14" VerticalOptions="Start" HorizontalOptions="Start" />
+                            <Label Grid.Column="1" Grid.Row="2" Text="{Binding FormatedDate}" TextColor="Black" FontSize="12" VerticalOptions="Start" HorizontalOptions="Start" />
                         </Grid>
                     </ViewCell.View>
                 </Controls:UnSelectableViewCell>
@@ -50,28 +42,21 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Controls:ImageControl Grid.Row="0" PortablePath="clear.png" Style="{StaticResource IconStyle}"
-                                   Margin="5,0"
-                                   HorizontalOptions="End">
+            <Controls:ImageControl Grid.Row="0" PortablePath="clear.png" Style="{StaticResource IconStyle}" Margin="5,0" HorizontalOptions="End">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
                 </Image.GestureRecognizers>
             </Controls:ImageControl>
-            <ListView Grid.Row="1" SeparatorVisibility="None" RowHeight="100"
-                      ItemTemplate="{StaticResource CommentTemplate}" BackgroundColor="White"
-                      ItemsSource="{Binding Comments}" HorizontalOptions="Start" IsPullToRefreshEnabled="true"
-                      IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
-                      RefreshCommand="{Binding OnPullRefreshRequestCommand}" />
-            <Controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
-                                     VerticalOptions="Center" Margin="20,0" />
+            <ListView Grid.Row="1" SeparatorVisibility="None" RowHeight="100" ItemTemplate="{StaticResource CommentTemplate}" BackgroundColor="White" ItemsSource="{Binding Comments}" HorizontalOptions="Start" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
+                RefreshCommand="{Binding OnPullRefreshRequestCommand}" />
+            <Controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" Margin="20,0" />
             <Label Grid.Row="3" Margin="0,20,0,5" Text="Leave Comment" />
             <Grid Grid.Row="4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Editor Grid.Column="0" Text="{Binding NewComment}" Style="{StaticResource EditorFormStyle}"
-                        HeightRequest="100" />
+                <Editor Grid.Column="0" Text="{Binding NewComment}" Style="{StaticResource EditorFormStyle}" HeightRequest="100" />
                 <Controls:ImageControl Grid.Column="1" PortablePath="check.png" Style="{StaticResource IconStyle}">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnNewCommentCommand}" />

@@ -13,14 +13,14 @@ namespace Journey.Services.Buisness.Goal.Data
 {
     public class AccountGoalDataService : IAccountGoalDataService
     {
-        private readonly IMobileServiceSyncTable<AzureAccountGoal> _accountGoalTable;
+        private readonly IMobileServiceTable<AzureAccountGoal> _accountGoalTable;
 
         private readonly MobileServiceClient _client;
 
         public AccountGoalDataService(IAzureService azureService)
         {
             _client = azureService.CreateOrGetAzureClient();
-            _accountGoalTable = _client.GetSyncTable<AzureAccountGoal>();
+            _accountGoalTable = _client.GetTable<AzureAccountGoal>();
         }
 
         public async Task<AccountGoal> AddUpdateAccountGoalAsync(AccountGoal bodyWeight)

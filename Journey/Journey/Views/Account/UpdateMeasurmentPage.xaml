@@ -30,7 +30,7 @@
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Controls:ImageControl Grid.Column="0" PortablePath="back.png" Style="{StaticResource ImageHeaderStyle}">
+                <Controls:ImageControl Grid.Column="0" PortablePath="back.png" Style="{StaticResource IconStyle}">
                     <Controls:ImageControl.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnBackCommand}" CommandParameter="{Binding}" />
                     </Controls:ImageControl.GestureRecognizers>

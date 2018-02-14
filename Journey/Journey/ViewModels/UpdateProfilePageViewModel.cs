@@ -39,6 +39,7 @@ namespace Journey.ViewModels
             {
                 ShowProgress();
                 LoggedInAccount = parameters.GetValue<Account>("Account") ?? new Account();
+                ShowBackButton = parameters.GetValue<bool>("ShowBack");
             }
             catch (Exception ex)
             {
@@ -64,6 +65,14 @@ namespace Journey.ViewModels
         {
             get => _loggedInAccount;
             set => SetProperty(ref _loggedInAccount, value);
+        }
+
+        private bool _showBackButton;
+
+        public bool ShowBackButton
+        {
+            get => _showBackButton;
+            set => SetProperty(ref _showBackButton, value);
         }
 
         #endregion
@@ -200,6 +209,32 @@ namespace Journey.ViewModels
                 HideProgress();
             }
         }
+
+        #endregion
+
+        #region OnBackCommand
+
+
+        public DelegateCommand OnBackCommand => new DelegateCommand(OnBack);
+
+
+        private async void OnBack()
+        {
+            try
+            {
+                NavigationService.GoBack();
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.Handle(ex);
+            }
+            finally
+            {
+                HideProgress();
+            }
+
+        }
+
 
         #endregion
 
