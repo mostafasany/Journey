@@ -25,38 +25,7 @@ namespace Journey.ViewModels
             set => SetProperty(ref _measuremnts, value);
         }
 
-        #region Commands
-
-        #region OnContinueCommand
-
-
-        public DelegateCommand OnContinueCommand => new DelegateCommand(OnContinue);
-
-
-        private async void OnContinue()
-        {
-            try
-            {
-                if (IsProgress())
-                    return;
-               ShowProgress();
-                if (Measuremnts == null)
-                    return;
-
-               var measurments= await _accountMeasurmentService.UpdateScaleMeasurments(Measuremnts);
-
-                NavigationService.GoBack(measurments, "Measurments");
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.Handle(ex);
-            }
-            finally
-            {
-             HideProgress();
-            }
-
-        }
+        #region Events
 
         public void OnNavigatedFrom(NavigationParameters parameters)
         {
@@ -75,13 +44,75 @@ namespace Journey.ViewModels
             }
             finally
             {
-               HideProgress();
+                HideProgress();
             }
         }
 
         public void OnNavigatingTo(NavigationParameters parameters)
         {
         }
+        #endregion
+
+        #region Commands
+
+        #region OnContinueCommand
+
+
+        public DelegateCommand OnContinueCommand => new DelegateCommand(OnContinue);
+
+
+        private async void OnContinue()
+        {
+            try
+            {
+                if (IsProgress())
+                    return;
+                ShowProgress();
+                if (Measuremnts == null)
+                    return;
+
+                var measurments = await _accountMeasurmentService.UpdateScaleMeasurments(Measuremnts);
+
+                NavigationService.GoBack(measurments, "Measurments");
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.Handle(ex);
+            }
+            finally
+            {
+                HideProgress();
+            }
+
+        }
+
+
+        #endregion
+
+        #region OnBackCommand
+
+
+        public DelegateCommand OnBackCommand => new DelegateCommand(OnBack);
+
+
+        private async void OnBack()
+        {
+            try
+            {
+                NavigationService.GoBack();
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.Handle(ex);
+            }
+            finally
+            {
+                HideProgress();
+            }
+
+        }
+
+
         #endregion
 
         #endregion

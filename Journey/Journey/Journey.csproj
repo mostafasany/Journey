@@ -44,6 +44,8 @@
     <None Remove="Assets\exit.png" />
     <None Remove="Assets\videothumbnail.png" />
     <None Remove="Assets\moreWhite.png" />
+    <None Remove="Assets\back.png" />
+    <None Remove="Assets\backwhite.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -88,6 +90,8 @@
     <EmbeddedResource Include="Assets\exit.png" />
     <EmbeddedResource Include="Assets\videothumbnail.png" />
     <EmbeddedResource Include="Assets\moreWhite.png" />
+    <EmbeddedResource Include="Assets\back.png" />
+    <EmbeddedResource Include="Assets\backwhite.png" />
   </ItemGroup>
 
   <ItemGroup>

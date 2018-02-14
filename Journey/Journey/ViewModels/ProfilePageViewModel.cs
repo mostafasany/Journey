@@ -345,6 +345,32 @@ namespace Journey.ViewModels
 
         #endregion
 
+        #region OnBackCommand
+
+
+        public DelegateCommand OnBackCommand => new DelegateCommand(OnBack);
+
+
+        private async void OnBack()
+        {
+            try
+            {
+                NavigationService.GoBack();
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.Handle(ex);
+            }
+            finally
+            {
+                HideProgress();
+            }
+
+        }
+
+
+        #endregion
+
         #endregion
     }
 }

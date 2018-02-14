@@ -358,5 +358,17 @@ namespace Journey.Resources {
                 return ResourceManager.GetString("More", resourceCulture);
             }
         }
+        
+        internal static string Measurments_Message {
+            get {
+                return ResourceManager.GetString("Measurments_Message", resourceCulture);
+            }
+        }
+        
+        internal static string Continue {
+            get {
+                return ResourceManager.GetString("Continue", resourceCulture);
+            }
+        }
     }
 }
