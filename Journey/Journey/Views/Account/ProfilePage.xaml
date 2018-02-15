@@ -37,9 +37,9 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" BackgroundColor="{StaticResource Primary}" Padding="10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Controls:ImageControl Grid.Column="0" PortablePath="backwhite.png" Style="{StaticResource ImageHeaderStyle}">
                     <Controls:ImageControl.GestureRecognizers>
@@ -73,27 +73,17 @@
                 </StackLayout>
                 <StackLayout Grid.Row="0" Orientation="Vertical" HorizontalOptions="End" VerticalOptions="End">
                     <Label TextColor="White" Text="Goal" Style="{StaticResource LabelHeaderStyle}" />
-                    <Label TextColor="White" Text="{Binding LoggedInAccount.AccountGoal.GoalWithUnit}" FontSize="20" Style="{StaticResource LabelHeaderStyle}" />
+                    <Label TextColor="White" IsVisible="{Binding NotAddMode}" Text="{Binding LoggedInAccount.AccountGoal.GoalWithUnit}" FontSize="20" Style="{StaticResource LabelHeaderStyle}" />
+                    <StackLayout Orientation="Horizontal" IsVisible="{Binding AddMode}">
+                        <Entry BackgroundColor="White" WidthRequest="60" TextColor="Black" Keyboard="Numeric" Text="{Binding Goal,Mode=TwoWay}" />
+                        <Controls:ImageControl PortablePath="checkWhite.png" Aspect="AspectFit" Style="{StaticResource IconStyle}" HorizontalOptions="End">
+                            <Controls:ImageControl.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OnAddGoalCommand}" CommandParameter="{Binding}" />
+                            </Controls:ImageControl.GestureRecognizers>
+                        </Controls:ImageControl>
+                    </StackLayout>
                 </StackLayout>
-                <Grid Grid.Row="1" IsVisible="{Binding AddMode}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Label TextColor="White" Text="Start in" Grid.Row="0" Grid.Column="0" />
-                    <DatePicker Date="{Binding Start,Mode=TwoWay }" Grid.Row="0" Grid.Column="1" />
-                    <Label TextColor="White" Text="End at" Grid.Row="1" Grid.Column="0" />
-                    <DatePicker Date="{Binding End,Mode=TwoWay }" Grid.Row="1" Grid.Column="1" />
-                    <Label TextColor="White" Text="Target Goal weight" Grid.Row="2" Grid.Column="0" />
-                    <Entry BackgroundColor="White" Grid.Row="2" Grid.Column="1" WidthRequest="100" TextColor="Black" PlaceholderColor="White" Keyboard="Numeric" Style="{StaticResource EntryFormStyle}" Text="{Binding Goal,Mode=TwoWay}" HorizontalOptions="End" />
-                    <Button Grid.Row="3" Grid.ColumnSpan="2" WidthRequest="100" HorizontalOptions="Center" Text="Add" Command="{Binding OnAddGoalCommand}" Style="{StaticResource SecondaryButtonStyle}" />
-                </Grid>
+              
             </Grid>
             <Controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
             <ListView Grid.Row="3" ItemsSource="{Binding Measuremnts}" ItemTemplate="{StaticResource ScaleTemplate}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true" RefreshCommand="{Binding OnRefreshPostsCommand}" />

@@ -135,8 +135,18 @@ namespace Journey.ViewModels
         public bool AddMode
         {
             get => _addMode;
-            set => SetProperty(ref _addMode, value);
+            set
+            {
+                SetProperty(ref _addMode, value);
+                RaisePropertyChanged(nameof(NotAddMode));
+            }
         }
+
+        public bool NotAddMode
+        {
+            get => !_addMode;
+        }
+
 
         #endregion
 
@@ -303,8 +313,11 @@ namespace Journey.ViewModels
         {
             try
             {
+                
                 AddMode = false;
-
+                if (LoggedInAccount.AccountGoal.Goal == Goal)
+                    return;
+                
                 LoggedInAccount.AccountGoal.Goal = Goal;
                 LoggedInAccount.AccountGoal.Start = Start;
                 LoggedInAccount.AccountGoal.End = End;
@@ -338,7 +351,11 @@ namespace Journey.ViewModels
                         new DialogCommand
                         {
                             Label = AppResource.Profile_SetMonthlyGoal,
-                            Invoked = () => { AddMode = true; }
+                            Invoked = () =>
+                             {
+                                  AddMode = true;
+                                  Goal=LoggedInAccount.AccountGoal.Goal;
+                             }
                         },
                         new DialogCommand
                         {
@@ -389,6 +406,30 @@ namespace Journey.ViewModels
 
         #endregion
 
+        #region OnRefreshPostsCommand
+
+        public DelegateCommand OnRefreshPostsCommand => new DelegateCommand(OnRefreshPosts);
+
+        private async void OnRefreshPosts()
+        {
+            try
+            {
+                IsPullRefreshLoading = true;
+                Intialize();
+            }
+            catch (System.Exception ex)
+            {
+                ExceptionService.Handle(ex);
+            }
+            finally
+            {
+                IsPullRefreshLoading = false;
+                HideProgress();
+            }
+        }
+
+        #endregion
+       
         #endregion
     }
 }

@@ -26,7 +26,6 @@
     <None Remove="Assets\invite.png" />
     <None Remove="Assets\location.png" />
     <None Remove="Assets\login.png" />
-    <None Remove="Assets\logo.png" />
     <None Remove="Assets\logout.png" />
     <None Remove="Assets\meal.png" />
     <None Remove="Assets\measure.png" />
@@ -46,6 +45,7 @@
     <None Remove="Assets\moreWhite.png" />
     <None Remove="Assets\back.png" />
     <None Remove="Assets\backwhite.png" />
+    <None Remove="Assets\checkWhite.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -72,7 +72,6 @@
     <EmbeddedResource Include="Assets\invite.png" />
     <EmbeddedResource Include="Assets\location.png" />
     <EmbeddedResource Include="Assets\login.png" />
-    <EmbeddedResource Include="Assets\logo.png" />
     <EmbeddedResource Include="Assets\logout.png" />
     <EmbeddedResource Include="Assets\meal.png" />
     <EmbeddedResource Include="Assets\measure.png" />
@@ -92,6 +91,7 @@
     <EmbeddedResource Include="Assets\moreWhite.png" />
     <EmbeddedResource Include="Assets\back.png" />
     <EmbeddedResource Include="Assets\backwhite.png" />
+    <EmbeddedResource Include="Assets\checkWhite.png" />
   </ItemGroup>
 
   <ItemGroup>

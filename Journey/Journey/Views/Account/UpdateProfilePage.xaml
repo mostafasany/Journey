@@ -20,7 +20,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Controls:LoadingControl Grid.Column="0" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
-                    <Controls:ImageControl PortablePath="LoginLogo.png" Grid.Column="0" IsVisible="{Binding IsNotLoading}" Style="{StaticResource ImageHeaderStyle}" />
+                    <Controls:ImageControl PortablePath="loading.png" Grid.Column="0" IsVisible="{Binding IsNotLoading}" Style="{StaticResource ImageHeaderStyle}" />
                     <Label Grid.Column="1" Text="{resources:Translate UpdateProfile_Welcome}" Style="{StaticResource LabelHeaderStyle}" />
                 </Grid>
                 <StackLayout Grid.Row="2" Orientation="Vertical" HorizontalOptions="Center">
