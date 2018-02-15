@@ -2,9 +2,9 @@
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.UpdateProfilePage">
     <ContentPage.Content>
         <ScrollView>
-            <Grid Margin="20">
+            <Grid Margin="20,10">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="30" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
@@ -14,7 +14,7 @@
                         <TapGestureRecognizer Command="{Binding OnBackCommand}" CommandParameter="{Binding}" />
                     </Controls:ImageControl.GestureRecognizers>
                 </Controls:ImageControl>
-                <Grid Grid.Row="1" Margin="0,0,0,20" HorizontalOptions="Center">
+                <Grid Grid.Row="1" Margin="0,0,0,10" HorizontalOptions="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />

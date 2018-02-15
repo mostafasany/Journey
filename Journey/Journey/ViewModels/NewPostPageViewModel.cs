@@ -278,6 +278,9 @@ namespace Journey.ViewModels
 
         private void AddMedia(Media media)
         {
+            if (media == null)
+                return;
+
             if (NewPost.MediaList == null)
                 NewPost.MediaList = new ObservableCollection<Media>();
 
@@ -329,7 +332,7 @@ namespace Journey.ViewModels
 
         public DelegateCommand<Media> OnImageDeleteCommand => new DelegateCommand<Media>(OnImageDelete);
 
-        private async void OnImageDelete(Media media)
+        private void OnImageDelete(Media media)
         {
             try
             {

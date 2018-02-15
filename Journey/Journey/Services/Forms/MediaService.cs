@@ -23,6 +23,8 @@ namespace Journey.Services.Forms
                     {
                         PhotoSize = PhotoSize.Medium
                     });
+                if (media == null)
+                    return null;
                 var stream = media.GetStream();
                 var array = ReadFully(stream);
                 var image = new Media
@@ -45,6 +47,8 @@ namespace Journey.Services.Forms
             try
             {
                 var media = await CrossMedia.Current.PickVideoAsync();
+                if (media == null)
+                    return null;
                 var stream = media.GetStream();
                 var array = ReadFully(stream);
                 var image = new Media
@@ -69,6 +73,8 @@ namespace Journey.Services.Forms
             {
                 var media = await CrossMedia.Current.TakePhotoAsync(
                     new StoreCameraMediaOptions {AllowCropping = true, CompressionQuality = 92});
+                if (media == null)
+                    return null;
                 var stream = media.GetStream();
                 var array = ReadFully(stream);
                 var image = new Media
@@ -92,6 +98,8 @@ namespace Journey.Services.Forms
             {
                 var media = await CrossMedia.Current.TakeVideoAsync(
                     new StoreVideoOptions {Quality = VideoQuality.Low, CompressionQuality = 70});
+                if (media == null)
+                    return null;
                 var stream = media.GetStream();
                 var array = ReadFully(stream);
                 var image = new Media

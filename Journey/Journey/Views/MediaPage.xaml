@@ -9,7 +9,7 @@
                 <Controls:UnSelectableViewCell>
                     <ViewCell.View>
                         <Controls:CustomImage Margin="0,0,0,5" Source="{Binding Thumbnail}" WidthRequest="500"
-                                              HeightRequest="300" Aspect="AspectFill" VerticalOptions="Fill"
+                                              HeightRequest="300" Aspect="AspectFit" VerticalOptions="Fill"
                                               HorizontalOptions="Fill">
                             <Controls:CustomImage.GestureRecognizers>
                                 <TapGestureRecognizer

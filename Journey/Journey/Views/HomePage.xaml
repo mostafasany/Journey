@@ -25,7 +25,7 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Controls:CustomImage Grid.Column="0" Grid.RowSpan="3" Source="{Binding Post.Account.Image.Path}" VerticalOptions="Start" HorizontalOptions="Start" WidthRequest="50" HeightRequest="70">
+                                <Controls:CustomImage Grid.Column="0" Grid.RowSpan="2" Source="{Binding Post.Account.Image.Path}" VerticalOptions="Start" HorizontalOptions="Start" WidthRequest="50" HeightRequest="70">
                                     <Controls:CustomImage.Transformations>
                                         <fftransformations:CircleTransformation />
                                     </Controls:CustomImage.Transformations>
@@ -36,7 +36,7 @@
                                         <TapGestureRecognizer Command="{Binding OnPostDeleteCommand}" />
                                     </Image.GestureRecognizers>
                                 </Controls:ImageControl>
-                                <Label Grid.Column="1" Grid.Row="1" Text="{Binding Post.FormatedDate}" TextColor="Black" FontSize="14" VerticalOptions="Center" HorizontalOptions="End" />
+                                <Label Grid.Column="1" Grid.Row="1" Text="{Binding Post.FormatedDate}" TextColor="Gray" FontSize="14" VerticalOptions="Center" HorizontalOptions="End" />
                                 <!-- <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" IsVisible="{Binding Post.HasActivity}" VerticalOptions="Center">
                                     <Label Text="{Binding Post.Activity.Action}" TextColor="Black" FontSize="12" HorizontalOptions="Start" VerticalOptions="Center" />
                                     <Controls:CustomImage Source="{Binding Post.Activity.Image}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
@@ -47,7 +47,7 @@
                                     <Controls:CustomImage Source="{Binding Post.Location.Image}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
                                     <Label Text="{Binding Post.Location.Activity}" FontAttributes="Bold" TextColor="Black" FontSize="14" HorizontalOptions="Start" VerticalOptions="Center" LineBreakMode="NoWrap" />
                                 </StackLayout>
-                                <Label Grid.Column="1" Grid.Row="0" Text="{Binding Post.PostType.FormatedExpPoint}" TextColor="Orange" FontSize="14" VerticalOptions="Start" HorizontalOptions="End" />
+                                <!--<Label Grid.Column="1" Grid.Row="0" Text="{Binding Post.PostType.FormatedExpPoint}" TextColor="Orange" FontSize="14" VerticalOptions="Start" HorizontalOptions="End" />-->
                             </Grid>
                             <Label Grid.Row="1" Text="{Binding Post.Feed}" TextColor="Gray" Margin="5,10,10,5" FontSize="14" HorizontalOptions="Fill" />
                            <!-- <Controls:ImageViewerControl Grid.Row="2" IsVisible="{Binding Post.HasMeasuremnts}" BackgroundColor="White" ItemsSource="{Binding Post.Measuremnts}" Margin="0,10" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" ItemTemplate="{StaticResource ScaleTemplate}" />-->
@@ -69,7 +69,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <StackLayout Grid.Column="0" Orientation="Horizontal" Margin="20,0,0,0" HorizontalOptions="Center">
-                                    <Label Text="{Binding Post.LikesCount}" TextColor="Black" FontSize="14" VerticalOptions="Start" HorizontalOptions="End" />
+                                    <Label Text="{Binding Post.LikesCount}" TextColor="Gray" FontSize="14" VerticalOptions="Start" HorizontalOptions="End" />
                                     <Controls:ImageControl PortablePath="fav.png" Style="{StaticResource IconStyle}" IsVisible="{Binding Post.NotLiked}">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding OnPostLikeCommand}" />
@@ -82,7 +82,7 @@
                                     </Controls:ImageControl>
                                 </StackLayout>
                                 <StackLayout Grid.Column="1" Orientation="Horizontal" HorizontalOptions="Center">
-                                    <Label Text="{Binding Post.CommentsCount}" TextColor="Black" FontSize="14" VerticalOptions="Start" HorizontalOptions="End" />
+                                    <Label Text="{Binding Post.CommentsCount}" TextColor="Gray" FontSize="14" VerticalOptions="Start" HorizontalOptions="End" />
                                     <Controls:ImageControl PortablePath="comment.png" Style="{StaticResource IconStyle}">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding OnPostCommentCommand}" />
@@ -90,7 +90,7 @@
                                     </Controls:ImageControl>
                                 </StackLayout>
                                 <StackLayout Grid.Column="2" Orientation="Horizontal" HorizontalOptions="Center">
-                                    <Label Text="{Binding Post.SharesCount}" TextColor="Black" FontSize="14" VerticalOptions="Start" HorizontalOptions="End" />
+                                    <Label Text="{Binding Post.SharesCount}" TextColor="Gray" FontSize="14" VerticalOptions="Start" HorizontalOptions="End" />
                                     <Controls:ImageControl PortablePath="share.png" Style="{StaticResource IconStyle}">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding OnPostShareCommand}" />
@@ -159,6 +159,9 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Controls:CustomImage Grid.Column="0" Margin="5" Source="{Binding Image.Path}" WidthRequest="50" HeightRequest="50" Style="{StaticResource ImageHeaderStyle}">
+                                <Controls:CustomImage.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OnProfileCommand}" />
+                                </Controls:CustomImage.GestureRecognizers>
                                 <Controls:CustomImage.Transformations>
                                     <fftransformations:CircleTransformation />
                                 </Controls:CustomImage.Transformations>

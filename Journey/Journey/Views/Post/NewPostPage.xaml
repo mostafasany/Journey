@@ -98,7 +98,7 @@
                                             CommandParameter="{Binding}" />
                                     </Controls:CustomImage.GestureRecognizers>
                                 </Controls:ImageControl>
-                                <Controls:CustomImage Grid.Row="1" Source="{Binding Thumbnail}" HeightRequest="120"
+                                <Controls:CustomImage Grid.Row="1" Source="{Binding Thumbnail}" HeightRequest="160"
                                                       Aspect="AspectFit">
                                     <Controls:CustomImage.GestureRecognizers>
                                         <TapGestureRecognizer
