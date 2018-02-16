@@ -119,7 +119,7 @@ namespace Journey.ViewModels.Wall
                 var isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
                 {
-                    _shareService.Share(_post.Feed, "Mostafa", _post?.MediaList?.FirstOrDefault().Source);
+                    _shareService.ShareImages(Post.Account.Name,Post.Feed, _post?.MediaList?.Where(a=>a.Type==Models.MediaType.Image).Select(a=>a.Source));
                     await _postService.ShareAsync(_post);
                     _post.SharesCount++;
                 }

@@ -1,4 +1,6 @@
-﻿using Foundation;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Foundation;
 using Journey.iOS.Services;
 using Journey.Services.Forms;
 using UIKit;
@@ -10,10 +12,10 @@ namespace Journey.iOS.Services
 {
     public class ShareService:IShare
     {
-        public async void Share(string subject, string message, ImageSource image)
+        public async void Share(string subject, string message,List<ImageSource> image)
         {
             var handler = new ImageLoaderSourceHandler();
-            var uiImage = await handler.LoadImageAsync(image);
+            var uiImage = await handler.LoadImageAsync(image.FirstOrDefault());
 
             var img = NSObject.FromObject(uiImage);
             var mess = NSObject.FromObject(message);

@@ -1,4 +1,6 @@
-﻿using Android.App;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
@@ -13,7 +15,7 @@ namespace Journey.Droid.Services
     public class ShareService : Activity, IShare
     {
         public async void Share(string subject, string message,
-        ImageSource image)
+                                List<ImageSource> image)
         {
             var intent = new Intent(Intent.ActionSend);
             intent.PutExtra(Intent.ExtraSubject, subject);
@@ -21,7 +23,7 @@ namespace Journey.Droid.Services
             intent.SetType("image/png");
 
             var handler = new ImageLoaderSourceHandler();
-            var bitmap = await handler.LoadImageAsync(image, this);
+            var bitmap = await handler.LoadImageAsync(image.FirstOrDefault(), this);
 
             var path = Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDownloads
                 + Java.IO.File.Separator + "logo.png");
