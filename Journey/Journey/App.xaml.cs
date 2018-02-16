@@ -77,7 +77,7 @@ namespace Journey
                 new ContainerControlledLifetimeManager());
 
             container.RegisterType<ISerializerService, SerializerService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IShareService, ShareService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<Abstractions.Services.Contracts.IShareService, ShareService>(new ContainerControlledLifetimeManager());
             container.RegisterType<ILocationService, LocationService>(new ContainerControlledLifetimeManager());
             container.RegisterType<ISettingsService, SettingsService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IBlobService, BlobService>(new ContainerControlledLifetimeManager());

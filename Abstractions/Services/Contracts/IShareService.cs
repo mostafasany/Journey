@@ -3,5 +3,6 @@
     public interface IShareService
     {
         void Share(string text, string title, string url);
+        void Share(string subject, string message, object image);
     }
 }
