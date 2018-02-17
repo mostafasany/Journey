@@ -41,6 +41,11 @@ namespace Journey.ViewModels
                     ShowProgress();
                     return;
                 }
+                if (e.Status == PostStatus.HideProgress)
+                {
+                    HideProgress();
+                    return;
+                }
 
                 if (e.Post == null || string.IsNullOrEmpty(e.Post.Id))
                     return;

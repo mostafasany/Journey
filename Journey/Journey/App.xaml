@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
-                        xmlns:Controls="clr-namespace:Journey.Views.Controls"
-                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                        xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms" x:Class="Journey.App">
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms" x:Class="Journey.App">
     <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="Primary">#591587</Color>
@@ -14,10 +10,16 @@
             <Color x:Key="LightTextColor">#591587</Color>
             <Color x:Key="DarkTextColor">#591587</Color>
             <Color x:Key="FacebookColor">#591587</Color>
-           <!-- <Style TargetType="NavigationPage">
-                <Setter Property="BarBackgroundColor" Value="#591587" />
-                <Setter Property="BarTextColor" Value="White" />
-            </Style>-->
+            <Style TargetType="Grid" x:Key="MainGridStyle">
+                <Setter Property="Margin">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="iOS" Value="0,20,0,0" />
+                            <On Platform="Android, WinPhone, Windows" Value="0,10,0,0" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
             <Style TargetType="ActivityIndicator" x:Key="ActivityIndicatorStyle">
                 <Setter Property="Color" Value="{StaticResource Primary}" />
                 <Setter Property="BackgroundColor" Value="Transparent" />
@@ -31,14 +33,13 @@
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="Margin" Value="0,0,0,15" />
                 <Setter Property="HeightRequest" Value="40" />
-                  <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Center" />
             </Style>
             <Style TargetType="Editor" x:Key="EditorFormStyle">
                 <Setter Property="HeightRequest" Value="150" />
                 <Setter Property="TextColor" Value="{StaticResource LightTextColor}" />
                 <Setter Property="Margin" Value="0,0,0,15" />
                 <Setter Property="BackgroundColor" Value="#ededed" />
-
             </Style>
             <Style TargetType="Label" x:Key="WalkthroughtLabelStyle">
                 <Setter Property="TextColor" Value="{StaticResource LightTextColor}" />
@@ -121,11 +122,9 @@
             <DataTemplate x:Key="ScaleTemplate">
                 <StackLayout Orientation="Vertical">
                     <Label Text="{Binding Title}" HorizontalOptions="Center" />
-                    <Controls:CustomImage Source="{Binding Image.Source}" Aspect="AspectFit" WidthRequest="50"
-                                          HeightRequest="50" />
+                    <Controls:CustomImage Source="{Binding Image.Source}" Aspect="AspectFit" WidthRequest="50" HeightRequest="50" />
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                        <Controls:CustomImage Source="{Binding Indictor.Source}" Aspect="AspectFit" WidthRequest="20"
-                                              HeightRequest="20" />
+                        <Controls:CustomImage Source="{Binding Indictor.Source}" Aspect="AspectFit" WidthRequest="20" HeightRequest="20" />
                         <Label Text="{Binding MeasureWithUnit}" HorizontalOptions="Center" />
                     </StackLayout>
                 </StackLayout>

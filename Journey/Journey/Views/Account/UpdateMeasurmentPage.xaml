@@ -19,13 +19,13 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid Margin="10" HorizontalOptions="Center">
+        <Grid Style="{StaticResource MainGridStyle}" HorizontalOptions="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Margin="0,0,0,20">
+            <Grid Grid.Row="0" Margin="10,0,0,20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="*" />
@@ -39,7 +39,7 @@
             </Grid>
             <ListView Grid.Row="1" RowHeight="50" IsVisible="{Binding IsNotLoading}" SeparatorVisibility="None" ItemsSource="{Binding Measuremnts}" ItemTemplate="{StaticResource ScaleTemplate}" />
             <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Button Grid.Row="2" Text="{resources:Translate Continue}" VerticalOptions="End" Command="{Binding OnContinueCommand}" Style="{StaticResource PrimaryButtonStyle}" />
+            <Button Grid.Row="2" Text="{resources:Translate Continue}" VerticalOptions="End" Margin="0,0,0,10" Command="{Binding OnContinueCommand}" Style="{StaticResource PrimaryButtonStyle}" />
         </Grid>
     </ContentPage.Content>
 </local:BasePage>

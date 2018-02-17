@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
-using Xamarin.Forms;
+using System.Threading.Tasks;
+using Journey.Models;
 
 namespace Journey.Services.Forms
 {
     public interface IShare
     {
-        void Share(string subject, string message, List<ImageSource> image);
+        Task Share(string subject, string message, List<Media> media);
     }
 }

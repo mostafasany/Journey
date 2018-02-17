@@ -14,8 +14,12 @@ namespace Journey.Services.Forms
     {
         private const string VideoPlaceHolderPath = "http://bit.ly/2EiCAic";
         private const int CompressionQuality = 50;
+        private const int CustomPhotoSize = 50;
+        private const bool SaveToAlbum = true;
+        private CameraDevice DefaultCamera = CameraDevice.Front;
         private readonly PhotoSize PhotoSize = PhotoSize.Small;
         private readonly VideoQuality VideoQuality = VideoQuality.Low;
+
 
         public async Task<Media> PickPhotoAsync()
         {
@@ -24,7 +28,7 @@ namespace Journey.Services.Forms
                 var media = await CrossMedia.Current.PickPhotoAsync(
                     new PickMediaOptions
                     {
-                        PhotoSize = PhotoSize
+                        PhotoSize = PhotoSize,
                     });
                 if (media == null)
                     return null;
@@ -32,6 +36,8 @@ namespace Journey.Services.Forms
                 var array = ReadFully(stream);
                 var image = new Media
                 {
+                    OriginalName = Path.GetFileName(media.Path),
+                    Name = string.Format("{0}{1}", Guid.NewGuid().ToString(), Path.GetExtension(media.Path)),
                     Path = media.Path,
                     Thumbnail = media.Path,
                     SourceArray = array,
@@ -56,6 +62,8 @@ namespace Journey.Services.Forms
                 var array = ReadFully(stream);
                 var image = new Media
                 {
+                    OriginalName =Path.GetFileName(media.Path),
+                    Name = string.Format("{0}{1}", Guid.NewGuid().ToString(), Path.GetExtension(media.Path)),
                     Path = media.Path,
                     Thumbnail = VideoPlaceHolderPath,
                     SourceArray = array,
@@ -75,13 +83,26 @@ namespace Journey.Services.Forms
             try
             {
                 var media = await CrossMedia.Current.TakePhotoAsync(
-                    new StoreCameraMediaOptions {AllowCropping = true, CompressionQuality = CompressionQuality});
+                    new StoreCameraMediaOptions
+                    {
+                        AllowCropping = true,
+                        CompressionQuality = CompressionQuality,
+                        PhotoSize = PhotoSize,
+                        CustomPhotoSize = CustomPhotoSize,
+                        SaveToAlbum = SaveToAlbum,
+                        DefaultCamera = DefaultCamera,
+                        RotateImage = false,
+
+                    }
+                );
                 if (media == null)
                     return null;
                 var stream = media.GetStream();
                 var array = ReadFully(stream);
                 var image = new Media
                 {
+                    OriginalName = Path.GetFileName(media.Path),
+                    Name=Path.GetFileName(media.Path),
                     Path = media.Path,
                     Thumbnail = media.Path,
                     SourceArray = array,
@@ -100,13 +121,23 @@ namespace Journey.Services.Forms
             try
             {
                 var media = await CrossMedia.Current.TakeVideoAsync(
-                    new StoreVideoOptions {Quality = VideoQuality, CompressionQuality = CompressionQuality});
+                    new StoreVideoOptions
+                    {
+                        Quality = VideoQuality,
+                        CompressionQuality = CompressionQuality,
+                        PhotoSize = PhotoSize,
+                        SaveToAlbum = SaveToAlbum,
+                        DefaultCamera = DefaultCamera,
+                        RotateImage = false,
+                    });
                 if (media == null)
                     return null;
                 var stream = media.GetStream();
                 var array = ReadFully(stream);
                 var image = new Media
                 {
+                    OriginalName = Path.GetFileName(media.Path),
+                    Name = Path.GetFileName(media.Path),
                     Path = media.Path,
                     Thumbnail = VideoPlaceHolderPath,
                     SourceArray = array,

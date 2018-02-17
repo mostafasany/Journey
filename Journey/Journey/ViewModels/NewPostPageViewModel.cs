@@ -50,7 +50,7 @@ namespace Journey.ViewModels
                     var location = parameters.GetValue<Location>("Location");
                     if (location != null)
                         NewPost.Location =
-                            new PostActivity {Action = "At", Activity = location.Name, Image = location.Image};
+                            new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
                 }
 
                 LoggedInAccount = await _accountService.GetAccountAsync();
@@ -179,6 +179,12 @@ namespace Journey.ViewModels
         {
             try
             {
+                if (NewPost == null || NewPost.MediaList == null || NewPost?.MediaList?.Count == 0)
+                {
+                    await DialogService.ShowMessageAsync(AppResource.Post_UploadImageMust, AppResource.Error);
+                    return;
+                }
+
                 if (IsProgress())
                     return;
 
@@ -207,14 +213,12 @@ namespace Journey.ViewModels
 
         private async void Post()
         {
+
             ShowProgress();
             if (imagesPath.Count == 0 && NewPost.MediaList != null)
                 foreach (var image in NewPost.MediaList)
                 {
-                    var id = Guid.NewGuid();
-                    var ex = image.Ext;
-                    var fileName = string.Format("{0}{1}", id, ex);
-                    var path = await _blobService.UploadAsync(image.SourceArray, fileName);
+                    var path = await _blobService.UploadAsync(image.SourceArray, image.Name);
                     if (!string.IsNullOrEmpty(path))
                         imagesPath.Add(path);
                 }
@@ -224,10 +228,9 @@ namespace Journey.ViewModels
             var post = await _postService.AddPostAsync(NewPost, imagesPath);
             if (post == null)
             {
-                await DialogService.ShowMessageAsync(AppResource.Error, AppResource.NewPost_NewPostError);
+                await DialogService.ShowMessageAsync(AppResource.NewPost_NewPostError, AppResource.Error);
                 return;
             }
-            // SelectedActivity = null;
             NewPost = new Post();
 
             imagesPath = new List<string>();

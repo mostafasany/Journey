@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Abstractions.Exceptions;
+using Journey.Models;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
 using Xamarin.Forms;
@@ -9,12 +12,11 @@ namespace Journey.Services.Forms
 {
     internal class ShareService : Abstractions.Services.Contracts.IShareService
     {
-        public void ShareText(string text, string title, string url)
+        public async Task ShareText(string text, string title, string url)
         {
             try
-            {
-                           
-                CrossShare.Current.Share(new ShareMessage
+            {     
+                await CrossShare.Current.Share(new ShareMessage
                 {
                     Text = text,
                     Title = title,
@@ -27,13 +29,13 @@ namespace Journey.Services.Forms
             }
         }
 
-        public void ShareImages(string subject, string message, object image)
+        public async Task ShareImages(string subject, string message, object image)
         {
             try
             {
-                List<ImageSource> img = image as List<ImageSource>;
+                IEnumerable<Media> img = image as IEnumerable<Media>;
                 IShare shareService= DependencyService.Get<IShare>();
-                shareService.Share(subject,message, img);
+                await shareService.Share(subject,message, img.ToList());
             }
             catch (Exception ex)
             {
@@ -41,10 +43,13 @@ namespace Journey.Services.Forms
             }
         }
 
-        public void ShareVideos(string subject, string message, object video)
+        public async Task ShareVideos(string subject, string message, object video)
         {
             try
             {
+                IEnumerable<Media> img = video as IEnumerable<Media>;
+                IShare shareService = DependencyService.Get<IShare>();
+                await shareService.Share(subject, message, img.ToList());
             }
             catch (Exception ex)
             {

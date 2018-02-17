@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Abstractions.Services.Contracts
 {
     public interface IShareService
     {
-        void ShareText(string text, string title, string url);
-        void ShareImages(string subject, string message, object image);
-        void ShareVideos(string subject, string message, object video);
+        Task ShareText(string text, string title, string url);
+        Task ShareImages(string subject, string message, object image);
+        Task ShareVideos(string subject, string message, object video);
     }
 }

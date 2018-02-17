@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Foundation;
 using Journey.iOS.Services;
 using Journey.Services.Forms;
@@ -12,16 +13,19 @@ namespace Journey.iOS.Services
 {
     public class ShareService:IShare
     {
-        public async void Share(string subject, string message,List<ImageSource> image)
+        public async Task Share(string subject, string message,List<Models.Media> mediaItems)
         {
             var handler = new ImageLoaderSourceHandler();
-            var uiImage = await handler.LoadImageAsync(image.FirstOrDefault());
-
-            var img = NSObject.FromObject(uiImage);
-            var mess = NSObject.FromObject(message);
-
-            var activityItems = new[] { mess, img };
-            var activityController = new UIActivityViewController(activityItems, null);
+            List<NSObject> activityItems=new List<NSObject>();
+            activityItems.Add(NSObject.FromObject(message));
+            foreach (var media in mediaItems)
+            {
+                var uiImage = await handler.LoadImageAsync(media.Source);
+                var img = NSObject.FromObject(uiImage);
+                activityItems.Add(NSObject.FromObject(img));
+            }
+          
+            var activityController = new UIActivityViewController(activityItems.ToArray(), null);
 
             var topController = UIApplication.SharedApplication.KeyWindow.RootViewController;
 

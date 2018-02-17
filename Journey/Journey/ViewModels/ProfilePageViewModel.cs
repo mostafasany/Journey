@@ -196,8 +196,6 @@ namespace Journey.ViewModels
                 var accountGoal = await _accountGoalService.GetAccountGoalAsync(sync);
                 if (accountGoal != null)
                     LoggedInAccount.AccountGoal = accountGoal;
-                else
-                    await DialogService.ShowMessageAsync(AppResource.Error, AppResource.Account_ErrorGetData);
             }
             catch (Exception ex)
             {
@@ -215,11 +213,6 @@ namespace Journey.ViewModels
                     if (measu != null)
                     {
                         Measuremnts = measu;
-                    }
-                    else
-                    {
-                        await DialogService.ShowMessageAsync(AppResource.Error, AppResource.Account_ErrorGetData);
-                        return;
                     }
                 }
 
@@ -297,7 +290,7 @@ namespace Journey.ViewModels
             Dictionary<string, object> parameters = new Dictionary<string, object>
             {
                 {"Account", LoggedInAccount},
-                {"ShowBack", true}
+                {"ComeFromProfile", true}
 
             };
             NavigationService.Navigate("UpdateProfilePage", parameters);
