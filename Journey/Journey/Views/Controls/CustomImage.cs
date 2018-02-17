@@ -11,7 +11,7 @@ namespace Journey.Views.Controls
             // LoadingPlaceholder = "icon.png";
             // ErrorPlaceholder = "icon.png";
             CacheDuration = TimeSpan.FromDays(30);
-
+          
             //RetryCount = 0;
             //RetryDelay = 250;
             //TransparencyEnabled = false;

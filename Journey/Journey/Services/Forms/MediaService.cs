@@ -6,6 +6,7 @@ using Abstractions.Services.Contracts;
 using Journey.Models;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
+using Xamarin.Forms;
 
 //https://github.com/jamesmontemagno/MediaPlugin
 namespace Journey.Services.Forms
@@ -62,7 +63,7 @@ namespace Journey.Services.Forms
                 var array = ReadFully(stream);
                 var image = new Media
                 {
-                    OriginalName =Path.GetFileName(media.Path),
+                    OriginalName = Path.GetFileName(media.Path),
                     Name = string.Format("{0}{1}", Guid.NewGuid().ToString(), Path.GetExtension(media.Path)),
                     Path = media.Path,
                     Thumbnail = VideoPlaceHolderPath,
@@ -85,16 +86,17 @@ namespace Journey.Services.Forms
                 var media = await CrossMedia.Current.TakePhotoAsync(
                     new StoreCameraMediaOptions
                     {
-                        AllowCropping = true,
                         CompressionQuality = CompressionQuality,
                         PhotoSize = PhotoSize,
                         CustomPhotoSize = CustomPhotoSize,
                         SaveToAlbum = SaveToAlbum,
                         DefaultCamera = DefaultCamera,
-                        RotateImage = false,
-
+                        RotateImage = false 
                     }
                 );
+
+                //  await DependencyService.Get<IMediaFileExtensions>().FixOrientationAsync(media).ConfigureAwait(false);
+
                 if (media == null)
                     return null;
                 var stream = media.GetStream();
@@ -102,7 +104,7 @@ namespace Journey.Services.Forms
                 var image = new Media
                 {
                     OriginalName = Path.GetFileName(media.Path),
-                    Name=Path.GetFileName(media.Path),
+                    Name = Path.GetFileName(media.Path),
                     Path = media.Path,
                     Thumbnail = media.Path,
                     SourceArray = array,
@@ -163,5 +165,7 @@ namespace Journey.Services.Forms
                 return ms.ToArray();
             }
         }
+
+
     }
 }
