@@ -38,8 +38,11 @@ namespace Journey.ViewModels
             try
             {
                 ShowProgress();
-                LoggedInAccount = parameters.GetValue<Account>("Account") ?? new Account();
-                ShowBackButton = parameters.GetValue<bool>("ShowBack");
+                var loggedInAccount = parameters.GetValue<Account>("Account") ?? new Account();
+                FirstName = loggedInAccount.FirstName;
+                LastName = loggedInAccount.LastName;
+                Image = loggedInAccount.Image;
+                ComeFromProfile = parameters.GetValue<bool>("ComeFromProfile");
             }
             catch (Exception ex)
             {
@@ -59,20 +62,34 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        private Account _loggedInAccount;
-
-        public Account LoggedInAccount
+        private string firstName;
+        public string FirstName
         {
-            get => _loggedInAccount;
-            set => SetProperty(ref _loggedInAccount, value);
+            get => firstName;
+            set => SetProperty(ref firstName, value);
         }
 
-        private bool _showBackButton;
-
-        public bool ShowBackButton
+        private string lastName;
+        public string LastName
         {
-            get => _showBackButton;
-            set => SetProperty(ref _showBackButton, value);
+            get => lastName;
+            set => SetProperty(ref lastName, value);
+        }
+
+
+        private Media image;
+        public Media Image
+        {
+            get => image;
+            set => SetProperty(ref image, value);
+        }
+
+        private bool _comeFromProfile;
+
+        public bool ComeFromProfile
+        {
+            get => _comeFromProfile;
+            set => SetProperty(ref _comeFromProfile, value);
         }
 
         #endregion
@@ -132,12 +149,12 @@ namespace Journey.ViewModels
                         new DialogCommand
                         {
                             Label = AppResource.Camera,
-                            Invoked = async () => { LoggedInAccount.Image = await _mediaService.TakePhotoAsync(); }
+                        Invoked = async () => { Image =(await _mediaService.TakePhotoAsync()??Image); }
                         },
                         new DialogCommand
                         {
                             Label = AppResource.Gallery,
-                            Invoked = async () => { LoggedInAccount.Image = await _mediaService.PickPhotoAsync(); }
+                        Invoked = async () => { Image = (await _mediaService.PickPhotoAsync()??Image); }
                         },
                         new DialogCommand
                         {
@@ -176,29 +193,37 @@ namespace Journey.ViewModels
                 if (IsProgress())
                     return;
 
-                if (string.IsNullOrEmpty(LoggedInAccount.FirstName))
+                if (string.IsNullOrEmpty(FirstName))
                 {
                     await DialogService.ShowMessageAsync(AppResource.UpdateProfile_FirstNameRequired,
                         AppResource.Error);
                     return;
                 }
-                else if (string.IsNullOrEmpty(LoggedInAccount?.Image?.Path))
+                else if (string.IsNullOrEmpty(Image?.Path))
                 {
                     await DialogService.ShowMessageAsync(AppResource.UpdateProfile_ImageRequired, AppResource.Error);
                     return;
                 }
 
                 ShowProgress();
-                if (LoggedInAccount.Image?.SourceArray != null)
+                if (Image?.SourceArray != null)
                 {
-                    var id = Guid.NewGuid();
-                    var ex = LoggedInAccount.Image.Ext;
-                    var fileName = string.Format("{0}{1}", id, ex);
-                    var path = await _blobService.UploadAsync(LoggedInAccount.Image.SourceArray, fileName);
-                    LoggedInAccount.Image.Path = path;
+                    var path = await _blobService.UploadAsync(Image.SourceArray, Image.Name);
+                    Image.Path = path;
                 }
-                LoggedInAccount = await _accountService.SaveAccountAsync(LoggedInAccount, false);
-                await NavigationService.Navigate("HomePage");
+                var account = _accountService.LoggedInAccount;
+                account.FirstName = FirstName;
+                account.LastName = LastName;
+                account.Image = Image;
+                await _accountService.SaveAccountAsync(account, false);
+                if(ComeFromProfile)
+                {
+                    NavigationService.GoBack();
+                }
+                else
+                {
+                    await NavigationService.Navigate("HomePage");
+                }
             }
             catch (Exception e)
             {

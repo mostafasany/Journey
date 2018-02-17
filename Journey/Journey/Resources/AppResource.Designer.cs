@@ -329,6 +329,18 @@ namespace Journey.Resources {
             }
         }
         
+        internal static string Post_DeleteOrReportMessage {
+            get {
+                return ResourceManager.GetString("Post_DeleteOrReportMessage", resourceCulture);
+            }
+        }
+        
+        internal static string Post_UploadImageMust {
+            get {
+                return ResourceManager.GetString("Post_UploadImageMust", resourceCulture);
+            }
+        }
+        
         internal static string Post_ReportSentMessage {
             get {
                 return ResourceManager.GetString("Post_ReportSentMessage", resourceCulture);

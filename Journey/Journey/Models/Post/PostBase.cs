@@ -7,6 +7,7 @@ namespace Journey.Models.Post
     public enum PostStatus
     {
         InProgress,
+        HideProgress,
         Deleted,
         CommentsUpdated,
         Added

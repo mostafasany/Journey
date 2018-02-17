@@ -258,6 +258,13 @@
   <data name="Post_Report" xml:space="preserve">
     <value>Report</value>
   </data>
+    <data name="Post_DeleteOrReportMessage" xml:space="preserve">
+    <value> What action you need</value>
+  </data>
+
+    <data name="Post_UploadImageMust" xml:space="preserve">
+    <value>At least one image is required</value>
+  </data>
   <data name="Post_ReportSentMessage" xml:space="preserve">
     <value>Your report has been sent</value>
   </data>

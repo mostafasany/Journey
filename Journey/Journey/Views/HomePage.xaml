@@ -120,13 +120,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid RowSpacing="0">
-            <Grid.Margin>
-                <OnPlatform x:TypeArguments="Thickness">
-                    <On Platform="iOS" Value="0,15,0,0" />
-                    <On Platform="Android, WinPhone, Windows" Value="0,0,0,0" />
-                </OnPlatform>
-            </Grid.Margin>
+        <Grid RowSpacing="0" Style="{StaticResource MainGridStyle}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" />
                 <RowDefinition Height="1" />
@@ -148,7 +142,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
-                   <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Controls:CustomImage Grid.Column="0" Margin="10,5" Source="{Binding Image.Path}" WidthRequest="50" HeightRequest="50" Style="{StaticResource ImageHeaderStyle}">
                     <Controls:CustomImage.GestureRecognizers>
@@ -158,28 +152,15 @@
                         <fftransformations:CircleTransformation />
                     </Controls:CustomImage.Transformations>
                 </Controls:CustomImage>
-                <Label Grid.Column="1" FontSize="12" Text="{Binding WelcomeMessage}" TextColor="{StaticResource LightTextColor}" HorizontalOptions="Start" VerticalOptions="Center">
-                    <Label.GestureRecognizers>
+                <Grid Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnNewPostCommand}" />
-                    </Label.GestureRecognizers>
-                </Label>
-                <Controls:LoadingControl IsVisible="{Binding IsLoading}" Grid.Column="2" HorizontalOptions="End" VerticalOptions="Center"  Margin="20,0" />
-                <!--<Grid Grid.Column="2" IsVisible="{Binding IsNotLoading}" Margin="15,0">
-                    <Controls:ImageControl IsVisible="{Binding IsLoggedOut}" PortablePath="exit.png" Aspect="AspectFit" Style="{StaticResource IconStyle}">
-                        <Controls:CustomImage.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OnLoginCommand}" />
-                        </Controls:CustomImage.GestureRecognizers>
-                    </Controls:ImageControl>
-                </Grid>-->
-                <!--  <Grid Grid.Column="2" IsVisible="{Binding IsNotLoading}" Margin="15,0">
-                    <Controls:ImageControl PortablePath="person.png" Aspect="AspectFit" Style="{StaticResource IconStyle}">
-                        <Controls:CustomImage.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OnProfileCommand}" />
-                        </Controls:CustomImage.GestureRecognizers>
-                    </Controls:ImageControl>
-                </Grid>-->
+                    </Grid.GestureRecognizers>
+                    <Label FontSize="12" Text="{Binding WelcomeMessage}" TextColor="{StaticResource LightTextColor}" HorizontalOptions="Start" VerticalOptions="Center">
+                    </Label>
+                </Grid>
+                <Controls:LoadingControl IsVisible="{Binding IsLoading}" Grid.Column="2" HorizontalOptions="End" VerticalOptions="Center" Margin="20,0" />
             </Grid>
-            <!-- <Controls:LoadingControl IsVisible="{Binding IsLoading}" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#d3d3d3" Margin="20,0" />-->
             <Grid BackgroundColor="#d3d3d3" Grid.Row="1">
             </Grid>
             <Grid BackgroundColor="#d3d3d3" Grid.Row="2" RowSpacing="0" Margin="0,5" ColumnSpacing="1" Padding="0">

@@ -5,6 +5,10 @@ namespace Journey.Models
 {
     public class Media
     {
+        public string OriginalName { get; set; }
+
+        public string Name { get; set; }
+
         public string Id { get; set; }
 
         public byte[] SourceArray { get; set; }

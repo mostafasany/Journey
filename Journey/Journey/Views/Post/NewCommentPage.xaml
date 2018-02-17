@@ -30,38 +30,37 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid RowSpacing="0">
-            <Grid.Margin>
-                <OnPlatform x:TypeArguments="Thickness" Android="10,20,10,10" iOS="10,40,10,10" WinPhone="0" />
-            </Grid.Margin>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Controls:ImageControl Grid.Row="0" PortablePath="clear.png" Style="{StaticResource IconStyle}" Margin="5,0" HorizontalOptions="End">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
-                </Image.GestureRecognizers>
-            </Controls:ImageControl>
-            <ListView Grid.Row="1" SeparatorVisibility="None" RowHeight="100" ItemTemplate="{StaticResource CommentTemplate}" BackgroundColor="White" ItemsSource="{Binding Comments}" HorizontalOptions="Start" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
-                RefreshCommand="{Binding OnPullRefreshRequestCommand}" />
-            <Controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" Margin="20,0" />
-            <Label Grid.Row="3" Margin="0,20,0,5" Text="Leave Comment" />
-            <Grid Grid.Row="4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Editor Grid.Column="0" Text="{Binding NewComment}" Style="{StaticResource EditorFormStyle}" HeightRequest="100" />
-                <Controls:ImageControl Grid.Column="1" PortablePath="check.png" Style="{StaticResource IconStyle}">
+        <Grid RowSpacing="0" Style="{StaticResource MainGridStyle}">
+            <Grid Margin="10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Controls:ImageControl Grid.Row="0" PortablePath="clear.png" Style="{StaticResource IconStyle}" Margin="10,10" HorizontalOptions="End">
                     <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding OnNewCommentCommand}" />
+                        <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
                     </Image.GestureRecognizers>
                 </Controls:ImageControl>
+                <ListView Grid.Row="1" SeparatorVisibility="None" RowHeight="100" ItemTemplate="{StaticResource CommentTemplate}" BackgroundColor="White" ItemsSource="{Binding Comments}" HorizontalOptions="Start" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
+                    RefreshCommand="{Binding OnPullRefreshRequestCommand}" />
+                <Controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" Margin="20,0" />
+                <Label Grid.Row="3" Margin="0,20,0,5" Text="Leave Comment" />
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Editor Grid.Column="0" Text="{Binding NewComment}" Style="{StaticResource EditorFormStyle}" HeightRequest="100" />
+                    <Controls:ImageControl Grid.Column="1" PortablePath="check.png" Style="{StaticResource IconStyle}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnNewCommentCommand}" />
+                        </Image.GestureRecognizers>
+                    </Controls:ImageControl>
+                </Grid>
             </Grid>
         </Grid>
     </ContentPage.Content>

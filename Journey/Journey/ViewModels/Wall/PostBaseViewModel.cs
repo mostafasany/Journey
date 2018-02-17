@@ -90,7 +90,7 @@ namespace Journey.ViewModels.Wall
                         cancelCommand
                     };
 
-                    await DialogService.ShowMessageAsync("", "What action you need", commands);
+                    await DialogService.ShowMessageAsync("", AppResource.Post_DeleteOrReportMessage, commands);
                 }
             }
             catch (Exception ex)
@@ -117,12 +117,13 @@ namespace Journey.ViewModels.Wall
                     return;
 
                 var isLogginIn = await _accountService.LoginFirstAsync();
-                if (isLogginIn)
-                {
-                    _shareService.Share(_post.Feed, "Mostafa", _post?.MediaList?.FirstOrDefault()?.Path);
-                    await _postService.ShareAsync(_post);
-                    _post.SharesCount++;
-                }
+                if (!isLogginIn) return;
+
+                _postService.PostStatusChanged(Post, PostStatus.InProgress);
+                await _shareService.ShareImages(Post.Account.Name, Post.Feed, _post?.MediaList);
+                await _postService.ShareAsync(_post);
+                _post.SharesCount++;
+                _postService.PostStatusChanged(Post, PostStatus.HideProgress);
             }
             catch (Exception ex)
             {
