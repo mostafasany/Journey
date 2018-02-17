@@ -39,13 +39,17 @@ namespace Journey.Services.Forms
             {
                 throw new CoreServiceException(ex);
             }
-          
-                
         }
 
         public void ShareVideos(string subject, string message, object video)
         {
-           
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                throw new CoreServiceException(ex);
+            }
         }
     }
 }

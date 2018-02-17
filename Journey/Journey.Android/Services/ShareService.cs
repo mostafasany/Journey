@@ -5,14 +5,13 @@ using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using Journey.Droid.Services;
-using Journey.Services.Forms;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 [assembly: Dependency(typeof(ShareService))]
 namespace Journey.Droid.Services
 {
-    public class ShareService : Activity, IShare
+    public class ShareService : Activity, Journey.Services.Forms.IShare
     {
         public async void Share(string subject, string message,
                                 List<ImageSource> image)

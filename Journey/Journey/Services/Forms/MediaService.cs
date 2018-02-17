@@ -13,6 +13,9 @@ namespace Journey.Services.Forms
     internal class MediaService : IMediaService<Media>
     {
         private const string VideoPlaceHolderPath = "http://bit.ly/2EiCAic";
+        private const int CompressionQuality = 50;
+        private readonly PhotoSize PhotoSize = PhotoSize.Small;
+        private readonly VideoQuality VideoQuality = VideoQuality.Low;
 
         public async Task<Media> PickPhotoAsync()
         {
@@ -21,7 +24,7 @@ namespace Journey.Services.Forms
                 var media = await CrossMedia.Current.PickPhotoAsync(
                     new PickMediaOptions
                     {
-                        PhotoSize = PhotoSize.Medium
+                        PhotoSize = PhotoSize
                     });
                 if (media == null)
                     return null;
@@ -72,7 +75,7 @@ namespace Journey.Services.Forms
             try
             {
                 var media = await CrossMedia.Current.TakePhotoAsync(
-                    new StoreCameraMediaOptions {AllowCropping = true, CompressionQuality = 92});
+                    new StoreCameraMediaOptions {AllowCropping = true, CompressionQuality = CompressionQuality});
                 if (media == null)
                     return null;
                 var stream = media.GetStream();
@@ -97,7 +100,7 @@ namespace Journey.Services.Forms
             try
             {
                 var media = await CrossMedia.Current.TakeVideoAsync(
-                    new StoreVideoOptions {Quality = VideoQuality.Low, CompressionQuality = 70});
+                    new StoreVideoOptions {Quality = VideoQuality, CompressionQuality = CompressionQuality});
                 if (media == null)
                     return null;
                 var stream = media.GetStream();

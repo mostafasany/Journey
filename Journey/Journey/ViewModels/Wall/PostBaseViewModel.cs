@@ -117,12 +117,11 @@ namespace Journey.ViewModels.Wall
                     return;
 
                 var isLogginIn = await _accountService.LoginFirstAsync();
-                if (isLogginIn)
-                {
-                    _shareService.ShareImages(Post.Account.Name,Post.Feed, _post?.MediaList?.Where(a=>a.Type==Models.MediaType.Image).Select(a=>a.Source));
-                    await _postService.ShareAsync(_post);
-                    _post.SharesCount++;
-                }
+                if (!isLogginIn) return;
+
+                _shareService.ShareImages(Post.Account.Name,Post.Feed, _post?.MediaList?.Where(a=>a.Type==Models.MediaType.Image).Select(a=>a.Source));
+                await _postService.ShareAsync(_post);
+                _post.SharesCount++;
             }
             catch (Exception ex)
             {
