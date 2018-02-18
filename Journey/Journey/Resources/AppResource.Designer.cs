@@ -323,6 +323,18 @@ namespace Journey.Resources {
             }
         }
         
+        internal static string SearchFriends_Placholder {
+            get {
+                return ResourceManager.GetString("SearchFriends_Placholder", resourceCulture);
+            }
+        }
+        
+        internal static string Challenge_Comepete {
+            get {
+                return ResourceManager.GetString("Challenge_Comepete", resourceCulture);
+            }
+        }
+        
         internal static string Post_Report {
             get {
                 return ResourceManager.GetString("Post_Report", resourceCulture);

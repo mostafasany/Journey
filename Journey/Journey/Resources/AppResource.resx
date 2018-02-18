@@ -255,6 +255,12 @@
   <data name="Post_DeleteError" xml:space="preserve">
     <value>Error while deleting your post</value>
   </data>
+    <data name="SearchFriends_Placholder" xml:space="preserve">
+    <value>Search for friends</value>
+  </data>
+    <data name="Challenge_Comepete" xml:space="preserve">
+    <value>Compete</value>
+  </data>
   <data name="Post_Report" xml:space="preserve">
     <value>Report</value>
   </data>

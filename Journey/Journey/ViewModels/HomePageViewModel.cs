@@ -152,7 +152,7 @@ namespace Journey.ViewModels
             }
         }
 
-        private bool _hasNotActiveChallenge;
+        private bool _hasNotActiveChallenge=true;
 
         public bool HasNotActiveChallenge
         {
@@ -262,7 +262,7 @@ namespace Journey.ViewModels
 
         private void UpdateChallengeBanner()
         {
-            HasNotActiveChallenge = LoggedInAccount != null && LoggedInAccount.HasNotActiveChallenge;
+           // HasNotActiveChallenge = LoggedInAccount != null && LoggedInAccount.HasNotActiveChallenge;
         }
 
         protected override void Cleanup()
@@ -346,7 +346,7 @@ namespace Journey.ViewModels
             {
                 var isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
-                    await NavigationService.Navigate("InviteFriendPage");
+                    await NavigationService.Navigate("ChooseChallengeFriendPage");
             }
             catch (Exception ex)
             {

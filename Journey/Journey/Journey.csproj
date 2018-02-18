@@ -46,6 +46,7 @@
     <None Remove="Assets\back.png" />
     <None Remove="Assets\backwhite.png" />
     <None Remove="Assets\checkWhite.png" />
+    <None Remove="Assets\compete.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -92,6 +93,7 @@
     <EmbeddedResource Include="Assets\back.png" />
     <EmbeddedResource Include="Assets\backwhite.png" />
     <EmbeddedResource Include="Assets\checkWhite.png" />
+    <EmbeddedResource Include="Assets\compete.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -117,6 +119,9 @@
     <Folder Include="Services\Buisness\Measurment\Dto\" />
     <Folder Include="Services\Buisness\Post\Dto\" />
     <Folder Include="ViewModels\Wall\" />
+    <Folder Include="Views\Challenege\" />
+    <Folder Include="Services\Buisness\Friend\Dto\" />
+    <Folder Include="Models\Challenge\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -155,6 +160,21 @@
     </Compile>
     <Compile Update="Views\Post\NewPostPage.xaml.cs">
       <DependentUpon>NewPostPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Challenege\LoginPage.xaml.cs">
+      <DependentUpon>ChooseChallengeFriendPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Challenege\ChooseChallengeFriendPage.xaml.cs">
+      <DependentUpon>ChooseChallengeFriendPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Challenege\MediaPage.xaml.cs">
+      <DependentUpon>NewChallengePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Challenege\NewChallengePage.cs">
+      <DependentUpon>NewChallengePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Challenege\NewChallengePage.xaml.cs">
+      <DependentUpon>NewChallengePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

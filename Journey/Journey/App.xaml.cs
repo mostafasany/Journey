@@ -21,6 +21,8 @@ using Prism;
 using Prism.Ioc;
 using Prism.Navigation;
 using Prism.Unity;
+using Tawasol.Services;
+using Tawasol.Services.Data;
 using Unity;
 using Unity.Lifetime;
 using INavigationService = Abstractions.Services.Contracts.INavigationService;
@@ -58,6 +60,8 @@ namespace Journey
             containerRegistry.RegisterForNavigation<VideoPage>();
             containerRegistry.RegisterForNavigation<ProfilePage>();
             containerRegistry.RegisterForNavigation<UpdateMeasurmentPage>();
+            containerRegistry.RegisterForNavigation<ChooseChallengeFriendPage>();
+            containerRegistry.RegisterForNavigation<NewChallengePage>();
 
             RegitserAppServices(container);
 
@@ -127,6 +131,8 @@ namespace Journey
             container.RegisterType<IAccountDataService, AccountDataService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IFacebookService, FacebookService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IAccountService, AccountService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IFriendService, FriendService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IFriendDataService, FriendDataService>(new ContainerControlledLifetimeManager());
 
             container.RegisterType<IAccountGoalService, AccountGoalService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IAccountGoalDataService, AccountGoalDataService>(

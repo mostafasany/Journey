@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.NewChallengePage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid RowSpacing="0" Style="{StaticResource MainGridStyle}">
+            <ScrollView>
+                <Grid Margin="10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Controls:ImageControl Grid.Row="0" HorizontalOptions="Start" PortablePath="back.png" Style="{StaticResource IconStyle}">
+                        <Controls:ImageControl.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnBackCommand}" CommandParameter="{Binding}" />
+                        </Controls:ImageControl.GestureRecognizers>
+                    </Controls:ImageControl>
+                    <Controls:ImageViewerControl Grid.Row="1" ItemsSource="{Binding SelectedChallenge.ChallengeAccounts}" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                        <Controls:ImageViewerControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Image.Path}" WidthRequest="150" HeightRequest="150" Margin="8,0" Aspect="AspectFill" />
+                            </DataTemplate>
+                        </Controls:ImageViewerControl.ItemTemplate>
+                    </Controls:ImageViewerControl>
+                    <StackLayout Grid.Row="2" Orientation="Vertical" VerticalOptions="Fill">
+                        <Grid Grid.Row="0" Margin="0,10,0,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Text="Start of challenge" Style="{StaticResource LabelHeaderStyle}" />
+                            <DatePicker Grid.Row="0" Grid.Column="1" Date="{Binding SelectedChallenge.StartDate}" WidthRequest="150" />
+                            <Label Grid.Row="1" Grid.Column="0" Text="End of challenge" Style="{StaticResource LabelHeaderStyle}" />
+                            <DatePicker Grid.Row="1" Grid.Column="1" Date="{Binding SelectedChallenge.EndDate}" WidthRequest="150" />
+                            <!--<Label Grid.Row="2" Grid.Column="0" Text="Milestone Every" Style="{StaticResource LabelHeaderStyle}" />
+                    <Picker Grid.Row="2" Grid.Column="1" ItemsSource="{Binding IntervalList}" SelectedItem="{Binding SelectedInterval,Mode=TwoWay}" />
+-->
+                        </Grid>
+                        <Label Text="Challenge Terms" Style="{StaticResource LabelHeaderStyle}" />
+                        <Editor Text="{Binding SelectedChallenge.Terms}" Style="{StaticResource EditorFormStyle}" />
+                        <Controls:LoadingControl IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
+                    </StackLayout>
+                    <Button Text="Start" Grid.Row="3" IsVisible="{Binding IsAddMode}" Margin="10" VerticalOptions="End" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding OnStartChallengeCommand}" />
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</local:BasePage>
