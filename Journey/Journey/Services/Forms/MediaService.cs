@@ -6,7 +6,6 @@ using Abstractions.Services.Contracts;
 using Journey.Models;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
-using Xamarin.Forms;
 
 //https://github.com/jamesmontemagno/MediaPlugin
 namespace Journey.Services.Forms
@@ -17,9 +16,9 @@ namespace Journey.Services.Forms
         private const int CompressionQuality = 50;
         private const int CustomPhotoSize = 50;
         private const bool SaveToAlbum = true;
-        private CameraDevice DefaultCamera = CameraDevice.Front;
         private readonly PhotoSize PhotoSize = PhotoSize.Small;
         private readonly VideoQuality VideoQuality = VideoQuality.Low;
+        private readonly CameraDevice DefaultCamera = CameraDevice.Front;
 
 
         public async Task<Media> PickPhotoAsync()
@@ -29,7 +28,7 @@ namespace Journey.Services.Forms
                 var media = await CrossMedia.Current.PickPhotoAsync(
                     new PickMediaOptions
                     {
-                        PhotoSize = PhotoSize,
+                        PhotoSize = PhotoSize
                     });
                 if (media == null)
                     return null;
@@ -91,7 +90,7 @@ namespace Journey.Services.Forms
                         CustomPhotoSize = CustomPhotoSize,
                         SaveToAlbum = SaveToAlbum,
                         DefaultCamera = DefaultCamera,
-                        RotateImage = false 
+                        RotateImage = false
                     }
                 );
 
@@ -130,7 +129,7 @@ namespace Journey.Services.Forms
                         PhotoSize = PhotoSize,
                         SaveToAlbum = SaveToAlbum,
                         DefaultCamera = DefaultCamera,
-                        RotateImage = false,
+                        RotateImage = false
                     });
                 if (media == null)
                     return null;
@@ -165,7 +164,5 @@ namespace Journey.Services.Forms
                 return ms.ToArray();
             }
         }
-
-
     }
 }

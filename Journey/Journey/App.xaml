@@ -1,5 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms" x:Class="Journey.App">
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:Controls="clr-namespace:Journey.Views.Controls"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms" x:Class="Journey.App">
     <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="Primary">#591587</Color>
@@ -122,9 +126,11 @@
             <DataTemplate x:Key="ScaleTemplate">
                 <StackLayout Orientation="Vertical">
                     <Label Text="{Binding Title}" HorizontalOptions="Center" />
-                    <Controls:CustomImage Source="{Binding Image.Source}" Aspect="AspectFit" WidthRequest="50" HeightRequest="50" />
+                    <Controls:CustomImage Source="{Binding Image.Source}" Aspect="AspectFit" WidthRequest="50"
+                                          HeightRequest="50" />
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                        <Controls:CustomImage Source="{Binding Indictor.Source}" Aspect="AspectFit" WidthRequest="20" HeightRequest="20" />
+                        <Controls:CustomImage Source="{Binding Indictor.Source}" Aspect="AspectFit" WidthRequest="20"
+                                              HeightRequest="20" />
                         <Label Text="{Binding MeasureWithUnit}" HorizontalOptions="Center" />
                     </StackLayout>
                 </StackLayout>

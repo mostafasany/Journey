@@ -7,7 +7,6 @@ using Journey.Services.Azure;
 using Journey.Services.Buisness.Goal.Dto;
 using Journey.Services.Buisness.Goal.Translators;
 using Microsoft.WindowsAzure.MobileServices;
-using Microsoft.WindowsAzure.MobileServices.Sync;
 
 namespace Journey.Services.Buisness.Goal.Data
 {
@@ -77,13 +76,13 @@ namespace Journey.Services.Buisness.Goal.Data
                 throw new DataServiceException(ex.Message, ex);
             }
         }
-        //    {
-
-        //    try
-        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
-        //{
 
         //public async Task<AzureAccountGoal> SyncGoalAsync()
+        //{
+        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
+
+        //    try
+        //    {
         //        await this.Client.SyncContext.PushAsync();
 
         //        // The first parameter is a query name that is used internally by the client SDK to implement incremental sync.

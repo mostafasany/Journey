@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 using Abstractions.Services.Contracts;
 using Journey.Models.Account;
 using Journey.Resources;
@@ -17,7 +16,9 @@ namespace Journey.ViewModels
     {
         private readonly IAccountService _accountService;
         private readonly IFriendService _friendService;
-        public ChooseChallengeFriendPageViewModel(IUnityContainer container, IAccountService accountService, IFriendService friendService)
+
+        public ChooseChallengeFriendPageViewModel(IUnityContainer container, IAccountService accountService,
+            IFriendService friendService)
             : base(container)
         {
             _accountService = accountService;
@@ -36,7 +37,6 @@ namespace Journey.ViewModels
             {
                 ShowProgress();
                 Intialize();
-
             }
             catch (Exception ex)
             {
@@ -56,29 +56,32 @@ namespace Journey.ViewModels
 
         #region Properties
 
+        private ObservableCollection<Account> friendsList;
 
-        ObservableCollection<Account> friendsList;
         public ObservableCollection<Account> FriendsList
         {
             get => friendsList;
             set => SetProperty(ref friendsList, value);
         }
 
-        Account selectedFriend;
+        private Account selectedFriend;
+
         public Account SelectedFriend
         {
             get => selectedFriend;
             set => SetProperty(ref selectedFriend, value);
         }
 
-        string searchKeyword;
+        private string searchKeyword;
+
         public string SearchKeyword
         {
             get => searchKeyword;
             set => SetProperty(ref searchKeyword, value);
         }
 
-        bool isPullRefreshLoading = false;
+        private bool isPullRefreshLoading;
+
         public bool IsPullRefreshLoading
         {
             get => isPullRefreshLoading;
@@ -89,7 +92,7 @@ namespace Journey.ViewModels
 
         #region Methods
 
-        public async override void Intialize()
+        public override async void Intialize()
         {
             try
             {
@@ -100,9 +103,7 @@ namespace Journey.ViewModels
                 SelectedFriend = null;
                 var friends = await _friendService.GetFriendsAsync("");
                 if (friends != null)
-                {
                     FriendsList = new ObservableCollection<Account>(friends);
-                }
                 base.Intialize();
             }
             catch (Exception e)
@@ -134,7 +135,6 @@ namespace Journey.ViewModels
 
         #region OnSelectedFriendCommand
 
-
         public DelegateCommand<Account> OnSelectedFriendCommand => new DelegateCommand<Account>(OnSelectedFriend);
 
         private async void OnSelectedFriend(Account selectedFriend)
@@ -160,20 +160,18 @@ namespace Journey.ViewModels
                 };
 
                 var commands = new List<DialogCommand>
-                    {
+                {
                     competeCommand,
-                        cancelCommand
-                    };
+                    cancelCommand
+                };
 
-                await DialogService.ShowMessageAsync("",AppResource.Challenge_Comepete, commands);
-              
+                await DialogService.ShowMessageAsync("", AppResource.Challenge_Comepete, commands);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 ExceptionService.Handle(ex);
             }
         }
-
 
         #endregion
 
@@ -187,16 +185,13 @@ namespace Journey.ViewModels
             {
                 var friends = await _friendService.GetFriendsAsync(searchKeyword);
                 if (friends != null)
-                {
                     FriendsList = new ObservableCollection<Account>(friends);
-                }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 ExceptionService.Handle(ex);
             }
         }
-
 
         #endregion
 
@@ -212,11 +207,9 @@ namespace Journey.ViewModels
                 ShowProgress();
                 var friends = await _friendService.GetFriendsAsync(searchKeyword);
                 if (friends != null)
-                {
                     FriendsList = new ObservableCollection<Account>(friends);
-                }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 ExceptionService.Handle(ex);
             }
@@ -230,7 +223,6 @@ namespace Journey.ViewModels
         #endregion
 
         #region OnBackCommand
-
 
         public DelegateCommand OnBackCommand => new DelegateCommand(OnBack);
 
@@ -249,9 +241,7 @@ namespace Journey.ViewModels
             {
                 HideProgress();
             }
-
         }
-
 
         #endregion
 

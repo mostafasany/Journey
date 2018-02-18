@@ -63,6 +63,7 @@ namespace Journey.ViewModels
         #region Properties
 
         private string firstName;
+
         public string FirstName
         {
             get => firstName;
@@ -70,6 +71,7 @@ namespace Journey.ViewModels
         }
 
         private string lastName;
+
         public string LastName
         {
             get => lastName;
@@ -78,6 +80,7 @@ namespace Journey.ViewModels
 
 
         private Media image;
+
         public Media Image
         {
             get => image;
@@ -149,12 +152,12 @@ namespace Journey.ViewModels
                         new DialogCommand
                         {
                             Label = AppResource.Camera,
-                        Invoked = async () => { Image =(await _mediaService.TakePhotoAsync()??Image); }
+                            Invoked = async () => { Image = await _mediaService.TakePhotoAsync() ?? Image; }
                         },
                         new DialogCommand
                         {
                             Label = AppResource.Gallery,
-                        Invoked = async () => { Image = (await _mediaService.PickPhotoAsync()??Image); }
+                            Invoked = async () => { Image = await _mediaService.PickPhotoAsync() ?? Image; }
                         },
                         new DialogCommand
                         {
@@ -216,14 +219,10 @@ namespace Journey.ViewModels
                 account.LastName = LastName;
                 account.Image = Image;
                 await _accountService.SaveAccountAsync(account, false);
-                if(ComeFromProfile)
-                {
+                if (ComeFromProfile)
                     NavigationService.GoBack();
-                }
                 else
-                {
                     await NavigationService.Navigate("HomePage");
-                }
             }
             catch (Exception e)
             {
@@ -238,7 +237,6 @@ namespace Journey.ViewModels
         #endregion
 
         #region OnBackCommand
-
 
         public DelegateCommand OnBackCommand => new DelegateCommand(OnBack);
 
@@ -257,9 +255,7 @@ namespace Journey.ViewModels
             {
                 HideProgress();
             }
-
         }
-
 
         #endregion
 

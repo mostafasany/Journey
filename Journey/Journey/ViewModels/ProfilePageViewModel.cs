@@ -47,14 +47,12 @@ namespace Journey.ViewModels
                     {
                         Measuremnts = measurments;
                         LoggedInAccount.AccountGoal.Weight = Measuremnts.FirstOrDefault().Measure;
-                        LoggedInAccount.AccountGoal = await _accountGoalService.AddAccountGoal(LoggedInAccount.AccountGoal);
+                        LoggedInAccount.AccountGoal =
+                            await _accountGoalService.AddAccountGoal(LoggedInAccount.AccountGoal);
                     }
-
                 }
                 if (parameters.GetNavigationMode() == NavigationMode.New)
-                {
                     Intialize();
-                }
             }
             catch (Exception e)
             {
@@ -142,11 +140,7 @@ namespace Journey.ViewModels
             }
         }
 
-        public bool NotAddMode
-        {
-            get => !_addMode;
-        }
-
+        public bool NotAddMode => !_addMode;
 
         #endregion
 
@@ -211,9 +205,7 @@ namespace Journey.ViewModels
                 {
                     var measu = await _accountMeasurmentService.GetMeasurmentsAsync(sync);
                     if (measu != null)
-                    {
                         Measuremnts = measu;
-                    }
                 }
 
                 if (LoggedInAccount.AccountGoal == null)
@@ -287,11 +279,10 @@ namespace Journey.ViewModels
 
         private void OnEditProfile()
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>
+            var parameters = new Dictionary<string, object>
             {
                 {"Account", LoggedInAccount},
                 {"ComeFromProfile", true}
-
             };
             NavigationService.Navigate("UpdateProfilePage", parameters);
         }
@@ -306,11 +297,10 @@ namespace Journey.ViewModels
         {
             try
             {
-                
                 AddMode = false;
                 if (LoggedInAccount.AccountGoal.Goal == Goal)
                     return;
-                
+
                 LoggedInAccount.AccountGoal.Goal = Goal;
                 LoggedInAccount.AccountGoal.Start = Start;
                 LoggedInAccount.AccountGoal.End = End;
@@ -336,19 +326,19 @@ namespace Journey.ViewModels
                 var commands =
                     new List<DialogCommand>
                     {
-                    new DialogCommand
+                        new DialogCommand
                         {
-                        Label = AppResource.Profile_Edit,
-                            Invoked = () => OnEditProfile(),
+                            Label = AppResource.Profile_Edit,
+                            Invoked = () => OnEditProfile()
                         },
                         new DialogCommand
                         {
                             Label = AppResource.Profile_SetMonthlyGoal,
                             Invoked = () =>
-                             {
-                                  AddMode = true;
-                                  Goal=LoggedInAccount.AccountGoal.Goal;
-                             }
+                            {
+                                AddMode = true;
+                                Goal = LoggedInAccount.AccountGoal.Goal;
+                            }
                         },
                         new DialogCommand
                         {
@@ -375,7 +365,6 @@ namespace Journey.ViewModels
 
         #region OnBackCommand
 
-
         public DelegateCommand OnBackCommand => new DelegateCommand(OnBack);
 
 
@@ -393,9 +382,7 @@ namespace Journey.ViewModels
             {
                 HideProgress();
             }
-
         }
-
 
         #endregion
 
@@ -410,7 +397,7 @@ namespace Journey.ViewModels
                 IsPullRefreshLoading = true;
                 Intialize();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 ExceptionService.Handle(ex);
             }
@@ -422,7 +409,7 @@ namespace Journey.ViewModels
         }
 
         #endregion
-       
+
         #endregion
     }
 }

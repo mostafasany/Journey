@@ -13,9 +13,10 @@ namespace Abstractions.Services.Contracts
 
         Task<bool> Navigate(string pageToken, object parameter = null, string key = "", bool? useModalNavigation = null,
             bool animated = false);
+
         Task<bool> Navigate(string pageToken, Dictionary<string, object> parameters,
-                            bool? useModalNavigation = null, bool animated = false);
-        
+            bool? useModalNavigation = null, bool animated = false);
+
         void RemoveAllPages(string pageToken = null, object parameter = null);
         void RemoveFirstPage(string pageToken = null, object parameter = null);
         void RemoveLastPage(string pageToken = null, object parameter = null);

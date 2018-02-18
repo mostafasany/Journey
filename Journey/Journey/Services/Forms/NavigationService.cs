@@ -82,8 +82,8 @@ namespace Journey.Services.Forms
             }
         }
 
-        public async Task<bool> Navigate(string pageToken,Dictionary<string,object> parameters,
-           bool? useModalNavigation = null, bool animated = false)
+        public async Task<bool> Navigate(string pageToken, Dictionary<string, object> parameters,
+            bool? useModalNavigation = null, bool animated = false)
         {
             try
             {
@@ -92,12 +92,10 @@ namespace Journey.Services.Forms
                 {
                     navigationParameters = new NavigationParameters();
                     foreach (var parameter in parameters)
-                    {
-                        navigationParameters.Add(parameter.Key,parameter.Value);
-                    }
+                        navigationParameters.Add(parameter.Key, parameter.Value);
                 }
-                   
-                
+
+
                 await _navigationService.NavigateAsync(pageToken, navigationParameters, useModalNavigation, animated);
                 return true;
             }

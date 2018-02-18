@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.UpdateMeasurmentPage">
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls"
+                xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.UpdateMeasurmentPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="ScaleTemplate">
@@ -10,8 +13,10 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Label Text="{Binding Title}" Margin="5,0" FontAttributes="Bold" Style="{StaticResource LabelHeaderStyle}" />
-                            <Entry Grid.Column="1" WidthRequest="150" Keyboard="Numeric" HorizontalOptions="Center" TextColor="Black" Text="{Binding Measure}" />
+                            <Label Text="{Binding Title}" Margin="5,0" FontAttributes="Bold"
+                                   Style="{StaticResource LabelHeaderStyle}" />
+                            <Entry Grid.Column="1" WidthRequest="150" Keyboard="Numeric" HorizontalOptions="Center"
+                                   TextColor="Black" Text="{Binding Measure}" />
                         </Grid>
                     </ViewCell.View>
                 </Controls:UnSelectableViewCell>
@@ -35,11 +40,15 @@
                         <TapGestureRecognizer Command="{Binding OnBackCommand}" CommandParameter="{Binding}" />
                     </Controls:ImageControl.GestureRecognizers>
                 </Controls:ImageControl>
-                <Label Grid.Column="1" Text="{resources:Translate Measurments_Message}" HorizontalOptions="Center" Style="{StaticResource LabelHeaderStyle}" />
+                <Label Grid.Column="1" Text="{resources:Translate Measurments_Message}" HorizontalOptions="Center"
+                       Style="{StaticResource LabelHeaderStyle}" />
             </Grid>
-            <ListView Grid.Row="1" RowHeight="50" IsVisible="{Binding IsNotLoading}" SeparatorVisibility="None" ItemsSource="{Binding Measuremnts}" ItemTemplate="{StaticResource ScaleTemplate}" />
-            <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Button Grid.Row="2" Text="{resources:Translate Continue}" VerticalOptions="End" Margin="0,0,0,10" Command="{Binding OnContinueCommand}" Style="{StaticResource PrimaryButtonStyle}" />
+            <ListView Grid.Row="1" RowHeight="50" IsVisible="{Binding IsNotLoading}" SeparatorVisibility="None"
+                      ItemsSource="{Binding Measuremnts}" ItemTemplate="{StaticResource ScaleTemplate}" />
+            <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
+                                     VerticalOptions="Center" />
+            <Button Grid.Row="2" Text="{resources:Translate Continue}" VerticalOptions="End" Margin="0,0,0,10"
+                    Command="{Binding OnContinueCommand}" Style="{StaticResource PrimaryButtonStyle}" />
         </Grid>
     </ContentPage.Content>
 </local:BasePage>

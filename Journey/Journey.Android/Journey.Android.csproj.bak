@@ -239,6 +239,7 @@
     <Compile Include="SplashScreen.cs" />
     <Compile Include="Renderers\VideoViewRenderer.cs" />
     <Compile Include="Services\ShareService.cs" />
+    <Compile Include="Services\MediaFileExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

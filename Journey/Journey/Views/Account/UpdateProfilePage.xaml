@@ -1,36 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.UpdateProfilePage">
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls"
+                xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.UpdateProfilePage">
     <ContentPage.Content>
-        
-            <Grid Style="{StaticResource MainGridStyle}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Controls:ImageControl Grid.Row="0" Margin="10,10,0,0" HorizontalOptions="Start" IsVisible="{Binding ComeFromProfile}" PortablePath="back.png" Style="{StaticResource IconStyle}">
-                    <Controls:ImageControl.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding OnBackCommand}" CommandParameter="{Binding}" />
-                    </Controls:ImageControl.GestureRecognizers>
-                </Controls:ImageControl>
-                <Grid Grid.Row="1" Margin="0,0,0,10" HorizontalOptions="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Controls:LoadingControl Grid.Column="0" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
-                    <Controls:ImageControl PortablePath="loading.png" Grid.Column="0" IsVisible="{Binding IsNotLoading}" Style="{StaticResource ImageHeaderStyle}" />
-                    <Label Grid.Column="1" Text="{resources:Translate UpdateProfile_Welcome}" Style="{StaticResource LabelHeaderStyle}" />
-                </Grid>
-                <StackLayout Grid.Row="2" Orientation="Vertical" HorizontalOptions="Center">
-                    <Entry Text="{Binding FirstName,Mode=TwoWay}" Placeholder="{resources:Translate UpdateProfile_FirstName}" Style="{StaticResource EntryFormStyle}" WidthRequest="200" />
-                    <Entry Text="{Binding LastName,Mode=TwoWay}" Placeholder="{resources:Translate UpdateProfile_LastName}" Style="{StaticResource EntryFormStyle}" WidthRequest="200" />
-                    <Image Source="{Binding Image.Path}" Style="{StaticResource ImageBodyStyle}" WidthRequest="200" HeightRequest="160" HorizontalOptions="Center" />
-                    <Button Text="{resources:Translate UpdateProfile_Upload}" Command="{Binding UploadImageCommand}" Style="{StaticResource SecondaryButtonStyle}" />
-                </StackLayout>
-                <Button Grid.Row="3" Text="{resources:Translate UpdateProfile_Finish}" Margin="0,0,0,10" Command="{Binding FinishCommand}" Style="{StaticResource PrimaryButtonStyle}" />
+
+        <Grid Style="{StaticResource MainGridStyle}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Controls:ImageControl Grid.Row="0" Margin="10,10,0,0" HorizontalOptions="Start"
+                                   IsVisible="{Binding ComeFromProfile}" PortablePath="back.png"
+                                   Style="{StaticResource IconStyle}">
+                <Controls:ImageControl.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OnBackCommand}" CommandParameter="{Binding}" />
+                </Controls:ImageControl.GestureRecognizers>
+            </Controls:ImageControl>
+            <Grid Grid.Row="1" Margin="0,0,0,10" HorizontalOptions="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Controls:LoadingControl Grid.Column="0" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
+                                         VerticalOptions="Center" />
+                <Controls:ImageControl PortablePath="loading.png" Grid.Column="0" IsVisible="{Binding IsNotLoading}"
+                                       Style="{StaticResource ImageHeaderStyle}" />
+                <Label Grid.Column="1" Text="{resources:Translate UpdateProfile_Welcome}"
+                       Style="{StaticResource LabelHeaderStyle}" />
             </Grid>
+            <StackLayout Grid.Row="2" Orientation="Vertical" HorizontalOptions="Center">
+                <Entry Text="{Binding FirstName,Mode=TwoWay}"
+                       Placeholder="{resources:Translate UpdateProfile_FirstName}"
+                       Style="{StaticResource EntryFormStyle}" WidthRequest="200" />
+                <Entry Text="{Binding LastName,Mode=TwoWay}" Placeholder="{resources:Translate UpdateProfile_LastName}"
+                       Style="{StaticResource EntryFormStyle}" WidthRequest="200" />
+                <Image Source="{Binding Image.Path}" Style="{StaticResource ImageBodyStyle}" WidthRequest="200"
+                       HeightRequest="160" HorizontalOptions="Center" />
+                <Button Text="{resources:Translate UpdateProfile_Upload}" Command="{Binding UploadImageCommand}"
+                        Style="{StaticResource SecondaryButtonStyle}" />
+            </StackLayout>
+            <Button Grid.Row="3" Text="{resources:Translate UpdateProfile_Finish}" Margin="0,0,0,10"
+                    Command="{Binding FinishCommand}" Style="{StaticResource PrimaryButtonStyle}" />
+        </Grid>
 
     </ContentPage.Content>
 </local:BasePage>

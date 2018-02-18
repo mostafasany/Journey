@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
+using Abstractions.Services.Contracts;
 using Journey.Models;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
@@ -10,12 +11,12 @@ using Xamarin.Forms;
 
 namespace Journey.Services.Forms
 {
-    internal class ShareService : Abstractions.Services.Contracts.IShareService
+    internal class ShareService : IShareService
     {
         public async Task ShareText(string text, string title, string url)
         {
             try
-            {     
+            {
                 await CrossShare.Current.Share(new ShareMessage
                 {
                     Text = text,
@@ -33,9 +34,9 @@ namespace Journey.Services.Forms
         {
             try
             {
-                IEnumerable<Media> img = image as IEnumerable<Media>;
-                IShare shareService= DependencyService.Get<IShare>();
-                await shareService.Share(subject,message, img.ToList());
+                var img = image as IEnumerable<Media>;
+                var shareService = DependencyService.Get<IShare>();
+                await shareService.Share(subject, message, img.ToList());
             }
             catch (Exception ex)
             {
@@ -47,8 +48,8 @@ namespace Journey.Services.Forms
         {
             try
             {
-                IEnumerable<Media> img = video as IEnumerable<Media>;
-                IShare shareService = DependencyService.Get<IShare>();
+                var img = video as IEnumerable<Media>;
+                var shareService = DependencyService.Get<IShare>();
                 await shareService.Share(subject, message, img.ToList());
             }
             catch (Exception ex)

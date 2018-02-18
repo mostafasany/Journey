@@ -152,7 +152,7 @@ namespace Journey.ViewModels
             }
         }
 
-        private bool _hasNotActiveChallenge=true;
+        private bool _hasNotActiveChallenge = true;
 
         public bool HasNotActiveChallenge
         {

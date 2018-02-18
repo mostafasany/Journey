@@ -53,6 +53,7 @@ namespace Journey.ViewModels
         public void OnNavigatingTo(NavigationParameters parameters)
         {
         }
+
         #endregion
 
         #region Commands
@@ -86,11 +87,9 @@ namespace Journey.ViewModels
             }
         }
 
-
         #endregion
 
         #region OnBackCommand
-
 
         public DelegateCommand OnBackCommand => new DelegateCommand(OnBack);
 
@@ -109,8 +108,8 @@ namespace Journey.ViewModels
             {
                 HideProgress();
             }
-
         }
+
         #endregion
 
         #endregion

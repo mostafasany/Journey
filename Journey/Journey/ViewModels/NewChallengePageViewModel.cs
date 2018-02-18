@@ -7,6 +7,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using Tawasol.Services;
 using Unity;
+using ChallengeAccount = Journey.Models.Challenge.ChallengeAccount;
 
 namespace Journey.ViewModels
 {
@@ -16,7 +17,7 @@ namespace Journey.ViewModels
         private readonly IChallengeService _challengeService;
 
         public NewChallengePageViewModel(IUnityContainer container,
-                                         IChallengeService challengeService, IAccountService accountService) :
+            IChallengeService challengeService, IAccountService accountService) :
             base(container)
         {
             _challengeService = challengeService;
@@ -33,8 +34,8 @@ namespace Journey.ViewModels
         {
             try
             {
-                ToChallenge=parameters.GetValue<Account>("ToChallenge") ?? null;
-           
+                ToChallenge = parameters.GetValue<Account>("ToChallenge") ?? null;
+
                 Intialize();
             }
             catch (Exception e)
@@ -52,32 +53,32 @@ namespace Journey.ViewModels
 
         #region Properties
 
-
         private Account loggedInAccount;
+
         public Account LoggedInAccount
         {
             get => loggedInAccount;
-            set
-            {
-                SetProperty(ref loggedInAccount, value);
-            }
+            set => SetProperty(ref loggedInAccount, value);
         }
 
-        bool isAddMode;
+        private bool isAddMode;
+
         public bool IsAddMode
         {
             get => isAddMode;
             set => SetProperty(ref isAddMode, value);
         }
 
-        Account toChallenge;
+        private Account toChallenge;
+
         public Account ToChallenge
         {
             get => toChallenge;
             set => SetProperty(ref toChallenge, value);
         }
 
-        Challenge selectedChallenge;
+        private Challenge selectedChallenge;
+
         public Challenge SelectedChallenge
         {
             get => selectedChallenge;
@@ -113,9 +114,9 @@ namespace Journey.ViewModels
                 if (string.IsNullOrEmpty(LoggedInAccount.ChallengeId))
                 {
                     SelectedChallenge = new Challenge();
-                    ObservableCollection<Models.Challenge.ChallengeAccount> challengesAccount = new ObservableCollection<Models.Challenge.ChallengeAccount>();
-                    challengesAccount.Add(new Models.Challenge.ChallengeAccount(LoggedInAccount));
-                    challengesAccount.Add(new Models.Challenge.ChallengeAccount(ToChallenge));
+                    var challengesAccount = new ObservableCollection<ChallengeAccount>();
+                    challengesAccount.Add(new ChallengeAccount(LoggedInAccount));
+                    challengesAccount.Add(new ChallengeAccount(ToChallenge));
                     SelectedChallenge.ChallengeAccounts = challengesAccount;
                 }
                 else
@@ -123,7 +124,6 @@ namespace Journey.ViewModels
                     SelectedChallenge = await _challengeService.GetChallengeAsync(LoggedInAccount.ChallengeId);
                 }
                 base.Intialize();
-               
             }
             catch (Exception e)
             {
@@ -163,7 +163,6 @@ namespace Journey.ViewModels
                 if (IsProgress())
                     return;
                 ShowProgress();
-
             }
             catch (Exception ex)
             {
@@ -178,7 +177,6 @@ namespace Journey.ViewModels
         #endregion
 
         #region OnBackCommand
-
 
         public DelegateCommand OnBackCommand => new DelegateCommand(OnBack);
 
@@ -197,8 +195,8 @@ namespace Journey.ViewModels
             {
                 HideProgress();
             }
-
         }
+
         #endregion
 
         #endregion

@@ -50,7 +50,7 @@ namespace Journey.ViewModels
                     var location = parameters.GetValue<Location>("Location");
                     if (location != null)
                         NewPost.Location =
-                            new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
+                            new PostActivity {Action = "At", Activity = location.Name, Image = location.Image};
                 }
 
                 LoggedInAccount = await _accountService.GetAccountAsync();
@@ -213,7 +213,6 @@ namespace Journey.ViewModels
 
         private async void Post()
         {
-
             ShowProgress();
             if (imagesPath.Count == 0 && NewPost.MediaList != null)
                 foreach (var image in NewPost.MediaList)

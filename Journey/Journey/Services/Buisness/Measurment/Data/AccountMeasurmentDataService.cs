@@ -141,15 +141,15 @@ namespace Journey.Services.Buisness.Measurment.Data
 
             return measuremnts;
         }
-        //        await this.Client.SyncContext.PushAsync();
-        //    {
-
-        //    try
-        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
-        //{
 
 
         //public async Task<AzureAccountMeasurements> SyncMeasurmentsAsync()
+        //{
+        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
+
+        //    try
+        //    {
+        //        await this.Client.SyncContext.PushAsync();
 
         //        // The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
         //        // Use a different query name for each unique query in your program.

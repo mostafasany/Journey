@@ -6,7 +6,7 @@ namespace Journey.Services.Forms
     public interface IMediaFileExtensions
     {
         /// <summary>
-        ///  Does nothing
+        ///     Does nothing
         /// </summary>
         /// <param name="file">The file image</param>
         /// <returns>True if rotation occured, else false</returns>
