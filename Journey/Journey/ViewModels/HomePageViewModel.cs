@@ -262,7 +262,7 @@ namespace Journey.ViewModels
 
         private void UpdateChallengeBanner()
         {
-           // HasNotActiveChallenge = LoggedInAccount != null && LoggedInAccount.HasNotActiveChallenge;
+            HasNotActiveChallenge = LoggedInAccount != null && LoggedInAccount.HasNotActiveChallenge;
         }
 
         protected override void Cleanup()

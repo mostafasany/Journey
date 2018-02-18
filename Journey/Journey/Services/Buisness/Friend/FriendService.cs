@@ -84,7 +84,5 @@ namespace Tawasol.Services
                 throw new BusinessException(ex.Message, ex);
             }
         }
-
-
     }
 }

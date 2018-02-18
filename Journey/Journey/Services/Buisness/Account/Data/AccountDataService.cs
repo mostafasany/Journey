@@ -78,8 +78,9 @@ namespace Journey.Services.Buisness.Account.Data
 
                 return accountDto;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                //Means User not exists
                 return null;
             }
         }

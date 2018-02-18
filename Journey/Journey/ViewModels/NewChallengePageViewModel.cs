@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Journey.Models.Account;
 using Journey.Models.Challenge;
 using Journey.Services.Buisness.Account;
-using Journey.Services.Buisness.PostComment;
 using Prism.Commands;
 using Prism.Navigation;
+using Tawasol.Services;
 using Unity;
 
 namespace Journey.ViewModels
@@ -14,13 +13,13 @@ namespace Journey.ViewModels
     public class NewChallengePageViewModel : BaseViewModel, INavigationAware
     {
         private readonly IAccountService _accountService;
-        private readonly IPostCommentService _postCommentService;
+        private readonly IChallengeService _challengeService;
 
         public NewChallengePageViewModel(IUnityContainer container,
-            IPostCommentService postCommentService, IAccountService accountService) :
+                                         IChallengeService challengeService, IAccountService accountService) :
             base(container)
         {
-            _postCommentService = postCommentService;
+            _challengeService = challengeService;
             _accountService = accountService;
         }
 
@@ -111,7 +110,7 @@ namespace Journey.ViewModels
                 LoggedInAccount = await _accountService.GetAccountAsync();
                 IsAddMode = string.IsNullOrEmpty(LoggedInAccount.ChallengeId);
 
-                if (!string.IsNullOrEmpty(LoggedInAccount.ChallengeId))
+                if (string.IsNullOrEmpty(LoggedInAccount.ChallengeId))
                 {
                     SelectedChallenge = new Challenge();
                     ObservableCollection<Models.Challenge.ChallengeAccount> challengesAccount = new ObservableCollection<Models.Challenge.ChallengeAccount>();
@@ -121,7 +120,7 @@ namespace Journey.ViewModels
                 }
                 else
                 {
-                    //SelectedChallenge = await challengeService.GetChallengeAsync(LoggedInAccount.ChallengeId);
+                    SelectedChallenge = await _challengeService.GetChallengeAsync(LoggedInAccount.ChallengeId);
                 }
                 base.Intialize();
                

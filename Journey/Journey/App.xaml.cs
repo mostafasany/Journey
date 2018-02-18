@@ -134,6 +134,10 @@ namespace Journey
             container.RegisterType<IFriendService, FriendService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IFriendDataService, FriendDataService>(new ContainerControlledLifetimeManager());
 
+            container.RegisterType<IChallengeService, ChallengeService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IChallengeDataService, ChallengeDataService>(new ContainerControlledLifetimeManager());
+
+
             container.RegisterType<IAccountGoalService, AccountGoalService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IAccountGoalDataService, AccountGoalDataService>(
                 new ContainerControlledLifetimeManager());
