@@ -146,7 +146,7 @@ namespace Journey.ViewModels
 
         #region Methods
 
-        public override async void Intialize()
+        public override async void Intialize(bool sync = false)
         {
             try
             {
@@ -155,7 +155,7 @@ namespace Journey.ViewModels
                 await LoadAccount(false);
                 await LoadGoal(false);
                 await LoadMeasurments(false);
-                base.Intialize();
+                base.Intialize(sync);
             }
             catch (Exception e)
             {

@@ -1,17 +1,20 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
-using Journey.Models.Account;
 using Journey.Models.Challenge;
+using Journey.Services.Buisness.Account.Data;
 using Tawasol.Services.Data;
 
 namespace Tawasol.Services
 {
     public class ChallengeService : IChallengeService
     {
-        IChallengeDataService challengeDataService;
-        public ChallengeService(IChallengeDataService _challengeDataService)
+        private readonly  IChallengeDataService challengeDataService;
+        private readonly IAccountDataService accountDataService;
+        public ChallengeService(IChallengeDataService _challengeDataService,IAccountDataService _accountDataService)
         {
             challengeDataService = _challengeDataService;
+            accountDataService = _accountDataService;
         }
 
        
@@ -34,6 +37,9 @@ namespace Tawasol.Services
             try
             {
                 var challengeDTO = await challengeDataService.AddChallengeAsync(challenge);
+                var account = challenge.ChallengeAccounts.FirstOrDefault();
+                account.ChallengeId = challengeDTO.Id;
+                await  accountDataService.AddUpdateAccountAsync(account,false);
                 return challengeDTO;
             }
             catch (System.Exception ex)

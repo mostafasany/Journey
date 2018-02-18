@@ -32,6 +32,32 @@ namespace Journey.ViewModels
 
         #region Events
 
+    
+        public void OnNavigatedFrom(NavigationParameters parameters)
+        {
+        }
+
+        public void OnNavigatedTo(NavigationParameters parameters)
+        {
+            try
+            {
+                bool sync = parameters.GetValue<bool>("Sync");
+                if (parameters.GetNavigationMode() == NavigationMode.New ||sync)
+                {
+                    IsPullRefreshLoading = false;
+                    Intialize(sync);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.HandleAndShowDialog(ex);
+            }
+        }
+
+        public void OnNavigatingTo(NavigationParameters parameters)
+        {
+        }
+
         private void _postService_PostStatusChangedEventHandler(object sender, PostStatusChangedArgs e)
         {
             try
@@ -97,29 +123,6 @@ namespace Journey.ViewModels
             }
         }
 
-        public void OnNavigatedFrom(NavigationParameters parameters)
-        {
-        }
-
-        public void OnNavigatedTo(NavigationParameters parameters)
-        {
-            try
-            {
-                if (parameters.GetNavigationMode() == NavigationMode.New)
-                {
-                    IsPullRefreshLoading = false;
-                    Intialize();
-                }
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.HandleAndShowDialog(ex);
-            }
-        }
-
-        public void OnNavigatingTo(NavigationParameters parameters)
-        {
-        }
 
         #endregion
 
@@ -152,7 +155,7 @@ namespace Journey.ViewModels
             }
         }
 
-        private bool _hasNotActiveChallenge = true;
+        private bool _hasNotActiveChallenge = false;
 
         public bool HasNotActiveChallenge
         {
@@ -185,7 +188,7 @@ namespace Journey.ViewModels
 
         #region Methods
 
-        public override async void Intialize()
+        public override async void Intialize(bool sync)
         {
             try
             {
@@ -194,7 +197,7 @@ namespace Journey.ViewModels
                 {
                     var tasks = new List<Task>
                     {
-                        LoadAccount(false),
+                        LoadAccount(sync),
                         LoadPosts()
                     };
                     ShowProgress();
@@ -202,11 +205,11 @@ namespace Journey.ViewModels
                 }
                 else
                 {
-                    await LoadAccount(false);
+                    await LoadAccount(sync);
                     await LoadPosts();
                 }
 
-                base.Intialize();
+                base.Intialize(sync);
             }
             catch (Exception e)
             {
@@ -246,15 +249,8 @@ namespace Journey.ViewModels
 
         private async Task LoadAccount(bool sync)
         {
-            if (sync)
-            {
-                await _accountService.GetAccountAsync(true);
-            }
-            else
-            {
-                LoggedInAccount = await _accountService.GetAccountAsync();
-                UpdateChallengeBanner();
-            }
+            LoggedInAccount = await _accountService.GetAccountAsync(sync);
+            UpdateChallengeBanner();
 
             RaisePropertyChanged(nameof(IsLoggedOut));
             RaisePropertyChanged(nameof(IsLoggedIn));
@@ -477,7 +473,7 @@ namespace Journey.ViewModels
             {
                 IsPullRefreshLoading = true;
                 //postService.RefreshPosts = true;
-                Intialize();
+                Intialize(false);
             }
             catch (Exception ex)
             {

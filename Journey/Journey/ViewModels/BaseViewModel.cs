@@ -78,7 +78,7 @@ namespace Journey.ViewModels
         {
         }
 
-        public virtual void Intialize()
+        public virtual void Intialize(bool sync = false)
         {
         }
     }

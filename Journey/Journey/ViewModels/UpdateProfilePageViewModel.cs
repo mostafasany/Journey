@@ -99,12 +99,12 @@ namespace Journey.ViewModels
 
         #region Methods
 
-        public override void Intialize()
+        public override void Intialize(bool sync = false)
         {
             try
             {
                 ShowProgress();
-                base.Intialize();
+                base.Intialize(sync);
             }
             catch (Exception e)
             {

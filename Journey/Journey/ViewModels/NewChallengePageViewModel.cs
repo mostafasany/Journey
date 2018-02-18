@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Abstractions.Services.Contracts;
 using Journey.Models.Account;
 using Journey.Models.Challenge;
+using Journey.Resources;
 using Journey.Services.Buisness.Account;
 using Prism.Commands;
 using Prism.Navigation;
@@ -103,7 +106,7 @@ namespace Journey.ViewModels
 
         #region Methods
 
-        public override async void Intialize()
+        public override async void Intialize(bool sync = false)
         {
             try
             {
@@ -123,7 +126,7 @@ namespace Journey.ViewModels
                 {
                     SelectedChallenge = await _challengeService.GetChallengeAsync(LoggedInAccount.ChallengeId);
                 }
-                base.Intialize();
+                base.Intialize(sync);
             }
             catch (Exception e)
             {
@@ -152,21 +155,83 @@ namespace Journey.ViewModels
 
         #region Commands
 
-        #region OnNewCommentCommand
+        #region OnStartChallengeCommand
 
-        public DelegateCommand OnNewCommentCommand => new DelegateCommand(OnNewComment);
 
-        private async void OnNewComment()
+        public DelegateCommand OnStartChallengeCommand => new DelegateCommand(OnStartChallenge);
+
+        private async void OnStartChallenge()
         {
             try
             {
                 if (IsProgress())
                     return;
-                ShowProgress();
+
+                string[] Options = { };
+                if (SelectedChallenge.StartDate >= SelectedChallenge.EndDate)
+                {
+                    await DialogService.ShowMessageAsync(AppResource.Error, AppResource.Challenge_DataValidation);
+                    return;
+                }
+
+                var startChallengeCommand = new DialogCommand
+                {
+                    Label = AppResource.Yes,
+                    Invoked = () => StartChallenge()
+                };
+
+                var cancelCommand = new DialogCommand
+                {
+                    Label = AppResource.Cancel
+                };
+
+
+                var commands = new List<DialogCommand>
+                    {
+                    startChallengeCommand,
+                        cancelCommand
+                    };
+                //SelectedChallenge.Interval = SelectedInterval.IntervalValue;
+                await DialogService.ShowMessageAsync("",AppResource.Challenge_Start, commands);
+
             }
             catch (Exception ex)
             {
-                ExceptionService.HandleAndShowDialog(ex);
+                ExceptionService.Handle(ex);
+                await DialogService.ShowGenericErrorMessageAsync(AppResource.Error, ex.Message);
+            }
+            finally
+            {
+                HideProgress();
+            }
+        }
+
+        private async System.Threading.Tasks.Task StartChallenge()
+        {
+            try
+            {
+                if (IsProgress())
+                    return;
+                
+                ShowProgress();
+                SelectedChallenge.IsActive = true;
+                var existingChallenge = await _challengeService.GetAccountChallengeAsync();
+                if (existingChallenge == null)
+                {
+                    var challenge = await _challengeService.SaveCurrentChallengeAsync(SelectedChallenge);
+                    if (challenge != null)
+                    {
+                        await NavigationService.Navigate("HomePage",true,"Sync");
+                    }
+                }
+                else
+                {
+                    await DialogService.ShowMessageAsync(AppResource.Error, AppResource.Challenge_AlreadyExists);
+                }
+            }
+            catch (Exception ex)
+            {
+               
             }
             finally
             {

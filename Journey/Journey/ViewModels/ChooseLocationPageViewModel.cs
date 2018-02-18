@@ -23,7 +23,7 @@ namespace Journey.ViewModels
 
         #region Methods
 
-        public override async void Intialize()
+        public override async void Intialize(bool sync = false)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace Journey.ViewModels
                     Locations = await _facebookService.GetLocationsAsync(Name, position.Lat, position.Lng);
 
                 SelectedLocation = null;
-                base.Intialize();
+                base.Intialize(sync);
             }
             catch (Exception e)
             {

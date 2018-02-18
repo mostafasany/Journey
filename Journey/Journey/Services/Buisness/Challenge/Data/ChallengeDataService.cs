@@ -35,6 +35,7 @@ namespace Tawasol.Services.Data
                     return null;
                 AzureChallenge accountDto = Journey.Services.Buisness.Challenge.Dto.ChallengeDataTranslator.TranslateChallenge(challenge);
                 await azureChallenge.InsertAsync(accountDto);
+                challenge = Journey.Services.Buisness.Challenge.Dto.ChallengeDataTranslator.TranslateChallenge(accountDto);
                 return challenge;
             }
             catch (System.Exception ex)

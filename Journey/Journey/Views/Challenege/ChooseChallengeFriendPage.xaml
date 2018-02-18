@@ -11,7 +11,7 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Controls:CustomImage Grid.Column="0" Source="{Binding Image.Path}" Aspect="AspectFill" HeightRequest="100" HorizontalOptions="Start">
+                            <Controls:CustomImage Grid.Column="0" Source="{Binding Image.Path}" Aspect="AspectFit" HeightRequest="100" HorizontalOptions="Start">
                                 <Controls:CustomImage.Transformations>
                                     <fftransformations:CircleTransformation />
                                 </Controls:CustomImage.Transformations>

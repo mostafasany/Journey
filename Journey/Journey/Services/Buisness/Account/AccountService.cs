@@ -41,6 +41,7 @@ namespace Journey.Services.Buisness.Account
         {
             try
             {
+                //account.ChallengeId = "";
                 var savedAccount = await _accountDataService.AddUpdateAccountAsync(account, add);
                 return savedAccount;
             }

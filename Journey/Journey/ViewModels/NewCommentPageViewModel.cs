@@ -98,12 +98,12 @@ namespace Journey.ViewModels
 
         #region Methods
 
-        public override async void Intialize()
+        public override async void Intialize(bool sync = false)
         {
             try
             {
                 ShowProgress();
-                base.Intialize();
+                base.Intialize(sync);
                 LoggedInAccount = await _accountService.GetAccountAsync();
                 Comments = new ObservableCollection<Comment>();
 

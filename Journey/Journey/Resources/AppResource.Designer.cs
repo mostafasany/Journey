@@ -335,6 +335,24 @@ namespace Journey.Resources {
             }
         }
         
+        internal static string Challenge_DataValidation {
+            get {
+                return ResourceManager.GetString("Challenge_DataValidation", resourceCulture);
+            }
+        }
+        
+        internal static string Challenge_Start {
+            get {
+                return ResourceManager.GetString("Challenge_Start", resourceCulture);
+            }
+        }
+        
+        internal static string Challenge_AlreadyExists {
+            get {
+                return ResourceManager.GetString("Challenge_AlreadyExists", resourceCulture);
+            }
+        }
+        
         internal static string Post_Report {
             get {
                 return ResourceManager.GetString("Post_Report", resourceCulture);

@@ -92,7 +92,7 @@ namespace Journey.ViewModels
 
         #region Methods
 
-        public override async void Intialize()
+        public override async void Intialize(bool sync = false)
         {
             try
             {
@@ -104,7 +104,7 @@ namespace Journey.ViewModels
                 var friends = await _friendService.GetFriendsAsync("");
                 if (friends != null)
                     FriendsList = new ObservableCollection<Account>(friends);
-                base.Intialize();
+                base.Intialize(sync);
             }
             catch (Exception e)
             {
