@@ -76,11 +76,16 @@ namespace Journey.ViewModels
                 if (e.Post == null || string.IsNullOrEmpty(e.Post.Id))
                     return;
 
-                var postVm = PostsViewModels.FirstOrDefault(a => a.Post.Id == e.Post.Id);
+                var postVm = PostsViewModels?.FirstOrDefault(a => a.Post.Id == e.Post.Id);
+              
                 if (e.Status == PostStatus.Deleted)
                 {
-                    PostsViewModels.Remove(postVm);
-                    HideProgress();
+                    if (postVm!=null)
+                    {
+                        PostsViewModels.Remove(postVm);
+                        HideProgress();
+                    }
+                   
                 }
                 else if (e.Status == PostStatus.Added)
                 {
@@ -89,6 +94,8 @@ namespace Journey.ViewModels
                         //TODO:Sometimes It Crashed if i removed isrefresh from add post service
                         e.Post.Account = LoggedInAccount;
                         var pVm = PostToPostViewModel(e.Post);
+                        if (PostsViewModels == null)
+                            PostsViewModels = new ObservableCollection<PostBaseViewModel>();
                         PostsViewModels.Insert(0, pVm);
                         RaisePropertyChanged(nameof(PostsViewModels));
                         HideProgress();
@@ -105,15 +112,18 @@ namespace Journey.ViewModels
                 }
                 else if (e.Status == PostStatus.CommentsUpdated)
                 {
-                    var index = PostsViewModels.IndexOf(postVm);
-                    if (index >= 0)
+                    if (postVm != null)
                     {
-                        if (postVm.Post != null)
-                            postVm.Post.CommentsCount++;
-                        PostsViewModels[index] = postVm;
-                    }
+                        var index = PostsViewModels.IndexOf(postVm);
+                        if (index >= 0)
+                        {
+                            if (postVm.Post != null)
+                                postVm.Post.CommentsCount++;
+                            PostsViewModels[index] = postVm;
+                        }
 
-                    HideProgress();
+                        HideProgress();
+                    }
                 }
             }
             catch (Exception ex)

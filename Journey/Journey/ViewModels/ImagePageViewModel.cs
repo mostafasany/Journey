@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+﻿using System;
 using Journey.Models;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.PostComment;
@@ -9,17 +8,12 @@ using Unity;
 
 namespace Journey.ViewModels
 {
-    public class MediaPageViewModel : BaseViewModel, INavigationAware
+    public class ImagePageViewModel : BaseViewModel, INavigationAware
     {
-        private readonly IAccountService _accountService;
-        private readonly IPostCommentService _postCommentService;
 
-        public MediaPageViewModel(IUnityContainer container,
-            IPostCommentService postCommentService, IAccountService accountService) :
+        public ImagePageViewModel(IUnityContainer container  ) :
             base(container)
         {
-            _postCommentService = postCommentService;
-            _accountService = accountService;
         }
 
         #region Events
@@ -32,8 +26,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                if (parameters.GetNavigationMode() == NavigationMode.New)
-                    MediaList = parameters.GetValue<IEnumerable<Media>>("Media") ?? null;
+                Media = parameters.GetValue<Media>("Media") ?? null;
             }
             catch (Exception e)
             {
@@ -50,14 +43,14 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        private IEnumerable<Media> mediaList;
+        private Media media;
 
-        public IEnumerable<Media> MediaList
+        public Media Media
         {
-            get => mediaList;
+            get => media;
             set
             {
-                mediaList = value;
+                media = value;
                 RaisePropertyChanged();
             }
         }
@@ -99,31 +92,6 @@ namespace Journey.ViewModels
         #endregion
 
         #region Commands
-
-        #region OnGalleryDetailsCommand
-
-        private DelegateCommand<Media> _onGalleryDetailsCommand;
-
-        public DelegateCommand<Media> OnGalleryDetailsCommand => _onGalleryDetailsCommand ??
-                                                                 (_onGalleryDetailsCommand =
-                                                                     new DelegateCommand<Media>(OnGalleryDetails));
-
-        private async void OnGalleryDetails(Media media)
-        {
-            try
-            {
-                if (media.Type == MediaType.Video)
-                    await NavigationService.Navigate("VideoPage", media, "Media");
-                else
-                    await NavigationService.Navigate("ImagePage", media, "Media");
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.HandleAndShowDialog(ex);
-            }
-        }
-
-        #endregion
 
         #region OnCloseCommand
 

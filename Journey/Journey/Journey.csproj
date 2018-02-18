@@ -179,6 +179,12 @@
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Challenege\NewChallengePage.xaml.cs">
       <DependentUpon>NewChallengePage.xaml</DependentUpon>
     </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\ChooseLocationPage.xaml.cs">
+      <DependentUpon>ImagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\ImagePage.xaml.cs">
+      <DependentUpon>ImagePage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
