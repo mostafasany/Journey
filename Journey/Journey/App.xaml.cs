@@ -59,7 +59,8 @@ namespace Journey
             containerRegistry.RegisterForNavigation<MediaPage>();
             containerRegistry.RegisterForNavigation<VideoPage>();
             containerRegistry.RegisterForNavigation<ImagePage>();
-            containerRegistry.RegisterForNavigation<ProfilePage>();
+            containerRegistry.RegisterForNavigation<ProfileMeasurmentPage>();
+            containerRegistry.RegisterForNavigation<ProfileChallengePage>();
             containerRegistry.RegisterForNavigation<UpdateMeasurmentPage>();
             containerRegistry.RegisterForNavigation<ChooseChallengeFriendPage>();
             containerRegistry.RegisterForNavigation<NewChallengePage>();

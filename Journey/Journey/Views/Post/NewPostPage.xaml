@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls"
@@ -95,20 +95,20 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Controls:ImageControl Grid.Column="0" Margin="0,0,0,60" PortablePath="camera.png"
-                                           Style="{StaticResource IconStyle}" WidthRequest="40" HeightRequest="40">
+                                           Style="{StaticResource IconStyle}" WidthRequest="50" HeightRequest="50">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnAddPhotoOrVideoCommand}"
                                                   CommandParameter="{Binding}" />
                         </Image.GestureRecognizers>
                     </Controls:ImageControl>
                     <Controls:ImageControl Grid.Column="1" Margin="0,20,0,0" PortablePath="check.png"
-                                           Style="{StaticResource IconStyle}" WidthRequest="40" HeightRequest="40">
+                                           Style="{StaticResource IconStyle}" WidthRequest="50" HeightRequest="50">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnNewPostCommand}" />
                         </Image.GestureRecognizers>
                     </Controls:ImageControl>
                     <Controls:ImageControl Grid.Column="2" Margin="0,0,0,60" PortablePath="location.png"
-                                           Style="{StaticResource IconStyle}" WidthRequest="40" HeightRequest="40">
+                                           Style="{StaticResource IconStyle}" WidthRequest="50" HeightRequest="50">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnCheckInCommand}" CommandParameter="{Binding}" />
                         </Image.GestureRecognizers>

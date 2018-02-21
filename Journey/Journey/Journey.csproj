@@ -138,7 +138,7 @@
       <DependentUpon>AppResource.resx</DependentUpon>
     </Compile>
     <Compile Update="Views\Account\ProfilePage.xaml.cs">
-      <DependentUpon>ProfilePage.xaml</DependentUpon>
+      <DependentUpon>ProfileMeasurmentPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Account\UpdateMeasurmentPage.xaml.cs">
       <DependentUpon>UpdateMeasurmentPage.xaml</DependentUpon>
@@ -184,6 +184,15 @@
     </Compile>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\ImagePage.xaml.cs">
       <DependentUpon>ImagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Challenege\ProfileChallengePage.xaml.cs">
+      <DependentUpon>ProfileChallengePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Account\ProfileMeasurmentPage.xaml.cs">
+      <DependentUpon>ProfileMeasurmentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Account\ProfileChallengePage.xaml.cs">
+      <DependentUpon>ProfileChallengePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

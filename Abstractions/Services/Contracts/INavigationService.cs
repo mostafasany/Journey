@@ -5,6 +5,7 @@ namespace Abstractions.Services.Contracts
 {
     public interface INavigationService
     {
+        string CurrentPage { get; set; }
         bool CanGoBack();
         bool CanGoForward();
         void ClearHistory();

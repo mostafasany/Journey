@@ -10,6 +10,8 @@ namespace Journey.Services.Forms
 {
     public class NavigationService : INavigationService
     {
+        public string CurrentPage { get; set; }
+       
         private readonly Prism.Navigation.INavigationService _navigationService;
 
         public NavigationService(IUnityContainer container) //:base(container)

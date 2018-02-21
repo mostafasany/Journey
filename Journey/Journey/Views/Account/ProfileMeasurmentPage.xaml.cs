@@ -1,8 +1,8 @@
 ﻿namespace Journey.Views
 {
-    public partial class ProfilePage : BasePage
+    public partial class ProfileMeasurmentPage : BasePage
     {
-        public ProfilePage()
+        public ProfileMeasurmentPage()
         {
             InitializeComponent();
         }

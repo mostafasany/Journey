@@ -13,8 +13,8 @@ namespace Journey.Services.Forms
     internal class MediaService : IMediaService<Media>
     {
         private const string VideoPlaceHolderPath = "http://bit.ly/2EiCAic";
-        private const int CompressionQuality = 50;
-        private const int CustomPhotoSize = 50;
+        private const int CompressionQuality = 30;
+        private const int CustomPhotoSize = 10;
         private const bool SaveToAlbum = true;
         private readonly PhotoSize PhotoSize = PhotoSize.Small;
         private readonly VideoQuality VideoQuality = VideoQuality.Low;
@@ -28,7 +28,8 @@ namespace Journey.Services.Forms
                 var media = await CrossMedia.Current.PickPhotoAsync(
                     new PickMediaOptions
                     {
-                        PhotoSize = PhotoSize
+                        PhotoSize = PhotoSize,
+                        CustomPhotoSize = CustomPhotoSize,
                     });
                 if (media == null)
                     return null;
@@ -131,6 +132,7 @@ namespace Journey.Services.Forms
                         DefaultCamera = DefaultCamera,
                         RotateImage = false
                     });
+
                 if (media == null)
                     return null;
                 var stream = media.GetStream();

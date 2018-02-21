@@ -398,7 +398,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                await NavigationService.Navigate("ProfilePage");
+                await NavigationService.Navigate("ProfileChallengePage");
             }
             catch (Exception ex)
             {

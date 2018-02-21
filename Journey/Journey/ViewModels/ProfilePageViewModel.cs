@@ -15,57 +15,16 @@ using Unity;
 
 namespace Journey.ViewModels
 {
-    public class ProfilePageViewModel : BaseViewModel, INavigationAware
+    public class ProfilePageViewModel : BaseViewModel
     {
-        private readonly IAccountGoalService _accountGoalService;
-        private readonly IAccountMeasurmentService _accountMeasurmentService;
         private readonly IAccountService _accountService;
 
-        public ProfilePageViewModel(IUnityContainer container, IAccountService accountService,
-            IAccountGoalService accountGoalService, IAccountMeasurmentService accountMeasurmentService) :
+        public ProfilePageViewModel(IUnityContainer container, IAccountService accountService) :
             base(container)
         {
             _accountService = accountService;
-            _accountGoalService = accountGoalService;
-            _accountMeasurmentService = accountMeasurmentService;
+
         }
-
-        #region Events
-
-        public void OnNavigatedFrom(NavigationParameters parameters)
-        {
-        }
-
-        public async void OnNavigatedTo(NavigationParameters parameters)
-        {
-            try
-            {
-                if (parameters.GetNavigationMode() == NavigationMode.Back)
-                {
-                    var measurments = parameters.GetValue<List<ScaleMeasurment>>("Measurments");
-                    if (measurments != null)
-                    {
-                        Measuremnts = measurments;
-                        LoggedInAccount.AccountGoal.Weight = Measuremnts.FirstOrDefault().Measure;
-                        LoggedInAccount.AccountGoal =
-                            await _accountGoalService.AddAccountGoal(LoggedInAccount.AccountGoal);
-                    }
-                }
-                if (parameters.GetNavigationMode() == NavigationMode.New)
-                    Intialize();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        public void OnNavigatingTo(NavigationParameters parameters)
-        {
-        }
-
-        #endregion
 
         #region Properties
 
@@ -77,21 +36,6 @@ namespace Journey.ViewModels
             set => SetProperty(ref _loggedInAccount, value);
         }
 
-        private bool _isPullRefreshLoading;
-
-        public bool IsPullRefreshLoading
-        {
-            get => _isPullRefreshLoading;
-            set => SetProperty(ref _isPullRefreshLoading, value);
-        }
-
-        private List<ScaleMeasurment> _measuremnts;
-
-        public List<ScaleMeasurment> Measuremnts
-        {
-            get => _measuremnts;
-            set => SetProperty(ref _measuremnts, value);
-        }
 
 
         private Account _friend;
@@ -103,44 +47,6 @@ namespace Journey.ViewModels
         }
 
 
-        private double _goal;
-
-        public double Goal
-        {
-            get => _goal;
-            set => SetProperty(ref _goal, value);
-        }
-
-        private DateTime _end = DateTime.Now;
-
-        public DateTime End
-        {
-            get => _end;
-            set => SetProperty(ref _end, value);
-        }
-
-        private DateTime _start = DateTime.Now;
-
-        public DateTime Start
-        {
-            get => _start;
-            set => SetProperty(ref _start, value);
-        }
-
-
-        private bool _addMode;
-
-        public bool AddMode
-        {
-            get => _addMode;
-            set
-            {
-                SetProperty(ref _addMode, value);
-                RaisePropertyChanged(nameof(NotAddMode));
-            }
-        }
-
-        public bool NotAddMode => !_addMode;
 
         #endregion
 
@@ -151,10 +57,9 @@ namespace Journey.ViewModels
             try
             {
                 ShowProgress();
-                IsPullRefreshLoading = false;
+
                 await LoadAccount(false);
-                await LoadGoal(false);
-                await LoadMeasurments(false);
+
                 base.Intialize(sync);
             }
             catch (Exception e)
@@ -183,41 +88,6 @@ namespace Journey.ViewModels
             }
         }
 
-        private async Task LoadGoal(bool sync)
-        {
-            try
-            {
-                var accountGoal = await _accountGoalService.GetAccountGoalAsync(sync);
-                if (accountGoal != null)
-                    LoggedInAccount.AccountGoal = accountGoal;
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.Handle(ex);
-            }
-        }
-
-        private async Task LoadMeasurments(bool sync)
-        {
-            try
-            {
-                if (Measuremnts == null || Measuremnts.Count == 0 || sync)
-                {
-                    var measu = await _accountMeasurmentService.GetMeasurmentsAsync(sync);
-                    if (measu != null)
-                        Measuremnts = measu;
-                }
-
-                if (LoggedInAccount.AccountGoal == null)
-                    LoggedInAccount.AccountGoal = new AccountGoal();
-                if (LoggedInAccount.AccountGoal?.Weight == null || LoggedInAccount.AccountGoal.Weight == 0)
-                    LoggedInAccount.AccountGoal.Weight = Measuremnts.FirstOrDefault(a => a.Title == "Weight").Measure;
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.Handle(ex);
-            }
-        }
 
         protected override void Cleanup()
         {
@@ -235,6 +105,41 @@ namespace Journey.ViewModels
         #endregion
 
         #region Commands
+
+        #region OnMoreCommand
+
+        public DelegateCommand OnMoreCommand => new DelegateCommand(OnMore);
+
+        private async void OnMore()
+        {
+            try
+            {
+                var commands =
+                    new List<DialogCommand>
+                    {
+                        new DialogCommand
+                        {
+                            Label = AppResource.Profile_Edit,
+                            Invoked = () => OnEditProfile()
+                        },
+
+                        new DialogCommand
+                        {
+                            Label = AppResource.Logout,
+                            Invoked = () => { OnLogoutCommand.Execute(); }
+                        }
+                    };
+
+                await DialogService.ShowMessageAsync("", AppResource.More,
+                    commands);
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.Handle(ex);
+            }
+        }
+
+        #endregion
 
         #region OnLogoutCommand
 
@@ -289,76 +194,24 @@ namespace Journey.ViewModels
 
         #endregion
 
-        #region OnAddGoalCommand
+        #region OnGoToProfileMeasurmentCommand
 
-        public DelegateCommand OnAddGoalCommand => new DelegateCommand(OnAddGoal);
+        public DelegateCommand OnGoToProfileMeasurmentCommand => new DelegateCommand(OnGoToProfileMeasurment);
 
-        private async void OnAddGoal()
+        private void OnGoToProfileMeasurment()
         {
-            try
-            {
-                AddMode = false;
-                if (LoggedInAccount.AccountGoal.Goal == Goal)
-                    return;
-
-                LoggedInAccount.AccountGoal.Goal = Goal;
-                LoggedInAccount.AccountGoal.Start = Start;
-                LoggedInAccount.AccountGoal.End = End;
-                LoggedInAccount.AccountGoal = await _accountGoalService.AddAccountGoal(LoggedInAccount.AccountGoal);
-                Goal = 0;
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.Handle(ex);
-            }
+            NavigationService.Navigate("ProfileMeasurmentPage");
         }
 
         #endregion
 
-        #region OnMoreCommand
+        #region OnGoToProfileChallengeCommand
 
-        public DelegateCommand OnMoreCommand => new DelegateCommand(OnMore);
+        public DelegateCommand OnGoToProfileChallengeCommand => new DelegateCommand(OnGoToProfileChallenge);
 
-        private async void OnMore()
+        private void OnGoToProfileChallenge()
         {
-            try
-            {
-                var commands =
-                    new List<DialogCommand>
-                    {
-                        new DialogCommand
-                        {
-                            Label = AppResource.Profile_Edit,
-                            Invoked = () => OnEditProfile()
-                        },
-                        new DialogCommand
-                        {
-                            Label = AppResource.Profile_SetMonthlyGoal,
-                            Invoked = () =>
-                            {
-                                AddMode = true;
-                                Goal = LoggedInAccount.AccountGoal.Goal;
-                            }
-                        },
-                        new DialogCommand
-                        {
-                            Label = AppResource.Profile_UpdateMeasurment,
-                            Invoked = () => { NavigationService.Navigate("UpdateMeasurmentPage"); }
-                        },
-                        new DialogCommand
-                        {
-                            Label = AppResource.Logout,
-                            Invoked = () => { OnLogoutCommand.Execute(); }
-                        }
-                    };
-
-                await DialogService.ShowMessageAsync("", AppResource.More,
-                    commands);
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.Handle(ex);
-            }
+            NavigationService.Navigate("ProfileChallengePage");
         }
 
         #endregion
@@ -380,30 +233,6 @@ namespace Journey.ViewModels
             }
             finally
             {
-                HideProgress();
-            }
-        }
-
-        #endregion
-
-        #region OnRefreshPostsCommand
-
-        public DelegateCommand OnRefreshPostsCommand => new DelegateCommand(OnRefreshPosts);
-
-        private async void OnRefreshPosts()
-        {
-            try
-            {
-                IsPullRefreshLoading = true;
-                Intialize();
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.Handle(ex);
-            }
-            finally
-            {
-                IsPullRefreshLoading = false;
                 HideProgress();
             }
         }

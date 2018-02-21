@@ -7,5 +7,7 @@ namespace Journey.Services.Forms
     public interface IShare
     {
         Task Share(string subject, string message, List<Media> media);
+
+       
     }
 }

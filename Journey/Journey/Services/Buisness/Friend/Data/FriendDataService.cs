@@ -78,6 +78,7 @@ namespace Tawasol.Services.Data
                 // List<AzureFriend> accountsTbl = await _client.InvokeApiAsync<List<AzureFriend>>(api, HttpMethod.Get, null);
 
                 Account account = null;
+               // accountTbl = await accountTable.Where(a => a.Id != account).ToListAsync();
                 //if (accountsTbl != null && accountsTbl.Count != 0)
                 //{
                 //    AzureFriend friendDTO = accountsTbl.FirstOrDefault();
@@ -86,8 +87,8 @@ namespace Tawasol.Services.Data
                 //else
                 //{
                 //    //TODO: Query is not correct ,if not friend found it return null , it should return account with no friend
-                //    var accountDTO = await accountTable.LookupAsync(friend);
-                //    account = TranslateAccount(accountDTO);
+                    var accountDTO = await accountTable.LookupAsync(friend);
+                account = AccountDataTranslator.TranslateAccount(accountDTO);
                 //}
 
 
