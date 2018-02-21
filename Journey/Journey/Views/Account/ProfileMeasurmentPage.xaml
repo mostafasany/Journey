@@ -28,7 +28,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-          <Grid>
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="50" />
@@ -61,7 +61,7 @@
                         </Controls:ImageControl.GestureRecognizers>
                     </Controls:ImageControl>
                 </Grid>
-                <Grid BackgroundColor="#d3d3d3" Grid.Row="1" RowSpacing="0" Margin="0,5" ColumnSpacing="1" Padding="0">
+                <Grid BackgroundColor="#d3d3d3" Grid.Row="1" RowSpacing="0" ColumnSpacing="1" Padding="0">
                     <Grid Grid.Column="0" BackgroundColor="White">
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnGoToProfileChallengeCommand}" />

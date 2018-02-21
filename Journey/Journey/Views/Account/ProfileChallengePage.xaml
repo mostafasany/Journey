@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.ProfileChallengePage">
-    <ContentPage.Content>
-        <Grid RowSpacing="0" ColumnSpacing="0" HorizontalOptions="FillAndExpand">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="1" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0" BackgroundColor="{StaticResource Primary}" Padding="10,20">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Controls:ImageControl Grid.Column="0" PortablePath="backwhite.png" Style="{StaticResource ImageHeaderStyle}">
-                        <Controls:ImageControl.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OnBackCommand}" CommandParameter="{Binding}" />
-                        </Controls:ImageControl.GestureRecognizers>
-                    </Controls:ImageControl>
-                    <StackLayout Grid.Column="1" Orientation="Horizontal" HorizontalOptions="Center">
-                        <StackLayout Orientation="Vertical" HorizontalOptions="Start">
-                            <Controls:CustomImage Source="{Binding LoggedInAccount.Image.Path}" Style="{StaticResource ImageHeaderStyle}">
-                                <Controls:CustomImage.Transformations>
-                                    <fftransformations:CircleTransformation />
-                                </Controls:CustomImage.Transformations>
-                            </Controls:CustomImage>
-                        </StackLayout>
-                        <Label TextColor="White" Text="{Binding LoggedInAccount.Name}" Style="{StaticResource LabelHeaderStyle}" HorizontalOptions="Center" />
-                    </StackLayout>
-                    <Controls:ImageControl Grid.Column="2" PortablePath="moreWhite.png" Aspect="AspectFit" Style="{StaticResource IconStyle}" HorizontalOptions="End">
-                        <Controls:ImageControl.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OnMoreCommand}" CommandParameter="{Binding}" />
-                        </Controls:ImageControl.GestureRecognizers>
-                    </Controls:ImageControl>
-                </Grid>
-                <Grid BackgroundColor="#d3d3d3" Grid.Row="1" RowSpacing="0" Margin="0,5" ColumnSpacing="1" Padding="0">
-                    <Grid Grid.Column="0" BackgroundColor="White">
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OnGoToProfileChallengeCommand}" />
-                        </Grid.GestureRecognizers>
-                        <Controls:ImageControl PortablePath="exp.png" Style="{StaticResource IconStyle}" />
-                    </Grid>
-                    <Grid Grid.Column="1" BackgroundColor="White">
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OnGoToProfileMeasurmentCommand}" />
-                        </Grid.GestureRecognizers>
-                        <Controls:ImageControl PortablePath="graph.png" Style="{StaticResource IconStyle}" />
-                    </Grid>
-                </Grid>
-                <Grid BackgroundColor="#d3d3d3" Grid.Row="2" />
-            </Grid>
-            <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Grid Grid.Row="2" Margin="0,20">
-                <Controls:ImageViewerControl ItemsSource="{Binding SelectedChallenge.ChallengeAccounts}" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
-                    <Controls:ImageViewerControl.ItemTemplate>
-                        <DataTemplate>
-                            <Image Source="{Binding Image.Path}" WidthRequest="150" HeightRequest="150" Margin="8,0" Aspect="AspectFill" />
-                        </DataTemplate>
-                    </Controls:ImageViewerControl.ItemTemplate>
-                </Controls:ImageViewerControl>
-            </Grid>
-        </Grid>
-    </ContentPage.Content>
+	<ContentPage.Content>
+		<Grid RowSpacing="0" ColumnSpacing="0" HorizontalOptions="FillAndExpand">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="1" />
+				</Grid.RowDefinitions>
+				<Grid Grid.Row="0" BackgroundColor="{StaticResource Primary}" Padding="10,20">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<Controls:ImageControl Grid.Column="0" PortablePath="backwhite.png" Style="{StaticResource ImageHeaderStyle}">
+						<Controls:ImageControl.GestureRecognizers>
+							<TapGestureRecognizer Command="{Binding OnBackCommand}" CommandParameter="{Binding}" />
+						</Controls:ImageControl.GestureRecognizers>
+					</Controls:ImageControl>
+					<StackLayout Grid.Column="1" Orientation="Horizontal" HorizontalOptions="Center">
+						<StackLayout Orientation="Vertical" HorizontalOptions="Start">
+							<Controls:CustomImage Source="{Binding LoggedInAccount.Image.Path}" Style="{StaticResource ImageHeaderStyle}">
+								<Controls:CustomImage.Transformations>
+									<fftransformations:CircleTransformation />
+								</Controls:CustomImage.Transformations>
+							</Controls:CustomImage>
+						</StackLayout>
+						<Label TextColor="White" Text="{Binding LoggedInAccount.Name}" Style="{StaticResource LabelHeaderStyle}" HorizontalOptions="Center" />
+					</StackLayout>
+					<Controls:ImageControl Grid.Column="2" PortablePath="moreWhite.png" Aspect="AspectFit" Style="{StaticResource IconStyle}" HorizontalOptions="End">
+						<Controls:ImageControl.GestureRecognizers>
+							<TapGestureRecognizer Command="{Binding OnMoreCommand}" CommandParameter="{Binding}" />
+						</Controls:ImageControl.GestureRecognizers>
+					</Controls:ImageControl>
+				</Grid>
+				<Grid BackgroundColor="#d3d3d3" Grid.Row="1" RowSpacing="0" ColumnSpacing="1" Padding="0">
+					<Grid Grid.Column="0" BackgroundColor="White">
+						<Grid.GestureRecognizers>
+							<TapGestureRecognizer Command="{Binding OnGoToProfileChallengeCommand}" />
+						</Grid.GestureRecognizers>
+						<Controls:ImageControl PortablePath="exp.png" Style="{StaticResource IconStyle}" />
+					</Grid>
+					<Grid Grid.Column="1" BackgroundColor="White">
+						<Grid.GestureRecognizers>
+							<TapGestureRecognizer Command="{Binding OnGoToProfileMeasurmentCommand}" />
+						</Grid.GestureRecognizers>
+						<Controls:ImageControl PortablePath="graph.png" Style="{StaticResource IconStyle}" />
+					</Grid>
+				</Grid>
+				<Grid BackgroundColor="#d3d3d3" Grid.Row="2" />
+			</Grid>
+			<Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
+			<Grid Grid.Row="2" Margin="0,20">
+				<Controls:ImageViewerControl ItemsSource="{Binding SelectedChallenge.ChallengeAccounts}" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+					<Controls:ImageViewerControl.ItemTemplate>
+						<DataTemplate>
+							<Image Source="{Binding Image.Path}" WidthRequest="150" HeightRequest="150" Margin="8,0" Aspect="AspectFill" />
+						</DataTemplate>
+					</Controls:ImageViewerControl.ItemTemplate>
+				</Controls:ImageViewerControl>
+			</Grid>
+		</Grid>
+	</ContentPage.Content>
 </local:BasePage>

@@ -13,7 +13,7 @@ namespace Journey.ViewModels
 
         private readonly IAccountService _accountService;
         private readonly IChallengeService _challengeService;
-        public ProfileChallengePageViewModel(IUnityContainer container, IAccountService accountService,IChallengeService challengeService) :
+        public ProfileChallengePageViewModel(IUnityContainer container, IAccountService accountService, IChallengeService challengeService) :
         base(container, accountService)
         {
             _accountService = accountService;
@@ -70,7 +70,7 @@ namespace Journey.ViewModels
             try
             {
                 ShowProgress();
-                SelectedChallenge=await _challengeService.GetAccountChallengeAsync();
+                SelectedChallenge = await _challengeService.GetAccountChallengeAsync();
                 base.Intialize(sync);
             }
             catch (Exception e)

@@ -14,6 +14,7 @@ namespace Tawasol.Services
         private readonly IAccountDataService accountDataService;
         private readonly IFriendService _friendService;
         private readonly IAccountService _accountService;
+        private Challenge Challenge;
         public ChallengeService(IChallengeDataService _challengeDataService,
                                 IAccountDataService _accountDataService,
                                 IFriendService friendService,
@@ -60,13 +61,15 @@ namespace Tawasol.Services
         {
             try
             {
-                var challengeDTO = await challengeDataService.GetAccountChallengeAsync();
-                var friendId = challengeDTO.ChallengeAccounts.LastOrDefault()?.Id;
+                if (Challenge != null)
+                    return Challenge;
+                Challenge = await challengeDataService.GetAccountChallengeAsync();
+                var friendId = Challenge.ChallengeAccounts.LastOrDefault()?.Id;
                 var friend = await _friendService.GetFriendAsync(friendId);
-                challengeDTO.ChallengeAccounts = new System.Collections.ObjectModel.ObservableCollection<ChallengeAccount>();
-                challengeDTO.ChallengeAccounts.Add(new ChallengeAccount(_accountService.LoggedInAccount));
-                challengeDTO.ChallengeAccounts.Add(new ChallengeAccount(friend));
-                return challengeDTO;
+                Challenge.ChallengeAccounts = new System.Collections.ObjectModel.ObservableCollection<ChallengeAccount>();
+                Challenge.ChallengeAccounts.Add(new ChallengeAccount(_accountService.LoggedInAccount));
+                Challenge.ChallengeAccounts.Add(new ChallengeAccount(friend));
+                return Challenge;
             }
             catch (System.Exception ex)
             {
