@@ -5,9 +5,9 @@ using Abstractions.Services.Contracts;
 using Journey.Models.Account;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
+using Journey.Services.Buisness.Friend;
 using Prism.Commands;
 using Prism.Navigation;
-using Tawasol.Services;
 using Unity;
 
 namespace Journey.ViewModels

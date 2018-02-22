@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Tawasol.Azure.Models
+namespace Journey.Services.Buisness.Challenge.Dto
 {
     public class AzureChallenge
     {

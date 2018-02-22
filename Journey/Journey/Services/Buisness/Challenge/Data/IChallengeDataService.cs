@@ -1,12 +1,11 @@
 ﻿using System.Threading.Tasks;
-using Journey.Models.Challenge;
 
-namespace Tawasol.Services.Data
+namespace Journey.Services.Buisness.Challenge.Data
 {
     public interface IChallengeDataService
     {
-        Task<Challenge> AddChallengeAsync(Challenge challenge);
-        Task<Challenge> GetChallengeAsync(string challengeId);
-        Task<Challenge> GetAccountChallengeAsync();
+        Task<Models.Challenge.Challenge> AddChallengeAsync(Models.Challenge.Challenge challenge);
+        Task<Models.Challenge.Challenge> GetChallengeAsync(string challengeId);
+        Task<Models.Challenge.Challenge> GetAccountChallengeAsync();
     }
 }

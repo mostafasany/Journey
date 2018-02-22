@@ -1,9 +1,9 @@
 using System;
 using Journey.Models.Challenge;
 using Journey.Services.Buisness.Account;
+using Journey.Services.Buisness.Challenge;
 using Prism.Commands;
 using Prism.Navigation;
-using Tawasol.Services;
 using Unity;
 
 namespace Journey.ViewModels

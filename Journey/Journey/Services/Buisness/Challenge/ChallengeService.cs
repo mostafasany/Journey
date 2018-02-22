@@ -4,9 +4,10 @@ using Abstractions.Exceptions;
 using Journey.Models.Challenge;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Account.Data;
-using Tawasol.Services.Data;
+using Journey.Services.Buisness.Challenge.Data;
+using Journey.Services.Buisness.Friend;
 
-namespace Tawasol.Services
+namespace Journey.Services.Buisness.Challenge
 {
     public class ChallengeService : IChallengeService
     {
@@ -14,7 +15,7 @@ namespace Tawasol.Services
         private readonly IAccountDataService accountDataService;
         private readonly IFriendService _friendService;
         private readonly IAccountService _accountService;
-        private Challenge Challenge;
+        private Models.Challenge.Challenge Challenge;
         public ChallengeService(IChallengeDataService _challengeDataService,
                                 IAccountDataService _accountDataService,
                                 IFriendService friendService,
@@ -27,7 +28,7 @@ namespace Tawasol.Services
         }
 
        
-        public async Task<Challenge> GetChallengeAsync(string challengeId)
+        public async Task<Models.Challenge.Challenge> GetChallengeAsync(string challengeId)
         {
             try
             {
@@ -41,7 +42,7 @@ namespace Tawasol.Services
         }
 
 
-        public async Task<Challenge> SaveCurrentChallengeAsync(Challenge challenge)
+        public async Task<Models.Challenge.Challenge> SaveCurrentChallengeAsync(Models.Challenge.Challenge challenge)
         {
             try
             {
@@ -57,7 +58,7 @@ namespace Tawasol.Services
             }
         }
 
-        public async Task<Challenge> GetAccountChallengeAsync()
+        public async Task<Models.Challenge.Challenge> GetAccountChallengeAsync()
         {
             try
             {

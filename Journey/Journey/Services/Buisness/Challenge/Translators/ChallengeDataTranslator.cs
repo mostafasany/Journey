@@ -1,7 +1,6 @@
-﻿using System;
-using Tawasol.Azure.Models;
+﻿using Journey.Services.Buisness.Challenge.Dto;
 
-namespace Journey.Services.Buisness.Challenge.Dto
+namespace Journey.Services.Buisness.Challenge.Translators
 {
     public class ChallengeDataTranslator
     {

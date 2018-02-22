@@ -6,9 +6,9 @@ using Journey.Models.Account;
 using Journey.Models.Challenge;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
+using Journey.Services.Buisness.Challenge;
 using Prism.Commands;
 using Prism.Navigation;
-using Tawasol.Services;
 using Unity;
 using ChallengeAccount = Journey.Models.Challenge.ChallengeAccount;
 

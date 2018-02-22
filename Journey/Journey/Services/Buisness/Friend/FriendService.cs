@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
-using Journey.Models.Account;
-using Tawasol.Services.Data;
+using Journey.Services.Buisness.Friend.Data;
 
-namespace Tawasol.Services
+namespace Journey.Services.Buisness.Friend
 {
     public class FriendService : IFriendService
     {
@@ -41,7 +40,7 @@ namespace Tawasol.Services
             }
         }
 
-        public async Task<Account> GetFriendAsync(string id)
+        public async Task<Models.Account.Account> GetFriendAsync(string id)
         {
             try
             {
@@ -54,7 +53,7 @@ namespace Tawasol.Services
             }
         }
 
-        public async Task<List<Account>> GetFriendsAsync(string name)
+        public async Task<List<Models.Account.Account>> GetFriendsAsync(string name)
         {
             try
             {
@@ -67,12 +66,12 @@ namespace Tawasol.Services
             }
         }
 
-        public async Task<List<Account>> GetInspiredListAsync()
+        public async Task<List<Models.Account.Account>> GetInspiredListAsync()
         {
             try
             {
                 //var gallery = await GetAccountGalleryAsync();
-                List<Account> inpiredList = await GetFriendsAsync("");
+                List<Models.Account.Account> inpiredList = await GetFriendsAsync("");
                 //inpiredList.Select(a => a.Status = "Achieve and celebrate your health goals").ToList();
                 //inpiredList.Select(a => a.MediaList = gallery).ToList();
 

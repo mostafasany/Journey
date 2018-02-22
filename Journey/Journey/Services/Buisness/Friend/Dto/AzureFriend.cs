@@ -1,7 +1,7 @@
 ﻿using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json;
 
-namespace Tawasol.Azure.Models
+namespace Journey.Services.Buisness.Friend.Dto
 {
     public class AzureFriends
     {

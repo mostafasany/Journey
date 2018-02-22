@@ -1,16 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
-using Journey.Models.Account;
 using Journey.Services.Azure;
 using Journey.Services.Buisness.Account.Dto;
 using Journey.Services.Buisness.Account.Translators;
+using Journey.Services.Buisness.Friend.Dto;
 using Microsoft.WindowsAzure.MobileServices;
-using Tawasol.Azure.Models;
 
-namespace Tawasol.Services.Data
+namespace Journey.Services.Buisness.Friend.Data
 {
     public class FriendDataService : IFriendDataService
     {
@@ -70,14 +67,14 @@ namespace Tawasol.Services.Data
             }
         }
 
-        public async Task<Account> GetFriendAsync(string friend)
+        public async Task<Models.Account.Account> GetFriendAsync(string friend)
         {
             try
             {
                 // string api = string.Format("friends?id={0}", friend);
                 // List<AzureFriend> accountsTbl = await _client.InvokeApiAsync<List<AzureFriend>>(api, HttpMethod.Get, null);
 
-                Account account = null;
+                Models.Account.Account account = null;
                // accountTbl = await accountTable.Where(a => a.Id != account).ToListAsync();
                 //if (accountsTbl != null && accountsTbl.Count != 0)
                 //{
@@ -100,7 +97,7 @@ namespace Tawasol.Services.Data
             }
         }
 
-        public async Task<List<Account>> GetFriendsAsync(string name)
+        public async Task<List<Models.Account.Account>> GetFriendsAsync(string name)
         {
             try
             {

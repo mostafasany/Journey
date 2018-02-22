@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
-using Journey.Models.Account;
-using Journey.Models.Challenge;
 using Journey.Services.Azure;
+using Journey.Services.Buisness.Challenge.Dto;
+using Journey.Services.Buisness.Challenge.Translators;
+using Journey.Services.Buisness.Friend.Data;
 using Microsoft.WindowsAzure.MobileServices;
-using Tawasol.Azure.Models;
 
-namespace Tawasol.Services.Data
+namespace Journey.Services.Buisness.Challenge.Data
 {
     public class ChallengeDataService : IChallengeDataService
     {
@@ -27,15 +27,15 @@ namespace Tawasol.Services.Data
         #endregion
 
 
-        public async Task<Challenge> AddChallengeAsync(Challenge challenge)
+        public async Task<Models.Challenge.Challenge> AddChallengeAsync(Models.Challenge.Challenge challenge)
         {
             try
             {
                 if (challenge == null)
                     return null;
-                AzureChallenge accountDto = Journey.Services.Buisness.Challenge.Dto.ChallengeDataTranslator.TranslateChallenge(challenge);
+                AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge);
                 await azureChallenge.InsertAsync(accountDto);
-                challenge = Journey.Services.Buisness.Challenge.Dto.ChallengeDataTranslator.TranslateChallenge(accountDto);
+                challenge = ChallengeDataTranslator.TranslateChallenge(accountDto);
                 return challenge;
             }
             catch (System.Exception ex)
@@ -44,12 +44,12 @@ namespace Tawasol.Services.Data
             }
         }
 
-        public async Task<Challenge> GetChallengeAsync(string challengeId)
+        public async Task<Models.Challenge.Challenge> GetChallengeAsync(string challengeId)
         {
             try
             {
                 var challengeDTO = await azureChallenge.LookupAsync(challengeId);
-                Challenge challenge = Journey.Services.Buisness.Challenge.Dto.ChallengeDataTranslator.TranslateChallenge(challengeDTO);
+                Models.Challenge.Challenge challenge = ChallengeDataTranslator.TranslateChallenge(challengeDTO);
 
                 var account1 = await friendDataService.GetFriendAsync(challengeDTO.Account1);
                 var account2 = await friendDataService.GetFriendAsync(challengeDTO.Account2);
@@ -64,7 +64,7 @@ namespace Tawasol.Services.Data
             }
         }
 
-        public async Task<Challenge> GetAccountChallengeAsync()
+        public async Task<Models.Challenge.Challenge> GetAccountChallengeAsync()
         {
             try
             {
@@ -74,7 +74,7 @@ namespace Tawasol.Services.Data
                 if (accountChallenge == null)
                     return null;
 
-                Challenge challenge = Journey.Services.Buisness.Challenge.Dto.ChallengeDataTranslator.TranslateChallenge(accountChallenge);
+                Models.Challenge.Challenge challenge = ChallengeDataTranslator.TranslateChallenge(accountChallenge);
 
                 return challenge;
             }
