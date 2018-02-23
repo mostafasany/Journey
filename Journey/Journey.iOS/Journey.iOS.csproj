@@ -230,6 +230,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Abstractions.Forms\Abstractions.Forms.csproj">
+      <Project>{fc405d0f-6ad5-4ef6-a164-ef850952107f}</Project>
+      <Name>Abstractions.Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Journey\Journey.csproj">
       <Project>{dc18b476-29b8-49b4-bf46-50a295f3758c}</Project>
       <Name>Journey</Name>
@@ -317,8 +321,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="Renderers\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

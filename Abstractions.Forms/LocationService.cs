@@ -8,7 +8,7 @@ using Plugin.Geolocator.Abstractions;
 
 namespace Journey.Services.Forms
 {
-    internal class LocationService : ILocationService
+    public class LocationService : ILocationService
     {
         private const double PIx = Math.PI;
         public event EventHandler<Location> LocationObtained;

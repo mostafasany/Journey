@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace Journey.Services.Forms
 {
-    internal class ShareService : IShareService
+    public class ShareService : IShareService
     {
         public async Task ShareText(string text, string title, string url)
         {

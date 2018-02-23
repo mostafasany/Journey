@@ -10,7 +10,7 @@ using Plugin.Media.Abstractions;
 //https://github.com/jamesmontemagno/MediaPlugin
 namespace Journey.Services.Forms
 {
-    internal class MediaService : IMediaService<Media>
+    public class MediaService : IMediaService<Media>
     {
         private const string VideoPlaceHolderPath = "http://bit.ly/2EiCAic";
         private const int CompressionQuality = 30;

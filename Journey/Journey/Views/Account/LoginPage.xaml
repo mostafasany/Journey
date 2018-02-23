@@ -22,7 +22,7 @@
                                    HeightRequest="200" />
             <Controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
                                      VerticalOptions="Center" Margin="0,40,0,0" />
-            <Button Grid.Row="3" Text="Login Facebook" VerticalOptions="Center"
+            <Button Grid.Row="3" Text="Login Facebook" VerticalOptions="Center" TextColor="White"
                     Style="{StaticResource FacebookButtonStyle}" Command="{Binding LoginCommand}" />
             <!--<Button Grid.Row="4" Text="Skip" VerticalOptions="Center" Style="{StaticResource SecondaryButtonStyle}"  Command="{Binding OnSkipCommand}" />-->
         </Grid>

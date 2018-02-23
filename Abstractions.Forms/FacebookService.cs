@@ -10,7 +10,7 @@ using Unity;
 
 namespace Journey.Services.Forms
 {
-    internal class FacebookService : BaseService, IFacebookService
+    public class FacebookService : BaseService, IFacebookService
     {
         private const int MinLocationDistanceInMeter = 500;
         private const double MinLocationDistanceInKm = 0.5;
