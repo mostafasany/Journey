@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Prism.Navigation;
@@ -11,7 +12,7 @@ namespace Journey.Services.Forms
     public class NavigationService : INavigationService
     {
         public string CurrentPage { get; set; }
-       
+
         private readonly Prism.Navigation.INavigationService _navigationService;
 
         public NavigationService(IUnityContainer container) //:base(container)
@@ -65,7 +66,7 @@ namespace Journey.Services.Forms
         }
 
         public async Task<bool> Navigate(string pageToken, object parameter = null, string key = "",
-            bool? useModalNavigation = null, bool animated = false)
+            bool? useModalNavigation = null, bool animated = false, bool removeLastPage = false)
         {
             try
             {
@@ -75,7 +76,9 @@ namespace Journey.Services.Forms
                     {
                         {key, parameter}
                     };
-                await _navigationService.NavigateAsync(pageToken, navigationParameters, useModalNavigation, animated);
+
+                await Navigate(pageToken, useModalNavigation, animated, removeLastPage, navigationParameters);
+
                 return true;
             }
             catch (Exception ex)
@@ -85,7 +88,7 @@ namespace Journey.Services.Forms
         }
 
         public async Task<bool> Navigate(string pageToken, Dictionary<string, object> parameters,
-            bool? useModalNavigation = null, bool animated = false)
+            bool? useModalNavigation = null, bool animated = false, bool removeLastPage = false)
         {
             try
             {
@@ -97,8 +100,8 @@ namespace Journey.Services.Forms
                         navigationParameters.Add(parameter.Key, parameter.Value);
                 }
 
+                await Navigate(pageToken, useModalNavigation, animated, removeLastPage, navigationParameters);
 
-                await _navigationService.NavigateAsync(pageToken, navigationParameters, useModalNavigation, animated);
                 return true;
             }
             catch (Exception ex)
@@ -107,7 +110,16 @@ namespace Journey.Services.Forms
             }
         }
 
-        public void RemoveAllPages(string pageToken = null, object parameter = null)
+        private async Task Navigate(string pageToken, bool? useModalNavigation, bool animated, bool removeLastPage,
+            NavigationParameters navigationParameters)
+        {
+            var lastPage = App.Current.MainPage.Navigation.ModalStack.LastOrDefault();
+            await _navigationService.NavigateAsync(pageToken, navigationParameters, useModalNavigation, animated);
+            if (removeLastPage)
+                App.Current.MainPage.Navigation.RemovePage(lastPage);
+        }
+
+        public void RemoveAllPages(object parameter = null)
         {
             try
             {
@@ -119,12 +131,12 @@ namespace Journey.Services.Forms
             }
         }
 
-        public void RemoveFirstPage(string pageToken = null, object parameter = null)
+        public void RemoveFirstPage()
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveLastPage(string pageToken = null, object parameter = null)
+        public void RemoveLastPage()
         {
             throw new NotImplementedException();
         }

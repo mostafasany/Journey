@@ -179,7 +179,12 @@ namespace Journey.ViewModels
         {
             try
             {
-                if (NewPost == null || NewPost.MediaList == null || NewPost?.MediaList?.Count == 0)
+                if (NewPost?.HasLocation==true)
+                {
+                    await DialogService.ShowMessageAsync(AppResource.Post_LocationMust, AppResource.Error);
+                    return;
+                }
+                if (NewPost?.MediaList == null || NewPost?.MediaList?.Count == 0)
                 {
                     await DialogService.ShowMessageAsync(AppResource.Post_UploadImageMust, AppResource.Error);
                     return;

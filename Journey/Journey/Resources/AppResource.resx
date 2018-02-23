@@ -255,29 +255,28 @@
   <data name="Post_DeleteError" xml:space="preserve">
     <value>Error while deleting your post</value>
   </data>
-    <data name="SearchFriends_Placholder" xml:space="preserve">
+  <data name="SearchFriends_Placholder" xml:space="preserve">
     <value>Search for friends</value>
   </data>
-    <data name="Challenge_Comepete" xml:space="preserve">
+  <data name="Challenge_Comepete" xml:space="preserve">
     <value>Compete</value>
   </data>
-    <data name="Challenge_DataValidation" xml:space="preserve">
+  <data name="Challenge_DataValidation" xml:space="preserve">
     <value>End date should be greater than Start date</value>
   </data>
-     <data name="Challenge_Start" xml:space="preserve">
+  <data name="Challenge_Start" xml:space="preserve">
     <value>Start Challenge</value>
   </data>
-    <data name="Challenge_AlreadyExists" xml:space="preserve">
+  <data name="Challenge_AlreadyExists" xml:space="preserve">
     <value>Already Existing challenge is up and running</value>
   </data>
   <data name="Post_Report" xml:space="preserve">
     <value>Report</value>
   </data>
-    <data name="Post_DeleteOrReportMessage" xml:space="preserve">
+  <data name="Post_DeleteOrReportMessage" xml:space="preserve">
     <value> What action you need</value>
   </data>
-
-    <data name="Post_UploadImageMust" xml:space="preserve">
+  <data name="Post_UploadImageMust" xml:space="preserve">
     <value>At least one image is required</value>
   </data>
   <data name="Post_ReportSentMessage" xml:space="preserve">
@@ -286,31 +285,31 @@
   <data name="Post_ReportSentTitle" xml:space="preserve">
     <value>Sent</value>
   </data>
-
-    <data name="Profile_SetMonthlyGoal" xml:space="preserve">
+  <data name="Profile_SetMonthlyGoal" xml:space="preserve">
     <value>Set Monlthly Goal</value>
   </data>
-     <data name="Profile_UpdateMeasurment" xml:space="preserve">
+  <data name="Profile_UpdateMeasurment" xml:space="preserve">
     <value>Update Measurments</value>
   </data>
-     <data name="More" xml:space="preserve">
+  <data name="More" xml:space="preserve">
     <value>More</value>
   </data>
   <data name="Measurments_Message" xml:space="preserve">
     <value>Update your measurments</value>
   </data>
-   <data name="Continue" xml:space="preserve">
+  <data name="Continue" xml:space="preserve">
     <value>Continue</value>
   </data>
-    <data name="Profile_Edit" xml:space="preserve">
+  <data name="Profile_Edit" xml:space="preserve">
     <value>Edit Profile</value>
   </data>
-      <data name="CurrentWeight" xml:space="preserve">
+  <data name="CurrentWeight" xml:space="preserve">
     <value>Current Weight</value>
   </data>
-     <data name="Home_StartNewChallenge" xml:space="preserve">
+  <data name="Home_StartNewChallenge" xml:space="preserve">
     <value>Start Your new challenge</value>
   </data>
-    
-
+  <data name="Post_LocationMust" xml:space="preserve">
+    <value>Please check in !</value>
+  </data>
 </root>
