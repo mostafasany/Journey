@@ -1,16 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Services.Contracts;
 using Journey.Models.Account;
-using Journey.Models.Post;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
-using Journey.Services.Buisness.Goal;
-using Journey.Services.Buisness.Measurment;
 using Prism.Commands;
-using Prism.Navigation;
 using Unity;
 
 namespace Journey.ViewModels
@@ -200,7 +195,9 @@ namespace Journey.ViewModels
 
         private void OnGoToProfileMeasurment()
         {
+            if(NavigationService.CurrentPage!="ProfileMeasurmentPage")
             NavigationService.Navigate("ProfileMeasurmentPage");
+           var  page=App.Current.MainPage.Navigation;
         }
 
         #endregion
@@ -211,6 +208,7 @@ namespace Journey.ViewModels
 
         private void OnGoToProfileChallenge()
         {
+            if (NavigationService.CurrentPage != "ProfileChallengePage")
             NavigationService.Navigate("ProfileChallengePage");
         }
 

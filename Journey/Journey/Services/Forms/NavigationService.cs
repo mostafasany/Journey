@@ -76,6 +76,7 @@ namespace Journey.Services.Forms
                         {key, parameter}
                     };
                 await _navigationService.NavigateAsync(pageToken, navigationParameters, useModalNavigation, animated);
+          
                 return true;
             }
             catch (Exception ex)
