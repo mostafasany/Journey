@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Abstractions.Forms;
 using Prism.Mvvm;
 
 namespace Journey.Models.Post

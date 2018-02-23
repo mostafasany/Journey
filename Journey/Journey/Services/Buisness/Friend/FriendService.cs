@@ -8,12 +8,13 @@ namespace Journey.Services.Buisness.Friend
 {
     public class FriendService : IFriendService
     {
-        IFriendDataService friendDataService;
+        private readonly IFriendDataService friendDataService;
+
         public FriendService(IFriendDataService _friendDataService)
         {
             friendDataService = _friendDataService;
         }
-       
+
         public async Task<List<string>> FollowAsync(List<string> followerId)
         {
             try
@@ -71,7 +72,7 @@ namespace Journey.Services.Buisness.Friend
             try
             {
                 //var gallery = await GetAccountGalleryAsync();
-                List<Models.Account.Account> inpiredList = await GetFriendsAsync("");
+                var inpiredList = await GetFriendsAsync("");
                 //inpiredList.Select(a => a.Status = "Achieve and celebrate your health goals").ToList();
                 //inpiredList.Select(a => a.MediaList = gallery).ToList();
 

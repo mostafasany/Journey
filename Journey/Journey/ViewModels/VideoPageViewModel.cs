@@ -1,5 +1,5 @@
 ﻿using System;
-using Journey.Models;
+using Abstractions.Forms;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.PostComment;
 using Prism.Commands;

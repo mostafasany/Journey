@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Journey.Models;
+using Abstractions.Forms;
 using Journey.Models.Account;
 using Journey.Models.Post;
 using Journey.Resources;
@@ -32,7 +32,6 @@ namespace Journey.ViewModels
 
         #region Events
 
-    
         public void OnNavigatedFrom(NavigationParameters parameters)
         {
         }
@@ -41,8 +40,8 @@ namespace Journey.ViewModels
         {
             try
             {
-                bool sync = parameters.GetValue<bool>("Sync");
-                if (parameters.GetNavigationMode() == NavigationMode.New ||sync)
+                var sync = parameters.GetValue<bool>("Sync");
+                if (parameters.GetNavigationMode() == NavigationMode.New || sync)
                 {
                     IsPullRefreshLoading = false;
                     Intialize(sync);
@@ -77,15 +76,14 @@ namespace Journey.ViewModels
                     return;
 
                 var postVm = PostsViewModels?.FirstOrDefault(a => a.Post.Id == e.Post.Id);
-              
+
                 if (e.Status == PostStatus.Deleted)
                 {
-                    if (postVm!=null)
+                    if (postVm != null)
                     {
                         PostsViewModels.Remove(postVm);
                         HideProgress();
                     }
-                   
                 }
                 else if (e.Status == PostStatus.Added)
                 {
@@ -133,7 +131,6 @@ namespace Journey.ViewModels
             }
         }
 
-
         #endregion
 
         #region Properties
@@ -165,7 +162,7 @@ namespace Journey.ViewModels
             }
         }
 
-        private bool _hasNotActiveChallenge = false;
+        private bool _hasNotActiveChallenge;
 
         public bool HasNotActiveChallenge
         {

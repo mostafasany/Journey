@@ -9,20 +9,22 @@ using Java.IO;
 using Journey.Droid.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Abstractions.Forms;
 
-[assembly: Dependency(typeof(ShareService))]
+[assembly: Dependency(typeof(Abstractions.Forms.ShareService))]
 namespace Journey.Droid.Services
 {
-    public class ShareService : Activity, Journey.Services.Forms.IShare
+    public class ShareService : Activity, Abstractions.Forms.IShare
     {
         public async Task Share(string subject, string message,
-                                List<Models.Media> mediaItems)
+                                List<Abstractions.Forms.Media> mediaItems)
         {
             var intent = new Intent(Intent.ActionSendMultiple);
             intent.PutExtra(Intent.ExtraSubject, subject);
             intent.PutExtra(Intent.ExtraText, message);
             intent.SetType("image/*");
-            intent.SetType("video/*");   
+            intent.SetType("video/*");
+  
             var handler = new ImageLoaderSourceHandler();
 
 
@@ -30,7 +32,7 @@ namespace Journey.Droid.Services
             int id = 0;
             foreach (var media in mediaItems)
             {
-                if(media.Type==Models.MediaType.Image)
+                if(media.Type== Abstractions.Forms.MediaType.Image)
                 {
                     var bitmap = await handler.LoadImageAsync(media.Source, this);
                     var ex = media.Ext;

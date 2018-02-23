@@ -13,7 +13,7 @@ namespace Abstractions.Services.Contracts
         void GoForward();
 
         Task<bool> Navigate(string pageToken, object parameter = null, string key = "", bool? useModalNavigation = null,
-            bool animated = false,bool removeLastPage=false);
+            bool animated = false, bool removeLastPage = false);
 
         Task<bool> Navigate(string pageToken, Dictionary<string, object> parameters,
             bool? useModalNavigation = null, bool animated = false, bool removeLastPage = false);

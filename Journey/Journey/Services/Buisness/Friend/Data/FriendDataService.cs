@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Services.Azure;
@@ -11,17 +12,17 @@ namespace Journey.Services.Buisness.Friend.Data
 {
     public class FriendDataService : IFriendDataService
     {
-        IMobileServiceTable<AzureAccount> accountTable;
-        IMobileServiceTable<AzureFriends> accountFriendsTable;
         private readonly MobileServiceClient _client;
+        private readonly IMobileServiceTable<AzureFriends> accountFriendsTable;
+        private readonly IMobileServiceTable<AzureAccount> accountTable;
 
         //private const string ApiFriends = "https://graph.facebook.com/me/friends?fields=id,name,picture.type(large)&limit=999";
 
         public FriendDataService(IAzureService azureService)
         {
             _client = azureService.CreateOrGetAzureClient();
-            this.accountTable = _client.GetTable<AzureAccount>();
-            this.accountFriendsTable = _client.GetTable<AzureFriends>();
+            accountTable = _client.GetTable<AzureAccount>();
+            accountFriendsTable = _client.GetTable<AzureFriends>();
         }
 
 
@@ -29,25 +30,22 @@ namespace Journey.Services.Buisness.Friend.Data
         {
             try
             {
-                List<string> failureRequest = new List<string>();
+                var failureRequest = new List<string>();
                 foreach (var friend in followerId)
-                {
                     try
                     {
-                        AzureFriends newFriend = new AzureFriends() { Accoun1 = _client.CurrentUser.UserId, Account2 = friend };
+                        var newFriend = new AzureFriends {Accoun1 = _client.CurrentUser.UserId, Account2 = friend};
                         await accountFriendsTable.InsertAsync(newFriend);
                         if (string.IsNullOrEmpty(newFriend.Id))
                             failureRequest.Add(friend);
                     }
-                    catch (System.Exception ex)
+                    catch (Exception ex)
                     {
-
                         failureRequest.Add(friend);
                     }
-                }
                 return failureRequest;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 throw new DataServiceException(ex.Message, ex);
             }
@@ -57,11 +55,11 @@ namespace Journey.Services.Buisness.Friend.Data
         {
             try
             {
-                AzureFriends deleteFriend = new AzureFriends { Id = friendshipId };
+                var deleteFriend = new AzureFriends {Id = friendshipId};
                 await accountFriendsTable.DeleteAsync(deleteFriend);
                 return true;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 throw new DataServiceException(ex.Message, ex);
             }
@@ -75,7 +73,7 @@ namespace Journey.Services.Buisness.Friend.Data
                 // List<AzureFriend> accountsTbl = await _client.InvokeApiAsync<List<AzureFriend>>(api, HttpMethod.Get, null);
 
                 Models.Account.Account account = null;
-               // accountTbl = await accountTable.Where(a => a.Id != account).ToListAsync();
+                // accountTbl = await accountTable.Where(a => a.Id != account).ToListAsync();
                 //if (accountsTbl != null && accountsTbl.Count != 0)
                 //{
                 //    AzureFriend friendDTO = accountsTbl.FirstOrDefault();
@@ -84,14 +82,14 @@ namespace Journey.Services.Buisness.Friend.Data
                 //else
                 //{
                 //    //TODO: Query is not correct ,if not friend found it return null , it should return account with no friend
-                    var accountDTO = await accountTable.LookupAsync(friend);
+                var accountDTO = await accountTable.LookupAsync(friend);
                 account = AccountDataTranslator.TranslateAccount(accountDTO);
                 //}
 
 
                 return account;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 throw new DataServiceException(ex.Message, ex);
             }
@@ -102,16 +100,17 @@ namespace Journey.Services.Buisness.Friend.Data
             try
             {
                 List<AzureAccount> accountTbl = null;
-                string account = _client.CurrentUser.UserId;
+                var account = _client.CurrentUser.UserId;
                 if (!string.IsNullOrEmpty(name))
                     accountTbl = await accountTable.Where(a => a.Id != account &&
-                                                                             (a.FName.ToLower().Contains(name.ToLower()) || a.LName.ToLower().Contains(name.ToLower()))).ToListAsync();
+                                                               (a.FName.ToLower().Contains(name.ToLower()) || a.LName
+                                                                    .ToLower().Contains(name.ToLower()))).ToListAsync();
                 else
                     accountTbl = await accountTable.Where(a => a.Id != account).ToListAsync();
                 var accountDto = AccountDataTranslator.TranslateAccounts(accountTbl);
                 return accountDto;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 throw new DataServiceException(ex.Message, ex);
             }

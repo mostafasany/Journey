@@ -1,7 +1,5 @@
 ﻿using System;
-using Journey.Models;
-using Journey.Services.Buisness.Account;
-using Journey.Services.Buisness.PostComment;
+using Abstractions.Forms;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
@@ -10,8 +8,7 @@ namespace Journey.ViewModels
 {
     public class ImagePageViewModel : BaseViewModel, INavigationAware
     {
-
-        public ImagePageViewModel(IUnityContainer container  ) :
+        public ImagePageViewModel(IUnityContainer container) :
             base(container)
         {
         }

@@ -8,6 +8,7 @@ using Journey.Services.Forms;
 using Plugin.Media.Abstractions;
 using Xamarin.Forms;
 using Journey.Droid.Services;
+using Abstractions.Forms;
 
 [assembly: Dependency(typeof(MediaFileExtensions))]
 namespace Journey.Droid.Services

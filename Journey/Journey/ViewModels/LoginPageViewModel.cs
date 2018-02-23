@@ -44,7 +44,7 @@ namespace Journey.ViewModels
 
         #region Methods
 
-        public override void Intialize(bool sync=false)
+        public override void Intialize(bool sync = false)
         {
             try
             {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Abstractions.Exceptions;
-using Journey.Models;
+using Abstractions.Forms;
 using Journey.Models.Post;
 using Journey.Services.Buisness.Measurment.Dto;
 

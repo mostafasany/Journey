@@ -1,6 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
+using Journey.Models.Challenge;
 using Journey.Services.Azure;
 using Journey.Services.Buisness.Challenge.Dto;
 using Journey.Services.Buisness.Challenge.Translators;
@@ -11,20 +14,16 @@ namespace Journey.Services.Buisness.Challenge.Data
 {
     public class ChallengeDataService : IChallengeDataService
     {
-        IMobileServiceTable<AzureChallenge> azureChallenge;
         private readonly MobileServiceClient _client;
-        IFriendDataService friendDataService;
-        public ChallengeDataService(IAzureService azureService,IFriendDataService _friendDataService)
+        private readonly IMobileServiceTable<AzureChallenge> azureChallenge;
+        private readonly IFriendDataService friendDataService;
+
+        public ChallengeDataService(IAzureService azureService, IFriendDataService _friendDataService)
         {
             _client = azureService.CreateOrGetAzureClient();
             friendDataService = _friendDataService;
-            this.azureChallenge = _client.GetTable<AzureChallenge>();
+            azureChallenge = _client.GetTable<AzureChallenge>();
         }
-
-        #region Translators
-
-    
-        #endregion
 
 
         public async Task<Models.Challenge.Challenge> AddChallengeAsync(Models.Challenge.Challenge challenge)
@@ -33,12 +32,12 @@ namespace Journey.Services.Buisness.Challenge.Data
             {
                 if (challenge == null)
                     return null;
-                AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge);
+                var accountDto = ChallengeDataTranslator.TranslateChallenge(challenge);
                 await azureChallenge.InsertAsync(accountDto);
                 challenge = ChallengeDataTranslator.TranslateChallenge(accountDto);
                 return challenge;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 throw new DataServiceException(ex.Message, ex);
             }
@@ -49,16 +48,16 @@ namespace Journey.Services.Buisness.Challenge.Data
             try
             {
                 var challengeDTO = await azureChallenge.LookupAsync(challengeId);
-                Models.Challenge.Challenge challenge = ChallengeDataTranslator.TranslateChallenge(challengeDTO);
+                var challenge = ChallengeDataTranslator.TranslateChallenge(challengeDTO);
 
                 var account1 = await friendDataService.GetFriendAsync(challengeDTO.Account1);
                 var account2 = await friendDataService.GetFriendAsync(challengeDTO.Account2);
-                challenge.ChallengeAccounts = new System.Collections.ObjectModel.ObservableCollection<Journey.Models.Challenge.ChallengeAccount>();
-                challenge.ChallengeAccounts.Add(new Journey.Models.Challenge.ChallengeAccount(account1));
-                challenge.ChallengeAccounts.Add(new Journey.Models.Challenge.ChallengeAccount(account2));
+                challenge.ChallengeAccounts = new ObservableCollection<ChallengeAccount>();
+                challenge.ChallengeAccounts.Add(new ChallengeAccount(account1));
+                challenge.ChallengeAccounts.Add(new ChallengeAccount(account2));
                 return challenge;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 throw new DataServiceException(ex.Message, ex);
             }
@@ -69,19 +68,24 @@ namespace Journey.Services.Buisness.Challenge.Data
             try
             {
                 var account = _client.CurrentUser.UserId;
-                var challengeDTO = await azureChallenge.Where(a => a.Status == true && (a.Account1 == account || a.Account2 == account)).ToListAsync();
+                var challengeDTO = await azureChallenge
+                    .Where(a => a.Status && (a.Account1 == account || a.Account2 == account)).ToListAsync();
                 var accountChallenge = challengeDTO?.FirstOrDefault();
                 if (accountChallenge == null)
                     return null;
 
-                Models.Challenge.Challenge challenge = ChallengeDataTranslator.TranslateChallenge(accountChallenge);
+                var challenge = ChallengeDataTranslator.TranslateChallenge(accountChallenge);
 
                 return challenge;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 throw new DataServiceException(ex.Message, ex);
             }
         }
+
+        #region Translators
+
+        #endregion
     }
 }

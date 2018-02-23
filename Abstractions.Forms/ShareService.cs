@@ -4,12 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Abstractions.Services.Contracts;
-using Journey.Models;
 using Plugin.Share;
 using Plugin.Share.Abstractions;
 using Xamarin.Forms;
 
-namespace Journey.Services.Forms
+namespace Abstractions.Forms
 {
     public class ShareService : IShareService
     {

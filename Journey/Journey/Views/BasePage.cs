@@ -10,7 +10,7 @@ namespace Journey.Views
     public class BasePage : ContentPage
     {
         private BaseViewModel _viewModel;
-      
+
         protected override void OnAppearing()
         {
             _viewModel = BindingContext as BaseViewModel;
@@ -23,16 +23,18 @@ namespace Journey.Views
             LogPageView();
             base.OnAppearing();
         }
+
         protected override void OnDisappearing()
         {
-            if (this.Navigation.ModalStack.Count() > 0)
+            if (Navigation.ModalStack.Count() > 0)
             {
                 var navigationService = _viewModel?.Container.Resolve<INavigationService>();
-                var page=this.Navigation.ModalStack?.LastOrDefault()?.ToString();
+                var page = Navigation.ModalStack?.LastOrDefault()?.ToString();
                 navigationService.CurrentPage = page.Split(".".ToArray()).LastOrDefault();
             }
             base.OnDisappearing();
         }
+
         private void LogPageView()
         {
             var pageName = Path.GetFileName(ToString());

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using Abstractions.Exceptions;
-using Journey.Models;
+using Abstractions.Forms;
 using Journey.Models.Post;
 using Journey.Services.Buisness.Post.Dto;
 using Journey.Services.Buisness.PostComment.Dto;

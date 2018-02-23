@@ -5,20 +5,21 @@ using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Prism.Navigation;
 using Unity;
+using Xamarin.Forms;
 using INavigationService = Abstractions.Services.Contracts.INavigationService;
 
 namespace Journey.Services.Forms
 {
     public class NavigationService : INavigationService
     {
-        public string CurrentPage { get; set; }
-
         private readonly Prism.Navigation.INavigationService _navigationService;
 
         public NavigationService(IUnityContainer container) //:base(container)
         {
             _navigationService = container.Resolve<Prism.Navigation.INavigationService>();
         }
+
+        public string CurrentPage { get; set; }
 
         public bool CanGoBack()
         {
@@ -108,15 +109,6 @@ namespace Journey.Services.Forms
             }
         }
 
-        private async Task Navigate(string pageToken, bool? useModalNavigation, bool animated, bool removeLastPage,
-            NavigationParameters navigationParameters)
-        {
-            var lastPage = App.Current.MainPage.Navigation.ModalStack.LastOrDefault();
-            await _navigationService.NavigateAsync(pageToken, navigationParameters, useModalNavigation, animated);
-            if (removeLastPage)
-                App.Current.MainPage.Navigation.RemovePage(lastPage);
-        }
-
         public void RemoveAllPages(object parameter = null)
         {
             try
@@ -142,6 +134,15 @@ namespace Journey.Services.Forms
         public void Suspending()
         {
             throw new NotImplementedException();
+        }
+
+        private async Task Navigate(string pageToken, bool? useModalNavigation, bool animated, bool removeLastPage,
+            NavigationParameters navigationParameters)
+        {
+            var lastPage = Application.Current.MainPage.Navigation.ModalStack.LastOrDefault();
+            await _navigationService.NavigateAsync(pageToken, navigationParameters, useModalNavigation, animated);
+            if (removeLastPage)
+                Application.Current.MainPage.Navigation.RemovePage(lastPage);
         }
     }
 }

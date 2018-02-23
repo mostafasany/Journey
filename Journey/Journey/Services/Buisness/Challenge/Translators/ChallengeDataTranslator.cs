@@ -1,4 +1,6 @@
-﻿using Journey.Services.Buisness.Challenge.Dto;
+﻿using System.Collections.ObjectModel;
+using Journey.Models.Challenge;
+using Journey.Services.Buisness.Challenge.Dto;
 
 namespace Journey.Services.Buisness.Challenge.Translators
 {
@@ -6,7 +8,7 @@ namespace Journey.Services.Buisness.Challenge.Translators
     {
         public static AzureChallenge TranslateChallenge(Models.Challenge.Challenge challenge)
         {
-            AzureChallenge postDto = new AzureChallenge();
+            var postDto = new AzureChallenge();
             if (challenge != null)
             {
                 postDto.Id = challenge.Id;
@@ -22,7 +24,7 @@ namespace Journey.Services.Buisness.Challenge.Translators
 
         public static Models.Challenge.Challenge TranslateChallenge(AzureChallenge challenge)
         {
-            Models.Challenge.Challenge postDto = new Models.Challenge.Challenge();
+            var postDto = new Models.Challenge.Challenge();
 
             if (challenge != null)
             {
@@ -31,12 +33,13 @@ namespace Journey.Services.Buisness.Challenge.Translators
                 postDto.EndDate = challenge.End;
                 postDto.Terms = challenge.Terms;
                 postDto.IsActive = challenge.Status;
-                postDto.ChallengeAccounts = new System.Collections.ObjectModel.ObservableCollection<Models.Challenge.ChallengeAccount>();
-                postDto.ChallengeAccounts.Add(new Models.Challenge.ChallengeAccount(new Models.Account.Account { Id = challenge.Account1 }));
-                postDto.ChallengeAccounts.Add(new Models.Challenge.ChallengeAccount(new Models.Account.Account { Id = challenge.Account2 }));
+                postDto.ChallengeAccounts = new ObservableCollection<ChallengeAccount>();
+                postDto.ChallengeAccounts.Add(
+                    new ChallengeAccount(new Models.Account.Account {Id = challenge.Account1}));
+                postDto.ChallengeAccounts.Add(
+                    new ChallengeAccount(new Models.Account.Account {Id = challenge.Account2}));
             }
             return postDto;
         }
-
     }
 }

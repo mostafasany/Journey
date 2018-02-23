@@ -4,7 +4,7 @@ using Abstractions.Exceptions;
 using Abstractions.Services.Contracts;
 using Prism.Logging;
 
-namespace Journey.Services.Forms
+namespace Abstractions.Forms
 {
     public class LoggerService : ILoggerService
     {

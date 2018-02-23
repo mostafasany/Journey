@@ -23,7 +23,7 @@ namespace Journey.ViewModels
 
         public ProfileMeasurmentPageViewModel(IUnityContainer container, IAccountService accountService,
             IAccountGoalService accountGoalService, IAccountMeasurmentService accountMeasurmentService) :
-        base(container, accountService)
+            base(container, accountService)
         {
             _accountService = accountService;
             _accountGoalService = accountGoalService;
@@ -68,8 +68,6 @@ namespace Journey.ViewModels
         #endregion
 
         #region Properties
-
-
 
         private bool _isPullRefreshLoading;
 
@@ -149,7 +147,6 @@ namespace Journey.ViewModels
                 base.Intialize(sync);
                 await LoadGoal(false);
                 await LoadMeasurments(false);
-
             }
             catch (Exception e)
             {
@@ -267,7 +264,6 @@ namespace Journey.ViewModels
                 var commands =
                     new List<DialogCommand>
                     {
-
                         new DialogCommand
                         {
                             Label = AppResource.Profile_SetMonthlyGoal,
@@ -281,8 +277,7 @@ namespace Journey.ViewModels
                         {
                             Label = AppResource.Profile_UpdateMeasurment,
                             Invoked = () => { NavigationService.Navigate("UpdateMeasurmentPage"); }
-                        },
-
+                        }
                     };
 
                 await DialogService.ShowMessageAsync("", AppResource.More,

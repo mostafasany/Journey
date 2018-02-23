@@ -7,6 +7,7 @@ using Journey.Resources;
 using Journey.Services.Buisness.Account;
 using Prism.Commands;
 using Unity;
+using Xamarin.Forms;
 
 namespace Journey.ViewModels
 {
@@ -191,9 +192,9 @@ namespace Journey.ViewModels
 
         private void OnGoToProfileMeasurment()
         {
-            if(NavigationService.CurrentPage!="ProfileMeasurmentPage")
-            NavigationService.Navigate("ProfileMeasurmentPage");
-           var  page=App.Current.MainPage.Navigation;
+            if (NavigationService.CurrentPage != "ProfileMeasurmentPage")
+                NavigationService.Navigate("ProfileMeasurmentPage");
+            var page = Application.Current.MainPage.Navigation;
         }
 
         #endregion
@@ -205,7 +206,7 @@ namespace Journey.ViewModels
         private void OnGoToProfileChallenge()
         {
             if (NavigationService.CurrentPage != "ProfileChallengePage")
-            NavigationService.Navigate("ProfileChallengePage");
+                NavigationService.Navigate("ProfileChallengePage");
         }
 
         #endregion

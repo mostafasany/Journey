@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Abstractions.Services.Contracts;
 using Journey.Models.Account;
 using Journey.Models.Challenge;
@@ -157,7 +158,6 @@ namespace Journey.ViewModels
 
         #region OnStartChallengeCommand
 
-
         public DelegateCommand OnStartChallengeCommand => new DelegateCommand(OnStartChallenge);
 
         private async void OnStartChallenge()
@@ -187,13 +187,12 @@ namespace Journey.ViewModels
 
 
                 var commands = new List<DialogCommand>
-                    {
+                {
                     startChallengeCommand,
-                        cancelCommand
-                    };
+                    cancelCommand
+                };
                 //SelectedChallenge.Interval = SelectedInterval.IntervalValue;
-                await DialogService.ShowMessageAsync("",AppResource.Challenge_Start, commands);
-
+                await DialogService.ShowMessageAsync("", AppResource.Challenge_Start, commands);
             }
             catch (Exception ex)
             {
@@ -206,13 +205,13 @@ namespace Journey.ViewModels
             }
         }
 
-        private async System.Threading.Tasks.Task StartChallenge()
+        private async Task StartChallenge()
         {
             try
             {
                 if (IsProgress())
                     return;
-                
+
                 ShowProgress();
                 SelectedChallenge.IsActive = true;
                 var existingChallenge = await _challengeService.GetAccountChallengeAsync();
@@ -220,9 +219,7 @@ namespace Journey.ViewModels
                 {
                     var challenge = await _challengeService.SaveCurrentChallengeAsync(SelectedChallenge);
                     if (challenge != null)
-                    {
-                        await NavigationService.Navigate("HomePage",true,"Sync");
-                    }
+                        await NavigationService.Navigate("HomePage", true, "Sync");
                 }
                 else
                 {
@@ -231,7 +228,6 @@ namespace Journey.ViewModels
             }
             catch (Exception ex)
             {
-               
             }
             finally
             {

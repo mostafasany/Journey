@@ -5,7 +5,7 @@ using Abstractions.Services.Contracts;
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
 
-namespace Journey.Services.Forms
+namespace Abstractions.Forms
 {
     public class SettingsService : ISettingsService
     {

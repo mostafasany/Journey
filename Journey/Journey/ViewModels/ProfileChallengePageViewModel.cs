@@ -10,11 +10,12 @@ namespace Journey.ViewModels
 {
     public class ProfileChallengePageViewModel : ProfilePageViewModel, INavigationAware
     {
-
         private readonly IAccountService _accountService;
         private readonly IChallengeService _challengeService;
-        public ProfileChallengePageViewModel(IUnityContainer container, IAccountService accountService, IChallengeService challengeService) :
-        base(container, accountService)
+
+        public ProfileChallengePageViewModel(IUnityContainer container, IAccountService accountService,
+            IChallengeService challengeService) :
+            base(container, accountService)
         {
             _accountService = accountService;
             _challengeService = challengeService;
@@ -32,7 +33,6 @@ namespace Journey.ViewModels
             {
                 if (parameters.GetNavigationMode() == NavigationMode.Back)
                 {
-
                 }
                 if (parameters.GetNavigationMode() == NavigationMode.New)
                     Intialize();
@@ -51,7 +51,6 @@ namespace Journey.ViewModels
         #endregion
 
         #region Properties
-
 
         private Challenge selectedChallenge;
 
@@ -108,7 +107,6 @@ namespace Journey.ViewModels
         {
             try
             {
-
             }
             catch (Exception ex)
             {
@@ -116,7 +114,6 @@ namespace Journey.ViewModels
             }
             finally
             {
-
                 HideProgress();
             }
         }

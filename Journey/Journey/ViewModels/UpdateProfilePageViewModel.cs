@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Input;
+using Abstractions.Forms;
 using Abstractions.Services.Contracts;
-using Journey.Models;
 using Journey.Models.Account;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;

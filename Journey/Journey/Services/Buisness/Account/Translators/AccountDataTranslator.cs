@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Abstractions.Exceptions;
-using Journey.Models;
+using Abstractions.Forms;
 using Journey.Services.Buisness.Account.Dto;
 
 namespace Journey.Services.Buisness.Account.Translators

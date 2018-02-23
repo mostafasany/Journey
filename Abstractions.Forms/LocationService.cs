@@ -6,7 +6,7 @@ using Abstractions.Services.Contracts;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 
-namespace Journey.Services.Forms
+namespace Abstractions.Forms
 {
     public class LocationService : ILocationService
     {

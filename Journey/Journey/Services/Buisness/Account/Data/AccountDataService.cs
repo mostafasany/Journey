@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
-using Journey.Models.Account;
 using Journey.Services.Azure;
 using Journey.Services.Buisness.Account.Dto;
 using Journey.Services.Buisness.Account.Translators;
@@ -99,7 +98,7 @@ namespace Journey.Services.Buisness.Account.Data
                 throw new DataServiceException(ex);
             }
         }
-      
+
         //    {
 
         //    try

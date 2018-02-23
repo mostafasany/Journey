@@ -5,7 +5,7 @@ using Abstractions.Services.Contracts;
 using Prism.Services;
 using Unity;
 
-namespace Journey.Services.Forms
+namespace Abstractions.Forms
 {
     public class DialogService : IDialogService
     {

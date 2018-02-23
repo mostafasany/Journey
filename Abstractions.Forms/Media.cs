@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace Journey.Models
+namespace Abstractions.Forms
 {
     public class Media
     {

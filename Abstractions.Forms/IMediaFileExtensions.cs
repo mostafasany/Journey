@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Plugin.Media.Abstractions;
 
-namespace Journey.Services.Forms
+namespace Abstractions.Forms
 {
     public interface IMediaFileExtensions
     {

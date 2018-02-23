@@ -1,4 +1,6 @@
-﻿namespace Journey.Models.Post
+﻿using Abstractions.Forms;
+
+namespace Journey.Models.Post
 {
     public class PostAd : PostBase
     {

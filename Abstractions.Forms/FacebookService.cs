@@ -8,7 +8,7 @@ using Abstractions.Models;
 using Abstractions.Services.Contracts;
 using Unity;
 
-namespace Journey.Services.Forms
+namespace Abstractions.Forms
 {
     public class FacebookService : BaseService, IFacebookService
     {

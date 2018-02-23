@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Abstractions.Forms;
 using Abstractions.Models;
 using Abstractions.Services.Contracts;
-using Journey.Models;
 using Journey.Models.Account;
 using Journey.Models.Post;
 using Journey.Resources;
@@ -179,7 +179,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                if (NewPost?.HasLocation==true)
+                if (NewPost?.HasLocation == true)
                 {
                     await DialogService.ShowMessageAsync(AppResource.Post_LocationMust, AppResource.Error);
                     return;

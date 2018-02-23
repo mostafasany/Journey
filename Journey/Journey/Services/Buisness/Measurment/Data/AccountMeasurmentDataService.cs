@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
-using Journey.Models;
+using Abstractions.Forms;
 using Journey.Models.Post;
 using Journey.Services.Azure;
 using Journey.Services.Buisness.Measurment.Dto;

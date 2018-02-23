@@ -3,12 +3,11 @@ using System.IO;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Abstractions.Services.Contracts;
-using Journey.Models;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 
 //https://github.com/jamesmontemagno/MediaPlugin
-namespace Journey.Services.Forms
+namespace Abstractions.Forms
 {
     public class MediaService : IMediaService<Media>
     {
@@ -16,9 +15,9 @@ namespace Journey.Services.Forms
         private const int CompressionQuality = 30;
         private const int CustomPhotoSize = 10;
         private const bool SaveToAlbum = true;
+        private readonly CameraDevice DefaultCamera = CameraDevice.Front;
         private readonly PhotoSize PhotoSize = PhotoSize.Small;
         private readonly VideoQuality VideoQuality = VideoQuality.Low;
-        private readonly CameraDevice DefaultCamera = CameraDevice.Front;
 
 
         public async Task<Media> PickPhotoAsync()
@@ -29,7 +28,7 @@ namespace Journey.Services.Forms
                     new PickMediaOptions
                     {
                         PhotoSize = PhotoSize,
-                        CustomPhotoSize = CustomPhotoSize,
+                        CustomPhotoSize = CustomPhotoSize
                     });
                 if (media == null)
                     return null;
