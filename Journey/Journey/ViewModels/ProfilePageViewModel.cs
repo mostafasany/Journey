@@ -191,7 +191,9 @@ namespace Journey.ViewModels
 
         private void OnGoToProfileMeasurment()
         {
+            if(NavigationService.CurrentPage!="ProfileMeasurmentPage")
             NavigationService.Navigate("ProfileMeasurmentPage");
+           var  page=App.Current.MainPage.Navigation;
         }
 
         #endregion
@@ -202,6 +204,7 @@ namespace Journey.ViewModels
 
         private void OnGoToProfileChallenge()
         {
+            if (NavigationService.CurrentPage != "ProfileChallengePage")
             NavigationService.Navigate("ProfileChallengePage");
         }
 
