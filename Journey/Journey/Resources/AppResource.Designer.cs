@@ -466,5 +466,11 @@ namespace Journey.Resources {
                 return ResourceManager.GetString("Post_LocationMust", resourceCulture);
             }
         }
+        
+        internal static string Location_DefaultLocationTitle {
+            get {
+                return ResourceManager.GetString("Location_DefaultLocationTitle", resourceCulture);
+            }
+        }
     }
 }

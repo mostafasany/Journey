@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Abstractions.Models;
 using Abstractions.Services.Contracts;
+using Journey.Resources;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
@@ -12,13 +14,15 @@ namespace Journey.ViewModels
     {
         private readonly IFacebookService _facebookService;
         private readonly ILocationService _locationService;
-
+        private readonly ISettingsService _settingsService;
+        private const string DefaultLocation = "DefaultLocation";
         public ChooseLocationPageViewModel(IUnityContainer container, ILocationService locationService,
-            IFacebookService facebookService) :
+                                           IFacebookService facebookService, ISettingsService settingsService) :
             base(container)
         {
             _locationService = locationService;
             _facebookService = facebookService;
+            _settingsService = settingsService;
         }
 
         #region Methods
@@ -28,7 +32,7 @@ namespace Journey.ViewModels
             try
             {
                 ShowProgress();
-
+                await Task.Delay(1000);
                 var position = await _locationService.ObtainMyLocationAsync();
                 if (position != null)
                     Locations = await _facebookService.GetLocationsAsync(Name, position.Lat, position.Lng);
@@ -126,7 +130,31 @@ namespace Journey.ViewModels
 
         private async void OnSelectedLocation(Location selectedLocation)
         {
-            NavigationService.GoBack(selectedLocation, "Location");
+            var dafaultLocationCommand = new DialogCommand
+            {
+                Label = AppResource.Yes,
+                Invoked = async () =>
+                {
+                    var locationId = await _settingsService.Get(DefaultLocation);
+                    if (locationId != selectedLocation.Id)
+                        await _settingsService.Set(DefaultLocation, selectedLocation.Id);
+                    NavigationService.GoBack(selectedLocation, "Location");
+                }
+            };
+
+            var cancelCommand = new DialogCommand
+            {
+                Label = AppResource.No
+            };
+
+            var commands = new List<DialogCommand>
+                    {
+                       dafaultLocationCommand,
+                        cancelCommand
+                    };
+            await DialogService.ShowMessageAsync("", AppResource.Location_DefaultLocationTitle, commands);
+
+
         }
 
         #endregion
