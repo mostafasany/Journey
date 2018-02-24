@@ -8,6 +8,8 @@
 
         private int likes;
 
+        private int numberExercise;
+
         public ChallengeAccount(Account.Account account)
         {
             SocialToken = account.SocialToken;
@@ -36,6 +38,16 @@
             set
             {
                 likes = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public int NumberExercise
+        {
+            get => numberExercise;
+            set
+            {
+                numberExercise = value;
                 RaisePropertyChanged();
             }
         }

@@ -119,6 +119,11 @@ namespace Journey.ViewModels
                         {
                             Label = AppResource.Logout,
                             Invoked = () => { OnLogoutCommand.Execute(); }
+                        },
+                    new DialogCommand
+                        {
+                        Label = AppResource.Cancel,
+                            Invoked = () => {  }
                         }
                     };
 
@@ -192,9 +197,10 @@ namespace Journey.ViewModels
 
         private void OnGoToProfileMeasurment()
         {
-            if (NavigationService.CurrentPage != "ProfileMeasurmentPage")
-                NavigationService.Navigate("ProfileMeasurmentPage");
-            var page = Application.Current.MainPage.Navigation;
+            if (NavigationService.CurrentPage == "ProfileMeasurmentPage")
+                return;
+
+            NavigationService.Navigate("ProfileMeasurmentPage", null, null, null, false, true);
         }
 
         #endregion
@@ -205,8 +211,10 @@ namespace Journey.ViewModels
 
         private void OnGoToProfileChallenge()
         {
-            if (NavigationService.CurrentPage != "ProfileChallengePage")
-                NavigationService.Navigate("ProfileChallengePage");
+            if (NavigationService.CurrentPage == "ProfileChallengePage")
+                return;
+            NavigationService.GoBack();
+
         }
 
         #endregion

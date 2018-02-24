@@ -51,6 +51,18 @@ namespace Journey.Models.Challenge
             set => SetProperty(ref startDate, value);
         }
 
+
+        public string StartDateFormated
+        {
+            get => startDate.ToString("Y");
+        }
+
+        public string EndDateFormated
+        {
+            get => endDate.ToString("Y");
+        }
+
+
         public bool IsActive
         {
             get => isActive;

@@ -83,9 +83,5 @@ namespace Journey.Services.Buisness.Challenge.Data
                 throw new DataServiceException(ex.Message, ex);
             }
         }
-
-        #region Translators
-
-        #endregion
     }
 }

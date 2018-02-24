@@ -179,7 +179,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                if (NewPost?.HasLocation == true)
+                if (NewPost?.HasLocation == false)
                 {
                     await DialogService.ShowMessageAsync(AppResource.Post_LocationMust, AppResource.Error);
                     return;

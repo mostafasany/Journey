@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls"
@@ -37,8 +37,8 @@
                        Style="{StaticResource EntryFormStyle}" WidthRequest="200" />
                 <Entry Text="{Binding LastName,Mode=TwoWay}" Placeholder="{resources:Translate UpdateProfile_LastName}"
                        Style="{StaticResource EntryFormStyle}" WidthRequest="200" />
-                <Image Source="{Binding Image.Path}" Style="{StaticResource ImageBodyStyle}" WidthRequest="200"
-                       HeightRequest="160" HorizontalOptions="Center" />
+                <Image Source="{Binding Image.Path}" Style="{StaticResource ImageBodyStyle}" WidthRequest="300"
+                       HeightRequest="200" HorizontalOptions="Center" />
                 <Button Text="{resources:Translate UpdateProfile_Upload}" Command="{Binding UploadImageCommand}"
                         Style="{StaticResource SecondaryButtonStyle}" />
             </StackLayout>

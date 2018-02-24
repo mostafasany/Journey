@@ -277,6 +277,11 @@ namespace Journey.ViewModels
                         {
                             Label = AppResource.Profile_UpdateMeasurment,
                             Invoked = () => { NavigationService.Navigate("UpdateMeasurmentPage"); }
+                        },
+                    new DialogCommand
+                        {
+                        Label = AppResource.Cancel,
+                            Invoked = () => { }
                         }
                     };
 

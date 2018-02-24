@@ -1,19 +1,16 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Foundation;
-using Journey.iOS.Services;
-using Journey.Services.Forms;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-
-[assembly: Dependency(typeof(ShareService))]
+using Abstractions.Forms;
+[assembly: Dependency(typeof(Journey.iOS.Services.ShareService))]
 namespace Journey.iOS.Services
 {
     public class ShareService:IShare
     {
-        public async Task Share(string subject, string message,List<Models.Media> mediaItems)
+        public async Task Share(string subject, string message,List<Media> mediaItems)
         {
             var handler = new ImageLoaderSourceHandler();
             List<NSObject> activityItems=new List<NSObject>();

@@ -77,7 +77,7 @@ namespace Journey.Services.Forms
                     {
                         {key, parameter}
                     };
-                await _navigationService.NavigateAsync(pageToken, navigationParameters, useModalNavigation, animated);
+                await Navigate(pageToken, useModalNavigation, animated, removeLastPage, navigationParameters);
                 return true;
             }
             catch (Exception ex)
@@ -139,10 +139,17 @@ namespace Journey.Services.Forms
         private async Task Navigate(string pageToken, bool? useModalNavigation, bool animated, bool removeLastPage,
             NavigationParameters navigationParameters)
         {
-            var lastPage = Application.Current.MainPage.Navigation.ModalStack.LastOrDefault();
-            await _navigationService.NavigateAsync(pageToken, navigationParameters, useModalNavigation, animated);
-            if (removeLastPage)
-                Application.Current.MainPage.Navigation.RemovePage(lastPage);
+            try
+            {
+                //if (removeLastPage)
+                    //await Application.Current.MainPage.Navigation.PopAsync();
+                await _navigationService.NavigateAsync(pageToken, navigationParameters, useModalNavigation, animated);
+            }
+            catch (Exception ex)
+            {
+
+            }
+           
         }
     }
 }

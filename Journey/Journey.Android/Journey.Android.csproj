@@ -19,7 +19,7 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
     <JavaMaximumHeapSize />
@@ -262,10 +262,6 @@
     <AndroidResource Include="Resources\values\styles.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Abstractions.Forms\Abstractions.Forms.csproj">
-      <Project>{fc405d0f-6ad5-4ef6-a164-ef850952107f}</Project>
-      <Name>Abstractions.Forms</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Abstractions\Abstractions.csproj">
       <Project>{2C910479-1896-44DA-BE23-00F1BB40E137}</Project>
       <Name>Abstractions</Name>
@@ -273,6 +269,10 @@
     <ProjectReference Include="..\Journey\Journey.csproj">
       <Project>{dc18b476-29b8-49b4-bf46-50a295f3758c}</Project>
       <Name>Journey</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Abstractions.Forms\Abstractions.Forms.csproj">
+      <Project>{4C1FF466-D77F-40D2-9A99-0780F35BF7F1}</Project>
+      <Name>Abstractions.Forms</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -290,7 +290,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\screen.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Renderers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Android.Support.Animated.Vector.Drawable.25.4.0.2\build\MonoAndroid70\Xamarin.Android.Support.Animated.Vector.Drawable.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Animated.Vector.Drawable.25.4.0.2\build\MonoAndroid70\Xamarin.Android.Support.Animated.Vector.Drawable.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

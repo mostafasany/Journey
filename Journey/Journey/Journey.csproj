@@ -128,8 +128,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Abstractions.Forms\Abstractions.Forms.csproj" />
     <ProjectReference Include="..\..\Abstractions\Abstractions.csproj" />
+    <ProjectReference Include="..\..\Abstractions.Forms\Abstractions.Forms.csproj" />
   </ItemGroup>
 
   <ItemGroup>
