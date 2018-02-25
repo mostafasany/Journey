@@ -347,6 +347,18 @@ namespace Journey.Resources {
             }
         }
         
+        internal static string Challenge_Approve {
+            get {
+                return ResourceManager.GetString("Challenge_Approve", resourceCulture);
+            }
+        }
+        
+        internal static string Challenge_ApproveMessage {
+            get {
+                return ResourceManager.GetString("Challenge_ApproveMessage", resourceCulture);
+            }
+        }
+        
         internal static string Challenge_StartDate {
             get {
                 return ResourceManager.GetString("Challenge_StartDate", resourceCulture);

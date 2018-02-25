@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Abstractions.Services;
 using Journey.Models;
-using Journey.Models.Account;
-using Journey.Models.Post;
-using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Notification;
-using Journey.Services.Buisness.PostComment;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
@@ -14,15 +11,15 @@ namespace Journey.ViewModels
 {
     public class NotificationsPageViewModel : BaseViewModel, INavigationAware
     {
-        private readonly IAccountService _accountService;
+        private readonly IDeepLinkService _deepLinking;
         private readonly INotificationService _postCommentService;
 
         public NotificationsPageViewModel(IUnityContainer container,
-                                          INotificationService postCommentService, IAccountService accountService) :
+                                          INotificationService postCommentService, IDeepLinkService deepLinking) :
             base(container)
         {
             _postCommentService = postCommentService;
-            _accountService = accountService;
+            _deepLinking = deepLinking;
         }
 
         #region Events
@@ -175,7 +172,7 @@ namespace Journey.ViewModels
         {
             try
             {
-               // deepLinking.ParseDeepLinkingAndExecute(notification?.DeepLink);
+                _deepLinking.ParseDeepLinkingAndExecute(notification?.DeepLink);
             }
             catch (System.Exception ex)
             {

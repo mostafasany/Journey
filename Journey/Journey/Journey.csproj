@@ -127,6 +127,7 @@
     <Folder Include="Services\Buisness\Challenge\" />
     <Folder Include="Services\Buisness\Challenge\Dto\" />
     <Folder Include="Services\Buisness\Challenge\Translators\" />
+    <Folder Include="Services\Buisness\DeepLink\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -38,9 +38,44 @@ namespace Journey.ViewModels
         {
             try
             {
-                ToChallenge = parameters.GetValue<Account>("ToChallenge") ?? null;
+                int mode = parameters.GetValue<int>("Mode");
+                IsAddMode = false;
+                IsApproveRequestMode = false;
 
-                Intialize();
+                if (mode == 0)
+                {
+                    //Add
+                    IsAddMode = true;
+                    ToChallenge = parameters.GetValue<Account>("ToChallenge") ?? null;
+                    LoggedInAccount = await _accountService.GetAccountAsync();
+                    if (string.IsNullOrEmpty(LoggedInAccount.ChallengeId))
+                    {
+                        SelectedChallenge = new Challenge();
+                        var challengesAccount = new ObservableCollection<ChallengeAccount>();
+                        challengesAccount.Add(new ChallengeAccount(LoggedInAccount));
+                        challengesAccount.Add(new ChallengeAccount(ToChallenge));
+                        SelectedChallenge.ChallengeAccounts = challengesAccount;
+                    }
+                }
+                else
+                {
+                    string challengeId = parameters.GetValue<string>("Challenge") ?? null;
+                    if (!string.IsNullOrEmpty(challengeId))
+                    {
+                        SelectedChallenge = await _challengeService.GetChallengeAsync(challengeId);
+                    }
+
+                    if (mode == 1)
+                    {
+                        //Edit
+                    }
+                    else if (mode == 2)
+                    {
+
+                        IsApproveRequestMode = true;
+                        //Approve Request 
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -72,6 +107,16 @@ namespace Journey.ViewModels
             get => isAddMode;
             set => SetProperty(ref isAddMode, value);
         }
+
+        private bool isApproveRequestMode;
+
+        public bool IsApproveRequestMode
+        {
+            get => isApproveRequestMode;
+            set => SetProperty(ref isApproveRequestMode, value);
+        }
+
+
 
         private Account toChallenge;
 
@@ -109,34 +154,7 @@ namespace Journey.ViewModels
 
         public override async void Intialize(bool sync = false)
         {
-            try
-            {
-                ShowProgress();
-                LoggedInAccount = await _accountService.GetAccountAsync();
-                IsAddMode = string.IsNullOrEmpty(LoggedInAccount.ChallengeId);
 
-                if (string.IsNullOrEmpty(LoggedInAccount.ChallengeId))
-                {
-                    SelectedChallenge = new Challenge();
-                    var challengesAccount = new ObservableCollection<ChallengeAccount>();
-                    challengesAccount.Add(new ChallengeAccount(LoggedInAccount));
-                    challengesAccount.Add(new ChallengeAccount(ToChallenge));
-                    SelectedChallenge.ChallengeAccounts = challengesAccount;
-                }
-                else
-                {
-                    SelectedChallenge = await _challengeService.GetChallengeAsync(LoggedInAccount.ChallengeId);
-                }
-                base.Intialize(sync);
-            }
-            catch (Exception e)
-            {
-                ExceptionService.HandleAndShowDialog(e);
-            }
-            finally
-            {
-                HideProgress();
-            }
         }
 
         protected override void Cleanup()
@@ -213,21 +231,49 @@ namespace Journey.ViewModels
                     return;
 
                 ShowProgress();
-                var existingChallenge = await _challengeService.GetAccountChallengeAsync();
-                if (existingChallenge == null)
+                var hasActiveChallange = await _challengeService.CheckAccountHasChallengeAsync();
+                if (!hasActiveChallange)
                 {
                     var challenge = await _challengeService.AddChallengeAsync(SelectedChallenge);
                     if (challenge != null)
-                        await NavigationService.Navigate("HomePage", true, "Sync");
+                    {
+                        await DialogService.ShowMessageAsync(AppResource.Challenge_ApproveMessage, "");
+                        await NavigationService.Navigate("HomePage", false, "Sync");
+                    }
                 }
                 else
                 {
-                    await DialogService.ShowMessageAsync(AppResource.Error, AppResource.Challenge_AlreadyExists);
+                    await DialogService.ShowMessageAsync(AppResource.Challenge_AlreadyExists,AppResource.Error);
                 }
             }
             catch (Exception ex)
             {
                 await DialogService.ShowGenericErrorMessageAsync(AppResource.Error, ex.Message);
+            }
+            finally
+            {
+                HideProgress();
+            }
+        }
+
+        #endregion
+
+        #region OnApproveRequestCommand
+
+        public DelegateCommand OnApproveRequestCommand => new DelegateCommand(OnApproveRequest);
+
+
+        private async void OnApproveRequest()
+        {
+            try
+            {
+                var challenge = await _challengeService.ApproveChallengeAsync(SelectedChallenge);
+                if (challenge != null)
+                    await NavigationService.Navigate("HomePage", true, "Sync");
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.Handle(ex);
             }
             finally
             {

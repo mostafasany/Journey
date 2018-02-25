@@ -52,12 +52,13 @@ namespace Journey.Services.Buisness.Challenge.Data
                     return null;
                 
                 var challenge = ChallengeDataTranslator.TranslateChallenge(challengeDTO);
-
+                var challenger1 = challenge.ChallengeAccounts.FirstOrDefault();
+                var challenger2 = challenge.ChallengeAccounts.LastOrDefault();
                 var account1 = await friendDataService.GetFriendAsync(challengeDTO.Account1);
                 var account2 = await friendDataService.GetFriendAsync(challengeDTO.Account2);
                 challenge.ChallengeAccounts = new ObservableCollection<ChallengeAccount>();
-                challenge.ChallengeAccounts.Add(new ChallengeAccount(account1));
-                challenge.ChallengeAccounts.Add(new ChallengeAccount(account2));
+                challenge.ChallengeAccounts.Add(new ChallengeAccount(account1){ NumberExercise = challenger1.NumberExercise });
+                challenge.ChallengeAccounts.Add(new ChallengeAccount(account2){ NumberExercise = challenger2.NumberExercise });
                 return challenge;
             }
             catch (Exception ex)
@@ -66,13 +67,13 @@ namespace Journey.Services.Buisness.Challenge.Data
             }
         }
 
-        public async Task<Models.Challenge.Challenge> GetAccountChallengeAsync()
+        public async Task<Models.Challenge.Challenge> CheckAccountHasChallengeAsync()
         {
             try
             {
                 var account = _client.CurrentUser.UserId;
                 var challengeDTO = await azureChallenge
-                    .Where(a => a.Status && (a.Account1 == account || a.Account2 == account)).ToListAsync();
+                    .Where(a => (a.Account1 == account || a.Account2 == account)).ToListAsync();
                 var accountChallenge = challengeDTO?.FirstOrDefault();
                 if (accountChallenge == null)
                     return null;

@@ -8,6 +8,7 @@ using Journey.Services.Buisness.Account.Data;
 using Journey.Services.Buisness.Blob;
 using Journey.Services.Buisness.Challenge;
 using Journey.Services.Buisness.Challenge.Data;
+using Journey.Services.Buisness.DeepLink;
 using Journey.Services.Buisness.Friend;
 using Journey.Services.Buisness.Friend.Data;
 using Journey.Services.Buisness.Goal;
@@ -146,6 +147,9 @@ namespace Journey
             container.RegisterType<IChallengeService, ChallengeService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IChallengeDataService, ChallengeDataService>(
                 new ContainerControlledLifetimeManager());
+         
+            container.RegisterType<IDeepLinkService, DeepLinkService>(new ContainerControlledLifetimeManager());
+
 
 
             container.RegisterType<IAccountGoalService, AccountGoalService>(new ContainerControlledLifetimeManager());

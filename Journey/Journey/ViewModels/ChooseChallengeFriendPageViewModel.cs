@@ -145,7 +145,13 @@ namespace Journey.ViewModels
                     Label = AppResource.Yes,
                     Invoked = async () =>
                     {
-                        await NavigationService.Navigate("NewChallengePage", selectedFriend, "ToChallenge");
+                        var parameters = new Dictionary<string, object>
+                         {
+                            {"ToChallenge", selectedFriend},
+                            {"Mode", 0}
+                         };
+                        await NavigationService.Navigate("NewChallengePage", parameters);
+            
                     }
                 };
 

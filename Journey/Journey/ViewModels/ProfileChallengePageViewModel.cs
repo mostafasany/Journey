@@ -1,4 +1,5 @@
 using System;
+using System.Windows.Input;
 using Journey.Models.Challenge;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Challenge;
@@ -87,16 +88,22 @@ namespace Journey.ViewModels
             try
             {
                 ShowProgress();
-                SelectedChallenge = await _challengeService.GetAccountChallengeAsync();
-                if (SelectedChallenge != null)
+                if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
                 {
-                    HasActiveChallenge = true;
+                    SelectedChallenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
+                    if (SelectedChallenge != null)
+                    {
+                        HasActiveChallenge = true;
+                    }
+                    else
+                    {
+                        HasActiveChallenge = false;
+                    }
                 }
                 else
                 {
                     HasActiveChallenge = false;
                 }
-
                 base.Intialize(sync);
             }
             catch (Exception e)
@@ -147,6 +154,31 @@ namespace Journey.ViewModels
 
         #endregion
 
+        #region OnStartNewChallengeCommand
+
+        private ICommand _onStartNewChallengeCommand;
+
+        public ICommand OnStartNewChallengeCommand => _onStartNewChallengeCommand ??
+                                                      (_onStartNewChallengeCommand =
+                                                          new DelegateCommand(OnStartNewChallenge));
+
+        private async void OnStartNewChallenge()
+        {
+            try
+            {
+                var isLogginIn = await _accountService.LoginFirstAsync();
+                if (isLogginIn)
+                    await NavigationService.Navigate("ChooseChallengeFriendPage");
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.Handle(ex);
+            }
+        }
+
+        #endregion
+
+      
         #endregion
     }
 }

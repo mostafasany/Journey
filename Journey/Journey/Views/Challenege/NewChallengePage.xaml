@@ -48,7 +48,8 @@
                         <Editor Text="{Binding SelectedChallenge.Terms}" Style="{StaticResource EditorFormStyle}" />
                         <Controls:LoadingControl IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
                     </StackLayout>
-                    <Button Text="Start" Grid.Row="3" IsVisible="{Binding IsAddMode}" Margin="10" VerticalOptions="End" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding OnStartChallengeCommand}" />
+                    <Button Text="{resources:Translate Challenge_Start}" Grid.Row="3" IsVisible="{Binding IsAddMode}" Margin="10" VerticalOptions="End" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding OnStartChallengeCommand}" />
+                    <Button Text="{resources:Translate Challenge_Approve}" Grid.Row="3" IsVisible="{Binding IsApproveRequestMode}" Margin="10" VerticalOptions="End" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding OnApproveRequestCommand}" />
                 </Grid>
             </ScrollView>
         </Grid>

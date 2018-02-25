@@ -267,6 +267,13 @@
 	<data name="Challenge_Start" xml:space="preserve">
     <value>Start Challenge</value>
   </data>
+    <data name="Challenge_Approve" xml:space="preserve">
+    <value>Approve Challenge</value>
+  </data>
+    <data name="Challenge_ApproveMessage" xml:space="preserve">
+    <value>   Challenge will be started when your friend approve</value>
+  </data>
+ 
 	<data name="Challenge_StartDate" xml:space="preserve">
     <value>Start Date</value>
   </data>
