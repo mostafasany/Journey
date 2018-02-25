@@ -227,6 +227,7 @@ namespace Journey.ViewModels
             }
             catch (Exception ex)
             {
+                await DialogService.ShowGenericErrorMessageAsync(AppResource.Error, ex.Message);
             }
             finally
             {

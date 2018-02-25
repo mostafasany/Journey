@@ -330,5 +330,10 @@
     <data name="Location_DefaultLocationTitle" xml:space="preserve">
     <value>Is this your default workout place?</value>
   </data>
-    
+     <data name="Notification_ChallengeRequestTitle" xml:space="preserve">
+    <value>Challenge Request</value>
+  </data>
+      <data name="Notification_ChallengeRequestMessage" xml:space="preserve">
+    <value>{0} wants to challenge you</value>
+  </data>
 </root>

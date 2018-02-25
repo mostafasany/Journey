@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Models.Challenge;
+using Journey.Resources;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Account.Data;
 using Journey.Services.Buisness.Challenge.Data;
 using Journey.Services.Buisness.Friend;
+using Journey.Services.Buisness.Notification;
 
 namespace Journey.Services.Buisness.Challenge
 {
@@ -15,6 +17,7 @@ namespace Journey.Services.Buisness.Challenge
     {
         private readonly IAccountService _accountService;
         private readonly IFriendService _friendService;
+        private readonly INotificationService _notificationService;
         private readonly IAccountDataService _accountDataService;
         private readonly IChallengeDataService _challengeDataService;
         private Models.Challenge.Challenge _challenge;
@@ -22,12 +25,14 @@ namespace Journey.Services.Buisness.Challenge
         public ChallengeService(IChallengeDataService challengeDataService,
             IAccountDataService accountDataService,
             IFriendService friendService,
-            IAccountService accountService)
+            IAccountService accountService,
+            INotificationService notificationService)
         {
             _challengeDataService = challengeDataService;
             _accountDataService = accountDataService;
             _friendService = friendService;
             _accountService = accountService;
+            _notificationService = notificationService;
         }
 
         public async Task<Models.Challenge.Challenge> GetChallengeAsync(string challengeId)
@@ -47,8 +52,31 @@ namespace Journey.Services.Buisness.Challenge
         {
             try
             {
+                //var notification = await _notificationService.AddNotificationAsync(
+                //   new Models.Notifications
+                //   {
+                //Account = _accountService.LoggedInAccount,
+                //    Message = string.Format(AppResource.Notification_ChallengeRequestMessage, _accountService.LoggedInAccount.Name),
+                //    Title = AppResource.Notification_ChallengeRequestTitle,
+                //    DeepLink = string.Format("challengeRequest?id={0}", "1"),
+                //});
+
                 var challengeDto = await _challengeDataService.AddChallengeAsync(challenge);
-                return challengeDto;
+                if (challengeDto != null)
+                {
+                    var toChallnegeAccount = challengeDto.ChallengeAccounts.LastOrDefault();
+                    var notification = await _notificationService.AddNotificationAsync(
+                         new Models.Notifications
+                         {
+                             Account = toChallnegeAccount,
+                             Message = string.Format(AppResource.Notification_ChallengeRequestMessage, _accountService.LoggedInAccount.Name),
+                             Title = AppResource.Notification_ChallengeRequestTitle,
+                             DeepLink = string.Format("challengeRequest?id={0}", challengeDto.Id),
+                         });
+                    if (notification != null)
+                        return challengeDto;
+                }
+                return null;
             }
             catch (Exception ex)
             {

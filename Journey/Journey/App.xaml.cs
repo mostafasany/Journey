@@ -68,7 +68,7 @@ namespace Journey
             containerRegistry.RegisterForNavigation<UpdateMeasurmentPage>();
             containerRegistry.RegisterForNavigation<ChooseChallengeFriendPage>();
             containerRegistry.RegisterForNavigation<NewChallengePage>();
-
+            containerRegistry.RegisterForNavigation<NotificationsPage>();
             RegitserAppServices(container);
 
             RegitserBuisnessServices(container);

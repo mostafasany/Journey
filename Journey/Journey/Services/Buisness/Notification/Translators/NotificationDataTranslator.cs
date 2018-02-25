@@ -20,7 +20,7 @@ namespace Journey.Services.Buisness.Notification.Translators
                 accountDto.Title = account.Title;
                 accountDto.Message = account.Message;
                 accountDto.DeepLink = account.DeepLink;
-                accountDto.Account = account.Id;
+                accountDto.Account = account.Account.Id;
 
                 return accountDto;
             }

@@ -136,7 +136,7 @@ namespace Journey.ViewModels
         #region Properties
 
         public Media Image => LoggedInAccount == null
-            ? new Media {Path = "http://bit.ly/2zBffZy"}
+            ? new Media { Path = "http://bit.ly/2zBffZy" }
             : _loggedInAccount.Image;
 
         private Account _loggedInAccount;
@@ -396,6 +396,28 @@ namespace Journey.ViewModels
             try
             {
                 await NavigationService.Navigate("ProfileChallengePage");
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.Handle(ex);
+            }
+        }
+
+        #endregion
+
+        #region OnNotificationCommand
+
+        private ICommand _onNotificationCommand;
+
+        public ICommand OnNotificationCommand => _onNotificationCommand ??
+                                            (_onNotificationCommand =
+                                             new DelegateCommand(OnNotification));
+
+        private async void OnNotification()
+        {
+            try
+            {
+                await NavigationService.Navigate("NotificationsPage");
             }
             catch (Exception ex)
             {

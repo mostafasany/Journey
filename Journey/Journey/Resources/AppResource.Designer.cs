@@ -472,5 +472,17 @@ namespace Journey.Resources {
                 return ResourceManager.GetString("Location_DefaultLocationTitle", resourceCulture);
             }
         }
+        
+        internal static string Notification_ChallengeRequestTitle {
+            get {
+                return ResourceManager.GetString("Notification_ChallengeRequestTitle", resourceCulture);
+            }
+        }
+        
+        internal static string Notification_ChallengeRequestMessage {
+            get {
+                return ResourceManager.GetString("Notification_ChallengeRequestMessage", resourceCulture);
+            }
+        }
     }
 }
