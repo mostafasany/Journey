@@ -15,17 +15,17 @@ namespace Journey.Services.Buisness.Challenge
     {
         private readonly IAccountService _accountService;
         private readonly IFriendService _friendService;
-        private readonly IAccountDataService accountDataService;
-        private readonly IChallengeDataService challengeDataService;
-        private Models.Challenge.Challenge Challenge;
+        private readonly IAccountDataService _accountDataService;
+        private readonly IChallengeDataService _challengeDataService;
+        private Models.Challenge.Challenge _challenge;
 
-        public ChallengeService(IChallengeDataService _challengeDataService,
-            IAccountDataService _accountDataService,
+        public ChallengeService(IChallengeDataService challengeDataService,
+            IAccountDataService accountDataService,
             IFriendService friendService,
             IAccountService accountService)
         {
-            challengeDataService = _challengeDataService;
-            accountDataService = _accountDataService;
+            _challengeDataService = challengeDataService;
+            _accountDataService = accountDataService;
             _friendService = friendService;
             _accountService = accountService;
         }
@@ -34,8 +34,8 @@ namespace Journey.Services.Buisness.Challenge
         {
             try
             {
-                var challengeDTO = await challengeDataService.GetChallengeAsync(challengeId);
-                return challengeDTO;
+                var challengeDto = await _challengeDataService.GetChallengeAsync(challengeId);
+                return challengeDto;
             }
             catch (Exception ex)
             {
@@ -47,8 +47,8 @@ namespace Journey.Services.Buisness.Challenge
         {
             try
             {
-                var challengeDTO = await challengeDataService.AddChallengeAsync(challenge);
-                return challengeDTO;
+                var challengeDto = await _challengeDataService.AddChallengeAsync(challenge);
+                return challengeDto;
             }
             catch (Exception ex)
             {
@@ -62,17 +62,17 @@ namespace Journey.Services.Buisness.Challenge
             {
                 //_accountService.LoggedInAccount.ChallengeId = "";
                 //await accountDataService.AddUpdateAccountAsync(_accountService.LoggedInAccount, false);
-                if (Challenge != null)
-                    return Challenge;
-                Challenge = await challengeDataService.GetAccountChallengeAsync();
-                if (Challenge == null)
+                if (_challenge != null)
+                    return _challenge;
+                _challenge = await _challengeDataService.GetAccountChallengeAsync();
+                if (_challenge == null)
                     return null;
-                var challenge1 = Challenge.ChallengeAccounts.FirstOrDefault();
-                var challenge2 = Challenge.ChallengeAccounts.LastOrDefault();
-                var friendId = Challenge.ChallengeAccounts.FirstOrDefault(a => a.Id != _accountService.LoggedInAccount.Id)?.Id;
+                var challenge1 = _challenge.ChallengeAccounts.FirstOrDefault();
+                var challenge2 = _challenge.ChallengeAccounts.LastOrDefault();
+                var friendId = _challenge.ChallengeAccounts.FirstOrDefault(a => a.Id != _accountService.LoggedInAccount.Id)?.Id;
                 var friend = await _friendService.GetFriendAsync(friendId);
-                Models.Account.Account account1 = null;
-                Models.Account.Account account2 = null;
+                Models.Account.Account account1;
+                Models.Account.Account account2;
                 if (challenge1.Id == _accountService.LoggedInAccount.Id)
                 {
                     account1 = _accountService.LoggedInAccount;
@@ -83,11 +83,11 @@ namespace Journey.Services.Buisness.Challenge
                     account1 = friend;
                     account2 = _accountService.LoggedInAccount;
                 }
-                Challenge.ChallengeAccounts = new ObservableCollection<ChallengeAccount>();
-                Challenge.ChallengeAccounts.Add(new ChallengeAccount(account1) { NumberExercise = challenge1.NumberExercise });
-                Challenge.ChallengeAccounts.Add(new ChallengeAccount(account2) { NumberExercise = challenge2.NumberExercise });
-                await EndChallengeAsync(Challenge);
-                return Challenge;
+                _challenge.ChallengeAccounts = new ObservableCollection<ChallengeAccount>();
+                _challenge.ChallengeAccounts.Add(new ChallengeAccount(account1) { NumberExercise = challenge1.NumberExercise });
+                _challenge.ChallengeAccounts.Add(new ChallengeAccount(account2) { NumberExercise = challenge2.NumberExercise });
+                await EndChallengeAsync(_challenge);
+                return _challenge;
             }
             catch (Exception ex)
             {
@@ -100,14 +100,14 @@ namespace Journey.Services.Buisness.Challenge
             try
             {
                 challenge.IsActive = false;
-                var challengeDTO = await challengeDataService.UpdateChallengeAsync(challenge);
+                var challengeDto = await _challengeDataService.UpdateChallengeAsync(challenge);
                 var account1 = challenge.ChallengeAccounts.FirstOrDefault();
                 var account2 = challenge.ChallengeAccounts.LastOrDefault();
                 account1.ChallengeId = "";
                 account2.ChallengeId = "";
-                await accountDataService.AddUpdateAccountAsync(account1, false);
-                await accountDataService.AddUpdateAccountAsync(account2, false);
-                return challengeDTO;
+                await _accountDataService.AddUpdateAccountAsync(account1, false);
+                await _accountDataService.AddUpdateAccountAsync(account2, false);
+                return challengeDto;
             }
             catch (Exception ex)
             {

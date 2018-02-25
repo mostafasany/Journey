@@ -14,6 +14,8 @@ using Journey.Services.Buisness.Goal;
 using Journey.Services.Buisness.Goal.Data;
 using Journey.Services.Buisness.Measurment;
 using Journey.Services.Buisness.Measurment.Data;
+using Journey.Services.Buisness.Notification;
+using Journey.Services.Buisness.Notification.Data;
 using Journey.Services.Buisness.Post;
 using Journey.Services.Buisness.Post.Data;
 using Journey.Services.Buisness.PostComment;
@@ -137,6 +139,9 @@ namespace Journey
             container.RegisterType<IAccountService, AccountService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IFriendService, FriendService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IFriendDataService, FriendDataService>(new ContainerControlledLifetimeManager());
+
+            container.RegisterType<INotificationDataService, NotificationDataService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<INotificationService, NotificationService>(new ContainerControlledLifetimeManager());
 
             container.RegisterType<IChallengeService, ChallengeService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IChallengeDataService, ChallengeDataService>(
