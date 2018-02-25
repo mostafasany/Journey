@@ -14,7 +14,7 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Controls:ImageControl Grid.Row="0" HorizontalOptions="Start"  Margin="10,0,0,0" PortablePath="back.png" Style="{StaticResource IconStyle}">
+                    <Controls:ImageControl Grid.Row="0" HorizontalOptions="Start" Margin="10,0,0,10" PortablePath="back.png" Style="{StaticResource IconStyle}">
                         <Controls:ImageControl.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnBackCommand}" CommandParameter="{Binding}" />
                         </Controls:ImageControl.GestureRecognizers>

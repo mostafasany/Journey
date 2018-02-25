@@ -235,7 +235,7 @@
       <Name>Journey</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Abstractions.Forms\Abstractions.Forms.csproj">
-      <Project>{4C1FF466-D77F-40D2-9A99-0780F35BF7F1}</Project>
+      <Project>{BADCAB4E-C095-4868-AF47-2343625E6105}</Project>
       <Name>Abstractions.Forms</Name>
     </ProjectReference>
   </ItemGroup>

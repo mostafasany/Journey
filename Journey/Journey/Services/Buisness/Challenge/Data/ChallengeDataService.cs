@@ -48,6 +48,9 @@ namespace Journey.Services.Buisness.Challenge.Data
             try
             {
                 var challengeDTO = await azureChallenge.LookupAsync(challengeId);
+                if (challengeDTO.Status == false)
+                    return null;
+                
                 var challenge = ChallengeDataTranslator.TranslateChallenge(challengeDTO);
 
                 var account1 = await friendDataService.GetFriendAsync(challengeDTO.Account1);
@@ -76,6 +79,23 @@ namespace Journey.Services.Buisness.Challenge.Data
 
                 var challenge = ChallengeDataTranslator.TranslateChallenge(accountChallenge);
 
+                return challenge;
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(ex.Message, ex);
+            }
+        }
+
+        public async Task<Models.Challenge.Challenge> UpdateChallengeAsync(Models.Challenge.Challenge challenge)
+        {
+            try
+            {
+                if (challenge == null)
+                    return null;
+                var accountDto = ChallengeDataTranslator.TranslateChallenge(challenge);
+                await azureChallenge.UpdateAsync(accountDto);
+                challenge = ChallengeDataTranslator.TranslateChallenge(accountDto);
                 return challenge;
             }
             catch (Exception ex)

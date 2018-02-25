@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
@@ -224,8 +224,8 @@
                       RefreshCommand="{Binding OnRefreshPostsCommand}">
                 <ListView.Header>
                     <Grid RowSpacing="0">
-                        <Grid x:Name="grdStartChallange" RowSpacing="0" IsVisible="{Binding HasNotActiveChallenge}">
-                            <Controls:CustomImage Aspect="AspectFill" Source="http://bit.ly/2gPXM5h"
+                        <Grid RowSpacing="0" IsVisible="{Binding HasNotActiveChallenge}">
+                            <Controls:ImageControl Aspect="AspectFill" PortablePath="challengeBanner.png"
                                                   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
                             <StackLayout Orientation="Vertical">
                                 <Label Margin="0,5" Text="{resources:Translate Home_StartNewChallenge}" FontSize="22"

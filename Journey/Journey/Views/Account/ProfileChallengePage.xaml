@@ -57,7 +57,14 @@
                 <Grid BackgroundColor="#d3d3d3" Grid.Row="2" />
             </Grid>
             <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Grid Grid.Row="2" Margin="0,20">
+            <Grid Grid.Row="2" IsVisible="{Binding HasNotActiveChallenge}">
+                <Controls:ImageControl Aspect="AspectFill" PortablePath="challengeBanner.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                <StackLayout Orientation="Vertical">
+                    <Label Margin="0,5" Text="{resources:Translate Home_StartNewChallenge}" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" TextColor="White" />
+                    <Button Margin="0,0,0,5" Text="Start" Command="{Binding OnStartNewChallengeCommand}" WidthRequest="150" HorizontalOptions="Center" FontSize="14" Style="{StaticResource SecondaryButtonStyle}" />
+                </StackLayout>
+            </Grid>
+            <Grid Grid.Row="2" Margin="0,20" IsVisible="{Binding HasActiveChallenge}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />

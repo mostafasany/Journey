@@ -47,6 +47,7 @@
     <None Remove="Assets\backwhite.png" />
     <None Remove="Assets\checkWhite.png" />
     <None Remove="Assets\compete.png" />
+    <None Remove="Assets\challengeBanner.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -94,6 +95,7 @@
     <EmbeddedResource Include="Assets\backwhite.png" />
     <EmbeddedResource Include="Assets\checkWhite.png" />
     <EmbeddedResource Include="Assets\compete.png" />
+    <EmbeddedResource Include="Assets\challengeBanner.png" />
   </ItemGroup>
 
   <ItemGroup>

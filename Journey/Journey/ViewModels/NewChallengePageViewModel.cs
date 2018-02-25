@@ -213,11 +213,10 @@ namespace Journey.ViewModels
                     return;
 
                 ShowProgress();
-                SelectedChallenge.IsActive = true;
                 var existingChallenge = await _challengeService.GetAccountChallengeAsync();
                 if (existingChallenge == null)
                 {
-                    var challenge = await _challengeService.SaveCurrentChallengeAsync(SelectedChallenge);
+                    var challenge = await _challengeService.AddChallengeAsync(SelectedChallenge);
                     if (challenge != null)
                         await NavigationService.Navigate("HomePage", true, "Sync");
                 }

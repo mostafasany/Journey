@@ -35,16 +35,11 @@ namespace Journey.ViewModels
         {
             try
             {
-                ShowProgress();
                 Intialize();
             }
             catch (Exception ex)
             {
                 ExceptionService.Handle(ex);
-            }
-            finally
-            {
-                HideProgress();
             }
         }
 

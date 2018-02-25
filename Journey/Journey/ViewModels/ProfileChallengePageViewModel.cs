@@ -60,6 +60,24 @@ namespace Journey.ViewModels
             set => SetProperty(ref selectedChallenge, value);
         }
 
+        private bool _hasActiveChallenge;
+
+        public bool HasActiveChallenge
+        {
+            get => _hasActiveChallenge;
+            set
+            {
+                SetProperty(ref _hasActiveChallenge, value);
+                RaisePropertyChanged(nameof(HasNotActiveChallenge));
+            }
+        }
+
+        public bool HasNotActiveChallenge
+        {
+            get => !_hasActiveChallenge;
+
+        }
+
         #endregion
 
         #region Methods
@@ -70,6 +88,15 @@ namespace Journey.ViewModels
             {
                 ShowProgress();
                 SelectedChallenge = await _challengeService.GetAccountChallengeAsync();
+                if (SelectedChallenge != null)
+                {
+                    HasActiveChallenge = true;
+                }
+                else
+                {
+                    HasActiveChallenge = false;
+                }
+
                 base.Intialize(sync);
             }
             catch (Exception e)
