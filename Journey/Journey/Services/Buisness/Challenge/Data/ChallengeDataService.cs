@@ -48,8 +48,8 @@ namespace Journey.Services.Buisness.Challenge.Data
             try
             {
                 var challengeDTO = await azureChallenge.LookupAsync(challengeId);
-                if (challengeDTO.Status == false)
-                    return null;
+                //if (challengeDTO.Status == false)
+                    //return null;
                 
                 var challenge = ChallengeDataTranslator.TranslateChallenge(challengeDTO);
                 var challenger1 = challenge.ChallengeAccounts.FirstOrDefault();

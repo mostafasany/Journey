@@ -73,7 +73,7 @@ namespace Journey.Services.Buisness.Challenge
                              Account = toChallnegeAccount,
                              Message = string.Format(AppResource.Notification_ChallengeRequestMessage, _accountService.LoggedInAccount.Name),
                              Title = AppResource.Notification_ChallengeRequestTitle,
-                             DeepLink = string.Format("www.journey.challengeRequest?id={0}", challengeDto.Id),
+                        DeepLink = string.Format("http://www.journey.challengeRequest?id={0}", challengeDto.Id),
                          });
                     if (notification != null)
                         return challengeDto;
