@@ -220,6 +220,7 @@
                       Grid.Row="3" SeparatorVisibility="None" ItemTemplate="{StaticResource PostTemplate}"
                       HasUnevenRows="true" BackgroundColor="#d3d3d3" ItemAppearing="Handle_ItemAppearing"
                       IsPullToRefreshEnabled="true"
+                      IsVisible="{Binding NoPosts,Converter={StaticResource BoolInverterConverter}}"
                       IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
                       RefreshCommand="{Binding OnRefreshPostsCommand}">
                 <ListView.Header>
@@ -238,6 +239,8 @@
                     </Grid>
                 </ListView.Header>
             </ListView>
+            <Label IsVisible="{Binding NoPosts}" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" Text="{resources:Translate Post_NoPosts}" TextColor="Gray" FontSize="20" />
+         
         </Grid>
     </ContentPage.Content>
 </local:BasePage>

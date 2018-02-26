@@ -95,7 +95,7 @@ namespace Journey.ViewModels.Wall
             }
             catch (Exception ex)
             {
-                ExceptionService.Handle(ex);
+                ExceptionService.HandleAndShowDialog(ex);
             }
         }
 
@@ -127,7 +127,8 @@ namespace Journey.ViewModels.Wall
             }
             catch (Exception ex)
             {
-                ExceptionService.Handle(ex);
+                _postService.PostStatusChanged(Post, PostStatus.HideProgress);
+                ExceptionService.HandleAndShowDialog(ex);
             }
         }
 
@@ -161,7 +162,7 @@ namespace Journey.ViewModels.Wall
             }
             catch (Exception ex)
             {
-                ExceptionService.Handle(ex);
+                ExceptionService.HandleAndShowDialog(ex);
             }
         }
 
@@ -185,7 +186,7 @@ namespace Journey.ViewModels.Wall
             }
             catch (Exception ex)
             {
-                ExceptionService.Handle(ex);
+                ExceptionService.HandleAndShowDialog(ex);
             }
         }
 
@@ -215,13 +216,13 @@ namespace Journey.ViewModels.Wall
                         if (account.Id == loggedInAccount.Id)
                             await NavigationService.Navigate("ProfileMeasurmentPage");
                         //else
-                            //await NavigationService.Navigate("FriendsPage", account.Id);
+                        //await NavigationService.Navigate("FriendsPage", account.Id);
                     }
                 }
             }
             catch (Exception ex)
             {
-                ExceptionService.Handle(ex);
+                ExceptionService.HandleAndShowDialog(ex);
             }
         }
 
@@ -244,7 +245,7 @@ namespace Journey.ViewModels.Wall
             }
             catch (Exception ex)
             {
-                ExceptionService.Handle(ex);
+                ExceptionService.HandleAndShowDialog(ex);
             }
         }
 

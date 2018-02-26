@@ -61,22 +61,13 @@ namespace Journey.ViewModels
             set => SetProperty(ref selectedChallenge, value);
         }
 
-        private bool _hasActiveChallenge;
+        private bool _hasActiveChallenge = true;
 
         public bool HasActiveChallenge
         {
             get => _hasActiveChallenge;
-            set
-            {
-                SetProperty(ref _hasActiveChallenge, value);
-                RaisePropertyChanged(nameof(HasNotActiveChallenge));
-            }
-        }
-
-        public bool HasNotActiveChallenge
-        {
-            get => !_hasActiveChallenge;
-
+            set=>SetProperty(ref _hasActiveChallenge, value);
+           
         }
 
         #endregion

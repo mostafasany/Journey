@@ -57,7 +57,7 @@
                 <Grid BackgroundColor="#d3d3d3" Grid.Row="2" />
             </Grid>
             <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
-            <Grid Grid.Row="2" IsVisible="{Binding HasNotActiveChallenge}">
+            <Grid Grid.Row="2" IsVisible="{Binding HasActiveChallenge,Converter={StaticResource BoolInverterConverter}}">
                 <Controls:ImageControl Aspect="AspectFill" PortablePath="challengeBanner.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
                 <StackLayout Orientation="Vertical">
                     <Label Margin="0,5" Text="{resources:Translate Home_StartNewChallenge}" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" TextColor="White" />

@@ -343,4 +343,10 @@
       <data name="Notification_ChallengeRequestMessage" xml:space="preserve">
     <value>{0} wants to challenge you</value>
   </data>
+     <data name="Notification_NoNotifications" xml:space="preserve">
+    <value>No Notifcations</value>
+  </data>
+     <data name="Post_NoPosts" xml:space="preserve">
+    <value>No Posts</value>
+  </data>
 </root>

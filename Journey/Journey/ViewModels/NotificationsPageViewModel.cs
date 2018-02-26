@@ -82,6 +82,14 @@ namespace Journey.ViewModels
             set => SetProperty(ref isPullRefreshLoading, value);
         }
 
+        private bool _noNofications;
+
+        public bool NoNofications
+        {
+            get => _noNofications;
+            set => SetProperty(ref _noNofications, value);
+        }
+
         #endregion
 
         #region Methods
@@ -98,6 +106,8 @@ namespace Journey.ViewModels
                 var postDTo = await _postCommentService.GetNotificationsAsync();
                 if (postDTo != null)
                     Notifications = new ObservableCollection<Notifications>(postDTo);
+
+                NoNofications = Notifications == null || Notifications.Count == 0;
             }
             catch (Exception e)
             {
@@ -161,7 +171,6 @@ namespace Journey.ViewModels
         }
 
         #endregion
-
 
         #region OnSelectedFriendCommand
 

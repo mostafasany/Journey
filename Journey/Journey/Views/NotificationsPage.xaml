@@ -37,8 +37,9 @@
                     </Image.GestureRecognizers>
                 </Controls:ImageControl>
                 <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" Margin="20,0" />
-                <ListView Grid.Row="2" SeparatorVisibility="None" RowHeight="100" ItemsSource="{Binding Notifications}" ItemTemplate="{StaticResource NotificationTemplate}" HorizontalOptions="Start" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true" RefreshCommand="{Binding OnPullRefreshRequestCommand}"
-                    SelectedItem="{Binding SelectedNotification,Mode=TwoWay}" />
+                <ListView IsVisible="{Binding NoNofications,Converter={StaticResource BoolInverterConverter}}" Grid.Row="2" SeparatorVisibility="None" RowHeight="100" ItemsSource="{Binding Notifications}" ItemTemplate="{StaticResource NotificationTemplate}" HorizontalOptions="Start" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
+                    RefreshCommand="{Binding OnPullRefreshRequestCommand}" SelectedItem="{Binding SelectedNotification,Mode=TwoWay}" />
+                <Label IsVisible="{Binding NoNofications}" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" Text="{resources:Translate Notification_NoNotifications}" TextColor="Gray" FontSize="20" />
             </Grid>
         </Grid>
     </ContentPage.Content>

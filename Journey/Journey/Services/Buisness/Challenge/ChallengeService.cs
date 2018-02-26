@@ -164,5 +164,21 @@ namespace Journey.Services.Buisness.Challenge
                 throw new BusinessException(ex.Message, ex);
             }
         }
+
+        public async Task<Models.Challenge.Challenge> UpdateExerciseNumberAsync(string challengeId)
+        {
+            try
+            {
+                var challenge = await GetChallengeAsync(challengeId);
+                var account=challenge.ChallengeAccounts.FirstOrDefault(a=>a.Id==_accountService.LoggedInAccount.Id);
+                account.NumberExercise++;
+                var challengeDto = await _challengeDataService.UpdateChallengeAsync(challenge);
+                return challengeDto;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
+        }
     }
 }
