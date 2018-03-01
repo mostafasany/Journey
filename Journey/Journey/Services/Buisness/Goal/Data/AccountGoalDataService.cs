@@ -76,13 +76,13 @@ namespace Journey.Services.Buisness.Goal.Data
                 throw new DataServiceException(ex.Message, ex);
             }
         }
-
-        //public async Task<AzureAccountGoal> SyncGoalAsync()
-        //{
-        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
+        //    {
 
         //    try
-        //    {
+        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
+        //{
+
+        //public async Task<AzureAccountGoal> SyncGoalAsync()
         //        await this.Client.SyncContext.PushAsync();
 
         //        // The first parameter is a query name that is used internally by the client SDK to implement incremental sync.

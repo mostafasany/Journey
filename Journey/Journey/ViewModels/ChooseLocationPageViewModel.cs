@@ -12,12 +12,13 @@ namespace Journey.ViewModels
 {
     public class ChooseLocationPageViewModel : BaseViewModel, INavigationAware
     {
+        private const string DefaultLocation = "DefaultLocation";
         private readonly IFacebookService _facebookService;
         private readonly ILocationService _locationService;
         private readonly ISettingsService _settingsService;
-        private const string DefaultLocation = "DefaultLocation";
+
         public ChooseLocationPageViewModel(IUnityContainer container, ILocationService locationService,
-                                           IFacebookService facebookService, ISettingsService settingsService) :
+            IFacebookService facebookService, ISettingsService settingsService) :
             base(container)
         {
             _locationService = locationService;
@@ -148,13 +149,11 @@ namespace Journey.ViewModels
             };
 
             var commands = new List<DialogCommand>
-                    {
-                       dafaultLocationCommand,
-                        cancelCommand
-                    };
+            {
+                dafaultLocationCommand,
+                cancelCommand
+            };
             await DialogService.ShowMessageAsync("", AppResource.Location_DefaultLocationTitle, commands);
-
-
         }
 
         #endregion

@@ -15,6 +15,7 @@ namespace Journey.Services.Buisness.Post.Data
     {
         private readonly IMobileServiceTable<AzurePost> _azurePost;
         private readonly MobileServiceClient _client;
+
         public PostDataService(IAzureService azureService)
         {
             _client = azureService.CreateOrGetAzureClient();

@@ -1,9 +1,8 @@
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
-using Journey.Models.Challenge;
+using Journey.Models;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Account.Data;
@@ -15,12 +14,13 @@ namespace Journey.Services.Buisness.Challenge
 {
     public class ChallengeService : IChallengeService
     {
-        private readonly IAccountService _accountService;
-        private readonly IFriendService _friendService;
-        private readonly INotificationService _notificationService;
         private readonly IAccountDataService _accountDataService;
+        private readonly IAccountService _accountService;
         private readonly IChallengeDataService _challengeDataService;
-       // private Models.Challenge.Challenge _challenge;
+        private readonly IFriendService _friendService;
+
+        private readonly INotificationService _notificationService;
+        // private Models.Challenge.Challenge _challenge;
 
         public ChallengeService(IChallengeDataService challengeDataService,
             IAccountDataService accountDataService,
@@ -40,8 +40,8 @@ namespace Journey.Services.Buisness.Challenge
             try
             {
                 //if (_challenge != null)
-                   // return _challenge;
-               var _challenge = await _challengeDataService.GetChallengeAsync(challengeId);
+                // return _challenge;
+                var _challenge = await _challengeDataService.GetChallengeAsync(challengeId);
                 return _challenge;
             }
             catch (Exception ex)
@@ -68,13 +68,14 @@ namespace Journey.Services.Buisness.Challenge
                 {
                     var toChallnegeAccount = challengeDto.ChallengeAccounts.LastOrDefault();
                     var notification = await _notificationService.AddNotificationAsync(
-                         new Models.Notifications
-                         {
-                             Account = toChallnegeAccount,
-                             Message = string.Format(AppResource.Notification_ChallengeRequestMessage, _accountService.LoggedInAccount.Name),
-                             Title = AppResource.Notification_ChallengeRequestTitle,
-                        DeepLink = string.Format("http://www.journey.challengeRequest?id={0}", challengeDto.Id),
-                         });
+                        new Notifications
+                        {
+                            Account = toChallnegeAccount,
+                            Message = string.Format(AppResource.Notification_ChallengeRequestMessage,
+                                _accountService.LoggedInAccount.Name),
+                            Title = AppResource.Notification_ChallengeRequestTitle,
+                            DeepLink = string.Format("http://www.journey.challengeRequest?id={0}", challengeDto.Id)
+                        });
                     if (notification != null)
                         return challengeDto;
                 }
@@ -92,8 +93,8 @@ namespace Journey.Services.Buisness.Challenge
             {
                 //_accountService.LoggedInAccount.ChallengeId = "";
                 //await accountDataService.AddUpdateAccountAsync(_accountService.LoggedInAccount, false);
-               
-               var _challenge = await _challengeDataService.CheckAccountHasChallengeAsync();
+
+                var _challenge = await _challengeDataService.CheckAccountHasChallengeAsync();
                 if (_challenge == null)
                     return false;
                 return true;
@@ -117,7 +118,7 @@ namespace Journey.Services.Buisness.Challenge
                 //_challenge.ChallengeAccounts.Add(new ChallengeAccount(account1) { NumberExercise = challenge1.NumberExercise });
                 //_challenge.ChallengeAccounts.Add(new ChallengeAccount(account2) { NumberExercise = challenge2.NumberExercise });
 
-               // return _challenge;
+                // return _challenge;
             }
             catch (Exception ex)
             {

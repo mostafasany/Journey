@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Prism.Navigation;
 using Unity;
-using Xamarin.Forms;
 using INavigationService = Abstractions.Services.Contracts.INavigationService;
 
 namespace Journey.Services.Forms
@@ -142,14 +140,12 @@ namespace Journey.Services.Forms
             try
             {
                 //if (removeLastPage)
-                    //await Application.Current.MainPage.Navigation.PopAsync();
+                //await Application.Current.MainPage.Navigation.PopAsync();
                 await _navigationService.NavigateAsync(pageToken, navigationParameters, useModalNavigation, animated);
             }
             catch (Exception ex)
             {
-
             }
-           
         }
     }
 }

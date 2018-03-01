@@ -73,11 +73,7 @@ namespace Journey.ViewModels
             }
         }
 
-        public bool HasNotActiveChallenge
-        {
-            get => !_hasActiveChallenge;
-
-        }
+        public bool HasNotActiveChallenge => !_hasActiveChallenge;
 
         #endregion
 
@@ -90,15 +86,12 @@ namespace Journey.ViewModels
                 ShowProgress();
                 if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
                 {
-                    SelectedChallenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
+                    SelectedChallenge =
+                        await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
                     if (SelectedChallenge != null)
-                    {
                         HasActiveChallenge = true;
-                    }
                     else
-                    {
                         HasActiveChallenge = false;
-                    }
                 }
                 else
                 {
@@ -178,7 +171,6 @@ namespace Journey.ViewModels
 
         #endregion
 
-      
         #endregion
     }
 }

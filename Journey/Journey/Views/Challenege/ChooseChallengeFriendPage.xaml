@@ -1,5 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.ChooseChallengeFriendPage">
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views"
+                xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources"
+                x:Class="Journey.Views.ChooseChallengeFriendPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="FriendTemplate">
@@ -11,17 +16,22 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Controls:CustomImage Grid.Column="0" Source="{Binding Image.Path}" Aspect="AspectFit" HeightRequest="100" HorizontalOptions="Start">
+                            <Controls:CustomImage Grid.Column="0" Source="{Binding Image.Path}" Aspect="AspectFit"
+                                                  HeightRequest="100" HorizontalOptions="Start">
                                 <Controls:CustomImage.Transformations>
                                     <fftransformations:CircleTransformation />
                                 </Controls:CustomImage.Transformations>
                             </Controls:CustomImage>
-                            <Label Grid.Column="1" Text="{Binding Name}" TextColor="Black" FontSize="20" Margin="5,0" HorizontalOptions="Start" VerticalOptions="Center" />
+                            <Label Grid.Column="1" Text="{Binding Name}" TextColor="Black" FontSize="20" Margin="5,0"
+                                   HorizontalOptions="Start" VerticalOptions="Center" />
                             <StackLayout Grid.Column="2" BackgroundColor="White">
                                 <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.OnSelectedFriendCommand, Source={x:Reference Name=parent}}" CommandParameter="{Binding} " />
+                                    <TapGestureRecognizer
+                                        Command="{Binding Path=BindingContext.OnSelectedFriendCommand, Source={x:Reference Name=parent}}"
+                                        CommandParameter="{Binding} " />
                                 </StackLayout.GestureRecognizers>
-                                <Controls:ImageControl PortablePath="compete.png" WidthRequest="50" HeightRequest="50" Style="{StaticResource IconStyle}" />
+                                <Controls:ImageControl PortablePath="compete.png" WidthRequest="50" HeightRequest="50"
+                                                       Style="{StaticResource IconStyle}" />
                                 <Label Text="Compete" FontSize="12" HorizontalOptions="Center" />
                             </StackLayout>
                         </Grid>
@@ -42,16 +52,24 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Controls:ImageControl Grid.Column="0" Margin="10,0,0,0" PortablePath="back.png" Style="{StaticResource IconStyle}">
+                <Controls:ImageControl Grid.Column="0" Margin="10,0,0,0" PortablePath="back.png"
+                                       Style="{StaticResource IconStyle}">
                     <Controls:ImageControl.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnBackCommand}" CommandParameter="{Binding}" />
                     </Controls:ImageControl.GestureRecognizers>
                 </Controls:ImageControl>
-                <SearchBar Grid.Column="1" BackgroundColor="White" WidthRequest="400" Placeholder="{resources:Translate SearchFriends_Placholder}" Text="{Binding SearchKeyword,Mode=TwoWay}" SearchCommand="{Binding OnSearchCommand}" />
+                <SearchBar Grid.Column="1" BackgroundColor="White" WidthRequest="400"
+                           Placeholder="{resources:Translate SearchFriends_Placholder}"
+                           Text="{Binding SearchKeyword,Mode=TwoWay}" SearchCommand="{Binding OnSearchCommand}" />
             </Grid>
-            <Controls:LoadingControl Grid.Row="1" Margin="10,0" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
-            <ListView x:Name="parent" Grid.Row="2" Margin="10" RowHeight="100" SeparatorVisibility="None" ItemsSource="{Binding FriendsList}" ItemTemplate="{StaticResource FriendTemplate}" SelectedItem="{Binding SelectedFriend,Mode=TwoWay}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}"
-                RefreshAllowed="true" RefreshCommand="{Binding OnPullRefreshRequestCommand}" HorizontalOptions="Start" />
+            <Controls:LoadingControl Grid.Row="1" Margin="10,0" IsVisible="{Binding IsLoading}"
+                                     HorizontalOptions="Center" VerticalOptions="Center" />
+            <ListView x:Name="parent" Grid.Row="2" Margin="10" RowHeight="100" SeparatorVisibility="None"
+                      ItemsSource="{Binding FriendsList}" ItemTemplate="{StaticResource FriendTemplate}"
+                      SelectedItem="{Binding SelectedFriend,Mode=TwoWay}" IsPullToRefreshEnabled="true"
+                      IsRefreshing="{Binding IsPullRefreshLoading}"
+                      RefreshAllowed="true" RefreshCommand="{Binding OnPullRefreshRequestCommand}"
+                      HorizontalOptions="Start" />
         </Grid>
     </ContentPage.Content>
 </local:BasePage>

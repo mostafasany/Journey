@@ -3,9 +3,9 @@ using System.Linq;
 using Journey.ViewModels;
 using Journey.ViewModels.Wall;
 using Journey.Views.Post;
-using Prism.Navigation;
-using Xamarin.Forms;
 using Unity;
+using Xamarin.Forms;
+
 namespace Journey.Views
 {
     public partial class HomePage : BasePage
@@ -17,13 +17,12 @@ namespace Journey.Views
             InitializeComponent();
             var tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.Tapped += TapGestureRecognizer_Tapped;
-            this.SizeChanged += HomePage_SizeChanged;
-           
+            SizeChanged += HomePage_SizeChanged;
         }
 
         private void HomePage_SizeChanged(object sender, EventArgs e)
         {
-            bool newPostWithHome = this.Width > 1000;
+            var newPostWithHome = Width > 1000;
             if (newPostWithHome)
             {
                 Header.IsVisible = false;
@@ -40,17 +39,17 @@ namespace Journey.Views
         {
             base.OnAppearing();
             _vm = BindingContext as HomePageViewModel;
-            bool newPostWithHome = this.Width > 1000;
+            var newPostWithHome = Width > 1000;
             if (newPostWithHome)
             {
                 var newPostView = new NewPostView();
-                var vm = this.BindingContext as HomePageViewModel;
+                var vm = BindingContext as HomePageViewModel;
                 if (vm != null)
                 {
                     newPostView.BindingContext = vm.Container.Resolve<NewPostPageViewModel>();
                     vm.Intialize(true);
                 }
-                  
+
                 Container.Content = newPostView;
             }
         }

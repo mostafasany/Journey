@@ -27,7 +27,7 @@ namespace Journey.Services.Buisness.Post.Data
                 if (post == null)
                     return null;
                 var assembly = typeof(PostDataMockService).GetTypeInfo().Assembly;
-                Stream stream = assembly.GetManifestResourceStream("Journey.Services.Mocks.PostMock.xml");
+                var stream = assembly.GetManifestResourceStream("Journey.Services.Mocks.PostMock.xml");
                 string text;
                 using (var reader = new StreamReader(stream))
                 {
@@ -65,7 +65,7 @@ namespace Journey.Services.Buisness.Post.Data
             try
             {
                 var assembly = typeof(PostDataMockService).GetTypeInfo().Assembly;
-                Stream stream = assembly.GetManifestResourceStream("Journey.Services.Mocks.PostsMock.xml");
+                var stream = assembly.GetManifestResourceStream("Journey.Services.Mocks.PostsMock.xml");
                 string text;
                 using (var reader = new StreamReader(stream))
                 {

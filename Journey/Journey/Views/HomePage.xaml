@@ -161,7 +161,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <ContentView x:Name="Container" WidthRequest="400"  Grid.Column="0"/>
+            <ContentView x:Name="Container" WidthRequest="400" Grid.Column="0" />
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -169,14 +169,14 @@
                     <RowDefinition Height="50" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" HeightRequest="60"  BackgroundColor="White" x:Name="Header">
+                <Grid Grid.Row="0" HeightRequest="60" BackgroundColor="White" x:Name="Header">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Controls:CustomImage Grid.Column="0" Margin="10,5" Source="{Binding Image.Path}" WidthRequest="50"
-                                      HeightRequest="50" Style="{StaticResource ImageHeaderStyle}">
+                                          HeightRequest="50" Style="{StaticResource ImageHeaderStyle}">
                         <Controls:CustomImage.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnProfileCommand}" />
                         </Controls:CustomImage.GestureRecognizers>
@@ -188,12 +188,13 @@
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnNewPostCommand}" />
                         </Grid.GestureRecognizers>
-                        <Label FontSize="12" Text="{Binding WelcomeMessage}" TextColor="{StaticResource LightTextColor}"
-                           HorizontalOptions="Start" VerticalOptions="Center">
+                        <Label FontSize="12" Text="{Binding WelcomeMessage}"
+                               TextColor="{StaticResource LightTextColor}"
+                               HorizontalOptions="Start" VerticalOptions="Center">
                         </Label>
                     </Grid>
                     <Controls:LoadingControl IsVisible="{Binding IsLoading}" Grid.Column="2" HorizontalOptions="End"
-                                         VerticalOptions="Center" Margin="20,0" />
+                                             VerticalOptions="Center" Margin="20,0" />
                 </Grid>
                 <Grid BackgroundColor="#d3d3d3" Grid.Row="1">
                 </Grid>
@@ -212,21 +213,25 @@
                     </Grid>
                 </Grid>
                 <ListView x:Name="lst" CachingStrategy="RecycleElement" ItemsSource="{Binding PostsViewModels}"
-                      Grid.Row="3" SeparatorVisibility="None" ItemTemplate="{StaticResource PostTemplate}"
-                      HasUnevenRows="false" BackgroundColor="#d3d3d3" ItemAppearing="Handle_ItemAppearing"
-                      IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
-                      RefreshCommand="{Binding OnRefreshPostsCommand}">
+                          Grid.Row="3" SeparatorVisibility="None" ItemTemplate="{StaticResource PostTemplate}"
+                          HasUnevenRows="false" BackgroundColor="#d3d3d3" ItemAppearing="Handle_ItemAppearing"
+                          IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}"
+                          RefreshAllowed="true"
+                          RefreshCommand="{Binding OnRefreshPostsCommand}">
                     <ListView.Header>
                         <Grid RowSpacing="0">
                             <Grid RowSpacing="0" IsVisible="{Binding HasNotActiveChallenge}">
                                 <Controls:ImageControl Aspect="AspectFill" PortablePath="challengeBanner.png"
-                                                  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                       HorizontalOptions="FillAndExpand"
+                                                       VerticalOptions="FillAndExpand" />
                                 <StackLayout Orientation="Vertical">
-                                    <Label Margin="0,5" Text="{resources:Translate Home_StartNewChallenge}" FontSize="22"
-                                       FontAttributes="Bold" HorizontalOptions="Center" TextColor="White" />
-                                    <Button Margin="0,0,0,5" Text="Start" Command="{Binding OnStartNewChallengeCommand}"
-                                        WidthRequest="150" HorizontalOptions="Center" FontSize="14"
-                                        Style="{StaticResource SecondaryButtonStyle}" />
+                                    <Label Margin="0,5" Text="{resources:Translate Home_StartNewChallenge}"
+                                           FontSize="22"
+                                           FontAttributes="Bold" HorizontalOptions="Center" TextColor="White" />
+                                    <Button Margin="0,0,0,5" Text="Start"
+                                            Command="{Binding OnStartNewChallengeCommand}"
+                                            WidthRequest="150" HorizontalOptions="Center" FontSize="14"
+                                            Style="{StaticResource SecondaryButtonStyle}" />
                                 </StackLayout>
                             </Grid>
                         </Grid>

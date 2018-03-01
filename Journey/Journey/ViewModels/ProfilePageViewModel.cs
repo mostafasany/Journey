@@ -7,7 +7,6 @@ using Journey.Resources;
 using Journey.Services.Buisness.Account;
 using Prism.Commands;
 using Unity;
-using Xamarin.Forms;
 
 namespace Journey.ViewModels
 {
@@ -120,10 +119,10 @@ namespace Journey.ViewModels
                             Label = AppResource.Logout,
                             Invoked = () => { OnLogoutCommand.Execute(); }
                         },
-                    new DialogCommand
+                        new DialogCommand
                         {
-                        Label = AppResource.Cancel,
-                            Invoked = () => {  }
+                            Label = AppResource.Cancel,
+                            Invoked = () => { }
                         }
                     };
 
@@ -214,7 +213,6 @@ namespace Journey.ViewModels
             if (NavigationService.CurrentPage == "ProfileChallengePage")
                 return;
             NavigationService.GoBack();
-
         }
 
         #endregion

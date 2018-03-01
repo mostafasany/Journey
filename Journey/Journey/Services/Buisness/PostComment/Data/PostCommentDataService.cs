@@ -85,14 +85,14 @@ namespace Journey.Services.Buisness.PostComment.Data
                 throw new DataServiceException(ex.Message, ex);
             }
         }
-        //        await _client.SyncContext.PushAsync();
-        //    {
-
-        //    try
-        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
-        //{
 
         //public async Task<List<AzurePostComments>> SyncCommentAsync(string post)
+        //{
+        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
+
+        //    try
+        //    {
+        //        await _client.SyncContext.PushAsync();
 
         //        // The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
         //        // Use a different query name for each unique query in your program.

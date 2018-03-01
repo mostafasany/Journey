@@ -15,7 +15,7 @@ namespace Journey.ViewModels
         private readonly INotificationService _postCommentService;
 
         public NotificationsPageViewModel(IUnityContainer container,
-                                          INotificationService postCommentService, IDeepLinkService deepLinking) :
+            INotificationService postCommentService, IDeepLinkService deepLinking) :
             base(container)
         {
             _postCommentService = postCommentService;
@@ -61,7 +61,8 @@ namespace Journey.ViewModels
             }
         }
 
-        Notifications selectedNotification;
+        private Notifications selectedNotification;
+
         public Notifications SelectedNotification
         {
             get => selectedNotification;
@@ -165,8 +166,8 @@ namespace Journey.ViewModels
 
         #region OnSelectedFriendCommand
 
-
-        public DelegateCommand<Notifications> OnSelectedNotificationCommand => new DelegateCommand<Notifications>(OnSelectedNotification);
+        public DelegateCommand<Notifications> OnSelectedNotificationCommand => new DelegateCommand<Notifications>(
+            OnSelectedNotification);
 
         private void OnSelectedNotification(Notifications notification)
         {
@@ -174,18 +175,14 @@ namespace Journey.ViewModels
             {
                 _deepLinking.ParseDeepLinkingAndExecute(notification?.DeepLink);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 ExceptionService.Handle(ex);
             }
         }
 
-
         #endregion
 
         #endregion
     }
-
-
-      
 }

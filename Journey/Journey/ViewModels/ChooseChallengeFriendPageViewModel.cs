@@ -146,12 +146,11 @@ namespace Journey.ViewModels
                     Invoked = async () =>
                     {
                         var parameters = new Dictionary<string, object>
-                         {
+                        {
                             {"ToChallenge", selectedFriend},
                             {"Mode", 0}
-                         };
+                        };
                         await NavigationService.Navigate("NewChallengePage", parameters);
-            
                     }
                 };
 

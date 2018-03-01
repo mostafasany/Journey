@@ -38,7 +38,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                int mode = parameters.GetValue<int>("Mode");
+                var mode = parameters.GetValue<int>("Mode");
                 IsAddMode = false;
                 IsApproveRequestMode = false;
 
@@ -59,11 +59,9 @@ namespace Journey.ViewModels
                 }
                 else
                 {
-                    string challengeId = parameters.GetValue<string>("Challenge") ?? null;
+                    var challengeId = parameters.GetValue<string>("Challenge") ?? null;
                     if (!string.IsNullOrEmpty(challengeId))
-                    {
                         SelectedChallenge = await _challengeService.GetChallengeAsync(challengeId);
-                    }
 
                     if (mode == 1)
                     {
@@ -71,7 +69,6 @@ namespace Journey.ViewModels
                     }
                     else if (mode == 2)
                     {
-
                         IsApproveRequestMode = true;
                         //Approve Request 
                     }
@@ -117,7 +114,6 @@ namespace Journey.ViewModels
         }
 
 
-
         private Account toChallenge;
 
         public Account ToChallenge
@@ -154,7 +150,6 @@ namespace Journey.ViewModels
 
         public override async void Intialize(bool sync = false)
         {
-
         }
 
         protected override void Cleanup()
@@ -243,7 +238,7 @@ namespace Journey.ViewModels
                 }
                 else
                 {
-                    await DialogService.ShowMessageAsync(AppResource.Challenge_AlreadyExists,AppResource.Error);
+                    await DialogService.ShowMessageAsync(AppResource.Challenge_AlreadyExists, AppResource.Error);
                 }
             }
             catch (Exception ex)

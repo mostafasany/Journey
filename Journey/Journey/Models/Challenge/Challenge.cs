@@ -52,15 +52,9 @@ namespace Journey.Models.Challenge
         }
 
 
-        public string StartDateFormated
-        {
-            get => startDate.ToString("Y");
-        }
+        public string StartDateFormated => startDate.ToString("Y");
 
-        public string EndDateFormated
-        {
-            get => endDate.ToString("Y");
-        }
+        public string EndDateFormated => endDate.ToString("Y");
 
 
         public bool IsActive

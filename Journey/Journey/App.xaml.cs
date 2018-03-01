@@ -133,8 +133,9 @@ namespace Journey
             container.RegisterType<IPostService, PostService>(new ContainerControlledLifetimeManager());
 
 //#if __ANDROID__
- container.RegisterType<IPostDataService, PostDataMockService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IAccountDataService, AccountDataMockService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IPostDataService, PostDataMockService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IAccountDataService, AccountDataMockService>(
+                new ContainerControlledLifetimeManager());
             //#else
             //  container.RegisterType<IPostDataService, PostDataService>(new ContainerControlledLifetimeManager());
             //container.RegisterType<IAccountDataService, AccountDataService>(new ContainerControlledLifetimeManager());
@@ -142,21 +143,21 @@ namespace Journey
             container.RegisterType<IPostCommentService, PostCommentService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IPostCommentDataService, PostCommentDataService>(
                 new ContainerControlledLifetimeManager());
-         
+
             container.RegisterType<IFacebookService, FacebookService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IAccountService, AccountService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IFriendService, FriendService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IFriendDataService, FriendDataService>(new ContainerControlledLifetimeManager());
 
-            container.RegisterType<INotificationDataService, NotificationDataService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<INotificationDataService, NotificationDataService>(
+                new ContainerControlledLifetimeManager());
             container.RegisterType<INotificationService, NotificationService>(new ContainerControlledLifetimeManager());
 
             container.RegisterType<IChallengeService, ChallengeService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IChallengeDataService, ChallengeDataService>(
                 new ContainerControlledLifetimeManager());
-         
-            container.RegisterType<IDeepLinkService, DeepLinkService>(new ContainerControlledLifetimeManager());
 
+            container.RegisterType<IDeepLinkService, DeepLinkService>(new ContainerControlledLifetimeManager());
 
 
             container.RegisterType<IAccountGoalService, AccountGoalService>(new ContainerControlledLifetimeManager());

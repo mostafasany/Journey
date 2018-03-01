@@ -92,7 +92,7 @@ namespace Journey.ViewModels
             {
                 if (App.Authenticator == null) return;
                 ShowProgress();
-                var authenticated =await _accountService.AutehticateAsync();
+                var authenticated = await _accountService.AutehticateAsync();
                 if (authenticated == null)
                 {
                     await DialogService.ShowMessageAsync(AppResource.Login_CantLoginMessage,

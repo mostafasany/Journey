@@ -16,6 +16,7 @@ namespace Journey.Services.Buisness.Account.Data
         private readonly IMobileServiceTable<AzureAccount> _accountTable;
         private readonly MobileServiceClient _client;
         private readonly ISerializerService _serializerService;
+
         public AccountDataService(IAzureService azureService, ISerializerService serializerService)
         {
             _client = azureService.CreateOrGetAzureClient();
@@ -54,7 +55,6 @@ namespace Journey.Services.Buisness.Account.Data
 
         public async Task<MobileServiceUser> AutehticateAsync()
         {
-
             try
             {
                 var authenticated = await App.Authenticator.Authenticate();
@@ -121,27 +121,27 @@ namespace Journey.Services.Buisness.Account.Data
             try
             {
                 var socialInfo = await _client.InvokeApiAsync<List<Social>>("/.auth/me");
-               return socialInfo;
+                return socialInfo;
             }
             catch (Exception ex)
             {
                 throw new DataServiceException(ex);
             }
         }
-
-        //    {
-
-        //    try
-        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
-        //{
-
-        //private async Task<AzureAccount> SyncAccountAsync()
-        //        await this.Client.SyncContext.PushAsync();
+        //        await this.accountTable.PullAsync("account", this.accountTable.CreateQuery());
+        //        // Use a different query name for each unique query in your program.
 
 
         //        // The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
-        //        // Use a different query name for each unique query in your program.
-        //        await this.accountTable.PullAsync("account", this.accountTable.CreateQuery());
+        //        await this.Client.SyncContext.PushAsync();
+
+        //private async Task<AzureAccount> SyncAccountAsync()
+        //{
+        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
+
+        //    try
+
+        //    {
 
         //        string account = Client.CurrentUser.UserId;
         //        AzureAccount azureAccountDTO = await accountTable.LookupAsync(account);

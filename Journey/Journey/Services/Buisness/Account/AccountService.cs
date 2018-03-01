@@ -118,7 +118,7 @@ namespace Journey.Services.Buisness.Account
         {
             try
             {
-                var socialInfo =await _accountDataService.MeAsync();
+                var socialInfo = await _accountDataService.MeAsync();
                 var info = socialInfo.FirstOrDefault();
                 Token = info.AccessToken;
                 if (string.IsNullOrEmpty(Token))

@@ -136,7 +136,7 @@ namespace Journey.ViewModels
         #region Properties
 
         public Media Image => LoggedInAccount == null
-            ? new Media { Path = "http://bit.ly/2zBffZy" }
+            ? new Media {Path = "http://bit.ly/2zBffZy"}
             : _loggedInAccount.Image;
 
         private Account _loggedInAccount;
@@ -410,8 +410,8 @@ namespace Journey.ViewModels
         private ICommand _onNotificationCommand;
 
         public ICommand OnNotificationCommand => _onNotificationCommand ??
-                                            (_onNotificationCommand =
-                                             new DelegateCommand(OnNotification));
+                                                 (_onNotificationCommand =
+                                                     new DelegateCommand(OnNotification));
 
         private async void OnNotification()
         {
