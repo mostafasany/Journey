@@ -133,12 +133,12 @@ namespace Journey
             container.RegisterType<IPostService, PostService>(new ContainerControlledLifetimeManager());
 
 //#if __ANDROID__
-            container.RegisterType<IPostDataService, PostDataMockService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IAccountDataService, AccountDataMockService>(
-                new ContainerControlledLifetimeManager());
+            //container.RegisterType<IPostDataService, PostDataMockService>(new ContainerControlledLifetimeManager());
+            //container.RegisterType<IAccountDataService, AccountDataMockService>(
+              //  new ContainerControlledLifetimeManager());
             //#else
-            //  container.RegisterType<IPostDataService, PostDataService>(new ContainerControlledLifetimeManager());
-            //container.RegisterType<IAccountDataService, AccountDataService>(new ContainerControlledLifetimeManager());
+             container.RegisterType<IPostDataService, PostDataService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IAccountDataService, AccountDataService>(new ContainerControlledLifetimeManager());
             //#endif
             container.RegisterType<IPostCommentService, PostCommentService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IPostCommentDataService, PostCommentDataService>(

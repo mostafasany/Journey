@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Abstractions.Forms;
+using Abstractions.Models;
 using Journey.Models.Account;
 using Journey.Models.Post;
 using Journey.Resources;
@@ -21,12 +22,13 @@ namespace Journey.ViewModels
     {
         private readonly IAccountService _accountService;
         private readonly IPostService _postService;
-
-        public HomePageViewModel(IUnityContainer container, IPostService postService, IAccountService accountService) :
+        public  readonly NewPostPageViewModel _newPostPageViewModel;
+        public HomePageViewModel(IUnityContainer container, IPostService postService, IAccountService accountService,NewPostPageViewModel newPostPageViewModel) :
             base(container)
         {
             _postService = postService;
             _accountService = accountService;
+            _newPostPageViewModel = newPostPageViewModel;
             _postService.PostStatusChangedEventHandler += _postService_PostStatusChangedEventHandler;
         }
 
@@ -46,6 +48,13 @@ namespace Journey.ViewModels
                     IsPullRefreshLoading = false;
                     Intialize(sync);
                 }
+                var location = parameters.GetValue<Location>("Location");
+                if (location != null)
+                {
+                    _newPostPageViewModel.NewPost.Location =
+                      new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
+                }
+                  
             }
             catch (Exception ex)
             {
@@ -136,7 +145,7 @@ namespace Journey.ViewModels
         #region Properties
 
         public Media Image => LoggedInAccount == null
-            ? new Media {Path = "http://bit.ly/2zBffZy"}
+            ? new Media { Path = "http://bit.ly/2zBffZy" }
             : _loggedInAccount.Image;
 
         private Account _loggedInAccount;

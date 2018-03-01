@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -36,12 +36,7 @@
                     <Grid Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill">
                         <Label Text="{Binding LoggedInAccount.Name}" FontAttributes="Bold" TextColor="Black"
                                FontSize="14" HorizontalOptions="Start" />
-                        <Controls:ImageControl Grid.Row="0" PortablePath="clear.png" Style="{StaticResource IconStyle}"
-                                               HorizontalOptions="End">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
-                            </Image.GestureRecognizers>
-                        </Controls:ImageControl>
+                       
                     </Grid>
                     <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal"
                                  IsVisible="{Binding Post.HasLocation}">

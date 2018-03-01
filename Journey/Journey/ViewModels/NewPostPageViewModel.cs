@@ -30,7 +30,7 @@ namespace Journey.ViewModels
 
         public NewPostPageViewModel(IUnityContainer container, IBlobService blobService,
                                     IPostService postService, IMediaService<Media> mediaService, IAccountService accountService,
-                                    IChallengeService challengeService,ISettingsService settingsService) :
+                                    IChallengeService challengeService, ISettingsService settingsService) :
             base(container)
         {
             _mediaService = mediaService;
@@ -52,12 +52,13 @@ namespace Journey.ViewModels
         {
             try
             {
+              
                 if (parameters?.GetNavigationMode() == NavigationMode.Back)
                 {
                     var location = parameters.GetValue<Location>("Location");
                     if (location != null)
                         NewPost.Location =
-                            new PostActivity {Action = "At", Activity = location.Name, Image = location.Image};
+                            new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
                 }
 
                 Intialize();
@@ -243,18 +244,18 @@ namespace Journey.ViewModels
                 await DialogService.ShowMessageAsync(AppResource.NewPost_NewPostError, AppResource.Error);
                 return;
             }
-            if(!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
+            if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
             {
-                var date=await _settingsService.Get(LastPostDate);
+                var date = await _settingsService.Get(LastPostDate);
                 DateTime parsedDate;
-                DateTime.TryParse(date,out parsedDate);
-                if(parsedDate.Date!=DateTime.Now.Date)
+                DateTime.TryParse(date, out parsedDate);
+                if (parsedDate.Date != DateTime.Now.Date)
                 {
                     await _settingsService.Set(LastPostDate, DateTime.Now.Date.ToString());
                     await _challengeService.UpdateExerciseNumberAsync(_accountService.LoggedInAccount.ChallengeId);
                 }
             }
-               
+
             NewPost = new Post();
 
             imagesPath = new List<string>();

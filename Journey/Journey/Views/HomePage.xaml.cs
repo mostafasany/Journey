@@ -27,6 +27,19 @@ namespace Journey.Views
             {
                 Header.IsVisible = false;
                 Container.IsVisible = true;
+                if (Container.Content == null)
+                {
+                    var newPostView = new NewPostView();
+                    var vm = BindingContext as HomePageViewModel;
+                    if (vm != null)
+                    {
+                        var postVM = vm._newPostPageViewModel;
+                        newPostView.BindingContext = postVM;
+                        postVM.Intialize(true);
+                    }
+
+                    Container.Content = newPostView;
+                }
             }
             else
             {
@@ -39,19 +52,20 @@ namespace Journey.Views
         {
             base.OnAppearing();
             _vm = BindingContext as HomePageViewModel;
-            var newPostWithHome = Width > 1000;
-            if (newPostWithHome)
-            {
-                var newPostView = new NewPostView();
-                var vm = BindingContext as HomePageViewModel;
-                if (vm != null)
-                {
-                    newPostView.BindingContext = vm.Container.Resolve<NewPostPageViewModel>();
-                    vm.Intialize(true);
-                }
+            //var newPostWithHome = Width > 1000;
+            //if (newPostWithHome)
+            //{
+            //    var newPostView = new NewPostView();
+            //    var vm = BindingContext as HomePageViewModel;
+            //    if (vm != null)
+            //    {
+            //        var postVM = vm.Container.Resolve<NewPostPageViewModel>();
+            //        newPostView.BindingContext = postVM;
+            //        postVM.Intialize(true);
+            //    }
 
-                Container.Content = newPostView;
-            }
+            //    Container.Content = newPostView;
+            //}
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
