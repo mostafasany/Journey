@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Abstractions.Contracts;
 using Abstractions.Exceptions;
 using Abstractions.Forms;
 using Abstractions.Services.Contracts;
@@ -103,11 +102,23 @@ namespace Journey.Services.Buisness.Account
             }
         }
 
+        public async Task<MobileServiceUser> AutehticateAsync()
+        {
+            try
+            {
+                return await _accountDataService.AutehticateAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message);
+            }
+        }
+
         public async Task<bool> SoicalLoginAndSaveAsync(MobileServiceClient client)
         {
             try
             {
-                var socialInfo = await client.InvokeApiAsync<List<Social>>("/.auth/me");
+                var socialInfo =await _accountDataService.MeAsync();
                 var info = socialInfo.FirstOrDefault();
                 Token = info.AccessToken;
                 if (string.IsNullOrEmpty(Token))

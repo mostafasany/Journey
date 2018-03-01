@@ -131,11 +131,18 @@ namespace Journey
             container.RegisterType<IAzureService, AzureService>(new ContainerControlledLifetimeManager());
 
             container.RegisterType<IPostService, PostService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IPostDataService, PostDataService>(new ContainerControlledLifetimeManager());
+
+//#if __ANDROID__
+ container.RegisterType<IPostDataService, PostDataMockService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IAccountDataService, AccountDataMockService>(new ContainerControlledLifetimeManager());
+            //#else
+            //  container.RegisterType<IPostDataService, PostDataService>(new ContainerControlledLifetimeManager());
+            //container.RegisterType<IAccountDataService, AccountDataService>(new ContainerControlledLifetimeManager());
+            //#endif
             container.RegisterType<IPostCommentService, PostCommentService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IPostCommentDataService, PostCommentDataService>(
                 new ContainerControlledLifetimeManager());
-            container.RegisterType<IAccountDataService, AccountDataService>(new ContainerControlledLifetimeManager());
+         
             container.RegisterType<IFacebookService, FacebookService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IAccountService, AccountService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IFriendService, FriendService>(new ContainerControlledLifetimeManager());

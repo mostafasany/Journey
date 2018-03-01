@@ -270,6 +270,10 @@
       <Project>{dc18b476-29b8-49b4-bf46-50a295f3758c}</Project>
       <Name>Journey</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Abstractions.Forms\Abstractions.Forms.csproj">
+      <Project>{BADCAB4E-C095-4868-AF47-2343625E6105}</Project>
+      <Name>Abstractions.Forms</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\xml\file_paths.xml" />

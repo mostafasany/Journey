@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Abstractions.Contracts;
 using Abstractions.Exceptions;
+using Abstractions.Services.Contracts;
 using Journey.Services.Azure;
 using Journey.Services.Buisness.Account.Dto;
 using Journey.Services.Buisness.Account.Translators;
@@ -12,11 +15,12 @@ namespace Journey.Services.Buisness.Account.Data
     {
         private readonly IMobileServiceTable<AzureAccount> _accountTable;
         private readonly MobileServiceClient _client;
-
-        public AccountDataService(IAzureService azureService)
+        private readonly ISerializerService _serializerService;
+        public AccountDataService(IAzureService azureService, ISerializerService serializerService)
         {
             _client = azureService.CreateOrGetAzureClient();
             _accountTable = _client.GetTable<AzureAccount>();
+            _serializerService = serializerService;
         }
 
         public async Task<Models.Account.Account> AddUpdateAccountAsync(Models.Account.Account account, bool add)
@@ -26,19 +30,20 @@ namespace Journey.Services.Buisness.Account.Data
                 if (account == null)
                     return null;
 
-                var accountDto = AccountDataTranslator.TranslateAccount(account);
+                var azureAccountDto = AccountDataTranslator.TranslateAccount(account);
 
                 //var existingaccount = await GetAccountAsync();
                 //if (string.IsNullOrEmpty(account.FirstName)) //Means it came from Facebook Login "Not Data" so Migrate
                 //    accountDto = AccountDataTranslator.TranslateAccount(existingaccount);
                 if (add)
-                    await _accountTable.InsertAsync(accountDto);
+                    await _accountTable.InsertAsync(azureAccountDto);
 
                 else
-                    await _accountTable.UpdateAsync(accountDto);
+                    await _accountTable.UpdateAsync(azureAccountDto);
+
 
                 //accountDto = await SyncAccountAsync();
-                account = AccountDataTranslator.TranslateAccount(accountDto);
+                account = AccountDataTranslator.TranslateAccount(azureAccountDto);
                 return account;
             }
             catch (Exception ex)
@@ -47,6 +52,19 @@ namespace Journey.Services.Buisness.Account.Data
             }
         }
 
+        public async Task<MobileServiceUser> AutehticateAsync()
+        {
+
+            try
+            {
+                var authenticated = await App.Authenticator.Authenticate();
+                return authenticated;
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(ex);
+            }
+        }
 
         public async Task<Models.Account.Account> GetAccountAsync(bool sync = false)
         {
@@ -57,7 +75,6 @@ namespace Journey.Services.Buisness.Account.Data
                     return null;
 
                 var azureAccountDto = await _accountTable.LookupAsync(_client.CurrentUser.UserId);
-
                 //if (azureAccountDto != null && string.IsNullOrEmpty(azureAccountDto.Challenge))
                 //    await _accountTable.UpdateAsync(azureAccountDto);
 
@@ -92,6 +109,19 @@ namespace Journey.Services.Buisness.Account.Data
             {
                 return _client.CurrentUser != null &&
                        !string.IsNullOrEmpty(_client.CurrentUser.MobileServiceAuthenticationToken);
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(ex);
+            }
+        }
+
+        public async Task<List<Social>> MeAsync()
+        {
+            try
+            {
+                var socialInfo = await _client.InvokeApiAsync<List<Social>>("/.auth/me");
+               return socialInfo;
             }
             catch (Exception ex)
             {

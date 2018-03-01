@@ -45,7 +45,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                if (parameters.GetNavigationMode() == NavigationMode.Back)
+                if (parameters?.GetNavigationMode() == NavigationMode.Back)
                 {
                     var location = parameters.GetValue<Location>("Location");
                     if (location != null)
@@ -53,7 +53,7 @@ namespace Journey.ViewModels
                             new PostActivity {Action = "At", Activity = location.Name, Image = location.Image};
                 }
 
-                LoggedInAccount = await _accountService.GetAccountAsync();
+                Intialize();
             }
             catch (Exception e)
             {
@@ -133,11 +133,12 @@ namespace Journey.ViewModels
 
         #region Methods
 
-        public override void Intialize(bool sync = false)
+        public override async void Intialize(bool sync = false)
         {
             try
             {
                 ShowProgress();
+                LoggedInAccount = await _accountService.GetAccountAsync();
                 base.Intialize(sync);
             }
             catch (Exception e)

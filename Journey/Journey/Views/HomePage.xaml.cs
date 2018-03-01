@@ -2,8 +2,10 @@
 using System.Linq;
 using Journey.ViewModels;
 using Journey.ViewModels.Wall;
+using Journey.Views.Post;
+using Prism.Navigation;
 using Xamarin.Forms;
-
+using Unity;
 namespace Journey.Views
 {
     public partial class HomePage : BasePage
@@ -15,18 +17,47 @@ namespace Journey.Views
             InitializeComponent();
             var tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.Tapped += TapGestureRecognizer_Tapped;
-            //img.GestureRecognizers.Add(tapGestureRecognizer);
+            this.SizeChanged += HomePage_SizeChanged;
+           
+        }
+
+        private void HomePage_SizeChanged(object sender, EventArgs e)
+        {
+            bool newPostWithHome = this.Width > 1000;
+            if (newPostWithHome)
+            {
+                Header.IsVisible = false;
+                Container.IsVisible = true;
+            }
+            else
+            {
+                Header.IsVisible = true;
+                Container.IsVisible = false;
+            }
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
             _vm = BindingContext as HomePageViewModel;
+            bool newPostWithHome = this.Width > 1000;
+            if (newPostWithHome)
+            {
+                var newPostView = new NewPostView();
+                var vm = this.BindingContext as HomePageViewModel;
+                if (vm != null)
+                {
+                    newPostView.BindingContext = vm.Container.Resolve<NewPostPageViewModel>();
+                    vm.Intialize(true);
+                }
+                  
+                Container.Content = newPostView;
+            }
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            if (_vm.PostsViewModels != null && _vm.PostsViewModels.FirstOrDefault() != null)
+            if (_vm.PostsViewModels?.FirstOrDefault() != null)
                 lst.ScrollTo(_vm.PostsViewModels.FirstOrDefault(), ScrollToPosition.Center, false);
         }
 
@@ -34,11 +65,9 @@ namespace Journey.Views
         {
             var viewCellDetails = e.Item as PostBaseViewModel;
             var posts = _vm.PostsViewModels;
-            if (posts == null)
-                return;
-            var viewCellIndex = posts.IndexOf(viewCellDetails);
+            var viewCellIndex = posts?.IndexOf(viewCellDetails);
 
-            if (posts.Count - 2 <= viewCellIndex)
+            if (posts?.Count - 2 <= viewCellIndex)
                 _vm.OnGetMorePostsCommand.Execute(null);
         }
 

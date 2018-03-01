@@ -48,6 +48,8 @@
     <None Remove="Assets\checkWhite.png" />
     <None Remove="Assets\compete.png" />
     <None Remove="Assets\challengeBanner.png" />
+    <None Remove="Services\Mocks\AccountMock.xml" />
+    <None Remove="Services\Mocks\MeMock.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -96,6 +98,10 @@
     <EmbeddedResource Include="Assets\checkWhite.png" />
     <EmbeddedResource Include="Assets\compete.png" />
     <EmbeddedResource Include="Assets\challengeBanner.png" />
+    <EmbeddedResource Include="Services\Mocks\PostsMock.xml" />
+    <EmbeddedResource Include="Services\Mocks\AccountMock.xml" />
+    <EmbeddedResource Include="Services\Mocks\PostMock.xml" />
+    <EmbeddedResource Include="Services\Mocks\MeMock.xml" />
   </ItemGroup>
 
   <ItemGroup>

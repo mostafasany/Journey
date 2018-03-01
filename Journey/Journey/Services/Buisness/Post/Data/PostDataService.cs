@@ -15,7 +15,6 @@ namespace Journey.Services.Buisness.Post.Data
     {
         private readonly IMobileServiceTable<AzurePost> _azurePost;
         private readonly MobileServiceClient _client;
-
         public PostDataService(IAzureService azureService)
         {
             _client = azureService.CreateOrGetAzureClient();
@@ -33,7 +32,6 @@ namespace Journey.Services.Buisness.Post.Data
                 await _azurePost.InsertAsync(postDto);
 
                 await SyncPostAsync(post.Challenge);
-
 
                 post = PostDataTranslators.TranslatePost(postDto);
                 return post;
@@ -71,7 +69,6 @@ namespace Journey.Services.Buisness.Post.Data
                 List<AzurePost> posts;
                 var api = string.Format("post?size={0}&page={1}&challenge={2}", size, page, challengeId);
                 posts = await _client.InvokeApiAsync<List<AzurePost>>(api, HttpMethod.Get, null);
-
                 //if (sync)
                 //{
                 //    posts = await SyncPostAsync(challengeId, page, size);
