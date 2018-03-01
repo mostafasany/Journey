@@ -10,6 +10,7 @@ using Journey.Models.Account;
 using Journey.Models.Post;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
+using Journey.Services.Buisness.Challenge;
 using Journey.Services.Buisness.Post;
 using Prism.Commands;
 using Prism.Navigation;
@@ -20,18 +21,24 @@ namespace Journey.ViewModels
     public class NewPostPageViewModel : BaseViewModel, INavigationAware
     {
         private readonly IAccountService _accountService;
+        private readonly IChallengeService _challengeService;
         private readonly IBlobService _blobService;
         private readonly IMediaService<Media> _mediaService;
         private readonly IPostService _postService;
+        private readonly ISettingsService _settingsService;
+        private const string LastPostDate = "LastPostDate";
 
         public NewPostPageViewModel(IUnityContainer container, IBlobService blobService,
-            IPostService postService, IMediaService<Media> mediaService, IAccountService accountService) :
+                                    IPostService postService, IMediaService<Media> mediaService, IAccountService accountService,
+                                    IChallengeService challengeService,ISettingsService settingsService) :
             base(container)
         {
             _mediaService = mediaService;
             _postService = postService;
             _blobService = blobService;
             _accountService = accountService;
+            _challengeService = challengeService;
+            _settingsService = settingsService;
             NewPost = new Post();
         }
 
@@ -236,6 +243,18 @@ namespace Journey.ViewModels
                 await DialogService.ShowMessageAsync(AppResource.NewPost_NewPostError, AppResource.Error);
                 return;
             }
+            if(!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
+            {
+                var date=await _settingsService.Get(LastPostDate);
+                DateTime parsedDate;
+                DateTime.TryParse(date,out parsedDate);
+                if(parsedDate.Date!=DateTime.Now.Date)
+                {
+                    await _settingsService.Set(LastPostDate, DateTime.Now.Date.ToString());
+                    await _challengeService.UpdateExerciseNumberAsync(_accountService.LoggedInAccount.ChallengeId);
+                }
+            }
+               
             NewPost = new Post();
 
             imagesPath = new List<string>();

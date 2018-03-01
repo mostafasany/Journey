@@ -134,6 +134,7 @@
     <Folder Include="Services\Buisness\Challenge\Dto\" />
     <Folder Include="Services\Buisness\Challenge\Translators\" />
     <Folder Include="Services\Buisness\DeepLink\" />
+    <Folder Include="Converters\" />
   </ItemGroup>
 
   <ItemGroup>

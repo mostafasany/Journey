@@ -35,7 +35,7 @@ namespace Abstractions.Forms
             {
                 var img = image as IEnumerable<Media>;
                 var shareService = DependencyService.Get<IShare>();
-                await shareService.Share(subject, message, img.ToList());
+                await shareService?.Share(subject, message, img.ToList());
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ namespace Abstractions.Forms
             {
                 var img = video as IEnumerable<Media>;
                 var shareService = DependencyService.Get<IShare>();
-                await shareService.Share(subject, message, img.ToList());
+                await shareService?.Share(subject, message, img.ToList());
             }
             catch (Exception ex)
             {

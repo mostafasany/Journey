@@ -1,17 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using Java.IO;
-using Journey.Droid.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using Abstractions.Forms;
 
-[assembly: Dependency(typeof(Abstractions.Forms.ShareService))]
+[assembly: Dependency(typeof(Journey.Droid.Services.ShareService))]
 namespace Journey.Droid.Services
 {
     public class ShareService : Activity, Abstractions.Forms.IShare

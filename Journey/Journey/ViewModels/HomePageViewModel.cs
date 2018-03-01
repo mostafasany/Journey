@@ -189,6 +189,14 @@ namespace Journey.ViewModels
             set => SetProperty(ref _isPullRefreshLoading, value);
         }
 
+        private bool _noPosts;
+
+        public bool NoPosts
+        {
+            get => _noPosts;
+            set => SetProperty(ref _noPosts, value);
+        }
+
         private int _pageNo;
 
         #endregion
@@ -236,6 +244,8 @@ namespace Journey.ViewModels
 
             var postsList = await _postService.GetPostsAsync(_pageNo, null, _postService.RefreshPosts);
             SetPostViewModel(postsList);
+            NoPosts = PostsViewModels == null || PostsViewModels.Count == 0;
+
             //}
         }
 

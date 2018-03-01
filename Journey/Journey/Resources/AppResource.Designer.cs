@@ -496,5 +496,17 @@ namespace Journey.Resources {
                 return ResourceManager.GetString("Notification_ChallengeRequestMessage", resourceCulture);
             }
         }
+        
+        internal static string Notification_NoNotifications {
+            get {
+                return ResourceManager.GetString("Notification_NoNotifications", resourceCulture);
+            }
+        }
+        
+        internal static string Post_NoPosts {
+            get {
+                return ResourceManager.GetString("Post_NoPosts", resourceCulture);
+            }
+        }
     }
 }

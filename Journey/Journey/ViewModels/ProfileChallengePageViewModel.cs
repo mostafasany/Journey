@@ -61,19 +61,14 @@ namespace Journey.ViewModels
             set => SetProperty(ref selectedChallenge, value);
         }
 
-        private bool _hasActiveChallenge;
+        private bool _hasActiveChallenge = true;
 
         public bool HasActiveChallenge
         {
             get => _hasActiveChallenge;
-            set
-            {
-                SetProperty(ref _hasActiveChallenge, value);
-                RaisePropertyChanged(nameof(HasNotActiveChallenge));
-            }
+            set=>SetProperty(ref _hasActiveChallenge, value);
+           
         }
-
-        public bool HasNotActiveChallenge => !_hasActiveChallenge;
 
         #endregion
 
@@ -86,12 +81,15 @@ namespace Journey.ViewModels
                 ShowProgress();
                 if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
                 {
-                    SelectedChallenge =
-                        await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
+                    SelectedChallenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
                     if (SelectedChallenge != null)
+                    {
                         HasActiveChallenge = true;
+                    }
                     else
+                    {
                         HasActiveChallenge = false;
+                    }
                 }
                 else
                 {
@@ -171,6 +169,7 @@ namespace Journey.ViewModels
 
         #endregion
 
+      
         #endregion
     }
 }
