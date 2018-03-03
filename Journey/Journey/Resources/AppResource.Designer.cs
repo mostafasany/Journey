@@ -407,6 +407,12 @@ namespace Journey.Resources {
             }
         }
         
+        internal static string Camera_NotSupported {
+            get {
+                return ResourceManager.GetString("Camera_NotSupported", resourceCulture);
+            }
+        }
+        
         internal static string Post_UploadImageMust {
             get {
                 return ResourceManager.GetString("Post_UploadImageMust", resourceCulture);

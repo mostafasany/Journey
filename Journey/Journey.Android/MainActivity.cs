@@ -9,7 +9,6 @@ using Prism.Ioc;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
 using Journey.Constants;
 using Journey.Services.Azure;
 using Permission = Android.Content.PM.Permission;
@@ -18,7 +17,7 @@ using Journey.Droid.Renderers;
 
 namespace Journey.Droid
 {
-    [Activity(Label = "Journey", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true,
+    [Activity(Label = "Journey", Icon = "@drawable/icon", Theme = "@style/MainTheme",
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity, IAzureAuthenticateService
     {

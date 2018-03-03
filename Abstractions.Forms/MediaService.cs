@@ -111,6 +111,10 @@ namespace Abstractions.Forms
                 };
                 return image;
             }
+            catch (NotSupportedException e)
+            {
+                throw e;
+            }
             catch (Exception e)
             {
                 throw new CoreServiceException(e.Message, e);
@@ -147,6 +151,11 @@ namespace Abstractions.Forms
                     Type = MediaType.Video
                 };
                 return image;
+            }
+
+            catch (NotSupportedException e)
+            {
+                throw e;
             }
             catch (Exception e)
             {

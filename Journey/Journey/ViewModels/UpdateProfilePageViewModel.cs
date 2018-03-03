@@ -152,7 +152,19 @@ namespace Journey.ViewModels
                         new DialogCommand
                         {
                             Label = AppResource.Camera,
-                            Invoked = async () => { Image = await _mediaService.TakePhotoAsync() ?? Image; }
+                        Invoked = async () =>
+                                {
+                            try
+                            {
+                                Image = await _mediaService.TakePhotoAsync() ?? Image;
+                            }
+                            catch (NotSupportedException ex)
+                            {
+                                await DialogService.ShowMessageAsync(AppResource.Camera_NotSupported,AppResource.Error);
+                            }
+                                }
+                          
+
                         },
                         new DialogCommand
                         {

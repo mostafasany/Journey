@@ -2757,11 +2757,11 @@ namespace Journey.Droid
 			// aapt resource value: 0x7f02010a
 			public const int notification_icon_background = 2130837770;
 			
-			// aapt resource value: 0x7f02010e
-			public const int notification_template_icon_bg = 2130837774;
-			
 			// aapt resource value: 0x7f02010f
-			public const int notification_template_icon_low_bg = 2130837775;
+			public const int notification_template_icon_bg = 2130837775;
+			
+			// aapt resource value: 0x7f020110
+			public const int notification_template_icon_low_bg = 2130837776;
 			
 			// aapt resource value: 0x7f02010b
 			public const int notification_tile_bg = 2130837771;
@@ -2771,6 +2771,9 @@ namespace Journey.Droid
 			
 			// aapt resource value: 0x7f02010d
 			public const int screen = 2130837773;
+			
+			// aapt resource value: 0x7f02010e
+			public const int SplashScreen = 2130837774;
 			
 			static Drawable()
 			{
@@ -4742,6 +4745,9 @@ namespace Journey.Droid
 			
 			// aapt resource value: 0x7f0c0006
 			public const int Theme_MediaRouter_LightControlPanel = 2131492870;
+			
+			// aapt resource value: 0x7f0c018c
+			public const int Theme_Splash = 2131493260;
 			
 			// aapt resource value: 0x7f0c011f
 			public const int ThemeOverlay_AppCompat = 2131493151;

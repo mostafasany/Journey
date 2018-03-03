@@ -52,7 +52,7 @@ namespace Journey.ViewModels
         {
             try
             {
-              
+
                 if (parameters?.GetNavigationMode() == NavigationMode.Back)
                 {
                     var location = parameters.GetValue<Location>("Location");
@@ -282,12 +282,34 @@ namespace Journey.ViewModels
                         new DialogCommand
                         {
                             Label = AppResource.Camera,
-                            Invoked = async () => { AddMedia(await _mediaService.TakePhotoAsync()); }
+                            Invoked = async () =>
+                                {
+                            try
+                            {
+                                var media=await _mediaService.TakePhotoAsync();
+                                AddMedia(media);
+                            }
+                            catch (NotSupportedException ex)
+                            {
+                                await DialogService.ShowMessageAsync(AppResource.Camera_NotSupported,AppResource.Error);
+                            }
+                                }
                         },
                         new DialogCommand
                         {
                             Label = AppResource.Video,
-                            Invoked = async () => { AddMedia(await _mediaService.TakeVideoAsync()); }
+                        Invoked = async () =>
+                                {
+                            try
+                            {
+                                var media=await _mediaService.TakeVideoAsync();
+                                AddMedia(media);
+                            }
+                            catch (NotSupportedException ex)
+                            {
+                                await DialogService.ShowMessageAsync(AppResource.Camera_NotSupported,AppResource.Error);
+                            }
+                                }
                         },
                         new DialogCommand
                         {

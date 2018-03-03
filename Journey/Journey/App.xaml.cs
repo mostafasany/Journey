@@ -30,6 +30,7 @@ using Prism.Navigation;
 using Prism.Unity;
 using Unity;
 using Unity.Lifetime;
+using Xamarin.Forms;
 using INavigationService = Abstractions.Services.Contracts.INavigationService;
 
 namespace Journey
@@ -132,14 +133,16 @@ namespace Journey
 
             container.RegisterType<IPostService, PostService>(new ContainerControlledLifetimeManager());
 
-            //#if __ANDROID__
-            container.RegisterType<IPostDataService, PostDataMockService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IAccountDataService, AccountDataMockService>(
-                new ContainerControlledLifetimeManager());
-            //#else
-            //  container.RegisterType<IPostDataService, PostDataService>(new ContainerControlledLifetimeManager());
-            // container.RegisterType<IAccountDataService, AccountDataService>(new ContainerControlledLifetimeManager());
-            //#endif
+            if (Device.RuntimePlatform == Device.UWP)
+            {
+                container.RegisterType<IPostDataService, PostDataMockService>(new ContainerControlledLifetimeManager());
+                container.RegisterType<IAccountDataService, AccountDataMockService>(new ContainerControlledLifetimeManager());
+            }
+            else
+            {
+                container.RegisterType<IPostDataService, PostDataService>(new ContainerControlledLifetimeManager());
+                container.RegisterType<IAccountDataService, AccountDataService>(new ContainerControlledLifetimeManager());
+            }
             container.RegisterType<IPostCommentService, PostCommentService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IPostCommentDataService, PostCommentDataService>(
                 new ContainerControlledLifetimeManager());

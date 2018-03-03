@@ -211,6 +211,12 @@
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\NotificationsPage.xaml.cs">
       <DependentUpon>NotificationsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\SeparatorControl.xaml.cs">
+      <DependentUpon>SeparatorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Controls\SeparatorControl.xaml.cs">
+      <DependentUpon>SeparatorControl.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

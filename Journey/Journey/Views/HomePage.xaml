@@ -120,16 +120,16 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid RowSpacing="0" ColumnSpacing="0"  Style="{StaticResource MainGridStyle}">
+        <Grid RowSpacing="0" Style="{StaticResource MainGridStyle}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <StackLayout Orientation="Horizontal" Grid.Column="0">
+            <StackLayout Orientation="Horizontal" Grid.Column="1">
+                <Controls:SeparatorControl WidthRequest="1" />
                 <ContentView x:Name="Container" WidthRequest="400" />
-                <Grid BackgroundColor="#d3d3d3" WidthRequest="1" />
             </StackLayout>
-            <Grid Grid.Column="1"  RowSpacing="0">
+            <Grid Grid.Column="0" RowSpacing="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="1" />
@@ -160,9 +160,13 @@
                     </Grid>
                     <Controls:LoadingControl IsVisible="{Binding IsLoading}" Grid.Column="2" HorizontalOptions="End" VerticalOptions="Center" Margin="20,0" />
                 </Grid>
-                <Grid BackgroundColor="#d3d3d3" Grid.Row="1" />
-                <Grid BackgroundColor="#d3d3d3" Grid.Row="2" RowSpacing="0" Margin="0,5" ColumnSpacing="1" Padding="0">
-                    <Grid Grid.Column="0" BackgroundColor="White">
+                <Controls:SeparatorControl Grid.Row="1" />
+                <Grid Grid.Row="2" RowSpacing="0" ColumnSpacing="1" Padding="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" BackgroundColor="#f1f1f1">
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnProfileCommand}" />
                         </Grid.GestureRecognizers>
@@ -175,10 +179,10 @@
                         <Controls:ImageControl PortablePath="notification.png" Style="{StaticResource IconStyle}" />
                     </Grid>
                 </Grid>
-                <Grid BackgroundColor="#d3d3d3" Grid.Row="3" />
-                <ListView x:Name="lst" Grid.Row="4" BackgroundColor="#d3d3d3"  CachingStrategy="RecycleElement" ItemsSource="{Binding PostsViewModels}"  SeparatorVisibility="None" ItemTemplate="{StaticResource PostTemplate}" HasUnevenRows="true" ItemAppearing="Handle_ItemAppearing" IsPullToRefreshEnabled="true"
-                    IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true" RefreshCommand="{Binding OnRefreshPostsCommand}">
-                    <!--<ListView.Header>
+                <Controls:SeparatorControl Grid.Row="3" />
+                <ListView x:Name="lst" BackgroundColor="#d3d3d3" Margin="0,5" Grid.Row="4" CachingStrategy="RecycleElement" ItemsSource="{Binding PostsViewModels}" SeparatorVisibility="None" ItemTemplate="{StaticResource PostTemplate}" HasUnevenRows="true" ItemAppearing="Handle_ItemAppearing"
+                    IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true" RefreshCommand="{Binding OnRefreshPostsCommand}">
+                    <ListView.Header>
                         <Grid RowSpacing="0">
                             <Grid RowSpacing="0" IsVisible="{Binding HasNotActiveChallenge}">
                                 <Controls:ImageControl Aspect="AspectFill" PortablePath="challengeBanner.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
@@ -188,7 +192,7 @@
                                 </StackLayout>
                             </Grid>
                         </Grid>
-                    </ListView.Header>-->
+                    </ListView.Header>
                 </ListView>
             </Grid>
         </Grid>

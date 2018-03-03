@@ -25,21 +25,34 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowSpacing="0" Style="{StaticResource MainGridStyle}">
-            <Grid Margin="10,0">
+            <Grid Margin="10,0"  RowSpacing="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="1" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="1" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Controls:ImageControl Grid.Row="0" PortablePath="clear.png" Style="{StaticResource IconStyle}" Margin="10,10" HorizontalOptions="End">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
-                    </Image.GestureRecognizers>
-                </Controls:ImageControl>
-                <Controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" Margin="20,0" />
-                <ListView IsVisible="{Binding NoNofications,Converter={StaticResource BoolInverterConverter}}" Grid.Row="2" SeparatorVisibility="None" RowHeight="100" ItemsSource="{Binding Notifications}" ItemTemplate="{StaticResource NotificationTemplate}" HorizontalOptions="Start" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
+                <Controls:SeparatorControl Grid.Row="0" />
+                <Grid RowSpacing="0" ColumnSpacing="1" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" BackgroundColor="White">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
+                        </Grid.GestureRecognizers>
+                        <Controls:ImageControl PortablePath="person.png" Style="{StaticResource IconStyle}" />
+                    </Grid>
+                    <Grid Grid.Column="1" BackgroundColor="#f1f1f1">
+                        <Controls:ImageControl PortablePath="notification.png" Style="{StaticResource IconStyle}" />
+                    </Grid>
+                </Grid>
+                <Controls:SeparatorControl Grid.Row="2" />
+                <Controls:LoadingControl Grid.Row="3" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" Margin="20,0" />
+                <ListView IsVisible="{Binding NoNofications,Converter={StaticResource BoolInverterConverter}}" Grid.Row="3" SeparatorVisibility="None" RowHeight="100" ItemsSource="{Binding Notifications}" ItemTemplate="{StaticResource NotificationTemplate}" HorizontalOptions="Start" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
                     RefreshCommand="{Binding OnPullRefreshRequestCommand}" SelectedItem="{Binding SelectedNotification,Mode=TwoWay}" />
-                <Label IsVisible="{Binding NoNofications}" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" Text="{resources:Translate Notification_NoNotifications}" TextColor="Gray" FontSize="20" />
+                <Label IsVisible="{Binding NoNofications}" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" Text="{resources:Translate Notification_NoNotifications}" TextColor="Gray" FontSize="20" />
             </Grid>
         </Grid>
     </ContentPage.Content>
