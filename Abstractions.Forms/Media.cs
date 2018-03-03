@@ -53,6 +53,12 @@ namespace Abstractions.Forms
                 return temp;
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            Media media = obj as Media;
+            return media.Path == Path;
+        }
     }
 
     public enum MediaType

@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using Xamarin.Forms;
-
+using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 //https://github.com/rasmuschristensen/XamarinFormsImageGallery
 namespace Journey.Views.Controls
 {
@@ -58,6 +61,15 @@ namespace Journey.Views.Controls
             //var notifyCollection = newValue as INotifyCollectionChanged;
             //if (notifyCollection != null)
             //{
+
+            //ObservableCollection<Abstractions.Forms.Media> oldList=oldValue as ObservableCollection<Abstractions.Forms.Media>;
+            //ObservableCollection<Abstractions.Forms.Media> newList = newValue as ObservableCollection<Abstractions.Forms.Media>;
+            //var areEqual= EqualsAll<Abstractions.Forms.Media>(oldList, newList);
+            //if (areEqual)
+            //{
+            //    return;
+            //}
+            
             if (newValue != null)
             {
                 _imageStack.Children.Clear();
@@ -74,6 +86,17 @@ namespace Journey.Views.Controls
                     _imageStack.Children.Add(view);
                 }
             }
+        }
+
+        public  bool EqualsAll<T>(ObservableCollection<T> a, ObservableCollection<T> b)
+        {
+            if (a == null || b == null)
+                return (a == null && b == null);
+
+            if (a.Count != b.Count)
+                return false;
+
+            return a.SequenceEqual(b);
         }
     }
 }

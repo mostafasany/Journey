@@ -5,7 +5,7 @@
             <DataTemplate x:Key="CommentTemplate">
                 <Controls:UnSelectableViewCell>
                     <ViewCell.View>
-                        <Grid Padding="5" Margin="0,0,0,10" BackgroundColor="White">
+                        <Grid Padding="5" BackgroundColor="White">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -20,9 +20,9 @@
                                     <fftransformations:CircleTransformation />
                                 </Controls:CustomImage.Transformations>
                             </Controls:CustomImage>
-                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding Account.Name}" TextColor="Black" FontSize="14" FontAttributes="Bold" VerticalOptions="Start" HorizontalOptions="Start" />
-                            <Label Grid.Column="1" Grid.Row="1" Text="{Binding CommentText}" TextColor="Black" FontSize="14" VerticalOptions="Start" HorizontalOptions="Start" />
-                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding FormatedDate}" TextColor="Black" FontSize="12" VerticalOptions="Start" HorizontalOptions="End" />
+                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding Account.Name}" TextColor="Gray" FontSize="14" FontAttributes="Bold" VerticalOptions="Start" HorizontalOptions="Start" />
+                            <Label Grid.Column="1" Grid.Row="1" Text="{Binding CommentText}" TextColor="Gray" FontSize="14" VerticalOptions="Start" HorizontalOptions="Start" />
+                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding FormatedDate}"  TextColor="Gray" FontSize="12" VerticalOptions="Start" HorizontalOptions="End" />
                         </Grid>
                     </ViewCell.View>
                 </Controls:UnSelectableViewCell>
