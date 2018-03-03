@@ -3,7 +3,6 @@ using System.Linq;
 using Journey.ViewModels;
 using Journey.ViewModels.Wall;
 using Journey.Views.Post;
-using Unity;
 using Xamarin.Forms;
 
 namespace Journey.Views
@@ -33,11 +32,10 @@ namespace Journey.Views
                     var vm = BindingContext as HomePageViewModel;
                     if (vm != null)
                     {
-                        var postVM = vm._newPostPageViewModel;
-                        newPostView.BindingContext = postVM;
-                        postVM.Intialize(true);
+                        var postVm = vm.NewPostPageViewModel;
+                        newPostView.BindingContext = postVm;
+                        postVm.Intialize(true);
                     }
-
                     Container.Content = newPostView;
                 }
             }
@@ -52,20 +50,6 @@ namespace Journey.Views
         {
             base.OnAppearing();
             _vm = BindingContext as HomePageViewModel;
-            //var newPostWithHome = Width > 1000;
-            //if (newPostWithHome)
-            //{
-            //    var newPostView = new NewPostView();
-            //    var vm = BindingContext as HomePageViewModel;
-            //    if (vm != null)
-            //    {
-            //        var postVM = vm.Container.Resolve<NewPostPageViewModel>();
-            //        newPostView.BindingContext = postVM;
-            //        postVM.Intialize(true);
-            //    }
-
-            //    Container.Content = newPostView;
-            //}
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)

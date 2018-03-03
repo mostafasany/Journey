@@ -51,7 +51,7 @@
                 <Label Grid.Row="1" Margin="5,5" Text="{resources:Translate NewPost_NewPostFeedPlaceholder}" />
                 <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="End"
                                          VerticalOptions="Center" Margin="10,0" />
-                <Editor Grid.Row="2" Text="{Binding NewPost.Feed}" Style="{StaticResource EditorFormStyle}" />
+                <Editor Grid.Row="2" Margin="5,0" Text="{Binding NewPost.Feed}" Style="{StaticResource EditorFormStyle}" />
                 <Controls:ImageViewerControl x:Name="parent" Grid.Row="3" ItemsSource="{Binding NewPost.MediaList}"
                                              Margin="0,10" VerticalOptions="StartAndExpand"
                                              HorizontalOptions="FillAndExpand">

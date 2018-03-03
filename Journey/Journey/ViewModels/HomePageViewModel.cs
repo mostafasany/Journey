@@ -22,13 +22,13 @@ namespace Journey.ViewModels
     {
         private readonly IAccountService _accountService;
         private readonly IPostService _postService;
-        public  readonly NewPostPageViewModel _newPostPageViewModel;
+        public  readonly NewPostPageViewModel NewPostPageViewModel;
         public HomePageViewModel(IUnityContainer container, IPostService postService, IAccountService accountService,NewPostPageViewModel newPostPageViewModel) :
             base(container)
         {
             _postService = postService;
             _accountService = accountService;
-            _newPostPageViewModel = newPostPageViewModel;
+            NewPostPageViewModel = newPostPageViewModel;
             _postService.PostStatusChangedEventHandler += _postService_PostStatusChangedEventHandler;
         }
 
@@ -51,7 +51,7 @@ namespace Journey.ViewModels
                 var location = parameters.GetValue<Location>("Location");
                 if (location != null)
                 {
-                    _newPostPageViewModel.NewPost.Location =
+                    NewPostPageViewModel.NewPost.Location =
                       new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
                 }
                   
