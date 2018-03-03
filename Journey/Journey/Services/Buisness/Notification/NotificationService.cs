@@ -20,8 +20,8 @@ namespace Journey.Services.Buisness.Notification
         {
             try
             {
-                var accountGoal = await _accountDataService.AddNotificationAsync(notification);
-                return accountGoal;
+                var notfication = await _accountDataService.AddNotificationAsync(notification);
+                return notfication;
             }
             catch (Exception ex)
             {
@@ -33,8 +33,21 @@ namespace Journey.Services.Buisness.Notification
         {
             try
             {
-                var accountGoal = await _accountDataService.GetNotificationsAsync();
-                return accountGoal;
+                var notfications = await _accountDataService.GetNotificationsAsync();
+                return notfications;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
+        }
+
+        public async Task<int> GetNotificationsCountAsync()
+        {
+            try
+            {
+                var notfications = await _accountDataService.GetNotificationsCountAsync();
+                return notfications;
             }
             catch (Exception ex)
             {

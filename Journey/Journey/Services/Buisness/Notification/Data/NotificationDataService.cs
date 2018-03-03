@@ -55,5 +55,22 @@ namespace Journey.Services.Buisness.Notification.Data
                 throw new DataServiceException(ex.Message, ex);
             }
         }
+
+        public async Task<int> GetNotificationsCountAsync()
+        {
+            try
+            {
+                var account = _client.CurrentUser.UserId;
+                var notifications = await _azureNotifications.Where(po => po.Account == account).ToListAsync();
+                if (notifications == null || notifications.Count == 0)
+                    return 0;
+                return notifications.Count;
+              
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(ex.Message, ex);
+            }
+        }
     }
 }

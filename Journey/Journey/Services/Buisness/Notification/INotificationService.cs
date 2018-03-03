@@ -8,5 +8,6 @@ namespace Journey.Services.Buisness.Notification
     {
         Task<Notifications> AddNotificationAsync(Notifications notification);
         Task<List<Notifications>> GetNotificationsAsync();
+        Task<int> GetNotificationsCountAsync();
     }
 }

@@ -10,6 +10,7 @@ using Journey.Models.Account;
 using Journey.Models.Post;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
+using Journey.Services.Buisness.Notification;
 using Journey.Services.Buisness.Post;
 using Journey.ViewModels.Wall;
 using Prism.Commands;
@@ -22,10 +23,13 @@ namespace Journey.ViewModels
     {
         private readonly IAccountService _accountService;
         private readonly IPostService _postService;
-        public  readonly NewPostPageViewModel NewPostPageViewModel;
-        public HomePageViewModel(IUnityContainer container, IPostService postService, IAccountService accountService,NewPostPageViewModel newPostPageViewModel) :
+        public readonly NewPostPageViewModel NewPostPageViewModel;
+        public readonly INotificationService _notificationService;
+        public HomePageViewModel(IUnityContainer container, IPostService postService, IAccountService accountService,
+                                 NewPostPageViewModel newPostPageViewModel, INotificationService notificationService) :
             base(container)
         {
+            _notificationService = notificationService;
             _postService = postService;
             _accountService = accountService;
             NewPostPageViewModel = newPostPageViewModel;
@@ -54,7 +58,7 @@ namespace Journey.ViewModels
                     NewPostPageViewModel.NewPost.Location =
                       new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
                 }
-                  
+
             }
             catch (Exception ex)
             {
@@ -171,6 +175,14 @@ namespace Journey.ViewModels
             }
         }
 
+        private int _notificationsCount;
+
+        public int NotificationsCount
+        {
+            get => _notificationsCount;
+            set => SetProperty(ref _notificationsCount, value);
+        }
+
         private bool _hasNotActiveChallenge;
 
         public bool HasNotActiveChallenge
@@ -222,6 +234,7 @@ namespace Journey.ViewModels
                     var tasks = new List<Task>
                     {
                         LoadAccount(sync),
+                        LoadNotificationsCount(),
                         LoadPosts()
                     };
                     ShowProgress();
@@ -230,6 +243,7 @@ namespace Journey.ViewModels
                 else
                 {
                     await LoadAccount(sync);
+                    await LoadNotificationsCount();
                     await LoadPosts();
                 }
 
@@ -280,6 +294,11 @@ namespace Journey.ViewModels
 
             RaisePropertyChanged(nameof(IsLoggedOut));
             RaisePropertyChanged(nameof(IsLoggedIn));
+        }
+
+        private async Task LoadNotificationsCount()
+        {
+            NotificationsCount = await _notificationService.GetNotificationsCountAsync();
         }
 
         private void UpdateChallengeBanner()

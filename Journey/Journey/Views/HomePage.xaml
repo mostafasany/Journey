@@ -164,7 +164,7 @@
                 <Grid Grid.Row="2" RowSpacing="0" ColumnSpacing="1" Padding="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                         <ColumnDefinition Width="1" />
+                        <ColumnDefinition Width="1" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0" BackgroundColor="White">
@@ -173,11 +173,12 @@
                         </Grid.GestureRecognizers>
                         <Controls:ImageControl PortablePath="person.png" Style="{StaticResource IconStyle}" />
                     </Grid>
-                     <Controls:SeparatorControl Grid.Column="1" />
+                    <Controls:SeparatorControl Grid.Column="1" />
                     <Grid Grid.Column="2" BackgroundColor="White">
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnNotificationCommand}" />
                         </Grid.GestureRecognizers>
+                        <Label Text="{Binding NotificationsCount}" IsVisible="{Binding NotificationsCount,Converter={StaticResource IntToBoolConverter}}" TextColor="Red" FontAttributes="Bold" Margin="20,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" />
                         <Controls:ImageControl PortablePath="notification.png" Style="{StaticResource IconStyle}" />
                     </Grid>
                 </Grid>
