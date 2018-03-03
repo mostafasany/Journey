@@ -105,11 +105,13 @@ namespace Journey.ViewModels
                 ShowProgress();
                 base.Intialize(sync);
                 LoggedInAccount = await _accountService.GetAccountAsync();
-                Comments = new ObservableCollection<Comment>();
 
                 var postDTo = await _postCommentService.GetCommentsAsync(PostId, true);
                 if (postDTo != null)
+                {
                     Comments = new ObservableCollection<Comment>(postDTo);
+                }
+
             }
             catch (Exception e)
             {

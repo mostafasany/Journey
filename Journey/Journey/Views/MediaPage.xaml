@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls"
@@ -34,7 +34,7 @@
                     <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
                 </Image.GestureRecognizers>
             </Controls:ImageControl>
-            <ListView Grid.Row="1" x:Name="parent" HasUnevenRows="true" ItemTemplate="{StaticResource MediaTemplate}"
+            <ListView Grid.Row="1" x:Name="parent" HasUnevenRows="true" SeparatorVisibility="None" ItemTemplate="{StaticResource MediaTemplate}"
                       BackgroundColor="White" ItemsSource="{Binding MediaList}" HorizontalOptions="Fill" />
         </Grid>
     </ContentPage.Content>

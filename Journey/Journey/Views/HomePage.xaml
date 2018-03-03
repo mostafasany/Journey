@@ -164,15 +164,17 @@
                 <Grid Grid.Row="2" RowSpacing="0" ColumnSpacing="1" Padding="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
+                         <ColumnDefinition Width="1" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0" BackgroundColor="#f1f1f1">
+                    <Grid Grid.Column="0" BackgroundColor="White">
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnProfileCommand}" />
                         </Grid.GestureRecognizers>
                         <Controls:ImageControl PortablePath="person.png" Style="{StaticResource IconStyle}" />
                     </Grid>
-                    <Grid Grid.Column="1" BackgroundColor="White">
+                     <Controls:SeparatorControl Grid.Column="1" />
+                    <Grid Grid.Column="2" BackgroundColor="White">
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnNotificationCommand}" />
                         </Grid.GestureRecognizers>
