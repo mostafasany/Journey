@@ -7,6 +7,7 @@
                 <RowDefinition Height="1" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid RowSpacing="0">
                 <Grid.RowDefinitions>
@@ -70,41 +71,61 @@
                     <Button Margin="0,0,0,5" Text="Start" Command="{Binding OnStartNewChallengeCommand}" WidthRequest="150" HorizontalOptions="Center" FontSize="14" Style="{StaticResource SecondaryButtonStyle}" />
                 </StackLayout>
             </Grid>
-            <ScrollView Grid.Row="3" Margin="0,20" IsVisible="{Binding HasActiveChallenge}">
-            <Grid >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0" HorizontalOptions="Center" FontSize="26" Text="{resources:Translate Challenge_Header}" Style="{StaticResource LabelHeaderStyle}" />
-                <Grid Grid.Row="1" Margin="20,20">
+            <!--  <ScrollView Grid.Row="3" Margin="0,20" IsVisible="{Binding HasActiveChallenge}">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Text="{resources:Translate Challenge_StartDate}" Style="{StaticResource LabelHeaderStyle}" FontAttributes="Bold" HorizontalOptions="Center" />
-                    <Label Grid.Row="1" Grid.Column="0" Text="{Binding SelectedChallenge.StartDateFormated}" Style="{StaticResource LabelHeaderStyle}" HorizontalOptions="Center" />
-                    <Label Grid.Row="0" Grid.Column="1" Text="{resources:Translate Challenge_EndDate}" Style="{StaticResource LabelHeaderStyle}" FontAttributes="Bold" HorizontalOptions="Center" />
-                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding SelectedChallenge.EndDateFormated}" Style="{StaticResource LabelHeaderStyle}" HorizontalOptions="Center" />
+                    <Label Grid.Row="0" HorizontalOptions="Center" FontSize="26" Text="{resources:Translate Challenge_Header}" Style="{StaticResource LabelHeaderStyle}" />
+                    <Grid Grid.Row="1" Margin="20,20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Text="{resources:Translate Challenge_StartDate}" Style="{StaticResource LabelHeaderStyle}" FontAttributes="Bold" HorizontalOptions="Center" />
+                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding SelectedChallenge.StartDateFormated}" Style="{StaticResource LabelHeaderStyle}" HorizontalOptions="Center" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="{resources:Translate Challenge_EndDate}" Style="{StaticResource LabelHeaderStyle}" FontAttributes="Bold" HorizontalOptions="Center" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding SelectedChallenge.EndDateFormated}" Style="{StaticResource LabelHeaderStyle}" HorizontalOptions="Center" />
+                    </Grid>
+                    <Controls:ImageViewerControl Margin="0,10" Grid.Row="2" ItemsSource="{Binding SelectedChallenge.ChallengeAccounts}" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                        <Controls:ImageViewerControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Grid.Column="0" Orientation="Vertical">
+                                    <Image Source="{Binding Image.Path}" WidthRequest="150" HeightRequest="150" Margin="8,0" Aspect="AspectFill" />
+                                    <Label Text="{Binding NumberExercise}" Style="{StaticResource LabelHeaderStyle}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" />
+                                    <Label Text="{resources:Translate Times}" Style="{StaticResource LabelHeaderStyle}" FontAttributes="Bold" HorizontalOptions="Center" />
+                                </StackLayout>
+                            </DataTemplate>
+                        </Controls:ImageViewerControl.ItemTemplate>
+                    </Controls:ImageViewerControl>
                 </Grid>
-                <Controls:ImageViewerControl Margin="0,10" Grid.Row="2" ItemsSource="{Binding SelectedChallenge.ChallengeAccounts}" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
-                    <Controls:ImageViewerControl.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Grid.Column="0" Orientation="Vertical">
-                                <Image Source="{Binding Image.Path}" WidthRequest="150" HeightRequest="150" Margin="8,0" Aspect="AspectFill" />
-                                <Label Text="{Binding NumberExercise}" Style="{StaticResource LabelHeaderStyle}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" />
-                                <Label Text="{resources:Translate Times}" Style="{StaticResource LabelHeaderStyle}" FontAttributes="Bold" HorizontalOptions="Center" />
+            </ScrollView>-->
+            <ListView Grid.Row="4" ItemsSource="{Binding ChallengeProgress}" IsGroupingEnabled="true">
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding Key}" />
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Account.Name}" />
+                                <Label Text="{Binding TotalKm}" />
+                                <Label Text="{Binding TotalExercises}" />
                             </StackLayout>
-                        </DataTemplate>
-                    </Controls:ImageViewerControl.ItemTemplate>
-                </Controls:ImageViewerControl>
-            </Grid>
-            </ScrollView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
     </ContentPage.Content>
 </local:BasePage>

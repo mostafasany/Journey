@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -58,9 +59,9 @@ namespace Journey.Services.Buisness.Challenge.Data
                 var account2 = await friendDataService.GetFriendAsync(challengeDTO.Account2);
                 challenge.ChallengeAccounts = new ObservableCollection<ChallengeAccount>();
                 challenge.ChallengeAccounts.Add(
-                    new ChallengeAccount(account1) {NumberExercise = challenger1.NumberExercise});
+                    new ChallengeAccount(account1) { NumberExercise = challenger1.NumberExercise });
                 challenge.ChallengeAccounts.Add(
-                    new ChallengeAccount(account2) {NumberExercise = challenger2.NumberExercise});
+                    new ChallengeAccount(account2) { NumberExercise = challenger2.NumberExercise });
                 return challenge;
             }
             catch (Exception ex)
@@ -105,6 +106,164 @@ namespace Journey.Services.Buisness.Challenge.Data
             {
                 throw new DataServiceException(ex.Message, ex);
             }
+        }
+
+        public async Task<List<ChallengeProgress>> GetChallengePorgessAsync(string challengeId)
+        {
+            List<ChallengeProgress> status = new List<ChallengeProgress>();
+            status.Add(new ChallengeProgress
+            {
+                FirstName = "Mostafa",
+                LastName = "Khodeir",
+                DatetTime = DateTime.Now,
+                Exercises = 1,
+                Km = 3000,
+
+            });
+            status.Add(new ChallengeProgress
+            {
+                FirstName = "Mostafa",
+                LastName = "Khodeir",
+
+                DatetTime = DateTime.Now,
+                Exercises = 1,
+                Km = 2000,
+
+            });
+            status.Add(new ChallengeProgress
+            {
+                FirstName = "Mostafa",
+                LastName = "Khodeir",
+
+                DatetTime = DateTime.Now,
+                Exercises = 1,
+                Km = 1000,
+
+            });
+            status.Add(new ChallengeProgress
+            {
+                FirstName = "Heba",
+                LastName = "ELLeithy",
+
+                DatetTime = DateTime.Now,
+                Exercises = 4,
+                Km = 3500,
+
+            });
+
+            status.Add(new ChallengeProgress
+            {
+                FirstName = "Mostafa",
+                LastName = "Khodeir",
+
+                DatetTime = DateTime.Now.AddMonths(1),
+                Exercises = 2,
+                Km = 3500,
+
+            });
+            status.Add(new ChallengeProgress
+            {
+                FirstName = "Heba",
+                LastName = "ELLeithy",
+
+                DatetTime = DateTime.Now.AddMonths(1),
+                Exercises = 2,
+                Km = 3500,
+
+            });
+
+            status.Add(new ChallengeProgress
+            {
+                FirstName = "Mostafa",
+                LastName = "Khodeir",
+
+                DatetTime = DateTime.Now.AddMonths(2),
+                Exercises = 3,
+                Km = 4000,
+
+            });
+            status.Add(new ChallengeProgress
+            {
+                FirstName = "Mostafa",
+                LastName = "Khodeir",
+
+                DatetTime = DateTime.Now.AddMonths(3),
+                Exercises = 1,
+                Km = 100,
+
+            });
+            status.Add(new ChallengeProgress
+            {
+                FirstName = "Mostafa",
+                LastName = "Khodeir",
+
+                DatetTime = DateTime.Now.AddMonths(3),
+                Exercises = 1,
+                Km = 100,
+
+            });
+            status.Add(new ChallengeProgress
+            {
+                FirstName = "Mostafa",
+                LastName = "Khodeir",
+
+                DatetTime = DateTime.Now.AddMonths(3),
+                Exercises = 1,
+                Km = 100,
+
+            });
+            status.Add(new ChallengeProgress
+            {
+                FirstName = "Mostafa",
+                LastName = "Khodeir",
+
+                DatetTime = DateTime.Now.AddMonths(3),
+                Exercises = 1,
+                Km = 100,
+
+            });
+            status.Add(new ChallengeProgress
+            {
+                FirstName = "Heba",
+                LastName = "ELLeithy",
+
+                DatetTime = DateTime.Now.AddMonths(3),
+                Exercises = 1,
+                Km = 50,
+
+            });
+            status.Add(new ChallengeProgress
+            {
+                FirstName = "Heba",
+                LastName = "ELLeithy",
+
+                DatetTime = DateTime.Now.AddMonths(3),
+                Exercises = 1,
+                Km = 50,
+
+            });
+            status.Add(new ChallengeProgress
+            {
+                FirstName = "Heba",
+                LastName = "ELLeithy",
+
+                DatetTime = DateTime.Now.AddMonths(3),
+                Exercises = 1,
+                Km = 50,
+
+            });
+            status.Add(new ChallengeProgress
+            {
+                FirstName = "Heba",
+                LastName = "ELLeithy",
+
+                DatetTime = DateTime.Now.AddMonths(3),
+                Exercises = 1,
+                Km = 50,
+
+            });
+
+            return status;
         }
     }
 }

@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
+using Abstractions.Models;
 using Journey.Models;
+using Journey.Models.Challenge;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Account.Data;
@@ -20,7 +23,6 @@ namespace Journey.Services.Buisness.Challenge
         private readonly IFriendService _friendService;
 
         private readonly INotificationService _notificationService;
-        // private Models.Challenge.Challenge _challenge;
 
         public ChallengeService(IChallengeDataService challengeDataService,
             IAccountDataService accountDataService,
@@ -171,10 +173,51 @@ namespace Journey.Services.Buisness.Challenge
             try
             {
                 var challenge = await GetChallengeAsync(challengeId);
-                var account=challenge.ChallengeAccounts.FirstOrDefault(a=>a.Id==_accountService.LoggedInAccount.Id);
+                var account = challenge.ChallengeAccounts.FirstOrDefault(a => a.Id == _accountService.LoggedInAccount.Id);
                 account.NumberExercise++;
                 var challengeDto = await _challengeDataService.UpdateChallengeAsync(challenge);
                 return challengeDto;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
+        }
+
+        public async Task<List<ObservableGroupCollection<AccountChallengeProgress>>> GetChallengePorgessAsync(string challengeId)
+        {
+            try
+            {
+                var _challengeProgress = await _challengeDataService.GetChallengePorgessAsync(challengeId);
+                List<KeyGroupedChallengeProgress> orderedList = _challengeProgress
+                                  .OrderBy(a => a.DatetTime)
+                                  .GroupBy(a => a.DatetTime.ToString("MMMM"))
+                                  .Select(g => new KeyGroupedChallengeProgress
+                                  {
+                                      Key = g.Key,
+                                      Accounts = g.GroupBy(b => b.Name)
+                                                         .Select
+                                            (
+                                                b => new AccountChallengeProgress
+                                                {
+                                                    Account = b.FirstOrDefault(),
+                                                    TotalKm = b.Sum(e => e.Km),
+                                                    TotalExercises = b.Sum(e => e.Exercises)
+                                                }
+                                                            ).ToList()
+                                  })
+
+                               .ToList();
+
+                List<ObservableGroupCollection<AccountChallengeProgress>> list = new List<ObservableGroupCollection<AccountChallengeProgress>>();
+                foreach (var progress in orderedList)
+                {
+                    ObservableGroupCollection<AccountChallengeProgress> groupedData =
+                        new ObservableGroupCollection<AccountChallengeProgress>(progress.Key, progress.Accounts);
+                    list.Add(groupedData);
+                }
+
+                return list;
             }
             catch (Exception ex)
             {
