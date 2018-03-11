@@ -178,7 +178,7 @@
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnNotificationCommand}" />
                         </Grid.GestureRecognizers>
-                        <Label Text="{Binding NotificationsCount}" IsVisible="{Binding NotificationsCount,Converter={StaticResource IntToBoolConverter}}" TextColor="Red" FontAttributes="Bold" Margin="20,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <Label Text="{Binding NotificationsCount}" IsVisible="{Binding NotificationsCount,Converter={StaticResource IntToBoolConverter}}" TextColor="Red" FontAttributes="Bold" Margin="20,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" FontSize="12" />
                         <Controls:ImageControl PortablePath="notification.png" Style="{StaticResource IconStyle}" />
                     </Grid>
                 </Grid>

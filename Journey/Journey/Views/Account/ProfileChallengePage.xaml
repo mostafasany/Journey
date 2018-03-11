@@ -62,7 +62,7 @@
                     </Grid>
                 </Grid>
             </Grid>
-            <Controls:SeparatorControl Grid.Row="1" />
+            <Controls:SeparatorControl Grid.Row="1" Margin="0,5" />
             <Controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
             <Grid Grid.Row="3" IsVisible="{Binding HasActiveChallenge,Converter={StaticResource BoolInverterConverter}}">
                 <Controls:ImageControl Aspect="AspectFill" PortablePath="challengeBanner.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
@@ -121,8 +121,8 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Label Text="{resources:Translate Challenge_Winner}" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5" />
-                        <Label Text="{resources:Translate Challenge_Exercises}" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" Margin="0,5" />
-                        <Label Text="{resources:Translate KM}" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" Margin="0,5" />
+                        <Label Text="{resources:Translate Challenge_Exercises}" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5" />
+                        <Label Text="{resources:Translate KM}" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5" />
                         <Label Text="{Binding WinnerAccountInExercises.Name}" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" />
                         <Label Text="{Binding WinnerAccountInKM.Name}" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" />
                     </Grid>

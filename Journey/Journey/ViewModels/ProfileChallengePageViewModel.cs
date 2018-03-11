@@ -119,12 +119,14 @@ namespace Journey.ViewModels
                         ChallengeProgress = await _challengeService.GetChallengePorgessAsync(SelectedChallenge.Id);
                         var challenge1 = SelectedChallenge.ChallengeAccounts.FirstOrDefault();
                         var challenge2 = SelectedChallenge.ChallengeAccounts.LastOrDefault();
-                        var challenge1ExerciseCount = ChallengeProgress.Count(a => a.WinnerAccountInExercises.Name == challenge1.Name);
-                        var challenge2ExerciseCount= ChallengeProgress.Count(a => a.WinnerAccountInExercises.Name == challenge2.Name);
-                        var challenge1KMCount = ChallengeProgress.Count(a => a.WinnerAccountInKM.Name == challenge1.Name);
-                        var challenge2KMCount= ChallengeProgress.Count(a => a.WinnerAccountInKM.Name == challenge2.Name);
-                        WinnerAccountInExercises = challenge1ExerciseCount > challenge2ExerciseCount ? challenge1 : challenge2;
-                        WinnerAccountInKM = challenge1KMCount > challenge2KMCount ? challenge1 : challenge2;
+                        var challenge1ExerciseCount = ChallengeProgress.Count(a => a.WinnerAccountInExercises?.Name == challenge1.Name);
+                        var challenge2ExerciseCount = ChallengeProgress.Count(a => a.WinnerAccountInExercises?.Name == challenge2.Name);
+                        var challenge1KMCount = ChallengeProgress.Count(a => a.WinnerAccountInKM?.Name == challenge1.Name);
+                        var challenge2KMCount = ChallengeProgress.Count(a => a.WinnerAccountInKM?.Name == challenge2.Name);
+                        if (challenge1ExerciseCount != challenge2ExerciseCount)
+                            WinnerAccountInExercises = challenge1ExerciseCount > challenge2ExerciseCount ? challenge1 : challenge2;
+                        if (challenge1KMCount != challenge2KMCount)
+                            WinnerAccountInKM = challenge1KMCount > challenge2KMCount ? challenge1 : challenge2;
                     }
                     else
                     {

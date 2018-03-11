@@ -194,7 +194,7 @@ namespace Journey.Services.Buisness.Challenge
                                   .Select(g => new KeyGroupedChallengeProgress
                                   {
                                       Key = g.Key,
-                                      Accounts = g.GroupBy(b => b.Name).Select
+                                      Accounts = g.OrderByDescending(a => a.Name == _accountService.LoggedInAccount.Name).GroupBy(b => b.Name).Select
                                             (
                                                 b => new AccountChallengeProgress
                                                 {
@@ -219,13 +219,33 @@ namespace Journey.Services.Buisness.Challenge
                         if (item.TotalKm > maxKm)
                         {
                             maxKm = item.TotalKm;
-                            winnerAccountInKm = item.Account;
+                            //if (item.TotalKm == maxKm)
+                            //{
+                            //    //TODO:Assume two accounts
+                            //  //  winnerAccountInKm = null;
+                            //}
+                            //else
+                            {
+                                winnerAccountInKm = item.Account;
+                            }
+                         
                         }
+
                         if (item.TotalExercises > maxExercises)
                         {
                             maxExercises = item.TotalExercises;
-                            winnerAccountInExercises = item.Account;
+                            //if (item.TotalExercises == maxExercises)
+                            //{
+                            //    //TODO:Assume two accounts
+                            //    //winnerAccountInExercises = null;
+                            //}
+                            //else
+                            {
+                                winnerAccountInExercises = item.Account;
+                            }
+
                         }
+
                     }
 
                     ObservableChallengeProgressGroupCollection<AccountChallengeProgress> groupedData =

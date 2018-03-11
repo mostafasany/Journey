@@ -355,9 +355,9 @@
     <value>Exercises</value>
   </data>
 	<data name="Challenge_Winner" xml:space="preserve">
-    <value>Winner</value>
+    <value>Winner till now in</value>
   </data>
 	<data name="KM" xml:space="preserve">
-    <value>Km</value>
+    <value>Kilometers</value>
   </data>
 </root>
