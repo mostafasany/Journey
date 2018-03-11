@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Abstractions.Models
@@ -18,16 +17,5 @@ namespace Abstractions.Models
         {
             get { return _key; }
         }
-    }
-
-    public class ObservableGroupCollection<T> : ObservableCollection<T>
-    {
-        public ObservableGroupCollection(string key, List<T> items) : base(items)
-        {
-            Key = key;
-        }
-
-        public string Key { get; set; }
-
     }
 }

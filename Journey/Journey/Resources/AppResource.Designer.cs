@@ -514,5 +514,23 @@ namespace Journey.Resources {
                 return ResourceManager.GetString("Post_NoPosts", resourceCulture);
             }
         }
+        
+        internal static string Challenge_Exercises {
+            get {
+                return ResourceManager.GetString("Challenge_Exercises", resourceCulture);
+            }
+        }
+        
+        internal static string Challenge_Winner {
+            get {
+                return ResourceManager.GetString("Challenge_Winner", resourceCulture);
+            }
+        }
+        
+        internal static string KM {
+            get {
+                return ResourceManager.GetString("KM", resourceCulture);
+            }
+        }
     }
 }

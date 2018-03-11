@@ -433,7 +433,8 @@ namespace Journey.ViewModels
         {
             try
             {
-                await NavigationService.Navigate("ProfileChallengePage");
+                if (LoggedInAccount != null)
+                    await NavigationService.Navigate("ProfileChallengePage");
             }
             catch (Exception ex)
             {

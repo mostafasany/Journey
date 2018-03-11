@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
-using Abstractions.Models;
 using Journey.Models;
 using Journey.Models.Challenge;
 using Journey.Resources;
@@ -174,7 +173,7 @@ namespace Journey.Services.Buisness.Challenge
             {
                 var challenge = await GetChallengeAsync(challengeId);
                 var account = challenge.ChallengeAccounts.FirstOrDefault(a => a.Id == _accountService.LoggedInAccount.Id);
-                account.NumberExercise++;
+                // account.NumberExercise++;
                 var challengeDto = await _challengeDataService.UpdateChallengeAsync(challenge);
                 return challengeDto;
             }
@@ -184,7 +183,7 @@ namespace Journey.Services.Buisness.Challenge
             }
         }
 
-        public async Task<List<ObservableGroupCollection<AccountChallengeProgress>>> GetChallengePorgessAsync(string challengeId)
+        public async Task<List<ObservableChallengeProgressGroupCollection<AccountChallengeProgress>>> GetChallengePorgessAsync(string challengeId)
         {
             try
             {
@@ -195,8 +194,7 @@ namespace Journey.Services.Buisness.Challenge
                                   .Select(g => new KeyGroupedChallengeProgress
                                   {
                                       Key = g.Key,
-                                      Accounts = g.GroupBy(b => b.Name)
-                                                         .Select
+                                      Accounts = g.GroupBy(b => b.Name).Select
                                             (
                                                 b => new AccountChallengeProgress
                                                 {
@@ -204,16 +202,35 @@ namespace Journey.Services.Buisness.Challenge
                                                     TotalKm = b.Sum(e => e.Km),
                                                     TotalExercises = b.Sum(e => e.Exercises)
                                                 }
-                                                            ).ToList()
+                                             ).ToList(),
+
                                   })
+                                  .ToList();
 
-                               .ToList();
-
-                List<ObservableGroupCollection<AccountChallengeProgress>> list = new List<ObservableGroupCollection<AccountChallengeProgress>>();
+                List<ObservableChallengeProgressGroupCollection<AccountChallengeProgress>> list = new List<ObservableChallengeProgressGroupCollection<AccountChallengeProgress>>();
                 foreach (var progress in orderedList)
                 {
-                    ObservableGroupCollection<AccountChallengeProgress> groupedData =
-                        new ObservableGroupCollection<AccountChallengeProgress>(progress.Key, progress.Accounts);
+                    Models.Account.Account winnerAccountInKm = null;
+                    double maxKm = double.MinValue;
+                    Models.Account.Account winnerAccountInExercises = null;
+                    double maxExercises = double.MinValue;
+                    foreach (var item in progress.Accounts)
+                    {
+                        if (item.TotalKm > maxKm)
+                        {
+                            maxKm = item.TotalKm;
+                            winnerAccountInKm = item.Account;
+                        }
+                        if (item.TotalExercises > maxExercises)
+                        {
+                            maxExercises = item.TotalExercises;
+                            winnerAccountInExercises = item.Account;
+                        }
+                    }
+
+                    ObservableChallengeProgressGroupCollection<AccountChallengeProgress> groupedData =
+                        new ObservableChallengeProgressGroupCollection<AccountChallengeProgress>(progress.Key, progress.Accounts, winnerAccountInKm, winnerAccountInExercises);
+
                     list.Add(groupedData);
                 }
 

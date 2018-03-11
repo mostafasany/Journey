@@ -42,15 +42,6 @@
             }
         }
 
-        public int NumberExercise
-        {
-            get => numberExercise;
-            set
-            {
-                numberExercise = value;
-                RaisePropertyChanged();
-            }
-        }
 
         public bool Liked
         {

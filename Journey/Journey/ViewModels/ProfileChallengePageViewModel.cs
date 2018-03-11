@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Abstractions.Models;
+using Journey.Models.Account;
 using Journey.Models.Challenge;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Challenge;
@@ -58,13 +60,28 @@ namespace Journey.ViewModels
         #region Properties
 
 
+        private List<ObservableChallengeProgressGroupCollection<AccountChallengeProgress>> _challengeProgress;
 
-        private List<ObservableGroupCollection<AccountChallengeProgress>> _challengeProgress;
-
-        public List<ObservableGroupCollection<AccountChallengeProgress>> ChallengeProgress
+        public List<ObservableChallengeProgressGroupCollection<AccountChallengeProgress>> ChallengeProgress
         {
             get => _challengeProgress;
             set => SetProperty(ref _challengeProgress, value);
+        }
+
+
+        private Account _winnerAccountInKM;
+
+        public Account WinnerAccountInKM
+        {
+            get => _winnerAccountInKM;
+            set => SetProperty(ref _winnerAccountInKM, value);
+        }
+        private Account _winnerAccountInExercises;
+
+        public Account WinnerAccountInExercises
+        {
+            get => _winnerAccountInExercises;
+            set => SetProperty(ref _winnerAccountInExercises, value);
         }
 
         private Challenge selectedChallenge;
@@ -100,6 +117,14 @@ namespace Journey.ViewModels
                     {
                         HasActiveChallenge = true;
                         ChallengeProgress = await _challengeService.GetChallengePorgessAsync(SelectedChallenge.Id);
+                        var challenge1 = SelectedChallenge.ChallengeAccounts.FirstOrDefault();
+                        var challenge2 = SelectedChallenge.ChallengeAccounts.LastOrDefault();
+                        var challenge1ExerciseCount = ChallengeProgress.Count(a => a.WinnerAccountInExercises.Name == challenge1.Name);
+                        var challenge2ExerciseCount= ChallengeProgress.Count(a => a.WinnerAccountInExercises.Name == challenge2.Name);
+                        var challenge1KMCount = ChallengeProgress.Count(a => a.WinnerAccountInKM.Name == challenge1.Name);
+                        var challenge2KMCount= ChallengeProgress.Count(a => a.WinnerAccountInKM.Name == challenge2.Name);
+                        WinnerAccountInExercises = challenge1ExerciseCount > challenge2ExerciseCount ? challenge1 : challenge2;
+                        WinnerAccountInKM = challenge1KMCount > challenge2KMCount ? challenge1 : challenge2;
                     }
                     else
                     {

@@ -267,13 +267,12 @@
 	<data name="Challenge_Start" xml:space="preserve">
     <value>Start Challenge</value>
   </data>
-    <data name="Challenge_Approve" xml:space="preserve">
+	<data name="Challenge_Approve" xml:space="preserve">
     <value>Approve Challenge</value>
   </data>
-    <data name="Challenge_ApproveMessage" xml:space="preserve">
+	<data name="Challenge_ApproveMessage" xml:space="preserve">
     <value>   Challenge will be started when your friend approve</value>
   </data>
- 
 	<data name="Challenge_StartDate" xml:space="preserve">
     <value>Start Date</value>
   </data>
@@ -298,7 +297,7 @@
 	<data name="Post_DeleteOrReportMessage" xml:space="preserve">
     <value> What action you need</value>
   </data>
-    <data name="Camera_NotSupported" xml:space="preserve">
+	<data name="Camera_NotSupported" xml:space="preserve">
     <value>Camera not supported in your device</value>
   </data>
 	<data name="Post_UploadImageMust" xml:space="preserve">
@@ -337,19 +336,28 @@
 	<data name="Post_LocationMust" xml:space="preserve">
     <value>Please check in !</value>
   </data>
-    <data name="Location_DefaultLocationTitle" xml:space="preserve">
+	<data name="Location_DefaultLocationTitle" xml:space="preserve">
     <value>Is this your default workout place?</value>
   </data>
-     <data name="Notification_ChallengeRequestTitle" xml:space="preserve">
+	<data name="Notification_ChallengeRequestTitle" xml:space="preserve">
     <value>Challenge Request</value>
   </data>
-      <data name="Notification_ChallengeRequestMessage" xml:space="preserve">
+	<data name="Notification_ChallengeRequestMessage" xml:space="preserve">
     <value>{0} wants to challenge you</value>
   </data>
-     <data name="Notification_NoNotifications" xml:space="preserve">
+	<data name="Notification_NoNotifications" xml:space="preserve">
     <value>No Notifcations</value>
   </data>
-     <data name="Post_NoPosts" xml:space="preserve">
+	<data name="Post_NoPosts" xml:space="preserve">
     <value>No Posts</value>
+  </data>
+	<data name="Challenge_Exercises" xml:space="preserve">
+    <value>Exercises</value>
+  </data>
+	<data name="Challenge_Winner" xml:space="preserve">
+    <value>Winner</value>
+  </data>
+	<data name="KM" xml:space="preserve">
+    <value>Km</value>
   </data>
 </root>

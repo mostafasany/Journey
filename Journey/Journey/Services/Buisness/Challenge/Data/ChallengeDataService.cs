@@ -59,9 +59,9 @@ namespace Journey.Services.Buisness.Challenge.Data
                 var account2 = await friendDataService.GetFriendAsync(challengeDTO.Account2);
                 challenge.ChallengeAccounts = new ObservableCollection<ChallengeAccount>();
                 challenge.ChallengeAccounts.Add(
-                    new ChallengeAccount(account1) { NumberExercise = challenger1.NumberExercise });
+                    new ChallengeAccount(account1));
                 challenge.ChallengeAccounts.Add(
-                    new ChallengeAccount(account2) { NumberExercise = challenger2.NumberExercise });
+                    new ChallengeAccount(account2));
                 return challenge;
             }
             catch (Exception ex)
@@ -143,7 +143,7 @@ namespace Journey.Services.Buisness.Challenge.Data
             status.Add(new ChallengeProgress
             {
                 FirstName = "Heba",
-                LastName = "ELLeithy",
+                LastName = "El-Liethy",
 
                 DatetTime = DateTime.Now,
                 Exercises = 4,
@@ -164,10 +164,10 @@ namespace Journey.Services.Buisness.Challenge.Data
             status.Add(new ChallengeProgress
             {
                 FirstName = "Heba",
-                LastName = "ELLeithy",
+                LastName = "El-Liethy",
 
                 DatetTime = DateTime.Now.AddMonths(1),
-                Exercises = 2,
+                Exercises = 10,
                 Km = 3500,
 
             });
@@ -178,7 +178,7 @@ namespace Journey.Services.Buisness.Challenge.Data
                 LastName = "Khodeir",
 
                 DatetTime = DateTime.Now.AddMonths(2),
-                Exercises = 3,
+                Exercises = 10,
                 Km = 4000,
 
             });
@@ -225,7 +225,7 @@ namespace Journey.Services.Buisness.Challenge.Data
             status.Add(new ChallengeProgress
             {
                 FirstName = "Heba",
-                LastName = "ELLeithy",
+                LastName = "El-Liethy",
 
                 DatetTime = DateTime.Now.AddMonths(3),
                 Exercises = 1,
@@ -235,7 +235,17 @@ namespace Journey.Services.Buisness.Challenge.Data
             status.Add(new ChallengeProgress
             {
                 FirstName = "Heba",
-                LastName = "ELLeithy",
+                LastName = "El-Liethy",
+
+                DatetTime = DateTime.Now.AddMonths(3),
+                Exercises = 10,
+                Km = 50,
+
+            });
+            status.Add(new ChallengeProgress
+            {
+                FirstName = "Heba",
+                LastName = "El-Liethy",
 
                 DatetTime = DateTime.Now.AddMonths(3),
                 Exercises = 1,
@@ -245,21 +255,11 @@ namespace Journey.Services.Buisness.Challenge.Data
             status.Add(new ChallengeProgress
             {
                 FirstName = "Heba",
-                LastName = "ELLeithy",
+                LastName = "El-Liethy",
 
                 DatetTime = DateTime.Now.AddMonths(3),
                 Exercises = 1,
-                Km = 50,
-
-            });
-            status.Add(new ChallengeProgress
-            {
-                FirstName = "Heba",
-                LastName = "ELLeithy",
-
-                DatetTime = DateTime.Now.AddMonths(3),
-                Exercises = 1,
-                Km = 50,
+                Km = 450,
 
             });
 

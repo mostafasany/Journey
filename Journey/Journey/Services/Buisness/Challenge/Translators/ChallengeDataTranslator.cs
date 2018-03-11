@@ -18,8 +18,6 @@ namespace Journey.Services.Buisness.Challenge.Translators
                 postDto.Account1 = challenge.ChallengeAccounts[0].Id;
                 postDto.Account2 = challenge.ChallengeAccounts[1].Id;
                 postDto.Status = challenge.IsActive;
-                postDto.Account1Exercise = challenge.ChallengeAccounts[0].NumberExercise;
-                postDto.Account2Exercise = challenge.ChallengeAccounts[1].NumberExercise;
             }
             return postDto;
         }
@@ -37,15 +35,11 @@ namespace Journey.Services.Buisness.Challenge.Translators
                 postDto.IsActive = challenge.Status;
                 postDto.ChallengeAccounts = new ObservableCollection<ChallengeAccount>();
                 postDto.ChallengeAccounts.Add(
-                    new ChallengeAccount(new Models.Account.Account {Id = challenge.Account1})
-                    {
-                        NumberExercise = challenge.Account1Exercise
-                    });
+                    new ChallengeAccount(new Models.Account.Account { Id = challenge.Account1 })
+                    );
                 postDto.ChallengeAccounts.Add(
-                    new ChallengeAccount(new Models.Account.Account {Id = challenge.Account2})
-                    {
-                        NumberExercise = challenge.Account2Exercise
-                    });
+                    new ChallengeAccount(new Models.Account.Account { Id = challenge.Account2 })
+                    );
             }
             return postDto;
         }
