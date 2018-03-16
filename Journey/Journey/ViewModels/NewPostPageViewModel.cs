@@ -58,7 +58,7 @@ namespace Journey.ViewModels
                     var location = parameters.GetValue<Location>("Location");
                     if (location != null)
                         NewPost.Location =
-                            new PostActivity {Action = "At", Activity = location.Name, Image = location.Image};
+                            new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
                 }
 
                 Intialize();
@@ -279,6 +279,8 @@ namespace Journey.ViewModels
         {
             try
             {
+                if (IsProgress())
+                    return;
                 var commands =
                     new List<DialogCommand>
                     {
@@ -298,14 +300,46 @@ namespace Journey.ViewModels
                                 }
                             }
                         },
+                    new DialogCommand
+                        {
+                        Label = AppResource.Gallery,
+                            Invoked = async () =>
+                            {
+                                try
+                                {
+                                Media media = await _mediaService.PickPhotoAsync();
+                                    AddMedia(media);
+                                }
+                                catch (NotSupportedException)
+                                {
+                                    await DialogService.ShowMessageAsync(AppResource.Camera_NotSupported, AppResource.Error);
+                                }
+                            }
+                        },
                         new DialogCommand
                         {
-                            Label = AppResource.Video,
+                        Label = AppResource.TakeVideo,
                             Invoked = async () =>
                             {
                                 try
                                 {
                                     Media media = await _mediaService.TakeVideoAsync();
+                                    AddMedia(media);
+                                }
+                                catch (NotSupportedException)
+                                {
+                                    await DialogService.ShowMessageAsync(AppResource.Camera_NotSupported, AppResource.Error);
+                                }
+                            }
+                        },
+                    new DialogCommand
+                        {
+                            Label = AppResource.PickVideo,
+                            Invoked = async () =>
+                            {
+                                try
+                                {
+                                Media media = await _mediaService.PickVideoAsync();
                                     AddMedia(media);
                                 }
                                 catch (NotSupportedException)
@@ -354,6 +388,8 @@ namespace Journey.ViewModels
 
         private async void OnCheckIn()
         {
+            if (IsProgress())
+                return;
             await NavigationService.Navigate("ChooseLocationPage");
         }
 

@@ -79,7 +79,7 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        private string _name;
+        private string _name="FitX";
 
         public string Name
         {

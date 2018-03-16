@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using Journey.Models.Account;
 using Journey.Models.Challenge;
+using Journey.Resources;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Challenge;
 using Prism.Commands;
@@ -67,17 +68,17 @@ namespace Journey.ViewModels
         }
 
 
-        private Account _winnerAccountInKm;
+        private string _winnerAccountInKm;
 
-        public Account WinnerAccountInKM
+        public string WinnerAccountInKM
         {
             get => _winnerAccountInKm;
             set => SetProperty(ref _winnerAccountInKm, value);
         }
 
-        private Account _winnerAccountInExercises;
+        private string _winnerAccountInExercises;
 
-        public Account WinnerAccountInExercises
+        public string WinnerAccountInExercises
         {
             get => _winnerAccountInExercises;
             set => SetProperty(ref _winnerAccountInExercises, value);
@@ -122,9 +123,13 @@ namespace Journey.ViewModels
                         int challenge1KmCount = ChallengeProgress.Count(a => a.WinnerAccountInKM?.Name == challenge1.Name);
                         int challenge2KmCount = ChallengeProgress.Count(a => a.WinnerAccountInKM?.Name == challenge2.Name);
                         if (challenge1ExerciseCount != challenge2ExerciseCount)
-                            WinnerAccountInExercises = challenge1ExerciseCount > challenge2ExerciseCount ? challenge1 : challenge2;
+                            WinnerAccountInExercises = challenge1ExerciseCount > challenge2ExerciseCount ? challenge1?.Name : challenge2?.Name;
+                        else
+                            WinnerAccountInExercises = AppResource.Draw;
                         if (challenge1KmCount != challenge2KmCount)
-                            WinnerAccountInKM = challenge1KmCount > challenge2KmCount ? challenge1 : challenge2;
+                            WinnerAccountInKM = challenge1KmCount > challenge2KmCount ? challenge1?.Name : challenge2?.Name;
+                        else
+                            WinnerAccountInKM =AppResource.Draw;
                     }
                     else
                     {

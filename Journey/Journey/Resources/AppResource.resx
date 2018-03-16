@@ -159,8 +159,11 @@
 	<data name="Camera" xml:space="preserve">
     <value>Camera</value>
   </data>
-	<data name="Video" xml:space="preserve">
-    <value>Video</value>
+	<data name="TakeVideo" xml:space="preserve">
+    <value>Take Video</value>
+  </data>
+    <data name="PickVideo" xml:space="preserve">
+    <value>Pick Video</value>
   </data>
 	<data name="No" xml:space="preserve">
     <value>No</value>
@@ -190,7 +193,7 @@
     <value>Upload pictures/Video</value>
   </data>
 	<data name="NewPost_NewPostFeedPlaceholder" xml:space="preserve">
-    <value>   Say something about these photos</value>
+    <value>Say something about this moment</value>
   </data>
 	<data name="Home_WelcomeMessage_Login" xml:space="preserve">
     <value> {0}, Want to share an update</value>
@@ -359,5 +362,8 @@
   </data>
 	<data name="KM" xml:space="preserve">
     <value>Kilometers</value>
+  </data>
+    <data name="Draw" xml:space="preserve">
+    <value>Draw</value>
   </data>
 </root>

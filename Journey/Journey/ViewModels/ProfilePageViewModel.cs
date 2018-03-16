@@ -44,8 +44,6 @@ namespace Journey.ViewModels
         {
             try
             {
-                ShowProgress();
-
                 await LoadAccount(false);
 
                 base.Intialize(sync);
@@ -53,10 +51,6 @@ namespace Journey.ViewModels
             catch (Exception e)
             {
                 ExceptionService.HandleAndShowDialog(e);
-            }
-            finally
-            {
-                HideProgress();
             }
         }
 

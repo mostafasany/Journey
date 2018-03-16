@@ -131,9 +131,15 @@ namespace Journey.Resources {
             }
         }
         
-        internal static string Video {
+        internal static string TakeVideo {
             get {
-                return ResourceManager.GetString("Video", resourceCulture);
+                return ResourceManager.GetString("TakeVideo", resourceCulture);
+            }
+        }
+        
+        internal static string PickVideo {
+            get {
+                return ResourceManager.GetString("PickVideo", resourceCulture);
             }
         }
         
@@ -530,6 +536,12 @@ namespace Journey.Resources {
         internal static string KM {
             get {
                 return ResourceManager.GetString("KM", resourceCulture);
+            }
+        }
+        
+        internal static string Draw {
+            get {
+                return ResourceManager.GetString("Draw", resourceCulture);
             }
         }
     }

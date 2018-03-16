@@ -210,41 +210,18 @@ namespace Journey.Services.Buisness.Challenge
                 var list = new List<ObservableChallengeProgressGroupCollection<AccountChallengeProgress>>();
                 foreach (KeyGroupedChallengeProgress progress in orderedList)
                 {
-                    Models.Account.Account winnerAccountInKm = null;
-                    double maxKm = double.MinValue;
                     Models.Account.Account winnerAccountInExercises = null;
-                    double maxExercises = double.MinValue;
-                    foreach (AccountChallengeProgress item in progress.Accounts)
+                    Models.Account.Account winnerAccountInKm = null;
+                    var orderedAccountExercises = progress.Accounts.OrderByDescending(a => a.TotalExercises);
+                    var orderedAccountKM = progress.Accounts.OrderByDescending(a => a.TotalKm);
+                    if(orderedAccountExercises.FirstOrDefault().TotalExercises > orderedAccountExercises.LastOrDefault().TotalExercises)
                     {
-                        if (item.TotalKm > maxKm)
-                        {
-                            maxKm = item.TotalKm;
-                            if (item.TotalKm == maxKm)
-                            {
-                                //TODO:Assume two accounts
-                              //  winnerAccountInKm = null;
-                            }
-                            else
-                            {
-                                winnerAccountInKm = item.Account;
-                            }
-                        }
-
-                        if (item.TotalExercises > maxExercises)
-                        {
-                            maxExercises = item.TotalExercises;
-                            if (item.TotalExercises == maxExercises)
-                            {
-                                //TODO:Assume two accounts
-                                //winnerAccountInExercises = null;
-                            }
-                            else
-                            {
-                                winnerAccountInExercises = item.Account;
-                            }
-                        }
+                        winnerAccountInExercises = orderedAccountExercises.FirstOrDefault().Account;
                     }
-
+                    if (orderedAccountKM.FirstOrDefault().TotalKm > orderedAccountKM.LastOrDefault().TotalKm)
+                    {
+                        winnerAccountInKm = orderedAccountKM.FirstOrDefault().Account;
+                    }
                     var groupedData =
                         new ObservableChallengeProgressGroupCollection<AccountChallengeProgress>(progress.Key, progress.Accounts, winnerAccountInKm, winnerAccountInExercises);
 

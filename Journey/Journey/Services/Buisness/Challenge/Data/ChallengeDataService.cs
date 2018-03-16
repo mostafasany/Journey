@@ -116,7 +116,7 @@ namespace Journey.Services.Buisness.Challenge.Data
                     LastName = "Khodeir",
                     DatetTime = DateTime.Now,
                     Exercises = 1,
-                    Km = 3000
+                    Km = 5
                 },
                 new ChallengeProgress
                 {
@@ -125,7 +125,7 @@ namespace Journey.Services.Buisness.Challenge.Data
 
                     DatetTime = DateTime.Now,
                     Exercises = 1,
-                    Km = 2000
+                    Km = 4
                 },
                 new ChallengeProgress
                 {
@@ -134,7 +134,7 @@ namespace Journey.Services.Buisness.Challenge.Data
 
                     DatetTime = DateTime.Now,
                     Exercises = 1,
-                    Km = 1000
+                    Km = 6
                 },
                 new ChallengeProgress
                 {
@@ -142,8 +142,8 @@ namespace Journey.Services.Buisness.Challenge.Data
                     LastName = "El-Liethy",
 
                     DatetTime = DateTime.Now,
-                    Exercises = 4,
-                    Km = 3500
+                    Exercises = 1,
+                    Km = 40
                 },
                 new ChallengeProgress
                 {
@@ -151,8 +151,8 @@ namespace Journey.Services.Buisness.Challenge.Data
                     LastName = "Khodeir",
 
                     DatetTime = DateTime.Now.AddMonths(1),
-                    Exercises = 2,
-                    Km = 3500
+                    Exercises = 1,
+                    Km = 3
                 },
                 new ChallengeProgress
                 {
@@ -160,90 +160,90 @@ namespace Journey.Services.Buisness.Challenge.Data
                     LastName = "El-Liethy",
 
                     DatetTime = DateTime.Now.AddMonths(1),
-                    Exercises = 10,
-                    Km = 3500
-                },
-                new ChallengeProgress
-                {
-                    FirstName = "Mostafa",
-                    LastName = "Khodeir",
-
-                    DatetTime = DateTime.Now.AddMonths(2),
-                    Exercises = 10,
-                    Km = 4000
-                },
-                new ChallengeProgress
-                {
-                    FirstName = "Mostafa",
-                    LastName = "Khodeir",
-
-                    DatetTime = DateTime.Now.AddMonths(3),
                     Exercises = 1,
-                    Km = 100
+                    Km = 2
                 },
-                new ChallengeProgress
-                {
-                    FirstName = "Mostafa",
-                    LastName = "Khodeir",
+            //    new ChallengeProgress
+            //    {
+            //        FirstName = "Mostafa",
+            //        LastName = "Khodeir",
 
-                    DatetTime = DateTime.Now.AddMonths(3),
-                    Exercises = 1,
-                    Km = 100
-                },
-                new ChallengeProgress
-                {
-                    FirstName = "Mostafa",
-                    LastName = "Khodeir",
+            //        DatetTime = DateTime.Now.AddMonths(2),
+            //        Exercises = 10,
+            //        Km = 4000
+            //    },
+            //    new ChallengeProgress
+            //    {
+            //        FirstName = "Mostafa",
+            //        LastName = "Khodeir",
 
-                    DatetTime = DateTime.Now.AddMonths(3),
-                    Exercises = 1,
-                    Km = 100
-                },
-                new ChallengeProgress
-                {
-                    FirstName = "Mostafa",
-                    LastName = "Khodeir",
+            //        DatetTime = DateTime.Now.AddMonths(3),
+            //        Exercises = 1,
+            //        Km = 100
+            //    },
+            //    new ChallengeProgress
+            //    {
+            //        FirstName = "Mostafa",
+            //        LastName = "Khodeir",
 
-                    DatetTime = DateTime.Now.AddMonths(3),
-                    Exercises = 1,
-                    Km = 100
-                },
-                new ChallengeProgress
-                {
-                    FirstName = "Heba",
-                    LastName = "El-Liethy",
+            //        DatetTime = DateTime.Now.AddMonths(3),
+            //        Exercises = 1,
+            //        Km = 100
+            //    },
+            //    new ChallengeProgress
+            //    {
+            //        FirstName = "Mostafa",
+            //        LastName = "Khodeir",
 
-                    DatetTime = DateTime.Now.AddMonths(3),
-                    Exercises = 1,
-                    Km = 50
-                },
-                new ChallengeProgress
-                {
-                    FirstName = "Heba",
-                    LastName = "El-Liethy",
+            //        DatetTime = DateTime.Now.AddMonths(3),
+            //        Exercises = 1,
+            //        Km = 100
+            //    },
+            //    new ChallengeProgress
+            //    {
+            //        FirstName = "Mostafa",
+            //        LastName = "Khodeir",
 
-                    DatetTime = DateTime.Now.AddMonths(3),
-                    Exercises = 10,
-                    Km = 50
-                },
-                new ChallengeProgress
-                {
-                    FirstName = "Heba",
-                    LastName = "El-Liethy",
+            //        DatetTime = DateTime.Now.AddMonths(3),
+            //        Exercises = 1,
+            //        Km = 100
+            //    },
+            //    new ChallengeProgress
+            //    {
+            //        FirstName = "Heba",
+            //        LastName = "El-Liethy",
 
-                    DatetTime = DateTime.Now.AddMonths(3),
-                    Exercises = 1,
-                    Km = 50
-                },
-                new ChallengeProgress
-                {
-                    FirstName = "Heba",
-                    LastName = "El-Liethy",
+            //        DatetTime = DateTime.Now.AddMonths(3),
+            //        Exercises = 1,
+            //        Km = 50
+            //    },
+            //    new ChallengeProgress
+            //    {
+            //        FirstName = "Heba",
+            //        LastName = "El-Liethy",
 
-                    DatetTime = DateTime.Now.AddMonths(3),
-                    Exercises = 1,
-                    Km = 450
-                }
+            //        DatetTime = DateTime.Now.AddMonths(3),
+            //        Exercises = 10,
+            //        Km = 50
+            //    },
+            //    new ChallengeProgress
+            //    {
+            //        FirstName = "Heba",
+            //        LastName = "El-Liethy",
+
+            //        DatetTime = DateTime.Now.AddMonths(3),
+            //        Exercises = 1,
+            //        Km = 50
+            //    },
+            //    new ChallengeProgress
+            //    {
+            //        FirstName = "Heba",
+            //        LastName = "El-Liethy",
+
+            //        DatetTime = DateTime.Now.AddMonths(3),
+            //        Exercises = 1,
+            //        Km = 450
+            //    }
             };
 
 

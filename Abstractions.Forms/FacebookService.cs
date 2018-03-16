@@ -37,7 +37,6 @@ namespace Abstractions.Forms
                     throw new ArgumentException(nameof(FacebookToken));
                 var locations = new List<Location>();
 
-                //var facebookAccount = facebookservice.GetFacebookAccount();
                 string api = string.Format(ApiSearch, name, MinLocationDistanceInMeter, "place", lat,
                     lng);
                 api += " &access_token=" + FacebookToken;
