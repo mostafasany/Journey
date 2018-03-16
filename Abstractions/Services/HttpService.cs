@@ -38,14 +38,14 @@ namespace Abstractions.Services
                 };
 
                 if (headers != null)
-                    foreach (var header in headers)
+                    foreach (KeyValuePair<string, string> header in headers)
                         request.Headers.Add(header.Key, header.Value);
 
-                var result = await client.SendAsync(request);
-                var responseJson = await result.Content.ReadAsStringAsync();
+                HttpResponseMessage result = await client.SendAsync(request);
+                string responseJson = await result.Content.ReadAsStringAsync();
                 if (result.IsSuccessStatusCode)
                 {
-                    var itemType = typeof(T);
+                    Type itemType = typeof(T);
                     if (itemType == typeof(string))
                     {
                         var responseObject = (T) Convert.ChangeType(responseJson, typeof(T));
@@ -57,17 +57,20 @@ namespace Abstractions.Services
                         return new HttpResult<T>(responseObject, null, result);
                     }
                 }
+
                 if (result.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     UnAuthorizedChanged?.Invoke(headers,
                         new UnAuthroirzedChangedEventArgs {URL = url, Headers = headers});
                     throw new UnAuthorizedException(ExceptionType.General.ToString(), headers, url);
                 }
+
                 var errorResponseObject = JsonConvert.DeserializeObject<ErrorPayLoad>(responseJson);
                 if (errorResponseObject == null)
                 {
                     var error = new List<string> {responseJson};
                 }
+
                 return new HttpResult<T>(null, errorResponseObject, result);
             }
             catch (UnAuthorizedException ex)
@@ -94,12 +97,12 @@ namespace Abstractions.Services
                 if (!string.IsNullOrEmpty(AccessToken))
                     request.Headers.Authorization = new AuthenticationHeaderValue(AccessToken);
                 if (headers != null)
-                    foreach (var header in headers)
+                    foreach (KeyValuePair<string, string> header in headers)
                         request.Headers.Add(header.Key, header.Value);
 
 
                 result = await client.SendAsync(request);
-                var responseJson = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
+                string responseJson = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
                 if (result.IsSuccessStatusCode)
                 {
                     var settings = new JsonSerializerSettings
@@ -111,12 +114,14 @@ namespace Abstractions.Services
                     var responseObject = JsonConvert.DeserializeObject<T>(responseJson, settings);
                     return new HttpResult<T>(responseObject, null, result);
                 }
+
                 if (result.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     UnAuthorizedChanged?.Invoke(headers,
                         new UnAuthroirzedChangedEventArgs {URL = url, Headers = headers});
                     throw new UnAuthorizedException("UnAuthorized", headers, url);
                 }
+
                 var errorRsponseObject = JsonConvert.DeserializeObject<ErrorPayLoad>(responseJson);
                 return new HttpResult<T>(null, errorRsponseObject, result);
             }
@@ -135,7 +140,7 @@ namespace Abstractions.Services
         {
             try
             {
-                var json = JsonConvert.SerializeObject(content);
+                string json = JsonConvert.SerializeObject(content);
                 var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
                 var request = new HttpRequestMessage
                 {
@@ -146,14 +151,14 @@ namespace Abstractions.Services
                 if (!string.IsNullOrEmpty(AccessToken))
                     request.Headers.Authorization = new AuthenticationHeaderValue(AccessToken);
                 if (headers != null)
-                    foreach (var header in headers)
+                    foreach (KeyValuePair<string, string> header in headers)
                         request.Headers.Add(header.Key, header.Value);
 
-                var result = await client.SendAsync(request);
-                var responseJson = await result.Content.ReadAsStringAsync();
+                HttpResponseMessage result = await client.SendAsync(request);
+                string responseJson = await result.Content.ReadAsStringAsync();
                 if (result.IsSuccessStatusCode)
                 {
-                    var itemType = typeof(T);
+                    Type itemType = typeof(T);
                     if (itemType == typeof(string))
                     {
                         var responseObject = (T) Convert.ChangeType(responseJson, typeof(T));
@@ -165,12 +170,14 @@ namespace Abstractions.Services
                         return new HttpResult<T>(responseObject, null, result);
                     }
                 }
+
                 if (result.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     UnAuthorizedChanged?.Invoke(headers,
                         new UnAuthroirzedChangedEventArgs {URL = url, Headers = headers});
                     throw new UnAuthorizedException(ExceptionType.General.ToString(), headers, url);
                 }
+
                 var errorResponseObject = JsonConvert.DeserializeObject<ErrorPayLoad>(responseJson);
                 return new HttpResult<T>(null, errorResponseObject, result);
             }
@@ -199,14 +206,14 @@ namespace Abstractions.Services
                     request.Headers.Authorization = new AuthenticationHeaderValue(AccessToken);
 
                 if (headers != null)
-                    foreach (var header in headers)
+                    foreach (KeyValuePair<string, string> header in headers)
                         request.Headers.Add(header.Key, header.Value);
 
-                var result = await client.SendAsync(request);
-                var responseJson = await result.Content.ReadAsStringAsync();
+                HttpResponseMessage result = await client.SendAsync(request);
+                string responseJson = await result.Content.ReadAsStringAsync();
                 if (result.IsSuccessStatusCode)
                 {
-                    var itemType = typeof(T);
+                    Type itemType = typeof(T);
                     if (itemType == typeof(string))
                     {
                         var responseObject = (T) Convert.ChangeType(responseJson, typeof(T));
@@ -218,12 +225,14 @@ namespace Abstractions.Services
                         return new HttpResult<T>(responseObject, null, result);
                     }
                 }
+
                 if (result.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     UnAuthorizedChanged?.Invoke(headers,
                         new UnAuthroirzedChangedEventArgs {URL = url, Headers = headers});
                     throw new UnAuthorizedException(ExceptionType.UnAuthorized.ToString(), headers, url);
                 }
+
                 var errorResponseObject = JsonConvert.DeserializeObject<ErrorPayLoad>(responseJson);
                 return new HttpResult<T>(null, errorResponseObject, result);
             }
@@ -242,7 +251,7 @@ namespace Abstractions.Services
         {
             try
             {
-                var json = JsonConvert.SerializeObject(content);
+                string json = JsonConvert.SerializeObject(content);
                 var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
                 var request = new HttpRequestMessage
                 {
@@ -253,14 +262,14 @@ namespace Abstractions.Services
                 if (!string.IsNullOrEmpty(AccessToken))
                     request.Headers.Authorization = new AuthenticationHeaderValue(AccessToken);
                 if (headers != null)
-                    foreach (var header in headers)
+                    foreach (KeyValuePair<string, string> header in headers)
                         request.Headers.Add(header.Key, header.Value);
 
-                var result = await client.SendAsync(request);
-                var responseJson = await result.Content.ReadAsStringAsync();
+                HttpResponseMessage result = await client.SendAsync(request);
+                string responseJson = await result.Content.ReadAsStringAsync();
                 if (result.IsSuccessStatusCode)
                 {
-                    var itemType = typeof(T);
+                    Type itemType = typeof(T);
                     if (itemType == typeof(string))
                     {
                         var responseObject = (T) Convert.ChangeType(responseJson, typeof(T));
@@ -272,12 +281,14 @@ namespace Abstractions.Services
                         return new HttpResult<T>(responseObject, null, result);
                     }
                 }
+
                 if (result.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     UnAuthorizedChanged?.Invoke(headers,
                         new UnAuthroirzedChangedEventArgs {URL = url, Headers = headers});
                     throw new UnAuthorizedException(ExceptionType.General.ToString(), headers, url);
                 }
+
                 var errorResponseObject = JsonConvert.DeserializeObject<ErrorPayLoad>(responseJson);
 
                 return new HttpResult<T>(null, errorResponseObject, result);

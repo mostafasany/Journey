@@ -29,7 +29,7 @@ namespace Journey.Services.Buisness.Post.Data
                 if (post == null)
                     return null;
 
-                var postDto = PostDataTranslators.TranslatePost(post, _client.CurrentUser.UserId, images);
+                AzurePost postDto = PostDataTranslators.TranslatePost(post, _client.CurrentUser.UserId, images);
                 await _azurePost.InsertAsync(postDto);
 
                 await SyncPostAsync(post.Challenge);
@@ -68,7 +68,7 @@ namespace Journey.Services.Buisness.Post.Data
             try
             {
                 List<AzurePost> posts;
-                var api = string.Format("post?size={0}&page={1}&challenge={2}", size, page, challengeId);
+                string api = string.Format("post?size={0}&page={1}&challenge={2}", size, page, challengeId);
                 posts = await _client.InvokeApiAsync<List<AzurePost>>(api, HttpMethod.Get, null);
                 //if (sync)
                 //{
@@ -84,7 +84,7 @@ namespace Journey.Services.Buisness.Post.Data
                 //}
                 if (posts == null || posts.Count == 0)
                     return null;
-                var postsDTo = PostDataTranslators.TranslatePosts(posts);
+                List<Models.Post.Post> postsDTo = PostDataTranslators.TranslatePosts(posts);
                 return postsDTo;
             }
             catch (Exception ex)
@@ -103,7 +103,7 @@ namespace Journey.Services.Buisness.Post.Data
                     param.Add("action", post.Id + "," + "like");
                 else
                     param.Add("action", post.Id + "," + "unlike");
-                var success = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
+                bool success = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
                 return success;
             }
             catch (Exception ex)
@@ -119,7 +119,7 @@ namespace Journey.Services.Buisness.Post.Data
                 var api = "post";
                 var param = new Dictionary<string, string>();
                 param.Add("action", post.Id + "," + "share");
-                var success = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
+                bool success = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
                 return success;
             }
             catch (Exception ex)
@@ -129,53 +129,6 @@ namespace Journey.Services.Buisness.Post.Data
         }
 
 
-        public async Task<List<AzurePost>> SyncPostAsync(string challengeId, int page = 0, int size = 10)
-        {
-            //ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
-
-            //try
-            //{
-            //    await this.Client.SyncContext.PushAsync();
-
-            //    // The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
-            //    // Use a different query name for each unique query in your program.
-            //    await this.azurePost.PullAsync("allPostItems", this.azurePost.CreateQuery().Where(po => po.Challenge == challengeId));
-            //    var posts = await this.azurePost.CreateQuery().Where(po => po.Challenge == challengeId).ToListAsync();
-            //    return posts;
-            //}
-            //catch (MobileServicePushFailedException exc)
-            //{
-            //    ExceptionService.Handle(exc);
-            //    if (exc.PushResult != null)
-            //    {
-            //        syncErrors = exc.PushResult.Errors;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    ExceptionService.Handle(ex);
-            //    return null;
-            //}
-            //// Simple error/conflict handling.
-            //if (syncErrors != null)
-            //{
-            //    foreach (var error in syncErrors)
-            //    {
-            //        if (error.OperationKind == MobileServiceTableOperationKind.Update && error.Result != null)
-            //        {
-            //            // Update failed, revert to server's copy
-            //            await error.CancelAndUpdateItemAsync(error.Result);
-            //        }
-            //        else
-            //        {
-            //            // Discard local change
-            //            await error.CancelAndDiscardItemAsync();
-            //        }
-
-            //        // Debug.WriteLine(@"Error executing sync operation. Item: {0} ({1}). Operation discarded.", error.TableName, error.Item["id"]);
-            //    }
-            //}
-            return null;
-        }
+        public async Task<List<AzurePost>> SyncPostAsync(string challengeId, int page = 0, int size = 10) => null;
     }
 }

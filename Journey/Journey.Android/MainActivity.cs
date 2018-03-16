@@ -33,7 +33,7 @@ namespace Journey.Droid
             Forms.Init(this, bundle);
             CachedImageRenderer.Init(false);
             VideoViewRenderer.Init();
-            Journey.App.Init((IAzureAuthenticateService) this);
+            App.Init((IAzureAuthenticateService) this);
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
             LoadApplication(new App(new AndroidInitializer()));
         }
@@ -45,12 +45,13 @@ namespace Journey.Droid
                 if (_user == null)
                 {
                     // Sign in with Facebook login using a server-managed flow.
-                    _user = await Journey.App.Client.LoginAsync(this,
+                    _user = await App.Client.LoginAsync(this,
                         MobileServiceAuthenticationProvider.Facebook, Constant.AppName);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
+                // ignored
             }
 
             return _user;

@@ -10,9 +10,9 @@ namespace Journey.Services.Buisness.PostComment
 {
     public class PostCommentService : IPostCommentService
     {
-        private const int PostPageSize = 10;
         private readonly IPostCommentDataService _postDataService;
         private readonly IPostService _postService;
+        private const int PostPageSize = 10;
 
         public PostCommentService(IPostCommentDataService postDataService, IPostService postService)
         {
@@ -25,7 +25,7 @@ namespace Journey.Services.Buisness.PostComment
             try
             {
                 _postService.PostStatusChanged(null, PostStatus.InProgress);
-                var commentDTo = await _postDataService.AddCommentAsync(comment, post);
+                Comment commentDTo = await _postDataService.AddCommentAsync(comment, post);
                 if (commentDTo != null)
                     _postService.PostStatusChanged(new PostBase {Id = post}, PostStatus.CommentsUpdated);
                 return commentDTo;
@@ -41,7 +41,7 @@ namespace Journey.Services.Buisness.PostComment
         {
             try
             {
-                var commentList = await _postDataService.GetCommentsAsync(post, 0, PostPageSize, sync);
+                List<Comment> commentList = await _postDataService.GetCommentsAsync(post, 0, PostPageSize, sync);
                 return commentList;
             }
             catch (Exception ex)
@@ -54,7 +54,7 @@ namespace Journey.Services.Buisness.PostComment
         {
             try
             {
-                var deleted = await _postDataService.DeleteCommentAsync(comment, post);
+                bool deleted = await _postDataService.DeleteCommentAsync(comment, post);
                 return deleted;
             }
             catch (Exception ex)

@@ -6,28 +6,20 @@ using Prism.Navigation;
 using Unity;
 using INavigationService = Abstractions.Services.Contracts.INavigationService;
 
-namespace Journey.Services.Forms
+namespace Abstractions.Forms
 {
     public class NavigationService : INavigationService
     {
         private readonly Prism.Navigation.INavigationService _navigationService;
 
         public NavigationService(IUnityContainer container) //:base(container)
-        {
-            _navigationService = container.Resolve<Prism.Navigation.INavigationService>();
-        }
+            => _navigationService = container.Resolve<Prism.Navigation.INavigationService>();
 
         public string CurrentPage { get; set; }
 
-        public bool CanGoBack()
-        {
-            throw new NotImplementedException();
-        }
+        public bool CanGoBack() => throw new NotImplementedException();
 
-        public bool CanGoForward()
-        {
-            throw new NotImplementedException();
-        }
+        public bool CanGoForward() => throw new NotImplementedException();
 
         public void ClearHistory()
         {
@@ -93,7 +85,7 @@ namespace Journey.Services.Forms
                 if (parameters != null)
                 {
                     navigationParameters = new NavigationParameters();
-                    foreach (var parameter in parameters)
+                    foreach (KeyValuePair<string, object> parameter in parameters)
                         navigationParameters.Add(parameter.Key, parameter.Value);
                 }
 
@@ -143,8 +135,9 @@ namespace Journey.Services.Forms
                 //await Application.Current.MainPage.Navigation.PopAsync();
                 await _navigationService.NavigateAsync(pageToken, navigationParameters, useModalNavigation, animated);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
+                // ignored
             }
         }
     }

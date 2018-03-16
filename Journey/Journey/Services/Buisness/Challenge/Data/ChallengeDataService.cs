@@ -15,15 +15,15 @@ namespace Journey.Services.Buisness.Challenge.Data
 {
     public class ChallengeDataService : IChallengeDataService
     {
+        private readonly IMobileServiceTable<AzureChallenge> _azureChallenge;
         private readonly MobileServiceClient _client;
-        private readonly IMobileServiceTable<AzureChallenge> azureChallenge;
-        private readonly IFriendDataService friendDataService;
+        private readonly IFriendDataService _friendDataService;
 
-        public ChallengeDataService(IAzureService azureService, IFriendDataService _friendDataService)
+        public ChallengeDataService(IAzureService azureService, IFriendDataService friendDataService)
         {
             _client = azureService.CreateOrGetAzureClient();
-            friendDataService = _friendDataService;
-            azureChallenge = _client.GetTable<AzureChallenge>();
+            _friendDataService = friendDataService;
+            _azureChallenge = _client.GetTable<AzureChallenge>();
         }
 
 
@@ -33,8 +33,8 @@ namespace Journey.Services.Buisness.Challenge.Data
             {
                 if (challenge == null)
                     return null;
-                var accountDto = ChallengeDataTranslator.TranslateChallenge(challenge);
-                await azureChallenge.InsertAsync(accountDto);
+                AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge);
+                await _azureChallenge.InsertAsync(accountDto);
                 challenge = ChallengeDataTranslator.TranslateChallenge(accountDto);
                 return challenge;
             }
@@ -48,15 +48,13 @@ namespace Journey.Services.Buisness.Challenge.Data
         {
             try
             {
-                var challengeDTO = await azureChallenge.LookupAsync(challengeId);
+                AzureChallenge challengeDto = await _azureChallenge.LookupAsync(challengeId);
                 //if (challengeDTO.Status == false)
                 //return null;
 
-                var challenge = ChallengeDataTranslator.TranslateChallenge(challengeDTO);
-                var challenger1 = challenge.ChallengeAccounts.FirstOrDefault();
-                var challenger2 = challenge.ChallengeAccounts.LastOrDefault();
-                var account1 = await friendDataService.GetFriendAsync(challengeDTO.Account1);
-                var account2 = await friendDataService.GetFriendAsync(challengeDTO.Account2);
+                Models.Challenge.Challenge challenge = ChallengeDataTranslator.TranslateChallenge(challengeDto);
+                Models.Account.Account account1 = await _friendDataService.GetFriendAsync(challengeDto.Account1);
+                Models.Account.Account account2 = await _friendDataService.GetFriendAsync(challengeDto.Account2);
                 challenge.ChallengeAccounts = new ObservableCollection<ChallengeAccount>();
                 challenge.ChallengeAccounts.Add(
                     new ChallengeAccount(account1));
@@ -74,14 +72,14 @@ namespace Journey.Services.Buisness.Challenge.Data
         {
             try
             {
-                var account = _client.CurrentUser.UserId;
-                var challengeDTO = await azureChallenge
+                string account = _client.CurrentUser.UserId;
+                List<AzureChallenge> challengeDto = await _azureChallenge
                     .Where(a => a.Account1 == account || a.Account2 == account).ToListAsync();
-                var accountChallenge = challengeDTO?.FirstOrDefault();
+                AzureChallenge accountChallenge = challengeDto?.FirstOrDefault();
                 if (accountChallenge == null)
                     return null;
 
-                var challenge = ChallengeDataTranslator.TranslateChallenge(accountChallenge);
+                Models.Challenge.Challenge challenge = ChallengeDataTranslator.TranslateChallenge(accountChallenge);
 
                 return challenge;
             }
@@ -97,8 +95,8 @@ namespace Journey.Services.Buisness.Challenge.Data
             {
                 if (challenge == null)
                     return null;
-                var accountDto = ChallengeDataTranslator.TranslateChallenge(challenge);
-                await azureChallenge.UpdateAsync(accountDto);
+                AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge);
+                await _azureChallenge.UpdateAsync(accountDto);
                 challenge = ChallengeDataTranslator.TranslateChallenge(accountDto);
                 return challenge;
             }
@@ -110,158 +108,144 @@ namespace Journey.Services.Buisness.Challenge.Data
 
         public async Task<List<ChallengeProgress>> GetChallengePorgessAsync(string challengeId)
         {
-            List<ChallengeProgress> status = new List<ChallengeProgress>();
-            status.Add(new ChallengeProgress
+            var status = new List<ChallengeProgress>
             {
-                FirstName = "Mostafa",
-                LastName = "Khodeir",
-                DatetTime = DateTime.Now,
-                Exercises = 1,
-                Km = 3000,
+                new ChallengeProgress
+                {
+                    FirstName = "Mostafa",
+                    LastName = "Khodeir",
+                    DatetTime = DateTime.Now,
+                    Exercises = 1,
+                    Km = 3000
+                },
+                new ChallengeProgress
+                {
+                    FirstName = "Mostafa",
+                    LastName = "Khodeir",
 
-            });
-            status.Add(new ChallengeProgress
-            {
-                FirstName = "Mostafa",
-                LastName = "Khodeir",
+                    DatetTime = DateTime.Now,
+                    Exercises = 1,
+                    Km = 2000
+                },
+                new ChallengeProgress
+                {
+                    FirstName = "Mostafa",
+                    LastName = "Khodeir",
 
-                DatetTime = DateTime.Now,
-                Exercises = 1,
-                Km = 2000,
+                    DatetTime = DateTime.Now,
+                    Exercises = 1,
+                    Km = 1000
+                },
+                new ChallengeProgress
+                {
+                    FirstName = "Heba",
+                    LastName = "El-Liethy",
 
-            });
-            status.Add(new ChallengeProgress
-            {
-                FirstName = "Mostafa",
-                LastName = "Khodeir",
+                    DatetTime = DateTime.Now,
+                    Exercises = 4,
+                    Km = 3500
+                },
+                new ChallengeProgress
+                {
+                    FirstName = "Mostafa",
+                    LastName = "Khodeir",
 
-                DatetTime = DateTime.Now,
-                Exercises = 1,
-                Km = 1000,
+                    DatetTime = DateTime.Now.AddMonths(1),
+                    Exercises = 2,
+                    Km = 3500
+                },
+                new ChallengeProgress
+                {
+                    FirstName = "Heba",
+                    LastName = "El-Liethy",
 
-            });
-            status.Add(new ChallengeProgress
-            {
-                FirstName = "Heba",
-                LastName = "El-Liethy",
+                    DatetTime = DateTime.Now.AddMonths(1),
+                    Exercises = 10,
+                    Km = 3500
+                },
+                new ChallengeProgress
+                {
+                    FirstName = "Mostafa",
+                    LastName = "Khodeir",
 
-                DatetTime = DateTime.Now,
-                Exercises = 4,
-                Km = 3500,
+                    DatetTime = DateTime.Now.AddMonths(2),
+                    Exercises = 10,
+                    Km = 4000
+                },
+                new ChallengeProgress
+                {
+                    FirstName = "Mostafa",
+                    LastName = "Khodeir",
 
-            });
+                    DatetTime = DateTime.Now.AddMonths(3),
+                    Exercises = 1,
+                    Km = 100
+                },
+                new ChallengeProgress
+                {
+                    FirstName = "Mostafa",
+                    LastName = "Khodeir",
 
-            status.Add(new ChallengeProgress
-            {
-                FirstName = "Mostafa",
-                LastName = "Khodeir",
+                    DatetTime = DateTime.Now.AddMonths(3),
+                    Exercises = 1,
+                    Km = 100
+                },
+                new ChallengeProgress
+                {
+                    FirstName = "Mostafa",
+                    LastName = "Khodeir",
 
-                DatetTime = DateTime.Now.AddMonths(1),
-                Exercises = 2,
-                Km = 3500,
+                    DatetTime = DateTime.Now.AddMonths(3),
+                    Exercises = 1,
+                    Km = 100
+                },
+                new ChallengeProgress
+                {
+                    FirstName = "Mostafa",
+                    LastName = "Khodeir",
 
-            });
-            status.Add(new ChallengeProgress
-            {
-                FirstName = "Heba",
-                LastName = "El-Liethy",
+                    DatetTime = DateTime.Now.AddMonths(3),
+                    Exercises = 1,
+                    Km = 100
+                },
+                new ChallengeProgress
+                {
+                    FirstName = "Heba",
+                    LastName = "El-Liethy",
 
-                DatetTime = DateTime.Now.AddMonths(1),
-                Exercises = 10,
-                Km = 3500,
+                    DatetTime = DateTime.Now.AddMonths(3),
+                    Exercises = 1,
+                    Km = 50
+                },
+                new ChallengeProgress
+                {
+                    FirstName = "Heba",
+                    LastName = "El-Liethy",
 
-            });
+                    DatetTime = DateTime.Now.AddMonths(3),
+                    Exercises = 10,
+                    Km = 50
+                },
+                new ChallengeProgress
+                {
+                    FirstName = "Heba",
+                    LastName = "El-Liethy",
 
-            status.Add(new ChallengeProgress
-            {
-                FirstName = "Mostafa",
-                LastName = "Khodeir",
+                    DatetTime = DateTime.Now.AddMonths(3),
+                    Exercises = 1,
+                    Km = 50
+                },
+                new ChallengeProgress
+                {
+                    FirstName = "Heba",
+                    LastName = "El-Liethy",
 
-                DatetTime = DateTime.Now.AddMonths(2),
-                Exercises = 10,
-                Km = 4000,
+                    DatetTime = DateTime.Now.AddMonths(3),
+                    Exercises = 1,
+                    Km = 450
+                }
+            };
 
-            });
-            status.Add(new ChallengeProgress
-            {
-                FirstName = "Mostafa",
-                LastName = "Khodeir",
-
-                DatetTime = DateTime.Now.AddMonths(3),
-                Exercises = 1,
-                Km = 100,
-
-            });
-            status.Add(new ChallengeProgress
-            {
-                FirstName = "Mostafa",
-                LastName = "Khodeir",
-
-                DatetTime = DateTime.Now.AddMonths(3),
-                Exercises = 1,
-                Km = 100,
-
-            });
-            status.Add(new ChallengeProgress
-            {
-                FirstName = "Mostafa",
-                LastName = "Khodeir",
-
-                DatetTime = DateTime.Now.AddMonths(3),
-                Exercises = 1,
-                Km = 100,
-
-            });
-            status.Add(new ChallengeProgress
-            {
-                FirstName = "Mostafa",
-                LastName = "Khodeir",
-
-                DatetTime = DateTime.Now.AddMonths(3),
-                Exercises = 1,
-                Km = 100,
-
-            });
-            status.Add(new ChallengeProgress
-            {
-                FirstName = "Heba",
-                LastName = "El-Liethy",
-
-                DatetTime = DateTime.Now.AddMonths(3),
-                Exercises = 1,
-                Km = 50,
-
-            });
-            status.Add(new ChallengeProgress
-            {
-                FirstName = "Heba",
-                LastName = "El-Liethy",
-
-                DatetTime = DateTime.Now.AddMonths(3),
-                Exercises = 10,
-                Km = 50,
-
-            });
-            status.Add(new ChallengeProgress
-            {
-                FirstName = "Heba",
-                LastName = "El-Liethy",
-
-                DatetTime = DateTime.Now.AddMonths(3),
-                Exercises = 1,
-                Km = 50,
-
-            });
-            status.Add(new ChallengeProgress
-            {
-                FirstName = "Heba",
-                LastName = "El-Liethy",
-
-                DatetTime = DateTime.Now.AddMonths(3),
-                Exercises = 1,
-                Km = 450,
-
-            });
 
             return status;
         }

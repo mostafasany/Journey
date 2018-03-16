@@ -11,16 +11,13 @@ namespace Journey.Services.Buisness.Measurment
     {
         private readonly IAccountMeasurmentDataService _accountDataService;
 
-        public AccountMeasurmentService(IAccountMeasurmentDataService accountDataService)
-        {
-            _accountDataService = accountDataService;
-        }
+        public AccountMeasurmentService(IAccountMeasurmentDataService accountDataService) => _accountDataService = accountDataService;
 
         public async Task<List<ScaleMeasurment>> GetMeasurmentsAsync(bool sync = false)
         {
             try
             {
-                var measuremnts = await _accountDataService.GetAccountMeasurmentAsync(sync);
+                List<ScaleMeasurment> measuremnts = await _accountDataService.GetAccountMeasurmentAsync(sync);
                 return measuremnts;
             }
             catch (Exception ex)

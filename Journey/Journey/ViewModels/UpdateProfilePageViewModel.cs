@@ -38,7 +38,7 @@ namespace Journey.ViewModels
             try
             {
                 ShowProgress();
-                var loggedInAccount = parameters.GetValue<Account>("Account") ?? new Account();
+                Account loggedInAccount = parameters.GetValue<Account>("Account") ?? new Account();
                 FirstName = loggedInAccount.FirstName;
                 LastName = loggedInAccount.LastName;
                 Image = loggedInAccount.Image;
@@ -62,29 +62,29 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        private string firstName;
+        private string _firstName;
 
         public string FirstName
         {
-            get => firstName;
-            set => SetProperty(ref firstName, value);
+            get => _firstName;
+            set => SetProperty(ref _firstName, value);
         }
 
-        private string lastName;
+        private string _lastName;
 
         public string LastName
         {
-            get => lastName;
-            set => SetProperty(ref lastName, value);
+            get => _lastName;
+            set => SetProperty(ref _lastName, value);
         }
 
 
-        private Media image;
+        private Media _image;
 
         public Media Image
         {
-            get => image;
-            set => SetProperty(ref image, value);
+            get => _image;
+            set => SetProperty(ref _image, value);
         }
 
         private bool _comeFromProfile;
@@ -152,19 +152,17 @@ namespace Journey.ViewModels
                         new DialogCommand
                         {
                             Label = AppResource.Camera,
-                        Invoked = async () =>
+                            Invoked = async () =>
+                            {
+                                try
                                 {
-                            try
-                            {
-                                Image = await _mediaService.TakePhotoAsync() ?? Image;
-                            }
-                            catch (NotSupportedException ex)
-                            {
-                                await DialogService.ShowMessageAsync(AppResource.Camera_NotSupported,AppResource.Error);
-                            }
+                                    Image = await _mediaService.TakePhotoAsync() ?? Image;
                                 }
-                          
-
+                                catch (NotSupportedException)
+                                {
+                                    await DialogService.ShowMessageAsync(AppResource.Camera_NotSupported, AppResource.Error);
+                                }
+                            }
                         },
                         new DialogCommand
                         {
@@ -223,10 +221,11 @@ namespace Journey.ViewModels
                 ShowProgress();
                 if (Image?.SourceArray != null)
                 {
-                    var path = await _blobService.UploadAsync(Image.SourceArray, Image.Name);
+                    string path = await _blobService.UploadAsync(Image.SourceArray, Image.Name);
                     Image.Path = path;
                 }
-                var account = _accountService.LoggedInAccount;
+
+                Account account = _accountService.LoggedInAccount;
                 account.FirstName = FirstName;
                 account.LastName = LastName;
                 account.Image = Image;
@@ -253,7 +252,7 @@ namespace Journey.ViewModels
         public DelegateCommand OnBackCommand => new DelegateCommand(OnBack);
 
 
-        private async void OnBack()
+        private void OnBack()
         {
             try
             {

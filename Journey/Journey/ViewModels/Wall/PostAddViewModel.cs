@@ -11,10 +11,7 @@ namespace Journey.ViewModels.Wall
     {
         private readonly IDeepLinkingService _deepLinkingService;
 
-        public PostAddViewModel(IUnityContainer container) : base(container)
-        {
-            _deepLinkingService = container.Resolve<IDeepLinkingService>();
-        }
+        public PostAddViewModel(IUnityContainer container) : base(container) => _deepLinkingService = container.Resolve<IDeepLinkingService>();
 
         #region OpenDeepLinkCommand
 

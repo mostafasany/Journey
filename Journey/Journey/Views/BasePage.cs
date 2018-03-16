@@ -29,15 +29,16 @@ namespace Journey.Views
             if (Navigation.ModalStack.Count() > 0)
             {
                 var navigationService = _viewModel?.Container.Resolve<INavigationService>();
-                var page = Navigation.ModalStack?.LastOrDefault()?.ToString();
+                string page = Navigation.ModalStack?.LastOrDefault()?.ToString();
                 navigationService.CurrentPage = page.Split(".".ToArray()).LastOrDefault();
             }
+
             base.OnDisappearing();
         }
 
         private void LogPageView()
         {
-            var pageName = Path.GetFileName(ToString());
+            string pageName = Path.GetFileName(ToString());
             var loggerService = _viewModel?.Container.Resolve<ILoggerService>();
             loggerService?.LogPageView(pageName);
         }

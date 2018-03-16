@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using Abstractions.Services.Contracts;
+using Journey.Models.Account;
 using Journey.Models.Post;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
@@ -54,7 +55,7 @@ namespace Journey.ViewModels.Wall
             {
                 if (_post == null)
                     return;
-                var isLogginIn = await _accountService.LoginFirstAsync();
+                bool isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
                 {
                     var deleteCommand = new DialogCommand
@@ -62,7 +63,7 @@ namespace Journey.ViewModels.Wall
                         Label = AppResource.Post_Delete,
                         Invoked = async () =>
                         {
-                            var status = await _postService.DeletePostAsync(_post);
+                            bool status = await _postService.DeletePostAsync(_post);
                             if (!status)
                                 await DialogService.ShowMessageAsync(AppResource.Error, AppResource.Post_DeleteError);
                         }
@@ -83,7 +84,7 @@ namespace Journey.ViewModels.Wall
                         Label = AppResource.Cancel
                     };
 
-                    var loggedInAccount = await _accountService.GetAccountAsync();
+                    Account loggedInAccount = await _accountService.GetAccountAsync();
                     var commands = new List<DialogCommand>
                     {
                         _post?.Account?.Id != loggedInAccount?.Id ? reportCommand : deleteCommand,
@@ -116,7 +117,7 @@ namespace Journey.ViewModels.Wall
                 if (_post == null)
                     return;
 
-                var isLogginIn = await _accountService.LoginFirstAsync();
+                bool isLogginIn = await _accountService.LoginFirstAsync();
                 if (!isLogginIn) return;
 
                 _postService.PostStatusChanged(Post, PostStatus.InProgress);
@@ -148,7 +149,7 @@ namespace Journey.ViewModels.Wall
             {
                 if (_post == null)
                     return;
-                var isLogginIn = await _accountService.LoginFirstAsync();
+                bool isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
                 {
                     _post.Liked = !_post.Liked;
@@ -180,7 +181,7 @@ namespace Journey.ViewModels.Wall
         {
             try
             {
-                var isLogginIn = await _accountService.LoginFirstAsync();
+                bool isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
                     await NavigationService.Navigate("NewCommentPage", _post.Id, "Post");
             }
@@ -206,13 +207,13 @@ namespace Journey.ViewModels.Wall
             {
                 if (_post == null)
                     return;
-                var isLogginIn = await _accountService.LoginFirstAsync();
+                bool isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
                 {
-                    var account = _post.Account;
+                    Account account = _post.Account;
                     if (account != null)
                     {
-                        var loggedInAccount = await _accountService.GetAccountAsync();
+                        Account loggedInAccount = await _accountService.GetAccountAsync();
                         if (account.Id == loggedInAccount.Id)
                             await NavigationService.Navigate("ProfileMeasurmentPage");
                         //else

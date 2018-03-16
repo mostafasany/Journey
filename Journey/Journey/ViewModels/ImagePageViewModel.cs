@@ -19,11 +19,11 @@ namespace Journey.ViewModels
         {
         }
 
-        public async void OnNavigatedTo(NavigationParameters parameters)
+        public void OnNavigatedTo(NavigationParameters parameters)
         {
             try
             {
-                Media = parameters.GetValue<Media>("Media") ?? null;
+                Media = parameters.GetValue<Media>("Media");
             }
             catch (Exception e)
             {
@@ -40,14 +40,14 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        private Media media;
+        private Media _media;
 
         public Media Media
         {
-            get => media;
+            get => _media;
             set
             {
-                media = value;
+                _media = value;
                 RaisePropertyChanged();
             }
         }
@@ -94,7 +94,7 @@ namespace Journey.ViewModels
 
         public DelegateCommand OnCloseCommand => new DelegateCommand(OnClose);
 
-        private async void OnClose()
+        private void OnClose()
         {
             NavigationService.GoBack();
         }

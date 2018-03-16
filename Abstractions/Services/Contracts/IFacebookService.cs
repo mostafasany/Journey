@@ -13,9 +13,9 @@ namespace Abstractions.Services.Contracts
 
         string FacebookToken { get; set; }
 
-        void InviteFriends();
-
         Task<List<Location>> GetLocationsAsync(string name, double lat, double lng);
+
+        void InviteFriends();
 
         void Share(string urlImage, string message, string name, string link, string description);
     }

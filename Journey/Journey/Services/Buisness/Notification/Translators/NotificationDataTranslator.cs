@@ -30,18 +30,6 @@ namespace Journey.Services.Buisness.Notification.Translators
             }
         }
 
-        public static List<Notifications> TranslateNotifications(List<AzureNotifications> notifications)
-        {
-            try
-            {
-                return notifications.Select(TranslateNotification).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new TranslationFailedException("Notification", ex.InnerException);
-            }
-        }
-
         public static Notifications TranslateNotification(AzureNotifications account)
         {
             try
@@ -56,6 +44,18 @@ namespace Journey.Services.Buisness.Notification.Translators
                 // accountDto.Account = account?.Account.;
 
                 return accountDto;
+            }
+            catch (Exception ex)
+            {
+                throw new TranslationFailedException("Notification", ex.InnerException);
+            }
+        }
+
+        public static List<Notifications> TranslateNotifications(List<AzureNotifications> notifications)
+        {
+            try
+            {
+                return notifications.Select(TranslateNotification).ToList();
             }
             catch (Exception ex)
             {

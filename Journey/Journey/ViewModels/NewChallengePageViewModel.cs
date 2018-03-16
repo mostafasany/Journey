@@ -46,7 +46,7 @@ namespace Journey.ViewModels
                 {
                     //Add
                     IsAddMode = true;
-                    ToChallenge = parameters.GetValue<Account>("ToChallenge") ?? null;
+                    ToChallenge = parameters.GetValue<Account>("ToChallenge");
                     LoggedInAccount = await _accountService.GetAccountAsync();
                     if (string.IsNullOrEmpty(LoggedInAccount.ChallengeId))
                     {
@@ -59,7 +59,7 @@ namespace Journey.ViewModels
                 }
                 else
                 {
-                    var challengeId = parameters.GetValue<string>("Challenge") ?? null;
+                    var challengeId = parameters.GetValue<string>("Challenge");
                     if (!string.IsNullOrEmpty(challengeId))
                         SelectedChallenge = await _challengeService.GetChallengeAsync(challengeId);
 
@@ -89,45 +89,45 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        private Account loggedInAccount;
+        private Account _loggedInAccount;
 
         public Account LoggedInAccount
         {
-            get => loggedInAccount;
-            set => SetProperty(ref loggedInAccount, value);
+            get => _loggedInAccount;
+            set => SetProperty(ref _loggedInAccount, value);
         }
 
-        private bool isAddMode;
+        private bool _isAddMode;
 
         public bool IsAddMode
         {
-            get => isAddMode;
-            set => SetProperty(ref isAddMode, value);
+            get => _isAddMode;
+            set => SetProperty(ref _isAddMode, value);
         }
 
-        private bool isApproveRequestMode;
+        private bool _isApproveRequestMode;
 
         public bool IsApproveRequestMode
         {
-            get => isApproveRequestMode;
-            set => SetProperty(ref isApproveRequestMode, value);
+            get => _isApproveRequestMode;
+            set => SetProperty(ref _isApproveRequestMode, value);
         }
 
 
-        private Account toChallenge;
+        private Account _toChallenge;
 
         public Account ToChallenge
         {
-            get => toChallenge;
-            set => SetProperty(ref toChallenge, value);
+            get => _toChallenge;
+            set => SetProperty(ref _toChallenge, value);
         }
 
-        private Challenge selectedChallenge;
+        private Challenge _selectedChallenge;
 
         public Challenge SelectedChallenge
         {
-            get => selectedChallenge;
-            set => SetProperty(ref selectedChallenge, value);
+            get => _selectedChallenge;
+            set => SetProperty(ref _selectedChallenge, value);
         }
 
         //List<Interval> intervalList;
@@ -148,7 +148,7 @@ namespace Journey.ViewModels
 
         #region Methods
 
-        public override async void Intialize(bool sync = false)
+        public override void Intialize(bool sync = false)
         {
         }
 
@@ -180,7 +180,7 @@ namespace Journey.ViewModels
                 if (IsProgress())
                     return;
 
-                string[] Options = { };
+                string[] options = { };
                 if (SelectedChallenge.StartDate >= SelectedChallenge.EndDate)
                 {
                     await DialogService.ShowMessageAsync(AppResource.Error, AppResource.Challenge_DataValidation);
@@ -226,10 +226,10 @@ namespace Journey.ViewModels
                     return;
 
                 ShowProgress();
-                var hasActiveChallange = await _challengeService.CheckAccountHasChallengeAsync();
+                bool hasActiveChallange = await _challengeService.CheckAccountHasChallengeAsync();
                 if (!hasActiveChallange)
                 {
-                    var challenge = await _challengeService.AddChallengeAsync(SelectedChallenge);
+                    Challenge challenge = await _challengeService.AddChallengeAsync(SelectedChallenge);
                     if (challenge != null)
                     {
                         await DialogService.ShowMessageAsync(AppResource.Challenge_ApproveMessage, "");
@@ -262,7 +262,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                var challenge = await _challengeService.ApproveChallengeAsync(SelectedChallenge);
+                Challenge challenge = await _challengeService.ApproveChallengeAsync(SelectedChallenge);
                 if (challenge != null)
                     await NavigationService.Navigate("HomePage", true, "Sync");
             }
@@ -283,7 +283,7 @@ namespace Journey.ViewModels
         public DelegateCommand OnBackCommand => new DelegateCommand(OnBack);
 
 
-        private async void OnBack()
+        private void OnBack()
         {
             try
             {

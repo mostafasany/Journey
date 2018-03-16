@@ -48,25 +48,8 @@ namespace Journey.ViewModels
 
         public bool IsNotLoading => !IsLoading;
 
-        protected bool IsProgress()
+        public virtual void Intialize(bool sync = false)
         {
-            return IsLoading;
-        }
-
-        protected void ShowProgress()
-        {
-            IsLoading = true;
-        }
-
-        protected void HideProgress()
-        {
-            IsLoading = false;
-        }
-
-        protected string Translate(string resource)
-        {
-            var translatedResource = ResourceLoaderService.GetString(resource);
-            return translatedResource;
         }
 
 
@@ -78,8 +61,22 @@ namespace Journey.ViewModels
         {
         }
 
-        public virtual void Intialize(bool sync = false)
+        protected void HideProgress()
         {
+            IsLoading = false;
+        }
+
+        protected bool IsProgress() => IsLoading;
+
+        protected void ShowProgress()
+        {
+            IsLoading = true;
+        }
+
+        protected string Translate(string resource)
+        {
+            string translatedResource = ResourceLoaderService.GetString(resource);
+            return translatedResource;
         }
     }
 }

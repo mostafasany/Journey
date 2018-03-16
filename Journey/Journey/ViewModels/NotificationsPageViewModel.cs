@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Abstractions.Services;
 using Journey.Models;
@@ -28,7 +29,7 @@ namespace Journey.ViewModels
         {
         }
 
-        public async void OnNavigatedTo(NavigationParameters parameters)
+        public void OnNavigatedTo(NavigationParameters parameters)
         {
             try
             {
@@ -61,26 +62,26 @@ namespace Journey.ViewModels
             }
         }
 
-        private Notifications selectedNotification;
+        private Notifications _selectedNotification;
 
         public Notifications SelectedNotification
         {
-            get => selectedNotification;
+            get => _selectedNotification;
             set
             {
-                SetProperty(ref selectedNotification, value);
+                SetProperty(ref _selectedNotification, value);
 
                 if (value != null)
                     OnSelectedNotificationCommand.Execute(value);
             }
         }
 
-        private bool isPullRefreshLoading;
+        private bool _isPullRefreshLoading;
 
         public bool IsPullRefreshLoading
         {
-            get => isPullRefreshLoading;
-            set => SetProperty(ref isPullRefreshLoading, value);
+            get => _isPullRefreshLoading;
+            set => SetProperty(ref _isPullRefreshLoading, value);
         }
 
         private bool _noNofications;
@@ -104,7 +105,7 @@ namespace Journey.ViewModels
 
                 Notifications = new ObservableCollection<Notifications>();
 
-                var postDTo = await _postCommentService.GetNotificationsAsync();
+                List<Notifications> postDTo = await _postCommentService.GetNotificationsAsync();
                 if (postDTo != null)
                     Notifications = new ObservableCollection<Notifications>(postDTo);
 
@@ -141,7 +142,7 @@ namespace Journey.ViewModels
 
         public DelegateCommand OnCloseCommand => new DelegateCommand(OnClose);
 
-        private async void OnClose()
+        private void OnClose()
         {
             NavigationService.GoBack();
         }
@@ -152,7 +153,7 @@ namespace Journey.ViewModels
 
         public DelegateCommand OnPullRefreshRequestCommand => new DelegateCommand(OnPullRefreshRequest);
 
-        private async void OnPullRefreshRequest()
+        private void OnPullRefreshRequest()
         {
             try
             {

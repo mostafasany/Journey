@@ -11,14 +11,14 @@ namespace Journey.Views.Controls
                 null,
                 (bindable, oldValue, newValue) =>
                 {
-                    var val = newValue.ToString();
+                    string val = newValue.ToString();
                     try
                     {
                         (bindable as ImageControl).Source = Device.RuntimePlatform == Device.UWP
                             ? ImageSource.FromFile("Assets/" + val)
                             : ImageSource.FromResource("Journey.Assets." + val);
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                     }
                 });

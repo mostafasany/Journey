@@ -10,16 +10,13 @@ namespace Journey.Services.Buisness.Goal
     {
         private readonly IAccountGoalDataService _accountDataService;
 
-        public AccountGoalService(IAccountGoalDataService accountDataService)
-        {
-            _accountDataService = accountDataService;
-        }
+        public AccountGoalService(IAccountGoalDataService accountDataService) => _accountDataService = accountDataService;
 
         public async Task<AccountGoal> AddAccountGoal(AccountGoal goal)
         {
             try
             {
-                var accountGoal = await _accountDataService.AddUpdateAccountGoalAsync(goal);
+                AccountGoal accountGoal = await _accountDataService.AddUpdateAccountGoalAsync(goal);
                 return accountGoal;
             }
             catch (Exception ex)
@@ -32,7 +29,7 @@ namespace Journey.Services.Buisness.Goal
         {
             try
             {
-                var accountGoals = await _accountDataService.GetAccountGoalAsync(sync);
+                AccountGoal accountGoals = await _accountDataService.GetAccountGoalAsync(sync);
                 return accountGoals;
             }
             catch (Exception ex)

@@ -21,7 +21,6 @@ using Journey.Services.Buisness.Post;
 using Journey.Services.Buisness.Post.Data;
 using Journey.Services.Buisness.PostComment;
 using Journey.Services.Buisness.PostComment.Data;
-using Journey.Services.Forms;
 using Journey.Views;
 using Microsoft.WindowsAzure.MobileServices;
 using Prism;
@@ -53,9 +52,49 @@ namespace Journey
             Client = new MobileServiceClient(Constant.ApplicationUrl);
         }
 
+        protected override async void OnInitialized()
+        {
+            InitializeComponent();
+            var settingsService = Container.Resolve<ISettingsService>();
+
+            if (settingsService != null)
+            {
+                var azureService = Container.Resolve<IAzureService>();
+                var accountService = Container.Resolve<IAccountService>();
+                var facebookService = Container.Resolve<IFacebookService>();
+                facebookService.FacebookToken = await settingsService.Get(facebookService.FacebookTokenKey);
+                string userToken = await settingsService.Get(accountService.AccountTokenKey);
+                string userId = await settingsService.Get(accountService.AccountIdKey);
+                accountService.Token = userToken;
+
+                azureService.CreateOrGetAzureClient(userId, userToken);
+
+                await NavigationService.NavigateAsync(string.IsNullOrEmpty(userId) ? "LoginPage" : "HomePage");
+            }
+            else
+            {
+                await NavigationService.NavigateAsync("LoginPage");
+            }
+        }
+
+        protected override void OnResume()
+        {
+            // Handle when your app resumes
+        }
+
+        protected override void OnSleep()
+        {
+            // Handle when your app sleeps
+        }
+
+        protected override void OnStart()
+        {
+            // Handle when your app starts
+        }
+
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            var container = containerRegistry.GetContainer();
+            IUnityContainer container = containerRegistry.GetContainer();
             containerRegistry.RegisterForNavigation<HomePage>();
             containerRegistry.RegisterForNavigation<LoginPage>();
             containerRegistry.RegisterForNavigation<UpdateProfilePage>();
@@ -74,6 +113,20 @@ namespace Journey
             RegitserAppServices(container);
 
             RegitserBuisnessServices(container);
+        }
+
+        private void ConfigureDialogService(IUnityContainer container)
+        {
+            container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
+            var dialogService = Container.Resolve<IDialogService>() as DialogService;
+            if (dialogService != null)
+            {
+                dialogService.ErrorMessageTitle = "Error Occured";
+                dialogService.ErrorMessageBody = "Please try again later";
+                dialogService.NoInternetMessageBody = "No internet";
+                dialogService.NoInternetMessageTitle =
+                    "No internet connection available,Please reconnect and try again later";
+            }
         }
 
         private void RegitserAppServices(IUnityContainer container)
@@ -112,20 +165,6 @@ namespace Journey
             //ConfigurePlatformService();
         }
 
-        private void ConfigureDialogService(IUnityContainer container)
-        {
-            container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
-            var dialogService = Container.Resolve<IDialogService>() as DialogService;
-            if (dialogService != null)
-            {
-                dialogService.ErrorMessageTitle = "Error Occured";
-                dialogService.ErrorMessageBody = "Please try again later";
-                dialogService.NoInternetMessageBody = "No internet";
-                dialogService.NoInternetMessageTitle =
-                    "No internet connection available,Please reconnect and try again later";
-            }
-        }
-
 
         private void RegitserBuisnessServices(IUnityContainer container)
         {
@@ -143,6 +182,7 @@ namespace Journey
                 container.RegisterType<IPostDataService, PostDataService>(new ContainerControlledLifetimeManager());
                 container.RegisterType<IAccountDataService, AccountDataService>(new ContainerControlledLifetimeManager());
             }
+
             container.RegisterType<IPostCommentService, PostCommentService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IPostCommentDataService, PostCommentDataService>(
                 new ContainerControlledLifetimeManager());
@@ -171,46 +211,6 @@ namespace Journey
                 new ContainerControlledLifetimeManager());
             container.RegisterType<IAccountMeasurmentDataService, AccountMeasurmentDataService>(
                 new ContainerControlledLifetimeManager());
-        }
-
-        protected override async void OnInitialized()
-        {
-            InitializeComponent();
-            var settingsService = Container.Resolve<ISettingsService>();
-
-            if (settingsService != null)
-            {
-                var azureService = Container.Resolve<IAzureService>();
-                var accountService = Container.Resolve<IAccountService>();
-                var facebookService = Container.Resolve<IFacebookService>();
-                facebookService.FacebookToken = await settingsService.Get(facebookService.FacebookTokenKey);
-                var userToken = await settingsService.Get(accountService.AccountTokenKey);
-                var userId = await settingsService.Get(accountService.AccountIdKey);
-                accountService.Token = userToken;
-
-                azureService.CreateOrGetAzureClient(userId, userToken);
-
-                await NavigationService.NavigateAsync(string.IsNullOrEmpty(userId) ? "LoginPage" : "HomePage");
-            }
-            else
-            {
-                await NavigationService.NavigateAsync("LoginPage");
-            }
-        }
-
-        protected override void OnStart()
-        {
-            // Handle when your app starts
-        }
-
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
-
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
         }
     }
 }

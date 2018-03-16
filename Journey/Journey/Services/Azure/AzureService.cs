@@ -5,8 +5,8 @@ namespace Journey.Services.Azure
 {
     public class AzureService : IAzureService
     {
-        public const string OfflineDbPath = @"localstore.db";
         private MobileServiceClient _client;
+        public const string OfflineDbPath = @"localstore.db";
 
         public MobileServiceClient CreateOrGetAzureClient(string id, string token)
         {
@@ -21,7 +21,7 @@ namespace Journey.Services.Azure
             return _client;
         }
 
-        private static async void DefineStore(MobileServiceClient client)
+        private static void DefineStore(MobileServiceClient client)
         {
             //var store = new MobileServiceSQLiteStore(OfflineDbPath);
             //store.DefineTable<AzureAccount>();

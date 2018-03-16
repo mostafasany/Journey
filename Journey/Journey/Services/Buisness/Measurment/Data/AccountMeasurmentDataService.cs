@@ -31,8 +31,8 @@ namespace Journey.Services.Buisness.Measurment.Data
                 if (accountMeasurments == null)
                     return null;
 
-                var account = _client.CurrentUser.UserId;
-                var accountMeasureDto =
+                string account = _client.CurrentUser.UserId;
+                AzureAccountMeasurements accountMeasureDto =
                     AccountMeasurmentDataTranslator.TranslateAccountMeasurments(account, accountMeasurments);
 
                 await _accountMeasurementsTable.InsertAsync(accountMeasureDto);
@@ -63,8 +63,8 @@ namespace Journey.Services.Buisness.Measurment.Data
                 //}
                 //if (returnedData == null)
                 //{
-                var account = _client.CurrentUser.UserId;
-                var returnedData = (await _accountMeasurementsTable.CreateQuery().Where(acc => acc.Account == account)
+                string account = _client.CurrentUser.UserId;
+                AzureAccountMeasurements returnedData = (await _accountMeasurementsTable.CreateQuery().Where(acc => acc.Account == account)
                     .OrderByDescending(acc => acc.CreatedAt).ToListAsync())?.FirstOrDefault();
                 //}
                 //if (returnedData == null)
@@ -72,9 +72,9 @@ namespace Journey.Services.Buisness.Measurment.Data
                 //    returnedData = await SyncMeasurmentsAsync();
                 //}
                 if (returnedData == null)
-                    return await GetEmptyMeasurmentsAsync();
+                    return GetEmptyMeasurmentsAsync();
 
-                var measuremnts =
+                List<ScaleMeasurment> measuremnts =
                     AccountMeasurmentDataTranslator.TranslateAccountMeasurments(_client.CurrentUser.UserId,
                         returnedData);
                 return measuremnts;
@@ -85,7 +85,7 @@ namespace Journey.Services.Buisness.Measurment.Data
             }
         }
 
-        private async Task<List<ScaleMeasurment>> GetEmptyMeasurmentsAsync()
+        private List<ScaleMeasurment> GetEmptyMeasurmentsAsync()
         {
             var measuremnts = new List<ScaleMeasurment>
             {

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Abstractions.Services.Contracts;
 using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Journey.Services.Buisness.Blob
 {
@@ -22,27 +23,27 @@ namespace Journey.Services.Buisness.Blob
         {
             try
             {
-                var connectionString = string.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}",
+                string connectionString = string.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}",
                     AzureBlobUserName, AzureBlobKey);
 
-                var storageAccount = CloudStorageAccount.Parse(connectionString);
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
                 // Create the blob client.
-                var blobClient = storageAccount.CreateCloudBlobClient();
+                CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
                 // Retrieve reference to a previously created container.
-                var container = blobClient.GetContainerReference("post");
+                CloudBlobContainer container = blobClient.GetContainerReference("post");
 
                 // Create the container if it doesn't already exist.
                 await container.CreateIfNotExistsAsync();
 
 
                 // Retrieve reference to a blob named "myblob".
-                var blockBlob = container.GetBlockBlobReference(fileName);
+                CloudBlockBlob blockBlob = container.GetBlockBlobReference(fileName);
 
                 // Create the "myblob" blob with the text "Hello, world!"
                 await blockBlob.UploadFromStreamAsync(stream);
 
-                var fileNewPath = string.Format("{0}/{1}/{2}", AzureBlobBaseUrl, AzurePostContainerName, fileName);
+                string fileNewPath = string.Format("{0}/{1}/{2}", AzureBlobBaseUrl, AzurePostContainerName, fileName);
 
                 return fileNewPath;
             }

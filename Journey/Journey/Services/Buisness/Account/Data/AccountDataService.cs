@@ -31,7 +31,7 @@ namespace Journey.Services.Buisness.Account.Data
                 if (account == null)
                     return null;
 
-                var azureAccountDto = AccountDataTranslator.TranslateAccount(account);
+                AzureAccount azureAccountDto = AccountDataTranslator.TranslateAccount(account);
 
                 //var existingaccount = await GetAccountAsync();
                 //if (string.IsNullOrEmpty(account.FirstName)) //Means it came from Facebook Login "Not Data" so Migrate
@@ -57,7 +57,7 @@ namespace Journey.Services.Buisness.Account.Data
         {
             try
             {
-                var authenticated = await App.Authenticator.Authenticate();
+                MobileServiceUser authenticated = await App.Authenticator.Authenticate();
                 return authenticated;
             }
             catch (Exception ex)
@@ -74,7 +74,7 @@ namespace Journey.Services.Buisness.Account.Data
                 if (string.IsNullOrEmpty(_client.CurrentUser.MobileServiceAuthenticationToken))
                     return null;
 
-                var azureAccountDto = await _accountTable.LookupAsync(_client.CurrentUser.UserId);
+                AzureAccount azureAccountDto = await _accountTable.LookupAsync(_client.CurrentUser.UserId);
                 //if (azureAccountDto != null && string.IsNullOrEmpty(azureAccountDto.Challenge))
                 //    await _accountTable.UpdateAsync(azureAccountDto);
 
@@ -91,11 +91,11 @@ namespace Journey.Services.Buisness.Account.Data
                 //    SyncAccountAsync();
                 //}
 
-                var accountDto = AccountDataTranslator.TranslateAccount(azureAccountDto);
+                Models.Account.Account accountDto = AccountDataTranslator.TranslateAccount(azureAccountDto);
 
                 return accountDto;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //Means User not exists
                 return null;
@@ -120,7 +120,7 @@ namespace Journey.Services.Buisness.Account.Data
         {
             try
             {
-                var socialInfo = await _client.InvokeApiAsync<List<Social>>("/.auth/me");
+                List<Social> socialInfo = await _client.InvokeApiAsync<List<Social>>("/.auth/me");
                 return socialInfo;
             }
             catch (Exception ex)

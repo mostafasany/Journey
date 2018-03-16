@@ -5,7 +5,7 @@ namespace Abstractions.Services.Contracts
     public interface IPlatformService
     {
         string StoreId { get; set; }
-        Task<bool> OpenStoreAsync();
         string GetAppVersionAsync();
+        Task<bool> OpenStoreAsync();
     }
 }

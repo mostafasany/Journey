@@ -34,7 +34,8 @@
                     <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
                 </Image.GestureRecognizers>
             </Controls:ImageControl>
-            <ListView Grid.Row="1" x:Name="parent" HasUnevenRows="true" SeparatorVisibility="None" ItemTemplate="{StaticResource MediaTemplate}"
+            <ListView Grid.Row="1" x:Name="parent" HasUnevenRows="true" SeparatorVisibility="None"
+                      ItemTemplate="{StaticResource MediaTemplate}"
                       BackgroundColor="White" ItemsSource="{Binding MediaList}" HorizontalOptions="Fill" />
         </Grid>
     </ContentPage.Content>

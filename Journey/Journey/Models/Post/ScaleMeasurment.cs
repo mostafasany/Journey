@@ -48,7 +48,7 @@ namespace Journey.Models.Post
         {
             get
             {
-                var imagePath = UpIndictor ? "http://bit.ly/2zWMFQ7" : "http://bit.ly/2ySFsmK";
+                string imagePath = UpIndictor ? "http://bit.ly/2zWMFQ7" : "http://bit.ly/2ySFsmK";
                 return new Media {Path = imagePath};
             }
         }
@@ -57,7 +57,7 @@ namespace Journey.Models.Post
         {
             get
             {
-                var color = UpIndictor ? "#00ff00" : "#e55c43";
+                string color = UpIndictor ? "#00ff00" : "#e55c43";
                 return color;
             }
         }

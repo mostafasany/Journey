@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Journey.Models.Account;
 using Journey.Models.Post;
@@ -29,11 +30,11 @@ namespace Journey.ViewModels
         {
         }
 
-        public async void OnNavigatedTo(NavigationParameters parameters)
+        public void OnNavigatedTo(NavigationParameters parameters)
         {
             try
             {
-                PostId = parameters.GetValue<string>("Post") ?? "";
+                _postId = parameters.GetValue<string>("Post") ?? "";
                 Intialize();
             }
             catch (Exception e)
@@ -59,40 +60,40 @@ namespace Journey.ViewModels
             set => SetProperty(ref _loggedInAccount, value);
         }
 
-        private ObservableCollection<Comment> comments;
+        private ObservableCollection<Comment> _comments;
 
         public ObservableCollection<Comment> Comments
         {
-            get => comments;
+            get => _comments;
             set
             {
-                comments = value;
+                _comments = value;
                 RaisePropertyChanged();
             }
         }
 
 
-        private string newComment;
+        private string _newComment;
 
         public string NewComment
         {
-            get => newComment;
+            get => _newComment;
             set
             {
-                newComment = value;
+                _newComment = value;
                 RaisePropertyChanged();
             }
         }
 
-        private bool isPullRefreshLoading;
+        private bool _isPullRefreshLoading;
 
         public bool IsPullRefreshLoading
         {
-            get => isPullRefreshLoading;
-            set => SetProperty(ref isPullRefreshLoading, value);
+            get => _isPullRefreshLoading;
+            set => SetProperty(ref _isPullRefreshLoading, value);
         }
 
-        private string PostId;
+        private string _postId;
 
         #endregion
 
@@ -106,12 +107,8 @@ namespace Journey.ViewModels
                 base.Intialize(sync);
                 LoggedInAccount = await _accountService.GetAccountAsync();
 
-                var postDTo = await _postCommentService.GetCommentsAsync(PostId, true);
-                if (postDTo != null)
-                {
-                    Comments = new ObservableCollection<Comment>(postDTo);
-                }
-
+                List<Comment> postDTo = await _postCommentService.GetCommentsAsync(_postId, true);
+                if (postDTo != null) Comments = new ObservableCollection<Comment>(postDTo);
             }
             catch (Exception e)
             {
@@ -153,7 +150,7 @@ namespace Journey.ViewModels
                 ShowProgress();
                 if (!string.IsNullOrEmpty(NewComment))
                 {
-                    var comment = await _postCommentService.AddCommentAsync(NewComment, PostId);
+                    Comment comment = await _postCommentService.AddCommentAsync(NewComment, _postId);
                     if (comment != null)
                     {
                         comment.Account = LoggedInAccount;
@@ -178,7 +175,7 @@ namespace Journey.ViewModels
 
         public DelegateCommand OnCloseCommand => new DelegateCommand(OnClose);
 
-        private async void OnClose()
+        private void OnClose()
         {
             NavigationService.GoBack();
         }
@@ -189,7 +186,7 @@ namespace Journey.ViewModels
 
         public DelegateCommand OnPullRefreshRequestCommand => new DelegateCommand(OnPullRefreshRequest);
 
-        private async void OnPullRefreshRequest()
+        private void OnPullRefreshRequest()
         {
             try
             {

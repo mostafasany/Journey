@@ -9,8 +9,27 @@ namespace Journey.Models.Post
     {
         public static string Format(DateTime dt)
         {
-            var timesince = DateTime.Now - dt;
+            TimeSpan timesince = DateTime.Now - dt;
             return Format(timesince);
+        }
+
+        public static string Format(double seconds)
+        {
+            TimeSpan timesince = TimeSpan.FromSeconds(seconds);
+
+            string str = timesince.ToString(@"hh\:mm\:ss");
+
+            return str;
+        }
+
+        public static IEnumerable<T> GetRandom<T>(this IEnumerable<T> list, int count)
+        {
+            if (count <= 0)
+                yield break;
+            var r = new Random();
+            int limit = count * 10;
+            foreach (T item in list.OrderBy(x => r.Next(0, limit)).Take(count))
+                yield return item;
         }
 
         public static string GiveMeADateTime(this DateTime date)
@@ -26,20 +45,22 @@ namespace Journey.Models.Post
         {
             if (timesince.Days > 365)
             {
-                var years = timesince.Days / 365;
+                int years = timesince.Days / 365;
                 if (timesince.Days % 365 != 0)
                     years += 1;
                 return
                     $"{years} {(years == 1 ? AppResource.Date_Year : AppResource.Date_Years)} {AppResource.Date_Ago}";
             }
+
             if (timesince.Days > 30)
             {
-                var months = timesince.Days / 30;
+                int months = timesince.Days / 30;
                 if (timesince.Days % 31 != 0)
                     months += 1;
                 return
                     $"{months} {(months == 1 ? AppResource.Date_Month : AppResource.Date_Months)} {AppResource.Date_Ago}";
             }
+
             if (timesince.Days > 0)
                 return
                     $"{timesince.Days} {(timesince.Days == 1 ? AppResource.Date_Day : AppResource.Date_Days)} {AppResource.Date_Ago}";
@@ -52,25 +73,6 @@ namespace Journey.Models.Post
             if (timesince.Seconds > 5)
                 return $"{timesince.Seconds} {AppResource.Date_Seconds} {AppResource.Date_Ago}";
             return AppResource.Date_JustNow;
-        }
-
-        public static string Format(double seconds)
-        {
-            var timesince = TimeSpan.FromSeconds(seconds);
-
-            var str = timesince.ToString(@"hh\:mm\:ss");
-
-            return str;
-        }
-
-        public static IEnumerable<T> GetRandom<T>(this IEnumerable<T> list, int count)
-        {
-            if (count <= 0)
-                yield break;
-            var r = new Random();
-            var limit = count * 10;
-            foreach (var item in list.OrderBy(x => r.Next(0, limit)).Take(count))
-                yield return item;
         }
     }
 }

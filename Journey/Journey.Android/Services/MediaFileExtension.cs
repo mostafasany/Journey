@@ -4,7 +4,6 @@ using Android.Media;
 using MediaOrientation = Android.Media.Orientation;
 using System.IO;
 using Android.Graphics;
-using Journey.Services.Forms;
 using Plugin.Media.Abstractions;
 using Xamarin.Forms;
 using Journey.Droid.Services;
@@ -43,7 +42,7 @@ namespace Journey.Droid.Services
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -68,7 +67,7 @@ namespace Journey.Droid.Services
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

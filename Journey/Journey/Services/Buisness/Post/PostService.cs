@@ -9,6 +9,7 @@ namespace Journey.Services.Buisness.Post
 {
     public class PostService : IPostService
     {
+        private readonly IPostDataService _postDataService;
         //public enum Unit
         //{
         //    Year,
@@ -19,8 +20,6 @@ namespace Journey.Services.Buisness.Post
         //}
 
         private const int PostPageSize = 10;
-
-        private readonly IPostDataService _postDataService;
 
         public PostService(IPostDataService postDataService)
         {
@@ -37,7 +36,7 @@ namespace Journey.Services.Buisness.Post
             try
             {
                 PostStatusChanged(post, PostStatus.InProgress);
-                var postbase = await _postDataService.AddPostAsync(post, images);
+                Models.Post.Post postbase = await _postDataService.AddPostAsync(post, images);
                 if (postbase != null)
                     PostStatusChanged(postbase, PostStatus.Added);
                 return postbase;
@@ -53,7 +52,7 @@ namespace Journey.Services.Buisness.Post
             try
             {
                 PostStatusChanged(post, PostStatus.InProgress);
-                var status = await _postDataService.DeletePostAsync(post);
+                bool status = await _postDataService.DeletePostAsync(post);
                 if (status)
                     PostStatusChanged(post, PostStatus.Deleted);
                 return status;
@@ -69,7 +68,7 @@ namespace Journey.Services.Buisness.Post
         {
             try
             {
-                var postList =
+                List<Models.Post.Post> postList =
                     await _postDataService.GetPostsAsync(challengeId, page, PostPageSize, sync);
 
                 if (postList == null || postList.Count == 0)
@@ -77,7 +76,7 @@ namespace Journey.Services.Buisness.Post
 
                 var posts = new List<PostBase>();
 
-                foreach (var post in postList)
+                foreach (Models.Post.Post post in postList)
                     posts.Add(post);
 
                 RefreshPosts = false;

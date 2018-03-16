@@ -21,12 +21,13 @@ namespace Journey.ViewModels
 {
     public class HomePageViewModel : BaseViewModel, INavigationAware
     {
+        public readonly INotificationService _notificationService;
+        public readonly NewPostPageViewModel NewPostPageViewModel;
         private readonly IAccountService _accountService;
         private readonly IPostService _postService;
-        public readonly NewPostPageViewModel NewPostPageViewModel;
-        public readonly INotificationService _notificationService;
+
         public HomePageViewModel(IUnityContainer container, IPostService postService, IAccountService accountService,
-                                 NewPostPageViewModel newPostPageViewModel, INotificationService notificationService) :
+            NewPostPageViewModel newPostPageViewModel, INotificationService notificationService) :
             base(container)
         {
             _notificationService = notificationService;
@@ -52,13 +53,11 @@ namespace Journey.ViewModels
                     IsPullRefreshLoading = false;
                     Intialize(sync);
                 }
+
                 var location = parameters.GetValue<Location>("Location");
                 if (location != null)
-                {
                     NewPostPageViewModel.NewPost.Location =
-                      new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
-                }
-
+                        new PostActivity {Action = "At", Activity = location.Name, Image = location.Image};
             }
             catch (Exception ex)
             {
@@ -79,6 +78,7 @@ namespace Journey.ViewModels
                     ShowProgress();
                     return;
                 }
+
                 if (e.Status == PostStatus.HideProgress)
                 {
                     HideProgress();
@@ -88,7 +88,7 @@ namespace Journey.ViewModels
                 if (e.Post == null || string.IsNullOrEmpty(e.Post.Id))
                     return;
 
-                var postVm = PostsViewModels?.FirstOrDefault(a => a.Post.Id == e.Post.Id);
+                PostBaseViewModel postVm = PostsViewModels?.FirstOrDefault(a => a.Post.Id == e.Post.Id);
 
                 if (e.Status == PostStatus.Deleted)
                 {
@@ -104,7 +104,7 @@ namespace Journey.ViewModels
                     {
                         //TODO:Sometimes It Crashed if i removed isrefresh from add post service
                         e.Post.Account = LoggedInAccount;
-                        var pVm = PostToPostViewModel(e.Post);
+                        PostBaseViewModel pVm = PostToPostViewModel(e.Post);
                         if (PostsViewModels == null)
                             PostsViewModels = new ObservableCollection<PostBaseViewModel>();
                         PostsViewModels.Insert(0, pVm);
@@ -125,7 +125,7 @@ namespace Journey.ViewModels
                 {
                     if (postVm != null)
                     {
-                        var index = PostsViewModels.IndexOf(postVm);
+                        int index = PostsViewModels.IndexOf(postVm);
                         if (index >= 0)
                         {
                             if (postVm.Post != null)
@@ -149,7 +149,7 @@ namespace Journey.ViewModels
         #region Properties
 
         public Media Image => LoggedInAccount == null
-            ? new Media { Path = "http://bit.ly/2zBffZy" }
+            ? new Media {Path = "http://bit.ly/2zBffZy"}
             : _loggedInAccount.Image;
 
         private Account _loggedInAccount;
@@ -265,7 +265,7 @@ namespace Journey.ViewModels
             //{
             _pageNo = 0;
 
-            var postsList = await _postService.GetPostsAsync(_pageNo, null, _postService.RefreshPosts);
+            List<PostBase> postsList = await _postService.GetPostsAsync(_pageNo, null, _postService.RefreshPosts);
             SetPostViewModel(postsList);
             NoPosts = PostsViewModels == null || PostsViewModels.Count == 0;
 
@@ -279,9 +279,9 @@ namespace Journey.ViewModels
 
 
             PostsViewModels = new ObservableCollection<PostBaseViewModel>();
-            foreach (var post in posts)
+            foreach (PostBase post in posts)
             {
-                var vm = PostToPostViewModel(post);
+                PostBaseViewModel vm = PostToPostViewModel(post);
                 vm.Post = post;
                 PostsViewModels.Add(vm);
             }
@@ -361,7 +361,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                var isLogginIn = await _accountService.LoginFirstAsync();
+                bool isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
                     await NavigationService.Navigate("NewPostPage");
             }
@@ -385,7 +385,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                var isLogginIn = await _accountService.LoginFirstAsync();
+                bool isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
                     await NavigationService.Navigate("ChooseChallengeFriendPage");
             }
@@ -409,7 +409,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                var isLogginIn = await _accountService.LoginFirstAsync();
+                bool isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
                     await NavigationService.Navigate("SearchFriendPage");
             }
@@ -480,9 +480,9 @@ namespace Journey.ViewModels
             {
                 // ShowProgress();
                 _pageNo++;
-                var nextPageItems = await _postService.GetPostsAsync(_pageNo);
+                List<PostBase> nextPageItems = await _postService.GetPostsAsync(_pageNo);
                 if (nextPageItems != null && nextPageItems.Count > 0)
-                    foreach (var item in nextPageItems)
+                    foreach (PostBase item in nextPageItems)
                         PostsViewModels.Add(PostToPostViewModel(item));
                 else
                     _pageNo--;

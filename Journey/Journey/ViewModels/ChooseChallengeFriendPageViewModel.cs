@@ -96,7 +96,7 @@ namespace Journey.ViewModels
                 IsPullRefreshLoading = false;
 
                 SelectedFriend = null;
-                var friends = await _friendService.GetFriendsAsync("");
+                List<Account> friends = await _friendService.GetFriendsAsync("");
                 if (friends != null)
                     FriendsList = new ObservableCollection<Account>(friends);
                 base.Intialize(sync);
@@ -183,7 +183,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                var friends = await _friendService.GetFriendsAsync(searchKeyword);
+                List<Account> friends = await _friendService.GetFriendsAsync(searchKeyword);
                 if (friends != null)
                     FriendsList = new ObservableCollection<Account>(friends);
             }
@@ -205,7 +205,7 @@ namespace Journey.ViewModels
             {
                 IsPullRefreshLoading = true;
                 ShowProgress();
-                var friends = await _friendService.GetFriendsAsync(searchKeyword);
+                List<Account> friends = await _friendService.GetFriendsAsync(searchKeyword);
                 if (friends != null)
                     FriendsList = new ObservableCollection<Account>(friends);
             }
@@ -227,7 +227,7 @@ namespace Journey.ViewModels
         public DelegateCommand OnBackCommand => new DelegateCommand(OnBack);
 
 
-        private async void OnBack()
+        private void OnBack()
         {
             try
             {

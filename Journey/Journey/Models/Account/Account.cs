@@ -97,10 +97,7 @@ namespace Journey.Models.Account
         public bool HasActiveChallenge => !string.IsNullOrEmpty(ChallengeId);
 
 
-        public override string ToString()
-        {
-            return Name;
-        }
+        public override string ToString() => Name;
     }
 
     public class AccountGoal : BindableBase

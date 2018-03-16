@@ -4,9 +4,8 @@ namespace Journey.Models.Post
 {
     public abstract class PostType : BindableBase
     {
-        private int id;
-
         protected string PosterName;
+        private int id;
 
         public int Id
         {
