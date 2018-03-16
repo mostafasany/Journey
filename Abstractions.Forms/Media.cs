@@ -54,11 +54,7 @@ namespace Abstractions.Forms
             }
         }
 
-        public override bool Equals(object obj)
-        {
-            Media media = obj as Media;
-            return media.Path == Path;
-        }
+        public override bool Equals(object obj) => obj is Media media && media.Path == Path;
     }
 
     public enum MediaType

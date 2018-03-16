@@ -21,7 +21,7 @@ namespace Journey.Services.Azure
             return _client;
         }
 
-        private static async void DefineStore(MobileServiceClient client)
+        private static  void DefineStore(MobileServiceClient client)
         {
             //var store = new MobileServiceSQLiteStore(OfflineDbPath);
             //store.DefineTable<AzureAccount>();

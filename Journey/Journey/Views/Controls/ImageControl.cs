@@ -18,7 +18,7 @@ namespace Journey.Views.Controls
                             ? ImageSource.FromFile("Assets/" + val)
                             : ImageSource.FromResource("Journey.Assets." + val);
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                     }
                 });

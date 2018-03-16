@@ -10,10 +10,10 @@ namespace Abstractions.Services.Contracts
         string ErrorMessageTitle { get; set; }
         string NoInternetMessageBody { get; set; }
         string NoInternetMessageTitle { get; set; }
-        Task ShowMessageAsync(string content, string title);
         Task ShowGenericErrorMessageAsync(string content = "", string title = "");
-        Task ShowNoInternetMessageAsync(string content = "", string title = "");
+        Task ShowMessageAsync(string content, string title);
         Task ShowMessageAsync(string content, string title, IEnumerable<DialogCommand> dialogCommands);
+        Task ShowNoInternetMessageAsync(string content = "", string title = "");
         Task ShowToastNotificationAsync(string title, string content);
     }
 

@@ -9,10 +9,7 @@ namespace Abstractions.Services
 {
     public class SerializerService : BaseService, ISerializerService
     {
-        public SerializerService(IUnityContainer container, IExceptionService exceptionService) : base(container)
-        {
-            ExceptionService = exceptionService;
-        }
+        public SerializerService(IUnityContainer container, IExceptionService exceptionService) : base(container) => ExceptionService = exceptionService;
 
         public T DeserializeFromString<T>(string data)
         {

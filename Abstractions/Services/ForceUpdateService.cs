@@ -47,6 +47,7 @@ namespace Abstractions.Services
                         _serializerService.SerializeToString(result));
                     return true;
                 }
+
                 return false;
             }
             catch (Exception ex)

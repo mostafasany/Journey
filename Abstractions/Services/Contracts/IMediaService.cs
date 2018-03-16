@@ -4,12 +4,13 @@ namespace Abstractions.Services.Contracts
 {
     public interface IMediaService<T>
     {
+        Task<T> PickPhotoAsync();
+
+        Task<T> PickVideoAsync();
+
         //event ImageChangedEventHandler ImageChangedEventHandler;
         //void ImageChanged(List<Media> images);
         Task<T> TakePhotoAsync();
-
-        Task<T> PickPhotoAsync();
-        Task<T> PickVideoAsync();
         Task<T> TakeVideoAsync();
     }
 

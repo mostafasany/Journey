@@ -17,10 +17,7 @@ namespace Journey.Services.Buisness.Account.Data
     {
         private readonly ISerializerService _serializerService;
 
-        public AccountDataMockService(ISerializerService serializerService)
-        {
-            _serializerService = serializerService;
-        }
+        public AccountDataMockService(ISerializerService serializerService) => _serializerService = serializerService;
 
         public async Task<Models.Account.Account> AddUpdateAccountAsync(Models.Account.Account account, bool add)
         {
@@ -67,7 +64,7 @@ namespace Journey.Services.Buisness.Account.Data
 
                 return accountDto;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //Means User not exists
                 return null;

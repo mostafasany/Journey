@@ -94,7 +94,7 @@ namespace Journey.ViewModels
         public DelegateCommand OnBackCommand => new DelegateCommand(OnBack);
 
 
-        private async void OnBack()
+        private void OnBack()
         {
             try
             {

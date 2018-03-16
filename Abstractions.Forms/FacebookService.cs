@@ -12,16 +12,14 @@ namespace Abstractions.Forms
 {
     public class FacebookService : BaseService, IFacebookService
     {
+        private readonly ILocationService _locationService;
         private const int MinLocationDistanceInMeter = 500;
         private const double MinLocationDistanceInKm = 0.5;
 
         private const string ApiMe = "https://graph.facebook.com/me?fields=id,name,picture.type(large)";
 
         private const string ApiSearch =
-                "https://graph.facebook.com/search?q={0}&distance={1}&type={2}&center={3},{4}&fields=id,name,talking_about_count,checkins,location,picture.type(large)"
-            ;
-
-        private readonly ILocationService _locationService;
+            "https://graph.facebook.com/search?q={0}&distance={1}&type={2}&center={3},{4}&fields=id,name,talking_about_count,checkins,location,picture.type(large)";
 
         public FacebookService(IUnityContainer container, IHttpService httpService, ILocationService locationService,
             IExceptionService exceptionService) : base(container)
@@ -40,12 +38,12 @@ namespace Abstractions.Forms
                 var locations = new List<Location>();
 
                 //var facebookAccount = facebookservice.GetFacebookAccount();
-                var api = string.Format(ApiSearch, name, MinLocationDistanceInMeter, "place", lat,
+                string api = string.Format(ApiSearch, name, MinLocationDistanceInMeter, "place", lat,
                     lng);
                 api += " &access_token=" + FacebookToken;
-                var result = await HttpService.HttpGetAsync<FacebookLocationRoot>(api);
-                var data = result.Result;
-                foreach (var location in data.data)
+                HttpResult<FacebookLocationRoot> result = await HttpService.HttpGetAsync<FacebookLocationRoot>(api);
+                FacebookLocationRoot data = result.Result;
+                foreach (FacebookLocation location in data.data)
                 {
                     var fr = new Location
                     {

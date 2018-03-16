@@ -6,9 +6,9 @@ namespace Abstractions.Services.Contracts
     {
         string FeedbackEmail { get; set; }
         string StoreId { get; set; }
-        Task<bool> ShowNativeRatingReviewAsync();
-        Task<bool> ShowRatingReviewAsync();
         Task<bool> FeedbackAsync(string emailSubject = "", string emailBody = "");
         Task ShowFullRateFeebackDialogsync();
+        Task<bool> ShowNativeRatingReviewAsync();
+        Task<bool> ShowRatingReviewAsync();
     }
 }

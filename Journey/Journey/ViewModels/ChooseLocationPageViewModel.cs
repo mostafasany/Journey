@@ -59,7 +59,7 @@ namespace Journey.ViewModels
         {
         }
 
-        public async void OnNavigatedTo(NavigationParameters parameters)
+        public void OnNavigatedTo(NavigationParameters parameters)
         {
             try
             {
@@ -79,42 +79,40 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        private string name;
+        private string _name;
 
         public string Name
         {
-            get => name;
+            get => _name;
             set
             {
-                name = value;
+                _name = value;
                 RaisePropertyChanged();
             }
         }
 
-        private List<Location> originalLocations;
-
-        private List<Location> locations;
+        private List<Location> _locations;
 
         public List<Location> Locations
         {
-            get => locations;
+            get => _locations;
             set
             {
-                locations = value;
+                _locations = value;
                 RaisePropertyChanged();
             }
         }
 
-        private Location selectedLocation;
+        private Location _selectedLocation;
 
         public Location SelectedLocation
         {
-            get => selectedLocation;
+            get => _selectedLocation;
             set
             {
-                if (selectedLocation == value)
+                if (_selectedLocation == value)
                     return;
-                selectedLocation = value;
+                _selectedLocation = value;
                 RaisePropertyChanged();
                 if (value != null)
                     OnSelectedLocationCommand.Execute(value);
@@ -189,7 +187,7 @@ namespace Journey.ViewModels
 
         public DelegateCommand OnCloseCommand => new DelegateCommand(OnClose);
 
-        private async void OnClose()
+        private void OnClose()
         {
             NavigationService.GoBack();
         }

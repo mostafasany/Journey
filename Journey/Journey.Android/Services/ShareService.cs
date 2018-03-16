@@ -35,7 +35,7 @@ namespace Journey.Droid.Services
                     var ex = media.Ext;
                     var fileName = string.Format("{0}{1}", id++, ex);
                     var path = Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDownloads
-                                                                             + Java.IO.File.Separator + fileName);
+                                                                             + File.Separator + fileName);
 
                     using (var os = new System.IO.FileStream(path.AbsolutePath, System.IO.FileMode.Create))
                     {
@@ -48,7 +48,7 @@ namespace Journey.Droid.Services
                     var ex = media.Ext;
                     var fileName = string.Format("{0}{1}", id++, ex);
                     var path = Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDownloads
-                                                                             + Java.IO.File.Separator + fileName);
+                                                                             + File.Separator + fileName);
                                           FileOutputStream filestream = new FileOutputStream(path);
                     filestream.Write(media.SourceArray);
                     filestream.Close();

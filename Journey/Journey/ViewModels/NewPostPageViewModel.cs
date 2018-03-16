@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 using Abstractions.Forms;
@@ -48,7 +49,7 @@ namespace Journey.ViewModels
         {
         }
 
-        public async void OnNavigatedTo(NavigationParameters parameters)
+        public  void OnNavigatedTo(NavigationParameters parameters)
         {
             try
             {
@@ -86,22 +87,22 @@ namespace Journey.ViewModels
             set => SetProperty(ref _loggedInAccount, value);
         }
 
-        private List<string> imagesPath = new List<string>();
+        private List<string> _imagesPath = new List<string>();
 
-        private Post newPost;
+        private Post _newPost;
 
         public Post NewPost
         {
-            get => newPost;
-            set => SetProperty(ref newPost, value);
+            get => _newPost;
+            set => SetProperty(ref _newPost, value);
         }
 
-        private bool addPostToChallenge;
+        private bool _addPostToChallenge;
 
         public bool AddPostToChallenge
         {
-            get => addPostToChallenge;
-            set => SetProperty(ref addPostToChallenge, value);
+            get => _addPostToChallenge;
+            set => SetProperty(ref _addPostToChallenge, value);
         }
 
         //private ObservableCollection<Activity> activityList;
@@ -228,17 +229,17 @@ namespace Journey.ViewModels
         private async void Post()
         {
             ShowProgress();
-            if (imagesPath.Count == 0 && NewPost.MediaList != null)
+            if (_imagesPath.Count == 0 && NewPost.MediaList != null)
                 foreach (var image in NewPost.MediaList)
                 {
                     var path = await _blobService.UploadAsync(image.SourceArray, image.Name);
                     if (!string.IsNullOrEmpty(path))
-                        imagesPath.Add(path);
+                        _imagesPath.Add(path);
                 }
             ShowProgress();
             if (AddPostToChallenge)
                 NewPost.Challenge = LoggedInAccount.ChallengeId;
-            var post = await _postService.AddPostAsync(NewPost, imagesPath);
+            var post = await _postService.AddPostAsync(NewPost, _imagesPath);
             if (post == null)
             {
                 await DialogService.ShowMessageAsync(AppResource.NewPost_NewPostError, AppResource.Error);
@@ -251,14 +252,14 @@ namespace Journey.ViewModels
                 DateTime.TryParse(date, out parsedDate);
                 if (parsedDate.Date != DateTime.Now.Date)
                 {
-                    await _settingsService.Set(LastPostDate, DateTime.Now.Date.ToString());
+                    await _settingsService.Set(LastPostDate, DateTime.Now.Date.ToString(CultureInfo.InvariantCulture));
                     await _challengeService.UpdateExerciseNumberAsync(_accountService.LoggedInAccount.ChallengeId);
                 }
             }
 
             NewPost = new Post();
 
-            imagesPath = new List<string>();
+            _imagesPath = new List<string>();
             NavigationService.GoBack();
         }
 
@@ -289,7 +290,7 @@ namespace Journey.ViewModels
                                 var media=await _mediaService.TakePhotoAsync();
                                 AddMedia(media);
                             }
-                            catch (NotSupportedException ex)
+                            catch (NotSupportedException)
                             {
                                 await DialogService.ShowMessageAsync(AppResource.Camera_NotSupported,AppResource.Error);
                             }
@@ -305,7 +306,7 @@ namespace Journey.ViewModels
                                 var media=await _mediaService.TakeVideoAsync();
                                 AddMedia(media);
                             }
-                            catch (NotSupportedException ex)
+                            catch (NotSupportedException)
                             {
                                 await DialogService.ShowMessageAsync(AppResource.Camera_NotSupported,AppResource.Error);
                             }
@@ -405,7 +406,7 @@ namespace Journey.ViewModels
 
         public DelegateCommand OnCloseCommand => new DelegateCommand(OnClose);
 
-        private async void OnClose()
+        private void OnClose()
         {
             NavigationService.GoBack();
         }

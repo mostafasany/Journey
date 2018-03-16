@@ -19,13 +19,11 @@ namespace Journey.ViewModels
     {
         private readonly IAccountGoalService _accountGoalService;
         private readonly IAccountMeasurmentService _accountMeasurmentService;
-        private readonly IAccountService _accountService;
 
         public ProfileMeasurmentPageViewModel(IUnityContainer container, IAccountService accountService,
             IAccountGoalService accountGoalService, IAccountMeasurmentService accountMeasurmentService) :
             base(container, accountService)
         {
-            _accountService = accountService;
             _accountGoalService = accountGoalService;
             _accountMeasurmentService = accountMeasurmentService;
         }
@@ -84,16 +82,6 @@ namespace Journey.ViewModels
             get => _measuremnts;
             set => SetProperty(ref _measuremnts, value);
         }
-
-
-        private Account _friend;
-
-        public Account Friend
-        {
-            get => _friend;
-            set => SetProperty(ref _friend, value);
-        }
-
 
         private double _goal;
 
@@ -155,22 +143,6 @@ namespace Journey.ViewModels
             finally
             {
                 HideProgress();
-            }
-        }
-
-        private async Task LoadAccount(bool sync)
-        {
-            try
-            {
-                var account = await _accountService.GetAccountAsync(sync);
-                if (account != null)
-                    LoggedInAccount = account;
-                else
-                    await DialogService.ShowMessageAsync(AppResource.Error, AppResource.Account_ErrorGetData);
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.Handle(ex);
             }
         }
 
@@ -300,7 +272,7 @@ namespace Journey.ViewModels
 
         public DelegateCommand OnRefreshPostsCommand => new DelegateCommand(OnRefreshPosts);
 
-        private async void OnRefreshPosts()
+        private void OnRefreshPosts()
         {
             try
             {

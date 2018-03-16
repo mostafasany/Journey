@@ -72,7 +72,7 @@ namespace Journey.Services.Buisness.Measurment.Data
                 //    returnedData = await SyncMeasurmentsAsync();
                 //}
                 if (returnedData == null)
-                    return await GetEmptyMeasurmentsAsync();
+                    return  GetEmptyMeasurmentsAsync();
 
                 var measuremnts =
                     AccountMeasurmentDataTranslator.TranslateAccountMeasurments(_client.CurrentUser.UserId,
@@ -85,7 +85,7 @@ namespace Journey.Services.Buisness.Measurment.Data
             }
         }
 
-        private async Task<List<ScaleMeasurment>> GetEmptyMeasurmentsAsync()
+        private  List<ScaleMeasurment> GetEmptyMeasurmentsAsync()
         {
             var measuremnts = new List<ScaleMeasurment>
             {

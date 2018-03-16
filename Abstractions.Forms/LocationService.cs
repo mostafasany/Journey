@@ -11,6 +11,7 @@ namespace Abstractions.Forms
     public class LocationService : ILocationService
     {
         private const double PIx = Math.PI;
+
         public event EventHandler<Location> LocationObtained;
 
         public double DistanceBetweenPlaces(double lon1, double lat1, double lon2, double lat2)
@@ -18,15 +19,15 @@ namespace Abstractions.Forms
             try
             {
                 double R = 6371; // km
-                var dLat = Radians(lat2 - lat1);
-                var dLon = Radians(lon2 - lon1);
+                double dLat = Radians(lat2 - lat1);
+                double dLon = Radians(lon2 - lon1);
                 lat1 = Radians(lat1);
                 lat2 = Radians(lat2);
 
-                var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-                        Math.Sin(dLon / 2) * Math.Sin(dLon / 2) * Math.Cos(lat1) * Math.Cos(lat2);
-                var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-                var d = R * c;
+                double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                           Math.Sin(dLon / 2) * Math.Sin(dLon / 2) * Math.Cos(lat1) * Math.Cos(lat2);
+                double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+                double d = R * c;
 
                 return d;
             }
@@ -40,11 +41,11 @@ namespace Abstractions.Forms
         {
             try
             {
-                var locator = CrossGeolocator.Current;
+                IGeolocator locator = CrossGeolocator.Current;
                 locator.DesiredAccuracy = 100;
 
                 Position position = null;
-                var task = Task.Run(() => locator.GetPositionAsync(TimeSpan.FromSeconds(2), null, true));
+                Task<Position> task = Task.Run(() => locator.GetPositionAsync(TimeSpan.FromSeconds(2), null, true));
                 if (task.Wait(TimeSpan.FromSeconds(2)))
                     position = task.Result;
                 if (position == null)
@@ -59,6 +60,8 @@ namespace Abstractions.Forms
                     Lat = position.Latitude,
                     Lng = position.Longitude
                 };
+
+                LocationObtained?.Invoke(this,loc);
                 return loc;
             }
             catch (Exception ex)
@@ -72,9 +75,6 @@ namespace Abstractions.Forms
         /// </summary>
         /// <param name="x">Degrees</param>
         /// <returns>The equivalent in radians</returns>
-        private double Radians(double x)
-        {
-            return x * PIx / 180;
-        }
+        private double Radians(double x) => x * PIx / 180;
     }
 }

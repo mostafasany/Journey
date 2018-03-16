@@ -39,7 +39,7 @@ namespace Journey.Services.Buisness.Friend.Data
                         if (string.IsNullOrEmpty(newFriend.Id))
                             failureRequest.Add(friend);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         failureRequest.Add(friend);
                     }

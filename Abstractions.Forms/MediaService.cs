@@ -11,20 +11,20 @@ namespace Abstractions.Forms
 {
     public class MediaService : IMediaService<Media>
     {
+        private readonly CameraDevice DefaultCamera = CameraDevice.Front;
+        private readonly PhotoSize PhotoSize = PhotoSize.Small;
+        private readonly VideoQuality VideoQuality = VideoQuality.Low;
         private const string VideoPlaceHolderPath = "http://bit.ly/2EiCAic";
         private const int CompressionQuality = 30;
         private const int CustomPhotoSize = 10;
         private const bool SaveToAlbum = true;
-        private readonly CameraDevice DefaultCamera = CameraDevice.Front;
-        private readonly PhotoSize PhotoSize = PhotoSize.Small;
-        private readonly VideoQuality VideoQuality = VideoQuality.Low;
 
 
         public async Task<Media> PickPhotoAsync()
         {
             try
             {
-                var media = await CrossMedia.Current.PickPhotoAsync(
+                MediaFile media = await CrossMedia.Current.PickPhotoAsync(
                     new PickMediaOptions
                     {
                         PhotoSize = PhotoSize,
@@ -32,8 +32,8 @@ namespace Abstractions.Forms
                     });
                 if (media == null)
                     return null;
-                var stream = media.GetStream();
-                var array = ReadFully(stream);
+                Stream stream = media.GetStream();
+                byte[] array = ReadFully(stream);
                 var image = new Media
                 {
                     OriginalName = Path.GetFileName(media.Path),
@@ -55,11 +55,11 @@ namespace Abstractions.Forms
         {
             try
             {
-                var media = await CrossMedia.Current.PickVideoAsync();
+                MediaFile media = await CrossMedia.Current.PickVideoAsync();
                 if (media == null)
                     return null;
-                var stream = media.GetStream();
-                var array = ReadFully(stream);
+                Stream stream = media.GetStream();
+                byte[] array = ReadFully(stream);
                 var image = new Media
                 {
                     OriginalName = Path.GetFileName(media.Path),
@@ -82,7 +82,7 @@ namespace Abstractions.Forms
         {
             try
             {
-                var media = await CrossMedia.Current.TakePhotoAsync(
+                MediaFile media = await CrossMedia.Current.TakePhotoAsync(
                     new StoreCameraMediaOptions
                     {
                         CompressionQuality = CompressionQuality,
@@ -98,8 +98,8 @@ namespace Abstractions.Forms
 
                 if (media == null)
                     return null;
-                var stream = media.GetStream();
-                var array = ReadFully(stream);
+                Stream stream = media.GetStream();
+                byte[] array = ReadFully(stream);
                 var image = new Media
                 {
                     OriginalName = Path.GetFileName(media.Path),
@@ -125,7 +125,7 @@ namespace Abstractions.Forms
         {
             try
             {
-                var media = await CrossMedia.Current.TakeVideoAsync(
+                MediaFile media = await CrossMedia.Current.TakeVideoAsync(
                     new StoreVideoOptions
                     {
                         Quality = VideoQuality,
@@ -138,8 +138,8 @@ namespace Abstractions.Forms
 
                 if (media == null)
                     return null;
-                var stream = media.GetStream();
-                var array = ReadFully(stream);
+                Stream stream = media.GetStream();
+                byte[] array = ReadFully(stream);
                 var image = new Media
                 {
                     OriginalName = Path.GetFileName(media.Path),

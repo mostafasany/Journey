@@ -21,7 +21,6 @@ using Journey.Services.Buisness.Post;
 using Journey.Services.Buisness.Post.Data;
 using Journey.Services.Buisness.PostComment;
 using Journey.Services.Buisness.PostComment.Data;
-using Journey.Services.Forms;
 using Journey.Views;
 using Microsoft.WindowsAzure.MobileServices;
 using Prism;

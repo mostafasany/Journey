@@ -6,11 +6,11 @@ namespace Journey.Models.Challenge
 {
     public class KeyGroupedChallengeProgress : BindableBase
     {
-        string key;
+        string _key;
         public string Key
         {
-            get => key;
-            set => SetProperty(ref key, value);
+            get => _key;
+            set => SetProperty(ref _key, value);
         }
 
         List<AccountChallengeProgress> _accounts;
@@ -23,11 +23,11 @@ namespace Journey.Models.Challenge
 
     public class AccountChallengeProgress : BindableBase
     {
-        string id;
+        string _id;
         public string Id
         {
-            get => id;
-            set => SetProperty(ref id, value);
+            get => _id;
+            set => SetProperty(ref _id, value);
         }
 
         Account.Account _account;
@@ -53,11 +53,11 @@ namespace Journey.Models.Challenge
     }
     public class ChallengeProgress : Account.Account
     {
-        string id;
-        public string Id
+        private string _id;
+        public new string Id
         {
-            get => id;
-            set => SetProperty(ref id, value);
+            get => _id;
+            set => SetProperty(ref _id, value);
         }
 
         DateTime _datetTime;

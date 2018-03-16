@@ -1,7 +1,5 @@
 ﻿using System;
 using Abstractions.Forms;
-using Journey.Services.Buisness.Account;
-using Journey.Services.Buisness.PostComment;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
@@ -10,15 +8,9 @@ namespace Journey.ViewModels
 {
     public class VideoPageViewModel : BaseViewModel, INavigationAware
     {
-        private readonly IAccountService _accountService;
-        private readonly IPostCommentService _postCommentService;
-
-        public VideoPageViewModel(IUnityContainer container,
-            IPostCommentService postCommentService, IAccountService accountService) :
+        public VideoPageViewModel(IUnityContainer container) :
             base(container)
         {
-            _postCommentService = postCommentService;
-            _accountService = accountService;
         }
 
         #region Events
@@ -27,11 +19,11 @@ namespace Journey.ViewModels
         {
         }
 
-        public async void OnNavigatedTo(NavigationParameters parameters)
+        public void OnNavigatedTo(NavigationParameters parameters)
         {
             try
             {
-                Media = parameters.GetValue<Media>("Media") ?? null;
+                Media = parameters.GetValue<Media>("Media");
             }
             catch (Exception e)
             {
@@ -48,14 +40,14 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        private Media media;
+        private Media _media;
 
         public Media Media
         {
-            get => media;
+            get => _media;
             set
             {
-                media = value;
+                _media = value;
                 RaisePropertyChanged();
             }
         }
@@ -102,7 +94,7 @@ namespace Journey.ViewModels
 
         public DelegateCommand OnCloseCommand => new DelegateCommand(OnClose);
 
-        private async void OnClose()
+        private void OnClose()
         {
             NavigationService.GoBack();
         }

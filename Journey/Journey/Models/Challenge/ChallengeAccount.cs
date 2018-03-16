@@ -2,13 +2,11 @@
 {
     public class ChallengeAccount : Account.Account
     {
-        private int exp;
+        private int _exp;
 
-        private bool liked;
+        private bool _liked;
 
-        private int likes;
-
-        private int numberExercise;
+        private int _likes;
 
         public ChallengeAccount(Account.Account account)
         {
@@ -24,20 +22,20 @@
 
         public int Exp
         {
-            get => exp;
+            get => _exp;
             set
             {
-                exp = value;
+                _exp = value;
                 RaisePropertyChanged();
             }
         }
 
         public int Likes
         {
-            get => likes;
+            get => _likes;
             set
             {
-                likes = value;
+                _likes = value;
                 RaisePropertyChanged();
             }
         }
@@ -45,10 +43,10 @@
 
         public bool Liked
         {
-            get => liked;
+            get => _liked;
             set
             {
-                liked = value;
+                _liked = value;
                 RaisePropertyChanged();
                 RaisePropertyChanged(nameof(NotLiked));
             }

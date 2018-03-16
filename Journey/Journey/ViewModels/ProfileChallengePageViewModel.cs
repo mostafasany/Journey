@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using Abstractions.Models;
 using Journey.Models.Account;
 using Journey.Models.Challenge;
 using Journey.Services.Buisness.Account;
@@ -12,6 +9,7 @@ using Journey.Services.Buisness.Challenge;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
+using ChallengeAccount = Journey.Models.Challenge.ChallengeAccount;
 
 namespace Journey.ViewModels
 {
@@ -34,13 +32,14 @@ namespace Journey.ViewModels
         {
         }
 
-        public async void OnNavigatedTo(NavigationParameters parameters)
+        public void OnNavigatedTo(NavigationParameters parameters)
         {
             try
             {
                 if (parameters.GetNavigationMode() == NavigationMode.Back)
                 {
                 }
+
                 if (parameters.GetNavigationMode() == NavigationMode.New)
                     Intialize();
             }
@@ -59,7 +58,6 @@ namespace Journey.ViewModels
 
         #region Properties
 
-
         private List<ObservableChallengeProgressGroupCollection<AccountChallengeProgress>> _challengeProgress;
 
         public List<ObservableChallengeProgressGroupCollection<AccountChallengeProgress>> ChallengeProgress
@@ -69,13 +67,14 @@ namespace Journey.ViewModels
         }
 
 
-        private Account _winnerAccountInKM;
+        private Account _winnerAccountInKm;
 
         public Account WinnerAccountInKM
         {
-            get => _winnerAccountInKM;
-            set => SetProperty(ref _winnerAccountInKM, value);
+            get => _winnerAccountInKm;
+            set => SetProperty(ref _winnerAccountInKm, value);
         }
+
         private Account _winnerAccountInExercises;
 
         public Account WinnerAccountInExercises
@@ -84,12 +83,12 @@ namespace Journey.ViewModels
             set => SetProperty(ref _winnerAccountInExercises, value);
         }
 
-        private Challenge selectedChallenge;
+        private Challenge _selectedChallenge;
 
         public Challenge SelectedChallenge
         {
-            get => selectedChallenge;
-            set => SetProperty(ref selectedChallenge, value);
+            get => _selectedChallenge;
+            set => SetProperty(ref _selectedChallenge, value);
         }
 
         private bool _hasActiveChallenge = true;
@@ -98,7 +97,6 @@ namespace Journey.ViewModels
         {
             get => _hasActiveChallenge;
             set => SetProperty(ref _hasActiveChallenge, value);
-
         }
 
         #endregion
@@ -117,16 +115,16 @@ namespace Journey.ViewModels
                     {
                         HasActiveChallenge = true;
                         ChallengeProgress = await _challengeService.GetChallengePorgessAsync(SelectedChallenge.Id);
-                        var challenge1 = SelectedChallenge.ChallengeAccounts.FirstOrDefault();
-                        var challenge2 = SelectedChallenge.ChallengeAccounts.LastOrDefault();
-                        var challenge1ExerciseCount = ChallengeProgress.Count(a => a.WinnerAccountInExercises?.Name == challenge1.Name);
-                        var challenge2ExerciseCount = ChallengeProgress.Count(a => a.WinnerAccountInExercises?.Name == challenge2.Name);
-                        var challenge1KMCount = ChallengeProgress.Count(a => a.WinnerAccountInKM?.Name == challenge1.Name);
-                        var challenge2KMCount = ChallengeProgress.Count(a => a.WinnerAccountInKM?.Name == challenge2.Name);
+                        ChallengeAccount challenge1 = SelectedChallenge.ChallengeAccounts.FirstOrDefault();
+                        ChallengeAccount challenge2 = SelectedChallenge.ChallengeAccounts.LastOrDefault();
+                        int challenge1ExerciseCount = ChallengeProgress.Count(a => a.WinnerAccountInExercises?.Name == challenge1.Name);
+                        int challenge2ExerciseCount = ChallengeProgress.Count(a => a.WinnerAccountInExercises?.Name == challenge2.Name);
+                        int challenge1KmCount = ChallengeProgress.Count(a => a.WinnerAccountInKM?.Name == challenge1.Name);
+                        int challenge2KmCount = ChallengeProgress.Count(a => a.WinnerAccountInKM?.Name == challenge2.Name);
                         if (challenge1ExerciseCount != challenge2ExerciseCount)
                             WinnerAccountInExercises = challenge1ExerciseCount > challenge2ExerciseCount ? challenge1 : challenge2;
-                        if (challenge1KMCount != challenge2KMCount)
-                            WinnerAccountInKM = challenge1KMCount > challenge2KMCount ? challenge1 : challenge2;
+                        if (challenge1KmCount != challenge2KmCount)
+                            WinnerAccountInKM = challenge1KmCount > challenge2KmCount ? challenge1 : challenge2;
                     }
                     else
                     {
@@ -137,6 +135,7 @@ namespace Journey.ViewModels
                 {
                     HasActiveChallenge = false;
                 }
+
                 base.Intialize(sync);
             }
             catch (Exception e)
@@ -170,7 +169,7 @@ namespace Journey.ViewModels
 
         public DelegateCommand OnRefreshPostsCommand => new DelegateCommand(OnRefreshPosts);
 
-        private async void OnRefreshPosts()
+        private void OnRefreshPosts()
         {
             try
             {
@@ -199,7 +198,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                var isLogginIn = await _accountService.LoginFirstAsync();
+                bool isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
                     await NavigationService.Navigate("ChooseChallengeFriendPage");
             }
@@ -210,7 +209,6 @@ namespace Journey.ViewModels
         }
 
         #endregion
-
 
         #endregion
     }
