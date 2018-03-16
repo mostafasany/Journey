@@ -219,12 +219,12 @@ namespace Journey.Services.Buisness.Challenge
                         if (item.TotalKm > maxKm)
                         {
                             maxKm = item.TotalKm;
-                            //if (item.TotalKm == maxKm)
-                            //{
-                            //    //TODO:Assume two accounts
-                            //  //  winnerAccountInKm = null;
-                            //}
-                            //else
+                            if (item.TotalKm == maxKm)
+                            {
+                                //TODO:Assume two accounts
+                              //  winnerAccountInKm = null;
+                            }
+                            else
                             {
                                 winnerAccountInKm = item.Account;
                             }
@@ -234,12 +234,12 @@ namespace Journey.Services.Buisness.Challenge
                         if (item.TotalExercises > maxExercises)
                         {
                             maxExercises = item.TotalExercises;
-                            //if (item.TotalExercises == maxExercises)
-                            //{
-                            //    //TODO:Assume two accounts
-                            //    //winnerAccountInExercises = null;
-                            //}
-                            //else
+                            if (item.TotalExercises == maxExercises)
+                            {
+                                //TODO:Assume two accounts
+                                //winnerAccountInExercises = null;
+                            }
+                            else
                             {
                                 winnerAccountInExercises = item.Account;
                             }
