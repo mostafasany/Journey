@@ -11,16 +11,13 @@ namespace Journey.Services.Buisness.Notification
     {
         private readonly INotificationDataService _accountDataService;
 
-        public NotificationService(INotificationDataService accountDataService)
-        {
-            _accountDataService = accountDataService;
-        }
+        public NotificationService(INotificationDataService accountDataService) => _accountDataService = accountDataService;
 
         public async Task<Notifications> AddNotificationAsync(Notifications notification)
         {
             try
             {
-                var notfication = await _accountDataService.AddNotificationAsync(notification);
+                Notifications notfication = await _accountDataService.AddNotificationAsync(notification);
                 return notfication;
             }
             catch (Exception ex)
@@ -33,7 +30,7 @@ namespace Journey.Services.Buisness.Notification
         {
             try
             {
-                var notfications = await _accountDataService.GetNotificationsAsync();
+                List<Notifications> notfications = await _accountDataService.GetNotificationsAsync();
                 return notfications;
             }
             catch (Exception ex)
@@ -46,7 +43,7 @@ namespace Journey.Services.Buisness.Notification
         {
             try
             {
-                var notfications = await _accountDataService.GetNotificationsCountAsync();
+                int notfications = await _accountDataService.GetNotificationsCountAsync();
                 return notfications;
             }
             catch (Exception ex)

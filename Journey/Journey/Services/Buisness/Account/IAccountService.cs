@@ -11,18 +11,18 @@ namespace Journey.Services.Buisness.Account
 
         Models.Account.Account LoggedInAccount { get; set; }
 
-        Task<Models.Account.Account> SaveAccountAsync(Models.Account.Account account, bool add);
+        Task<MobileServiceUser> AutehticateAsync();
 
         Task<Models.Account.Account> GetAccountAsync(bool sync = false);
 
+        bool IsAccountAuthenticated();
+
         Task<bool> LoginFirstAsync();
-
-        Task<MobileServiceUser> AutehticateAsync();
-
-        Task<bool> SoicalLoginAndSaveAsync(MobileServiceClient client);
 
         Task<bool> LogoutAsync();
 
-        bool IsAccountAuthenticated();
+        Task<Models.Account.Account> SaveAccountAsync(Models.Account.Account account, bool add);
+
+        Task<bool> SoicalLoginAndSaveAsync(MobileServiceClient client);
     }
 }

@@ -226,10 +226,10 @@ namespace Journey.ViewModels
                     return;
 
                 ShowProgress();
-                var hasActiveChallange = await _challengeService.CheckAccountHasChallengeAsync();
+                bool hasActiveChallange = await _challengeService.CheckAccountHasChallengeAsync();
                 if (!hasActiveChallange)
                 {
-                    var challenge = await _challengeService.AddChallengeAsync(SelectedChallenge);
+                    Challenge challenge = await _challengeService.AddChallengeAsync(SelectedChallenge);
                     if (challenge != null)
                     {
                         await DialogService.ShowMessageAsync(AppResource.Challenge_ApproveMessage, "");
@@ -262,7 +262,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                var challenge = await _challengeService.ApproveChallengeAsync(SelectedChallenge);
+                Challenge challenge = await _challengeService.ApproveChallengeAsync(SelectedChallenge);
                 if (challenge != null)
                     await NavigationService.Navigate("HomePage", true, "Sync");
             }
@@ -283,7 +283,7 @@ namespace Journey.ViewModels
         public DelegateCommand OnBackCommand => new DelegateCommand(OnBack);
 
 
-        private  void OnBack()
+        private void OnBack()
         {
             try
             {

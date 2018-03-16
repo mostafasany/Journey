@@ -1,14 +1,15 @@
 ﻿using System.Collections;
-using Xamarin.Forms;
-using System.Linq;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using Xamarin.Forms;
+
 //https://github.com/rasmuschristensen/XamarinFormsImageGallery
 namespace Journey.Views.Controls
 {
     public class ImageViewerControl : ScrollView
     {
+        private readonly StackLayout _imageStack;
+
         public static readonly BindableProperty ItemsSourceProperty =
             BindableProperty.Create<ImageViewerControl, IList>(
                 view => view.ItemsSource,
@@ -23,8 +24,6 @@ namespace Journey.Views.Controls
                     ((ImageViewerControl) bindableObject).ItemsSourceChanged(bindableObject, oldValue, newValue);
                 }
             );
-
-        private readonly StackLayout _imageStack;
 
         public ImageViewerControl()
         {
@@ -47,10 +46,15 @@ namespace Journey.Views.Controls
 
         public DataTemplate ItemTemplate { get; set; }
 
-        private void ItemsSourceChanging()
+        public bool EqualsAll<T>(ObservableCollection<T> a, ObservableCollection<T> b)
         {
-            if (ItemsSource == null)
-                return;
+            if (a == null || b == null)
+                return a == null && b == null;
+
+            if (a.Count != b.Count)
+                return false;
+
+            return a.SequenceEqual(b);
         }
 
         private void ItemsSourceChanged(BindableObject bindable, IList oldValue, IList newValue)
@@ -69,12 +73,12 @@ namespace Journey.Views.Controls
             //{
             //    return;
             //}
-            
+
             if (newValue != null)
             {
                 _imageStack.Children.Clear();
                 // int i = 0;
-                foreach (var newItem in newValue)
+                foreach (object newItem in newValue)
                 {
                     //i++;
                     //if (i == 4)
@@ -88,15 +92,10 @@ namespace Journey.Views.Controls
             }
         }
 
-        public  bool EqualsAll<T>(ObservableCollection<T> a, ObservableCollection<T> b)
+        private void ItemsSourceChanging()
         {
-            if (a == null || b == null)
-                return (a == null && b == null);
-
-            if (a.Count != b.Count)
-                return false;
-
-            return a.SequenceEqual(b);
+            if (ItemsSource == null)
+                return;
         }
     }
 }

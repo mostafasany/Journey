@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Journey.Models.Account;
 using Journey.Models.Post;
@@ -106,12 +107,8 @@ namespace Journey.ViewModels
                 base.Intialize(sync);
                 LoggedInAccount = await _accountService.GetAccountAsync();
 
-                var postDTo = await _postCommentService.GetCommentsAsync(_postId, true);
-                if (postDTo != null)
-                {
-                    Comments = new ObservableCollection<Comment>(postDTo);
-                }
-
+                List<Comment> postDTo = await _postCommentService.GetCommentsAsync(_postId, true);
+                if (postDTo != null) Comments = new ObservableCollection<Comment>(postDTo);
             }
             catch (Exception e)
             {
@@ -153,7 +150,7 @@ namespace Journey.ViewModels
                 ShowProgress();
                 if (!string.IsNullOrEmpty(NewComment))
                 {
-                    var comment = await _postCommentService.AddCommentAsync(NewComment, _postId);
+                    Comment comment = await _postCommentService.AddCommentAsync(NewComment, _postId);
                     if (comment != null)
                     {
                         comment.Account = LoggedInAccount;

@@ -27,7 +27,7 @@ namespace Journey.Services.Buisness.Notification.Data
             {
                 if (notification == null)
                     return null;
-                var accountDto = NotificationDataTranslator.TranslateNotification(notification);
+                AzureNotifications accountDto = NotificationDataTranslator.TranslateNotification(notification);
                 await _azureNotifications.InsertAsync(accountDto);
                 notification = NotificationDataTranslator.TranslateNotification(accountDto);
                 return notification;
@@ -42,12 +42,12 @@ namespace Journey.Services.Buisness.Notification.Data
         {
             try
             {
-                var account = _client.CurrentUser.UserId;
-                var notifications = await _azureNotifications.Where(po => po.Account == account).ToListAsync();
+                string account = _client.CurrentUser.UserId;
+                List<AzureNotifications> notifications = await _azureNotifications.Where(po => po.Account == account).ToListAsync();
                 if (notifications == null || notifications.Count == 0)
                     return null;
 
-                var commentsDTo = NotificationDataTranslator.TranslateNotifications(notifications);
+                List<Notifications> commentsDTo = NotificationDataTranslator.TranslateNotifications(notifications);
                 return commentsDTo;
             }
             catch (Exception ex)
@@ -60,12 +60,11 @@ namespace Journey.Services.Buisness.Notification.Data
         {
             try
             {
-                var account = _client.CurrentUser.UserId;
-                var notifications = await _azureNotifications.Where(po => po.Account == account).ToListAsync();
+                string account = _client.CurrentUser.UserId;
+                List<AzureNotifications> notifications = await _azureNotifications.Where(po => po.Account == account).ToListAsync();
                 if (notifications == null || notifications.Count == 0)
                     return 0;
                 return notifications.Count;
-              
             }
             catch (Exception ex)
             {

@@ -15,10 +15,7 @@ namespace Journey.Services.Buisness.Post.Data
     {
         private readonly ISerializerService _serializerService;
 
-        public PostDataMockService(ISerializerService serializerService)
-        {
-            _serializerService = serializerService;
-        }
+        public PostDataMockService(ISerializerService serializerService) => _serializerService = serializerService;
 
         public async Task<Models.Post.Post> AddPostAsync(Models.Post.Post post, List<string> images)
         {
@@ -26,13 +23,14 @@ namespace Journey.Services.Buisness.Post.Data
             {
                 if (post == null)
                     return null;
-                var assembly = typeof(PostDataMockService).GetTypeInfo().Assembly;
-                var stream = assembly.GetManifestResourceStream("Journey.Services.Mocks.PostMock.xml");
+                Assembly assembly = typeof(PostDataMockService).GetTypeInfo().Assembly;
+                Stream stream = assembly.GetManifestResourceStream("Journey.Services.Mocks.PostMock.xml");
                 string text;
                 using (var reader = new StreamReader(stream))
                 {
                     text = reader.ReadToEnd();
                 }
+
                 var postDto = _serializerService.DeserializeFromString<AzurePost>(text);
 
                 post = PostDataTranslators.TranslatePost(postDto);
@@ -64,18 +62,19 @@ namespace Journey.Services.Buisness.Post.Data
         {
             try
             {
-                var assembly = typeof(PostDataMockService).GetTypeInfo().Assembly;
-                var stream = assembly.GetManifestResourceStream("Journey.Services.Mocks.PostsMock.xml");
+                Assembly assembly = typeof(PostDataMockService).GetTypeInfo().Assembly;
+                Stream stream = assembly.GetManifestResourceStream("Journey.Services.Mocks.PostsMock.xml");
                 string text;
                 using (var reader = new StreamReader(stream))
                 {
                     text = reader.ReadToEnd();
                 }
+
                 var posts = _serializerService.DeserializeFromString<List<AzurePost>>(text);
 
                 if (posts == null || posts.Count == 0)
                     return null;
-                var postsDTo = PostDataTranslators.TranslatePosts(posts);
+                List<Models.Post.Post> postsDTo = PostDataTranslators.TranslatePosts(posts);
                 return postsDTo;
             }
             catch (Exception ex)

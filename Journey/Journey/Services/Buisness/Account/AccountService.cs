@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Abstractions.Contracts;
 using Abstractions.Exceptions;
 using Abstractions.Forms;
 using Abstractions.Services.Contracts;
@@ -41,7 +42,7 @@ namespace Journey.Services.Buisness.Account
             try
             {
                 //account.ChallengeId = "";
-                var savedAccount = await _accountDataService.AddUpdateAccountAsync(account, add);
+                Models.Account.Account savedAccount = await _accountDataService.AddUpdateAccountAsync(account, add);
                 return savedAccount;
             }
             catch (Exception ex)
@@ -118,13 +119,13 @@ namespace Journey.Services.Buisness.Account
         {
             try
             {
-                var socialInfo = await _accountDataService.MeAsync();
-                var info = socialInfo.FirstOrDefault();
+                List<Social> socialInfo = await _accountDataService.MeAsync();
+                Social info = socialInfo.FirstOrDefault();
                 Token = info.AccessToken;
                 if (string.IsNullOrEmpty(Token))
                     return false;
 
-                var account = await GetAccountAsync(); //Save only if no new data , dont need to update everytime
+                Models.Account.Account account = await GetAccountAsync(); //Save only if no new data , dont need to update everytime
                 if (account == null)
                 {
                     var loggedInAccount = new Models.Account.Account
@@ -135,7 +136,7 @@ namespace Journey.Services.Buisness.Account
                         Gender = info.Claims?.Where(a => a.Typ.Contains("gender")).FirstOrDefault()?.Val,
                         SID = info.Claims?.Where(a => a.Typ.Contains("nameidentifier")).FirstOrDefault()?.Val
                     };
-                    var imageUrl = string.Format("http://graph.facebook.com/{0}/picture?type=large",
+                    string imageUrl = string.Format("http://graph.facebook.com/{0}/picture?type=large",
                         loggedInAccount.SID);
                     loggedInAccount.SocialToken = info.AccessToken;
                     loggedInAccount.SocialProvider = info.ProviderName;
@@ -147,6 +148,7 @@ namespace Journey.Services.Buisness.Account
 
                     LoggedInAccount = await SaveAccountAsync(loggedInAccount, true);
                 }
+
                 _facebookService.FacebookToken = info.AccessToken;
                 await _settingsService.Set(_facebookService.FacebookTokenKey, info.AccessToken);
                 await _settingsService.Set(AccountTokenKey, client.CurrentUser.MobileServiceAuthenticationToken);

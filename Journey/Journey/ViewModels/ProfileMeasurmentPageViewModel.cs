@@ -49,6 +49,7 @@ namespace Journey.ViewModels
                             await _accountGoalService.AddAccountGoal(LoggedInAccount.AccountGoal);
                     }
                 }
+
                 if (parameters.GetNavigationMode() == NavigationMode.New)
                     Intialize();
             }
@@ -150,7 +151,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                var accountGoal = await _accountGoalService.GetAccountGoalAsync(sync);
+                AccountGoal accountGoal = await _accountGoalService.GetAccountGoalAsync(sync);
                 if (accountGoal != null)
                     LoggedInAccount.AccountGoal = accountGoal;
             }
@@ -166,7 +167,7 @@ namespace Journey.ViewModels
             {
                 if (Measuremnts == null || Measuremnts.Count == 0 || sync)
                 {
-                    var measu = await _accountMeasurmentService.GetMeasurmentsAsync(sync);
+                    List<ScaleMeasurment> measu = await _accountMeasurmentService.GetMeasurmentsAsync(sync);
                     if (measu != null)
                         Measuremnts = measu;
                 }

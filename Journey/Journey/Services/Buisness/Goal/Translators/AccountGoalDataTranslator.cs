@@ -42,6 +42,7 @@ namespace Journey.Services.Buisness.Goal.Translators
                     accountGoalDto.Start = accountGoal.Start;
                     accountGoalDto.End = accountGoal.End;
                 }
+
                 return accountGoalDto;
             }
             catch (Exception ex)

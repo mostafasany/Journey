@@ -38,7 +38,7 @@ namespace Journey.ViewModels
             try
             {
                 ShowProgress();
-                var loggedInAccount = parameters.GetValue<Account>("Account") ?? new Account();
+                Account loggedInAccount = parameters.GetValue<Account>("Account") ?? new Account();
                 FirstName = loggedInAccount.FirstName;
                 LastName = loggedInAccount.LastName;
                 Image = loggedInAccount.Image;
@@ -152,19 +152,17 @@ namespace Journey.ViewModels
                         new DialogCommand
                         {
                             Label = AppResource.Camera,
-                        Invoked = async () =>
+                            Invoked = async () =>
+                            {
+                                try
                                 {
-                            try
-                            {
-                                Image = await _mediaService.TakePhotoAsync() ?? Image;
-                            }
-                            catch (NotSupportedException)
-                            {
-                                await DialogService.ShowMessageAsync(AppResource.Camera_NotSupported,AppResource.Error);
-                            }
+                                    Image = await _mediaService.TakePhotoAsync() ?? Image;
                                 }
-
-
+                                catch (NotSupportedException)
+                                {
+                                    await DialogService.ShowMessageAsync(AppResource.Camera_NotSupported, AppResource.Error);
+                                }
+                            }
                         },
                         new DialogCommand
                         {
@@ -223,10 +221,11 @@ namespace Journey.ViewModels
                 ShowProgress();
                 if (Image?.SourceArray != null)
                 {
-                    var path = await _blobService.UploadAsync(Image.SourceArray, Image.Name);
+                    string path = await _blobService.UploadAsync(Image.SourceArray, Image.Name);
                     Image.Path = path;
                 }
-                var account = _accountService.LoggedInAccount;
+
+                Account account = _accountService.LoggedInAccount;
                 account.FirstName = FirstName;
                 account.LastName = LastName;
                 account.Image = Image;

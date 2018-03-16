@@ -16,10 +16,7 @@ namespace Journey.ViewModels
 
         public UpdateMeasurmentPageViewModel(IUnityContainer container,
             IAccountMeasurmentService accountMeasurmentService) :
-            base(container)
-        {
-            _accountMeasurmentService = accountMeasurmentService;
-        }
+            base(container) => _accountMeasurmentService = accountMeasurmentService;
 
         public List<ScaleMeasurment> Measuremnts
         {
@@ -73,7 +70,7 @@ namespace Journey.ViewModels
                 if (Measuremnts == null)
                     return;
 
-                var measurments = await _accountMeasurmentService.UpdateScaleMeasurments(Measuremnts);
+                List<ScaleMeasurment> measurments = await _accountMeasurmentService.UpdateScaleMeasurments(Measuremnts);
 
                 NavigationService.GoBack(measurments, "Measurments");
             }

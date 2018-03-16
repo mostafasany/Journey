@@ -27,14 +27,14 @@ namespace Journey.Services.Buisness.PostComment.Data
             {
                 if (comment == null)
                     return null;
-                var account = _client.CurrentUser.UserId;
-                var commentDto = PostDataTranslators.TranslateComment(comment, post, account);
+                string account = _client.CurrentUser.UserId;
+                AzurePostComments commentDto = PostDataTranslators.TranslateComment(comment, post, account);
 
                 await _azureComment.InsertAsync(commentDto);
 
                 //await SyncCommentAsync(post);
 
-                var comm = PostDataTranslators.TranslateComment(commentDto);
+                Comment comm = PostDataTranslators.TranslateComment(commentDto);
                 return comm;
             }
             catch (Exception ex)
@@ -52,13 +52,13 @@ namespace Journey.Services.Buisness.PostComment.Data
                 //if (sync)
                 //comments = await SyncCommentAsync(post);
                 //if (comments == null || comments.Count == 0)
-                var comments = await _azureComment.Where(po => po.Post == post).ToListAsync();
+                List<AzurePostComments> comments = await _azureComment.Where(po => po.Post == post).ToListAsync();
                 //if (comments == null || comments.Count == 0)
                 //comments = await SyncCommentAsync(post);
                 if (comments == null || comments.Count == 0)
                     return null;
 
-                var commentsDTo = PostDataTranslators.TranslateComments(comments);
+                List<Comment> commentsDTo = PostDataTranslators.TranslateComments(comments);
                 return commentsDTo;
             }
             catch (Exception ex)

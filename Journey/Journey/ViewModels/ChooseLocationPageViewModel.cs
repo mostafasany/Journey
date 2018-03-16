@@ -12,10 +12,10 @@ namespace Journey.ViewModels
 {
     public class ChooseLocationPageViewModel : BaseViewModel, INavigationAware
     {
-        private const string DefaultLocation = "DefaultLocation";
         private readonly IFacebookService _facebookService;
         private readonly ILocationService _locationService;
         private readonly ISettingsService _settingsService;
+        private const string DefaultLocation = "DefaultLocation";
 
         public ChooseLocationPageViewModel(IUnityContainer container, ILocationService locationService,
             IFacebookService facebookService, ISettingsService settingsService) :
@@ -34,7 +34,7 @@ namespace Journey.ViewModels
             {
                 ShowProgress();
                 await Task.Delay(1000);
-                var position = await _locationService.ObtainMyLocationAsync();
+                Location position = await _locationService.ObtainMyLocationAsync();
                 if (position != null)
                     Locations = await _facebookService.GetLocationsAsync(Name, position.Lat, position.Lng);
 
@@ -134,7 +134,7 @@ namespace Journey.ViewModels
                 Label = AppResource.Yes,
                 Invoked = async () =>
                 {
-                    var locationId = await _settingsService.Get(DefaultLocation);
+                    string locationId = await _settingsService.Get(DefaultLocation);
                     if (locationId != selectedLocation.Id)
                         await _settingsService.Set(DefaultLocation, selectedLocation.Id);
                     NavigationService.GoBack(selectedLocation, "Location");

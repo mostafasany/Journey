@@ -8,7 +8,6 @@ namespace Journey.Services.Buisness.Post
     public interface IPostService
     {
         bool RefreshPosts { get; set; }
-        event PostStatusChangedEventHandler PostStatusChangedEventHandler;
 
         Task<Models.Post.Post> AddPostAsync(Models.Post.Post post, List<string> images);
 
@@ -18,9 +17,10 @@ namespace Journey.Services.Buisness.Post
 
         Task<bool> LikeAsync(PostBase post);
 
-        Task<bool> ShareAsync(PostBase post);
-
         void PostStatusChanged(PostBase post, PostStatus status);
+        event PostStatusChangedEventHandler PostStatusChangedEventHandler;
+
+        Task<bool> ShareAsync(PostBase post);
     }
 
     public delegate void PostStatusChangedEventHandler(object sender, PostStatusChangedArgs e);

@@ -34,6 +34,7 @@ namespace Journey.Services.Buisness.Measurment.Translators
                     accountMeasurmentsDto.Protein = accountMeasurments
                         .FirstOrDefault(a => a.Title == nameof(accountMeasurmentsDto.Protein))?.Measure;
                 }
+
                 return accountMeasurmentsDto;
             }
             catch (Exception ex)
@@ -99,6 +100,7 @@ namespace Journey.Services.Buisness.Measurment.Translators
                         Image = new Media {Path = "http://bit.ly/2yR2J9j"}
                     });
                 }
+
                 return measuremnts;
             }
             catch (Exception ex)

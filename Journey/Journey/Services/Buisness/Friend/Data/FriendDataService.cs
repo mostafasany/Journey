@@ -31,7 +31,7 @@ namespace Journey.Services.Buisness.Friend.Data
             try
             {
                 var failureRequest = new List<string>();
-                foreach (var friend in followerId)
+                foreach (string friend in followerId)
                     try
                     {
                         var newFriend = new AzureFriends {Accoun1 = _client.CurrentUser.UserId, Account2 = friend};
@@ -43,6 +43,7 @@ namespace Journey.Services.Buisness.Friend.Data
                     {
                         failureRequest.Add(friend);
                     }
+
                 return failureRequest;
             }
             catch (Exception ex)
@@ -82,7 +83,7 @@ namespace Journey.Services.Buisness.Friend.Data
                 //else
                 //{
                 //    //TODO: Query is not correct ,if not friend found it return null , it should return account with no friend
-                var accountDTO = await accountTable.LookupAsync(friend);
+                AzureAccount accountDTO = await accountTable.LookupAsync(friend);
                 account = AccountDataTranslator.TranslateAccount(accountDTO);
                 //}
 
@@ -100,14 +101,14 @@ namespace Journey.Services.Buisness.Friend.Data
             try
             {
                 List<AzureAccount> accountTbl = null;
-                var account = _client.CurrentUser.UserId;
+                string account = _client.CurrentUser.UserId;
                 if (!string.IsNullOrEmpty(name))
                     accountTbl = await accountTable.Where(a => a.Id != account &&
                                                                (a.FName.ToLower().Contains(name.ToLower()) || a.LName
                                                                     .ToLower().Contains(name.ToLower()))).ToListAsync();
                 else
                     accountTbl = await accountTable.Where(a => a.Id != account).ToListAsync();
-                var accountDto = AccountDataTranslator.TranslateAccounts(accountTbl);
+                List<Models.Account.Account> accountDto = AccountDataTranslator.TranslateAccounts(accountTbl);
                 return accountDto;
             }
             catch (Exception ex)

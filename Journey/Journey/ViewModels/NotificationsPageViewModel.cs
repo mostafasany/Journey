@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Abstractions.Services;
 using Journey.Models;
@@ -104,7 +105,7 @@ namespace Journey.ViewModels
 
                 Notifications = new ObservableCollection<Notifications>();
 
-                var postDTo = await _postCommentService.GetNotificationsAsync();
+                List<Notifications> postDTo = await _postCommentService.GetNotificationsAsync();
                 if (postDTo != null)
                     Notifications = new ObservableCollection<Notifications>(postDTo);
 

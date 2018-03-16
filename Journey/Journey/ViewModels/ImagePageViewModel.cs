@@ -94,7 +94,7 @@ namespace Journey.ViewModels
 
         public DelegateCommand OnCloseCommand => new DelegateCommand(OnClose);
 
-        private  void OnClose()
+        private void OnClose()
         {
             NavigationService.GoBack();
         }

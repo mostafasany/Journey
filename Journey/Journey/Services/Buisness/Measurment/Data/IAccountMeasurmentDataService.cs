@@ -6,7 +6,7 @@ namespace Journey.Services.Buisness.Measurment.Data
 {
     public interface IAccountMeasurmentDataService
     {
-        Task<List<ScaleMeasurment>> GetAccountMeasurmentAsync(bool sync = false);
         Task<List<ScaleMeasurment>> AddUpdateAccountMeasurmentAsync(List<ScaleMeasurment> accountMeasurments);
+        Task<List<ScaleMeasurment>> GetAccountMeasurmentAsync(bool sync = false);
     }
 }

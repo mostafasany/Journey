@@ -15,10 +15,7 @@ namespace Journey.ViewModels
         private readonly IAccountService _accountService;
 
         public ProfilePageViewModel(IUnityContainer container, IAccountService accountService) :
-            base(container)
-        {
-            _accountService = accountService;
-        }
+            base(container) => _accountService = accountService;
 
         #region Properties
 
@@ -67,7 +64,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                var account = await _accountService.GetAccountAsync(sync);
+                Account account = await _accountService.GetAccountAsync(sync);
                 if (account != null)
                     LoggedInAccount = account;
                 else

@@ -4,8 +4,7 @@
                 xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls"
                 xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.NewChallengePage">
     <ContentPage.Resources>
-        <ResourceDictionary>
-        </ResourceDictionary>
+        <ResourceDictionary />
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowSpacing="0" Style="{StaticResource MainGridStyle}">

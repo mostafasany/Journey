@@ -26,8 +26,8 @@ namespace Journey.Services.Buisness.Account.Data
                 if (account == null)
                     return null;
 
-                var assembly = typeof(PostDataMockService).GetTypeInfo().Assembly;
-                var stream = assembly.GetManifestResourceStream("Journey.Services.Mocks.AccountMock.xml");
+                Assembly assembly = typeof(PostDataMockService).GetTypeInfo().Assembly;
+                Stream stream = assembly.GetManifestResourceStream("Journey.Services.Mocks.AccountMock.xml");
                 string text;
                 using (var reader = new StreamReader(stream))
                 {
@@ -50,8 +50,8 @@ namespace Journey.Services.Buisness.Account.Data
         {
             try
             {
-                var assembly = typeof(PostDataMockService).GetTypeInfo().Assembly;
-                var stream = assembly.GetManifestResourceStream("Journey.Services.Mocks.AccountMock.xml");
+                Assembly assembly = typeof(PostDataMockService).GetTypeInfo().Assembly;
+                Stream stream = assembly.GetManifestResourceStream("Journey.Services.Mocks.AccountMock.xml");
                 string text;
                 using (var reader = new StreamReader(stream))
                 {
@@ -60,7 +60,7 @@ namespace Journey.Services.Buisness.Account.Data
 
                 var azureAccountDto = _serializerService.DeserializeFromString<AzureAccount>(text);
 
-                var accountDto = AccountDataTranslator.TranslateAccount(azureAccountDto);
+                Models.Account.Account accountDto = AccountDataTranslator.TranslateAccount(azureAccountDto);
 
                 return accountDto;
             }
@@ -104,8 +104,8 @@ namespace Journey.Services.Buisness.Account.Data
         {
             try
             {
-                var assembly = typeof(PostDataMockService).GetTypeInfo().Assembly;
-                var stream = assembly.GetManifestResourceStream("Journey.Services.Mocks.MeMock.xml");
+                Assembly assembly = typeof(PostDataMockService).GetTypeInfo().Assembly;
+                Stream stream = assembly.GetManifestResourceStream("Journey.Services.Mocks.MeMock.xml");
                 string text;
                 using (var reader = new StreamReader(stream))
                 {

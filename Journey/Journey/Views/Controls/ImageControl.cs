@@ -11,7 +11,7 @@ namespace Journey.Views.Controls
                 null,
                 (bindable, oldValue, newValue) =>
                 {
-                    var val = newValue.ToString();
+                    string val = newValue.ToString();
                     try
                     {
                         (bindable as ImageControl).Source = Device.RuntimePlatform == Device.UWP

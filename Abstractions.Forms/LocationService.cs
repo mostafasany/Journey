@@ -61,7 +61,7 @@ namespace Abstractions.Forms
                     Lng = position.Longitude
                 };
 
-                LocationObtained?.Invoke(this,loc);
+                LocationObtained?.Invoke(this, loc);
                 return loc;
             }
             catch (Exception ex)

@@ -29,7 +29,7 @@ namespace Journey.Services.Buisness.Goal.Data
                 if (bodyWeight == null)
                     return null;
 
-                var accountGoalDto =
+                AzureAccountGoal accountGoalDto =
                     AccountGoalDataTranslator.TranslateAccountGoal(bodyWeight, _client.CurrentUser.UserId);
                 await _accountGoalTable.InsertAsync(accountGoalDto);
 
@@ -57,8 +57,8 @@ namespace Journey.Services.Buisness.Goal.Data
 
                 //if (returnedData == null)
                 //{
-                var account = _client.CurrentUser.UserId;
-                var returnedData = (await _accountGoalTable.CreateQuery().Where(acc => acc.Account == account)
+                string account = _client.CurrentUser.UserId;
+                AzureAccountGoal returnedData = (await _accountGoalTable.CreateQuery().Where(acc => acc.Account == account)
                     .OrderByDescending(abc => abc.CreatedAt).ToListAsync()).FirstOrDefault();
                 //}
                 //if (returnedData == null)
@@ -68,7 +68,7 @@ namespace Journey.Services.Buisness.Goal.Data
                 if (returnedData == null)
                     return null;
 
-                var accountGoal = AccountGoalDataTranslator.TranslateAccountGoal(returnedData);
+                AccountGoal accountGoal = AccountGoalDataTranslator.TranslateAccountGoal(returnedData);
                 return accountGoal;
             }
             catch (Exception ex)

@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Journey.Resources;
 using Journey.Services.Azure;
 using Journey.Services.Buisness.Account;
+using Microsoft.WindowsAzure.MobileServices;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
@@ -92,7 +93,7 @@ namespace Journey.ViewModels
             {
                 if (App.Authenticator == null) return;
                 ShowProgress();
-                var authenticated = await _accountService.AutehticateAsync();
+                MobileServiceUser authenticated = await _accountService.AutehticateAsync();
                 if (authenticated == null)
                 {
                     await DialogService.ShowMessageAsync(AppResource.Login_CantLoginMessage,
@@ -101,10 +102,10 @@ namespace Journey.ViewModels
                 }
 
 
-                var client = _azureService.CreateOrGetAzureClient(authenticated.UserId,
+                MobileServiceClient client = _azureService.CreateOrGetAzureClient(authenticated.UserId,
                     authenticated.MobileServiceAuthenticationToken);
 
-                var isLoggedIn = await _accountService.SoicalLoginAndSaveAsync(client);
+                bool isLoggedIn = await _accountService.SoicalLoginAndSaveAsync(client);
                 if (isLoggedIn)
                     await NavigationService.Navigate("UpdateProfilePage", _accountService.LoggedInAccount, "Account");
                 else

@@ -22,16 +22,16 @@ namespace Journey.ViewModels
     public class NewPostPageViewModel : BaseViewModel, INavigationAware
     {
         private readonly IAccountService _accountService;
-        private readonly IChallengeService _challengeService;
         private readonly IBlobService _blobService;
+        private readonly IChallengeService _challengeService;
         private readonly IMediaService<Media> _mediaService;
         private readonly IPostService _postService;
         private readonly ISettingsService _settingsService;
         private const string LastPostDate = "LastPostDate";
 
         public NewPostPageViewModel(IUnityContainer container, IBlobService blobService,
-                                    IPostService postService, IMediaService<Media> mediaService, IAccountService accountService,
-                                    IChallengeService challengeService, ISettingsService settingsService) :
+            IPostService postService, IMediaService<Media> mediaService, IAccountService accountService,
+            IChallengeService challengeService, ISettingsService settingsService) :
             base(container)
         {
             _mediaService = mediaService;
@@ -49,17 +49,16 @@ namespace Journey.ViewModels
         {
         }
 
-        public  void OnNavigatedTo(NavigationParameters parameters)
+        public void OnNavigatedTo(NavigationParameters parameters)
         {
             try
             {
-
                 if (parameters?.GetNavigationMode() == NavigationMode.Back)
                 {
                     var location = parameters.GetValue<Location>("Location");
                     if (location != null)
                         NewPost.Location =
-                            new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
+                            new PostActivity {Action = "At", Activity = location.Name, Image = location.Image};
                 }
 
                 Intialize();
@@ -194,6 +193,7 @@ namespace Journey.ViewModels
                     await DialogService.ShowMessageAsync(AppResource.Post_LocationMust, AppResource.Error);
                     return;
                 }
+
                 if (NewPost?.MediaList == null || NewPost?.MediaList?.Count == 0)
                 {
                     await DialogService.ShowMessageAsync(AppResource.Post_UploadImageMust, AppResource.Error);
@@ -230,24 +230,26 @@ namespace Journey.ViewModels
         {
             ShowProgress();
             if (_imagesPath.Count == 0 && NewPost.MediaList != null)
-                foreach (var image in NewPost.MediaList)
+                foreach (Media image in NewPost.MediaList)
                 {
-                    var path = await _blobService.UploadAsync(image.SourceArray, image.Name);
+                    string path = await _blobService.UploadAsync(image.SourceArray, image.Name);
                     if (!string.IsNullOrEmpty(path))
                         _imagesPath.Add(path);
                 }
+
             ShowProgress();
             if (AddPostToChallenge)
                 NewPost.Challenge = LoggedInAccount.ChallengeId;
-            var post = await _postService.AddPostAsync(NewPost, _imagesPath);
+            Post post = await _postService.AddPostAsync(NewPost, _imagesPath);
             if (post == null)
             {
                 await DialogService.ShowMessageAsync(AppResource.NewPost_NewPostError, AppResource.Error);
                 return;
             }
+
             if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
             {
-                var date = await _settingsService.Get(LastPostDate);
+                string date = await _settingsService.Get(LastPostDate);
                 DateTime parsedDate;
                 DateTime.TryParse(date, out parsedDate);
                 if (parsedDate.Date != DateTime.Now.Date)
@@ -284,33 +286,33 @@ namespace Journey.ViewModels
                         {
                             Label = AppResource.Camera,
                             Invoked = async () =>
+                            {
+                                try
                                 {
-                            try
-                            {
-                                var media=await _mediaService.TakePhotoAsync();
-                                AddMedia(media);
-                            }
-                            catch (NotSupportedException)
-                            {
-                                await DialogService.ShowMessageAsync(AppResource.Camera_NotSupported,AppResource.Error);
-                            }
+                                    Media media = await _mediaService.TakePhotoAsync();
+                                    AddMedia(media);
                                 }
+                                catch (NotSupportedException)
+                                {
+                                    await DialogService.ShowMessageAsync(AppResource.Camera_NotSupported, AppResource.Error);
+                                }
+                            }
                         },
                         new DialogCommand
                         {
                             Label = AppResource.Video,
-                        Invoked = async () =>
+                            Invoked = async () =>
+                            {
+                                try
                                 {
-                            try
-                            {
-                                var media=await _mediaService.TakeVideoAsync();
-                                AddMedia(media);
-                            }
-                            catch (NotSupportedException)
-                            {
-                                await DialogService.ShowMessageAsync(AppResource.Camera_NotSupported,AppResource.Error);
-                            }
+                                    Media media = await _mediaService.TakeVideoAsync();
+                                    AddMedia(media);
                                 }
+                                catch (NotSupportedException)
+                                {
+                                    await DialogService.ShowMessageAsync(AppResource.Camera_NotSupported, AppResource.Error);
+                                }
+                            }
                         },
                         new DialogCommand
                         {
@@ -335,7 +337,7 @@ namespace Journey.ViewModels
             if (NewPost.MediaList == null)
                 NewPost.MediaList = new ObservableCollection<Media>();
 
-            var list = NewPost.MediaList.ToList();
+            List<Media> list = NewPost.MediaList.ToList();
             list.Add(media);
             NewPost.MediaList = new ObservableCollection<Media>(list);
         }
@@ -390,7 +392,7 @@ namespace Journey.ViewModels
                 if (media != null)
                 {
                     NewPost.MediaList.Remove(media);
-                    var temp = NewPost.MediaList;
+                    ObservableCollection<Media> temp = NewPost.MediaList;
                     NewPost.MediaList = new ObservableCollection<Media>(temp);
                 }
             }

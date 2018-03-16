@@ -42,7 +42,7 @@ namespace Journey.Services.Buisness.Challenge
             {
                 //if (_challenge != null)
                 // return _challenge;
-                var _challenge = await _challengeDataService.GetChallengeAsync(challengeId);
+                Models.Challenge.Challenge _challenge = await _challengeDataService.GetChallengeAsync(challengeId);
                 return _challenge;
             }
             catch (Exception ex)
@@ -64,11 +64,11 @@ namespace Journey.Services.Buisness.Challenge
                 //    DeepLink = string.Format("http://www.journey.challengeRequest?id={0}", "1"),
                 //});
 
-                var challengeDto = await _challengeDataService.AddChallengeAsync(challenge);
+                Models.Challenge.Challenge challengeDto = await _challengeDataService.AddChallengeAsync(challenge);
                 if (challengeDto != null)
                 {
-                    var toChallnegeAccount = challengeDto.ChallengeAccounts.LastOrDefault();
-                    var notification = await _notificationService.AddNotificationAsync(
+                    ChallengeAccount toChallnegeAccount = challengeDto.ChallengeAccounts.LastOrDefault();
+                    Notifications notification = await _notificationService.AddNotificationAsync(
                         new Notifications
                         {
                             Account = toChallnegeAccount,
@@ -80,6 +80,7 @@ namespace Journey.Services.Buisness.Challenge
                     if (notification != null)
                         return challengeDto;
                 }
+
                 return null;
             }
             catch (Exception ex)
@@ -95,7 +96,7 @@ namespace Journey.Services.Buisness.Challenge
                 //_accountService.LoggedInAccount.ChallengeId = "";
                 //await accountDataService.AddUpdateAccountAsync(_accountService.LoggedInAccount, false);
 
-                var _challenge = await _challengeDataService.CheckAccountHasChallengeAsync();
+                Models.Challenge.Challenge _challenge = await _challengeDataService.CheckAccountHasChallengeAsync();
                 if (_challenge == null)
                     return false;
                 return true;
@@ -132,9 +133,9 @@ namespace Journey.Services.Buisness.Challenge
             try
             {
                 challenge.IsActive = true;
-                var challengeDto = await _challengeDataService.UpdateChallengeAsync(challenge);
-                var account1 = challenge.ChallengeAccounts.FirstOrDefault();
-                var account2 = challenge.ChallengeAccounts.LastOrDefault();
+                Models.Challenge.Challenge challengeDto = await _challengeDataService.UpdateChallengeAsync(challenge);
+                ChallengeAccount account1 = challenge.ChallengeAccounts.FirstOrDefault();
+                ChallengeAccount account2 = challenge.ChallengeAccounts.LastOrDefault();
                 account1.ChallengeId = challenge.Id;
                 account2.ChallengeId = challenge.Id;
                 await _accountDataService.AddUpdateAccountAsync(account1, false);
@@ -152,9 +153,9 @@ namespace Journey.Services.Buisness.Challenge
             try
             {
                 challenge.IsActive = false;
-                var challengeDto = await _challengeDataService.UpdateChallengeAsync(challenge);
-                var account1 = challenge.ChallengeAccounts.FirstOrDefault();
-                var account2 = challenge.ChallengeAccounts.LastOrDefault();
+                Models.Challenge.Challenge challengeDto = await _challengeDataService.UpdateChallengeAsync(challenge);
+                ChallengeAccount account1 = challenge.ChallengeAccounts.FirstOrDefault();
+                ChallengeAccount account2 = challenge.ChallengeAccounts.LastOrDefault();
                 account1.ChallengeId = "";
                 account2.ChallengeId = "";
                 await _accountDataService.AddUpdateAccountAsync(account1, false);
@@ -171,10 +172,10 @@ namespace Journey.Services.Buisness.Challenge
         {
             try
             {
-                var challenge = await GetChallengeAsync(challengeId);
-                var account = challenge.ChallengeAccounts.FirstOrDefault(a => a.Id == _accountService.LoggedInAccount.Id);
+                Models.Challenge.Challenge challenge = await GetChallengeAsync(challengeId);
+                ChallengeAccount account = challenge.ChallengeAccounts.FirstOrDefault(a => a.Id == _accountService.LoggedInAccount.Id);
                 // account.NumberExercise++;
-                var challengeDto = await _challengeDataService.UpdateChallengeAsync(challenge);
+                Models.Challenge.Challenge challengeDto = await _challengeDataService.UpdateChallengeAsync(challenge);
                 return challengeDto;
             }
             catch (Exception ex)
@@ -187,34 +188,33 @@ namespace Journey.Services.Buisness.Challenge
         {
             try
             {
-                var _challengeProgress = await _challengeDataService.GetChallengePorgessAsync(challengeId);
+                List<ChallengeProgress> _challengeProgress = await _challengeDataService.GetChallengePorgessAsync(challengeId);
                 List<KeyGroupedChallengeProgress> orderedList = _challengeProgress
-                                  .OrderBy(a => a.DatetTime)
-                                  .GroupBy(a => a.DatetTime.ToString("MMMM"))
-                                  .Select(g => new KeyGroupedChallengeProgress
-                                  {
-                                      Key = g.Key,
-                                      Accounts = g.OrderByDescending(a => a.Name == _accountService.LoggedInAccount.Name).GroupBy(b => b.Name).Select
-                                            (
-                                                b => new AccountChallengeProgress
-                                                {
-                                                    Account = b.FirstOrDefault(),
-                                                    TotalKm = b.Sum(e => e.Km),
-                                                    TotalExercises = b.Sum(e => e.Exercises)
-                                                }
-                                             ).ToList(),
+                    .OrderBy(a => a.DatetTime)
+                    .GroupBy(a => a.DatetTime.ToString("MMMM"))
+                    .Select(g => new KeyGroupedChallengeProgress
+                    {
+                        Key = g.Key,
+                        Accounts = g.OrderByDescending(a => a.Name == _accountService.LoggedInAccount.Name).GroupBy(b => b.Name).Select
+                        (
+                            b => new AccountChallengeProgress
+                            {
+                                Account = b.FirstOrDefault(),
+                                TotalKm = b.Sum(e => e.Km),
+                                TotalExercises = b.Sum(e => e.Exercises)
+                            }
+                        ).ToList()
+                    })
+                    .ToList();
 
-                                  })
-                                  .ToList();
-
-                List<ObservableChallengeProgressGroupCollection<AccountChallengeProgress>> list = new List<ObservableChallengeProgressGroupCollection<AccountChallengeProgress>>();
-                foreach (var progress in orderedList)
+                var list = new List<ObservableChallengeProgressGroupCollection<AccountChallengeProgress>>();
+                foreach (KeyGroupedChallengeProgress progress in orderedList)
                 {
                     Models.Account.Account winnerAccountInKm = null;
                     double maxKm = double.MinValue;
                     Models.Account.Account winnerAccountInExercises = null;
                     double maxExercises = double.MinValue;
-                    foreach (var item in progress.Accounts)
+                    foreach (AccountChallengeProgress item in progress.Accounts)
                     {
                         if (item.TotalKm > maxKm)
                         {
@@ -228,7 +228,6 @@ namespace Journey.Services.Buisness.Challenge
                             {
                                 winnerAccountInKm = item.Account;
                             }
-                         
                         }
 
                         if (item.TotalExercises > maxExercises)
@@ -243,12 +242,10 @@ namespace Journey.Services.Buisness.Challenge
                             {
                                 winnerAccountInExercises = item.Account;
                             }
-
                         }
-
                     }
 
-                    ObservableChallengeProgressGroupCollection<AccountChallengeProgress> groupedData =
+                    var groupedData =
                         new ObservableChallengeProgressGroupCollection<AccountChallengeProgress>(progress.Key, progress.Accounts, winnerAccountInKm, winnerAccountInExercises);
 
                     list.Add(groupedData);
