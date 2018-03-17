@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-                xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views"
-                xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources"
-                xmlns:selectors="clr-namespace:Journey.Views.Selectors" x:Class="Journey.Views.HomePage">
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" xmlns:selectors="clr-namespace:Journey.Views.Selectors" x:Class="Journey.Views.HomePage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="PostTemplate">
@@ -30,57 +25,38 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Controls:CustomImage Grid.Column="0" Grid.RowSpan="2"
-                                                      Source="{Binding Post.Account.Image.Path}"
-                                                      VerticalOptions="Start" HorizontalOptions="Start"
-                                                      WidthRequest="50" HeightRequest="70">
+                                <Controls:CustomImage Grid.Column="0" Grid.RowSpan="2" Source="{Binding Post.Account.Image.Path}" VerticalOptions="Start" HorizontalOptions="Start" WidthRequest="50" HeightRequest="70">
                                     <Controls:CustomImage.Transformations>
                                         <fftransformations:CircleTransformation />
                                     </Controls:CustomImage.Transformations>
                                 </Controls:CustomImage>
-                                <Label Grid.Column="1" Grid.Row="0" Text="{Binding Post.Account.Name}"
-                                       TextColor="Black" FontSize="14" FontAttributes="Bold" VerticalOptions="Center"
-                                       HorizontalOptions="Start" />
-                                <Controls:ImageControl Grid.Column="1" Grid.Row="0" PortablePath="more.png"
-                                                       HorizontalOptions="End" Style="{StaticResource IconStyle}">
+                                <Label Grid.Column="1" Grid.Row="0" Text="{Binding Post.Account.Name}" TextColor="Black" FontSize="14" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
+                                <Controls:ImageControl Grid.Column="1" Grid.Row="0" PortablePath="more.png" HorizontalOptions="End" Style="{StaticResource IconStyle}">
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding OnPostDeleteCommand}" />
                                     </Image.GestureRecognizers>
                                 </Controls:ImageControl>
-                                <Label Grid.Column="1" Grid.Row="1" Text="{Binding Post.FormatedDate}" TextColor="Gray"
-                                       FontSize="14" VerticalOptions="Center" HorizontalOptions="End" />
+                                <Label Grid.Column="1" Grid.Row="1" Text="{Binding Post.FormatedDate}" TextColor="Gray" FontSize="14" VerticalOptions="Center" HorizontalOptions="End" />
                                 <!-- <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" IsVisible="{Binding Post.HasActivity}" VerticalOptions="Center">
                                     <Label Text="{Binding Post.Activity.Action}" TextColor="Black" FontSize="12" HorizontalOptions="Start" VerticalOptions="Center" />
                                     <Controls:CustomImage Source="{Binding Post.Activity.Image}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
                                     <Label Text="{Binding Post.Activity.Activity}" FontAttributes="Bold" TextColor="Black" FontSize="14" HorizontalOptions="Start" VerticalOptions="Center" LineBreakMode="NoWrap" />
                                 </StackLayout>-->
-                                <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal"
-                                             IsVisible="{Binding Post.HasLocation}" VerticalOptions="Center">
-                                    <Label Text="{Binding Post.Location.Action}" TextColor="Black" FontSize="12"
-                                           HorizontalOptions="Start" VerticalOptions="Center" />
-                                    <Controls:CustomImage Source="{Binding Post.Location.Image}"
-                                                          VerticalOptions="Center" HorizontalOptions="Start"
-                                                          WidthRequest="25" HeightRequest="25" />
-                                    <Label Text="{Binding Post.Location.Activity}" FontAttributes="Bold"
-                                           TextColor="Black" FontSize="14" HorizontalOptions="Start"
-                                           VerticalOptions="Center" LineBreakMode="NoWrap" />
+                                <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" IsVisible="{Binding Post.HasLocation}" VerticalOptions="Center">
+                                    <Label Text="{Binding Post.Location.Action}" TextColor="Black" FontSize="12" HorizontalOptions="Start" VerticalOptions="Center" />
+                                    <Controls:CustomImage Source="{Binding Post.Location.Image}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
+                                    <Label Text="{Binding Post.Location.Activity}" FontAttributes="Bold" TextColor="Black" FontSize="14" HorizontalOptions="Start" VerticalOptions="Center" LineBreakMode="NoWrap" />
                                 </StackLayout>
                                 <!--<Label Grid.Column="1" Grid.Row="0" Text="{Binding Post.PostType.FormatedExpPoint}" TextColor="Orange" FontSize="14" VerticalOptions="Start" HorizontalOptions="End" />-->
                             </Grid>
-                            <Label Grid.Row="1" Text="{Binding Post.Feed}" TextColor="Gray" Margin="5,10,10,5"
-                                   FontSize="14" HorizontalOptions="Fill" />
+                            <Label Grid.Row="1" Text="{Binding Post.Feed}" TextColor="Gray" Margin="5,10,10,5" FontSize="14" HorizontalOptions="Fill" />
                             <!-- <Controls:ImageViewerControl Grid.Row="2" IsVisible="{Binding Post.HasMeasuremnts}" BackgroundColor="White" ItemsSource="{Binding Post.Measuremnts}" Margin="0,10" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" ItemTemplate="{StaticResource ScaleTemplate}" />-->
-                            <Controls:ImageViewerControl Grid.Row="2" x:Name="parent"
-                                                         ItemsSource="{Binding Post.MediaList}"
-                                                         IsVisible="{Binding Post.HasMediaList}"
-                                                         VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                            <Controls:ImageViewerControl Grid.Row="2" x:Name="parent" ItemsSource="{Binding Post.MediaList}" IsVisible="{Binding Post.HasMediaList}" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
                                 <Controls:ImageViewerControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Controls:CustomImage Source="{Binding Source}" HeightRequest="200"
-                                                              Aspect="AspectFit">
+                                        <Controls:CustomImage Source="{Binding Source}" HeightRequest="200" Aspect="AspectFit">
                                             <Controls:CustomImage.GestureRecognizers>
-                                                <TapGestureRecognizer
-                                                    Command="{Binding Path=BindingContext.OnGalleryDetailsCommand, Source={x:Reference Name=parent}}" />
+                                                <TapGestureRecognizer Command="{Binding Path=BindingContext.OnGalleryDetailsCommand, Source={x:Reference Name=parent}}" />
                                             </Controls:CustomImage.GestureRecognizers>
                                         </Controls:CustomImage>
                                     </DataTemplate>
@@ -92,36 +68,29 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <StackLayout Grid.Column="0" Orientation="Horizontal" Margin="20,0,0,0"
-                                             HorizontalOptions="Center">
-                                    <Label Text="{Binding Post.LikesCount}" TextColor="Gray" FontSize="14"
-                                           VerticalOptions="Start" HorizontalOptions="End" />
-                                    <Controls:ImageControl PortablePath="fav.png" Style="{StaticResource IconStyle}"
-                                                           IsVisible="{Binding Post.NotLiked}">
+                                <StackLayout Grid.Column="0" Orientation="Horizontal" Margin="20,0,0,0" HorizontalOptions="Center">
+                                    <Label Text="{Binding Post.LikesCount}" TextColor="Gray" FontSize="14" VerticalOptions="Start" HorizontalOptions="End" />
+                                    <Controls:ImageControl PortablePath="fav.png" Style="{StaticResource IconStyle}" IsVisible="{Binding Post.NotLiked}">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding OnPostLikeCommand}" />
                                         </Image.GestureRecognizers>
                                     </Controls:ImageControl>
-                                    <Controls:ImageControl PortablePath="unfav.png" Style="{StaticResource IconStyle}"
-                                                           IsVisible="{Binding Post.Liked}">
+                                    <Controls:ImageControl PortablePath="unfav.png" Style="{StaticResource IconStyle}" IsVisible="{Binding Post.Liked}">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding OnPostLikeCommand}" />
                                         </Image.GestureRecognizers>
                                     </Controls:ImageControl>
                                 </StackLayout>
                                 <StackLayout Grid.Column="1" Orientation="Horizontal" HorizontalOptions="Center">
-                                    <Label Text="{Binding Post.CommentsCount}" TextColor="Gray" FontSize="14"
-                                           VerticalOptions="Start" HorizontalOptions="End" />
-                                    <Controls:ImageControl PortablePath="comment.png"
-                                                           Style="{StaticResource IconStyle}">
+                                    <Label Text="{Binding Post.CommentsCount}" TextColor="Gray" FontSize="14" VerticalOptions="Start" HorizontalOptions="End" />
+                                    <Controls:ImageControl PortablePath="comment.png" Style="{StaticResource IconStyle}">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding OnPostCommentCommand}" />
                                         </Image.GestureRecognizers>
                                     </Controls:ImageControl>
                                 </StackLayout>
                                 <StackLayout Grid.Column="2" Orientation="Horizontal" HorizontalOptions="Center">
-                                    <Label Text="{Binding Post.SharesCount}" TextColor="Gray" FontSize="14"
-                                           VerticalOptions="Start" HorizontalOptions="End" />
+                                    <Label Text="{Binding Post.SharesCount}" TextColor="Gray" FontSize="14" VerticalOptions="Start" HorizontalOptions="End" />
                                     <Controls:ImageControl PortablePath="share.png" Style="{StaticResource IconStyle}">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding OnPostShareCommand}" />
@@ -141,18 +110,13 @@
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Controls:CustomImage HeightRequest="250" Margin="0,0,0,5"
-                                                  Source="{Binding Post.Image.Source}" VerticalOptions="Fill"
-                                                  HorizontalOptions="Fill" Aspect="AspectFill" />
-                            <Button Grid.Row="1" Margin="5,0,5,5" Text="View More"
-                                    Style="{StaticResource SecondaryButtonStyle}"
-                                    Command="{Binding OpenDeepLinkCommand}" />
+                            <Controls:CustomImage HeightRequest="250" Margin="0,0,0,5" Source="{Binding Post.Image.Source}" VerticalOptions="Fill" HorizontalOptions="Fill" Aspect="AspectFill" />
+                            <Button Grid.Row="1" Margin="5,0,5,5" Text="View More" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding OpenDeepLinkCommand}" />
                         </Grid>
                     </ViewCell.View>
                 </Controls:UnSelectableViewCell>
             </DataTemplate>
-            <selectors:PostTemplateSelector x:Key="PostTemplateSelector" PostTemplate="{StaticResource PostTemplate}"
-                                            AdsTemplate="{StaticResource AdsTemplate}" />
+            <selectors:PostTemplateSelector x:Key="PostTemplateSelector" PostTemplate="{StaticResource PostTemplate}" AdsTemplate="{StaticResource AdsTemplate}" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -171,6 +135,7 @@
                     <RowDefinition Height="1" />
                     <RowDefinition Height="50" />
                     <RowDefinition Height="1" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" HeightRequest="70" BackgroundColor="White" x:Name="Header">
@@ -179,8 +144,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Controls:CustomImage Grid.Column="0" Margin="10,5" Source="{Binding Image.Path}" WidthRequest="60"
-                                          HeightRequest="60" Style="{StaticResource ImageHeaderStyle}">
+                    <Controls:CustomImage Grid.Column="0" Margin="10,5" Source="{Binding Image.Path}" WidthRequest="60" HeightRequest="60" Style="{StaticResource ImageHeaderStyle}">
                         <Controls:CustomImage.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnProfileCommand}" />
                         </Controls:CustomImage.GestureRecognizers>
@@ -192,12 +156,9 @@
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnNewPostCommand}" />
                         </Grid.GestureRecognizers>
-                        <Label FontSize="12" Text="{Binding WelcomeMessage}"
-                               TextColor="{StaticResource LightTextColor}" HorizontalOptions="Start"
-                               VerticalOptions="Center" />
+                        <Label FontSize="12" Text="{Binding WelcomeMessage}" TextColor="{StaticResource LightTextColor}" HorizontalOptions="Start" VerticalOptions="Center" />
                     </Grid>
-                    <Controls:LoadingControl IsVisible="{Binding IsLoading}" Grid.Column="2" HorizontalOptions="End"
-                                             VerticalOptions="Center" Margin="20,0" />
+                    <Controls:LoadingControl IsVisible="{Binding IsLoading}" Grid.Column="2" HorizontalOptions="End" VerticalOptions="Center" Margin="20,0" />
                 </Grid>
                 <Controls:SeparatorControl Grid.Row="1" />
                 <Grid Grid.Row="2" RowSpacing="0" ColumnSpacing="1" Padding="0">
@@ -217,38 +178,24 @@
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnNotificationCommand}" />
                         </Grid.GestureRecognizers>
-                        <Label Text="{Binding NotificationsCount}"
-                               IsVisible="{Binding NotificationsCount,Converter={StaticResource IntToBoolConverter}}"
-                               TextColor="Red" FontAttributes="Bold" Margin="20,0,0,0" HorizontalOptions="Center"
-                               VerticalOptions="Start" FontSize="12" />
+                        <Label Text="{Binding NotificationsCount}" IsVisible="{Binding NotificationsCount,Converter={StaticResource IntToBoolConverter}}" TextColor="Red" FontAttributes="Bold" Margin="20,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" FontSize="12" />
                         <Controls:ImageControl PortablePath="notification.png" Style="{StaticResource IconStyle}" />
                     </Grid>
                 </Grid>
                 <Controls:SeparatorControl Grid.Row="3" />
-                <ListView x:Name="lst" BackgroundColor="#d3d3d3" Margin="0,5" Grid.Row="4"
+                <Grid Grid.Row="4" IsVisible="{Binding HasNotActiveChallenge}">
+                    <Controls:ImageControl Aspect="AspectFill" PortablePath="challengeBanner.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                    <StackLayout Orientation="Vertical" VerticalOptions="Center">
+                        <Label Margin="0,5" Text="{resources:Translate Home_StartNewChallenge}" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" TextColor="White" />
+                        <Button Margin="0,0,0,5" Text="Start" Command="{Binding OnStartNewChallengeCommand}" WidthRequest="150" HorizontalOptions="Center" FontSize="14" Style="{StaticResource SecondaryButtonStyle}" />
+                    </StackLayout>
+                </Grid>
+                <ListView x:Name="lst" Grid.Row="5" BackgroundColor="#d3d3d3" Margin="0,5"
                           CachingStrategy="RecycleElement" ItemsSource="{Binding PostsViewModels}"
-                          SeparatorVisibility="None" ItemTemplate="{StaticResource PostTemplate}" HasUnevenRows="true"
-                          ItemAppearing="Handle_ItemAppearing"
+                          SeparatorVisibility="None" ItemTemplate="{StaticResource PostTemplate}"
+                          ItemAppearing="Handle_ItemAppearing" HasUnevenRows="true"
                           IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}"
                           RefreshAllowed="true" RefreshCommand="{Binding OnRefreshPostsCommand}">
-                    <ListView.Header>
-                        <Grid RowSpacing="0">
-                            <Grid RowSpacing="0" IsVisible="{Binding HasNotActiveChallenge}">
-                                <Controls:ImageControl Aspect="AspectFill" PortablePath="challengeBanner.png"
-                                                       HorizontalOptions="FillAndExpand"
-                                                       VerticalOptions="FillAndExpand" />
-                                <StackLayout Orientation="Vertical">
-                                    <Label Margin="0,5" Text="{resources:Translate Home_StartNewChallenge}"
-                                           FontSize="22" FontAttributes="Bold" HorizontalOptions="Center"
-                                           TextColor="White" />
-                                    <Button Margin="0,0,0,5" Text="Start"
-                                            Command="{Binding OnStartNewChallengeCommand}" WidthRequest="150"
-                                            HorizontalOptions="Center" FontSize="14"
-                                            Style="{StaticResource SecondaryButtonStyle}" />
-                                </StackLayout>
-                            </Grid>
-                        </Grid>
-                    </ListView.Header>
                 </ListView>
             </Grid>
         </Grid>

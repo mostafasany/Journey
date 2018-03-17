@@ -138,8 +138,8 @@
             </Grid>
             <Controls:LoadingControl Grid.Row="3" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
                                      VerticalOptions="Center" />
-            <ListView Grid.Row="4" ItemsSource="{Binding Measuremnts}" ItemTemplate="{StaticResource ScaleTemplate}"
-                      IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
+            <ListView Grid.Row="4" ItemsSource="{Binding Measuremnts}" ItemTemplate="{StaticResource ScaleTemplate}" RowHeight="60"
+                      IsPullToRefreshEnabled="true" SeparatorVisibility="None" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
                       RefreshCommand="{Binding OnRefreshPostsCommand}" />
         </Grid>
     </ContentPage.Content>

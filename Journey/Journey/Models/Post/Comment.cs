@@ -24,6 +24,14 @@ namespace Journey.Models.Post
             }
         }
 
+        private bool _mine;
+
+        public bool Mine
+        {
+            get => _mine;
+            set => SetProperty(ref _mine, value);
+        }
+
         public string PostId
         {
             get => postId;

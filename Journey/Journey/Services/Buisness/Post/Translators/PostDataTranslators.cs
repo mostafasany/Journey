@@ -45,6 +45,7 @@ namespace Journey.Services.Buisness.Post.Translators
                 {
                     commentDto.Account = new Models.Account.Account
                     {
+                        Id = comment.Account,
                         FirstName = comment.Fname,
                         LastName = comment.Lname,
                         Image = new Media {Path = comment.Profile}
@@ -53,6 +54,7 @@ namespace Journey.Services.Buisness.Post.Translators
                     commentDto.PostId = comment.Post;
                     commentDto.DateTime = comment.CreatedAt.ToLocalTime();
                     commentDto.Id = comment.Id;
+                  
                 }
 
                 return commentDto;

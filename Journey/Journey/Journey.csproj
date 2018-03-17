@@ -50,6 +50,7 @@
     <None Remove="Assets\challengeBanner.png" />
     <None Remove="Services\Mocks\AccountMock.xml" />
     <None Remove="Services\Mocks\MeMock.xml" />
+    <None Remove="Assets\downArrow.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -102,6 +103,7 @@
     <EmbeddedResource Include="Services\Mocks\AccountMock.xml" />
     <EmbeddedResource Include="Services\Mocks\PostMock.xml" />
     <EmbeddedResource Include="Services\Mocks\MeMock.xml" />
+    <EmbeddedResource Include="Assets\downArrow.png" />
   </ItemGroup>
 
   <ItemGroup>

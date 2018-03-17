@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Models.Post;
@@ -59,6 +60,7 @@ namespace Journey.Services.Buisness.PostComment.Data
                     return null;
 
                 List<Comment> commentsDTo = PostDataTranslators.TranslateComments(comments);
+                commentsDTo.Where(a => a.Account.Id == _client.CurrentUser.UserId).ToList().ForEach(c => c.Mine = true );
                 return commentsDTo;
             }
             catch (Exception ex)
