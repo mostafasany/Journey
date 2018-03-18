@@ -6,6 +6,7 @@ using Abstractions.Services.Contracts;
 using Journey.Models.Account;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
+using Journey.Services.Buisness.Notification;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
@@ -18,9 +19,9 @@ namespace Journey.ViewModels
         private readonly IBlobService _blobService;
         private readonly IMediaService<Media> _mediaService;
 
-        public UpdateProfilePageViewModel(IUnityContainer container, IAccountService accountService,
+        public UpdateProfilePageViewModel(IUnityContainer container, IAccountService accountService,INotificationService notificationService,
             IBlobService blobService, IMediaService<Media> mediaService) :
-        base(container, accountService)
+        base(container, accountService,notificationService)
         {
             _accountService = accountService;
             _blobService = blobService;

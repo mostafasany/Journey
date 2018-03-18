@@ -5,6 +5,7 @@ using Abstractions.Services.Contracts;
 using Journey.Models.Account;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
+using Journey.Services.Buisness.Notification;
 using Prism.Commands;
 using Unity;
 
@@ -14,8 +15,8 @@ namespace Journey.ViewModels
     {
         private readonly IAccountService _accountService;
 
-        public ProfilePageViewModel(IUnityContainer container, IAccountService accountService) :
-        base(container, accountService) => _accountService = accountService;
+        public ProfilePageViewModel(IUnityContainer container, IAccountService accountService,INotificationService notificationService) :
+        base(container, accountService,notificationService) => _accountService = accountService;
 
         #region Properties
 

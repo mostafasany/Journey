@@ -146,6 +146,7 @@
                     <Grid VerticalOptions="FillAndExpand">
                         <ContentPresenter />
                     </Grid>
+                    <BoxView Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />
                     <!-- Footer -->
                     <Grid HeightRequest="60">
                         <Grid.ColumnDefinitions>
@@ -179,6 +180,12 @@
             </ControlTemplate>
             <ControlTemplate x:Key="ProfileHeaderControlTemplate">
                 <StackLayout>
+                    <StackLayout.Margin>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="iOS" Value="0,17,0,0" />
+                            <On Platform="Android, WinPhone, Windows" Value="0,0,0,0" />
+                        </OnPlatform>
+                    </StackLayout.Margin>
                     <!-- Header-->
                     <Grid HeightRequest="60" ColumnSpacing="0">
                         <Grid.ColumnDefinitions>
@@ -223,6 +230,7 @@
                         <Controls:LoadingControl IsVisible="{TemplateBinding BindingContext.IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
                         <ContentPresenter IsVisible="{TemplateBinding BindingContext.IsNotLoading}" />
                     </Grid>
+                    <BoxView Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />
                     <!-- Footer -->
                     <Grid HeightRequest="70">
                         <Grid.ColumnDefinitions>

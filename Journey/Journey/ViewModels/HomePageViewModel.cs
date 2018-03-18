@@ -22,15 +22,23 @@ namespace Journey.ViewModels
     public class MainNavigationViewModel : BaseViewModel
     {
         private readonly IAccountService _accountService;
-        public MainNavigationViewModel(IUnityContainer container, IAccountService accountService) : base(container)
+        private readonly INotificationService _notificationService;
+        public MainNavigationViewModel(IUnityContainer container, IAccountService accountService, INotificationService notificationService) : base(container)
         {
+            _notificationService = notificationService;
             _accountService = accountService;
             LoadAccount();
+            LoadNotificationsCount();
         }
 
-        async void LoadAccount()
+        private async void LoadAccount()
         {
             LoggedInAccount = await _accountService.GetAccountAsync();
+        }
+
+        private async void  LoadNotificationsCount()
+        {
+            NotificationsCount = await _notificationService.GetNotificationsCountAsync();
         }
 
         public Media Image => LoggedInAccount == null
@@ -47,6 +55,14 @@ namespace Journey.ViewModels
                 SetProperty(ref _loggedInAccount, value);
                 RaisePropertyChanged(nameof(Image));
             }
+        }
+
+        private int _notificationsCount;
+
+        public int NotificationsCount
+        {
+            get => _notificationsCount;
+            set => SetProperty(ref _notificationsCount, value);
         }
 
         #region OnProfileCommand
@@ -117,17 +133,17 @@ namespace Journey.ViewModels
 
     public class HomePageViewModel : MainNavigationViewModel, INavigationAware
     {
-        public readonly INotificationService _notificationService;
+       // public readonly INotificationService _notificationService;
         public readonly NewPostPageViewModel NewPostPageViewModel;
         private readonly IAccountService _accountService;
         private readonly IPostService _postService;
 
         public HomePageViewModel(IUnityContainer container, IPostService postService,
-                                 IAccountService accountService,
-            NewPostPageViewModel newPostPageViewModel, INotificationService notificationService) :
-        base(container, accountService)
+                                 IAccountService accountService,INotificationService notificationService,
+            NewPostPageViewModel newPostPageViewModel) :
+        base(container, accountService,notificationService)
         {
-            _notificationService = notificationService;
+            
             _postService = postService;
             _accountService = accountService;
             NewPostPageViewModel = newPostPageViewModel;
@@ -269,13 +285,7 @@ namespace Journey.ViewModels
             }
         }
 
-        private int _notificationsCount;
-
-        public int NotificationsCount
-        {
-            get => _notificationsCount;
-            set => SetProperty(ref _notificationsCount, value);
-        }
+       
 
         private bool _hasNotActiveChallenge;
 
@@ -328,7 +338,6 @@ namespace Journey.ViewModels
                     var tasks = new List<Task>
                     {
                         LoadAccount(sync),
-                        LoadNotificationsCount(),
                         LoadPosts()
                     };
                     ShowProgress();
@@ -336,8 +345,7 @@ namespace Journey.ViewModels
                 }
                 else
                 {
-                    await LoadAccount(sync);
-                    await LoadNotificationsCount();
+                    await LoadAccount(sync);  
                     await LoadPosts();
                 }
 
@@ -390,10 +398,7 @@ namespace Journey.ViewModels
             RaisePropertyChanged(nameof(IsLoggedIn));
         }
 
-        private async Task LoadNotificationsCount()
-        {
-            NotificationsCount = await _notificationService.GetNotificationsCountAsync();
-        }
+       
 
         private void UpdateChallengeBanner()
         {

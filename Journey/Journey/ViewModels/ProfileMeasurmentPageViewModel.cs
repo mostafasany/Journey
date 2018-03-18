@@ -9,6 +9,7 @@ using Journey.Resources;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Goal;
 using Journey.Services.Buisness.Measurment;
+using Journey.Services.Buisness.Notification;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
@@ -20,9 +21,9 @@ namespace Journey.ViewModels
         private readonly IAccountGoalService _accountGoalService;
         private readonly IAccountMeasurmentService _accountMeasurmentService;
 
-        public ProfileMeasurmentPageViewModel(IUnityContainer container, IAccountService accountService,
+        public ProfileMeasurmentPageViewModel(IUnityContainer container, IAccountService accountService,INotificationService notificationService,
             IAccountGoalService accountGoalService, IAccountMeasurmentService accountMeasurmentService) :
-            base(container, accountService)
+        base(container, accountService,notificationService)
         {
             _accountGoalService = accountGoalService;
             _accountMeasurmentService = accountMeasurmentService;

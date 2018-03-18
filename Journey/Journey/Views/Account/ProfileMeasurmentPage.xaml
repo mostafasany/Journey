@@ -26,7 +26,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" BackgroundColor="{StaticResource Primary}" IsVisible="{Binding IsNotLoading}" Padding="0,10">
+            <Grid Grid.Row="0" BackgroundColor="{StaticResource Primary}" IsVisible="{Binding IsNotLoading}" Padding="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
