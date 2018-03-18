@@ -235,9 +235,7 @@ namespace Journey.ViewModels
                 account.LastName = LastName;
                 account.Image = Image;
                 await _accountService.SaveAccountAsync(account, false);
-                if (ComeFromProfile)
-                    NavigationService.GoBack();
-                else
+                if (!ComeFromProfile)
                     await NavigationService.Navigate("HomePage");
             }
             catch (Exception e)

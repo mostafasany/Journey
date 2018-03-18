@@ -199,7 +199,7 @@
                         <Controls:SeparatorControl Grid.Column="1" />
                         <Grid Grid.Column="2" BackgroundColor="{TemplateBinding BindingContext.SecondTabSelected}">
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnGoToProfileMeasurmentCommand}" />
+                                <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnGoToActivityLogCommand}" />
                             </Grid.GestureRecognizers>
                             <Controls:ImageControl PortablePath="timeLine.png" Style="{StaticResource IconStyle}" />
                         </Grid>
@@ -220,7 +220,8 @@
                     </Grid>
                     <!-- Content  -->
                     <Grid VerticalOptions="FillAndExpand">
-                        <ContentPresenter />
+                        <Controls:LoadingControl IsVisible="{TemplateBinding BindingContext.IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <ContentPresenter IsVisible="{TemplateBinding BindingContext.IsNotLoading}" />
                     </Grid>
                     <!-- Footer -->
                     <Grid HeightRequest="70">

@@ -38,9 +38,9 @@ namespace Journey.ViewModels
         {
             try
             {
-                SecondTabSelected = "#f1f1f1";
+                SecondTabSelected = "#ffffff";
                 FirstTabSelected = "#ffffff";
-                ThirdTabSelected = "#ffffff";
+                ThirdTabSelected = "#f1f1f1";
                 FourthTabSelected = "#ffffff";
 
                 if (parameters.GetNavigationMode() == NavigationMode.Back)

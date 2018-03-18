@@ -105,6 +105,7 @@ namespace Journey
             containerRegistry.RegisterForNavigation<VideoPage>();
             containerRegistry.RegisterForNavigation<ImagePage>();
             containerRegistry.RegisterForNavigation<ProfileMeasurmentPage>();
+            containerRegistry.RegisterForNavigation<ProfileActivityLogPage>();
             containerRegistry.RegisterForNavigation<ProfileChallengePage>();
             containerRegistry.RegisterForNavigation<UpdateMeasurmentPage>();
             containerRegistry.RegisterForNavigation<ChooseChallengeFriendPage>();

@@ -104,13 +104,6 @@ namespace Journey.ViewModels
             set => SetProperty(ref _hasActiveChallenge, value);
         }
 
-        List<ChallengeActivityLog> _challengeActivityLog;
-        public List<ChallengeActivityLog> ChallengeActivityLog
-        {
-            get => _challengeActivityLog;
-            set => SetProperty(ref _challengeActivityLog, value);
-        }
-
         #endregion
 
         #region Methods
@@ -122,7 +115,6 @@ namespace Journey.ViewModels
                 ShowProgress();
                 if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
                 {
-                    ChallengeActivityLog = await _challengeService.GetChallengeActivityLogAsync(_accountService.LoggedInAccount.ChallengeId);
                     SelectedChallenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
                     if (SelectedChallenge != null)
                     {
