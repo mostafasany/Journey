@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
-                        xmlns:Controls="clr-namespace:Journey.Views.Controls"
-                        xmlns:Converters="clr-namespace:Journey.Converters"
-                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                        xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms" x:Class="Journey.App">
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:Converters="clr-namespace:Journey.Converters" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms" x:Class="Journey.App">
     <Application.Resources>
         <ResourceDictionary>
             <Converters:BoolInverterConverter x:Key="BoolInverterConverter" />
@@ -21,8 +16,8 @@
                 <Setter Property="Margin">
                     <Setter.Value>
                         <OnPlatform x:TypeArguments="Thickness">
-                            <On Platform="iOS" Value="0,20,0,0" />
-                            <On Platform="Android, WinPhone, Windows" Value="0,10,0,0" />
+                            <On Platform="iOS" Value="0,15,0,0" />
+                            <On Platform="Android, WinPhone, Windows" Value="0,5,0,0" />
                         </OnPlatform>
                     </Setter.Value>
                 </Setter>
@@ -129,15 +124,135 @@
             <DataTemplate x:Key="ScaleTemplate">
                 <StackLayout Orientation="Vertical">
                     <Label Text="{Binding Title}" HorizontalOptions="Center" />
-                    <Controls:CustomImage Source="{Binding Image.Source}" Aspect="AspectFit" WidthRequest="50"
-                                          HeightRequest="50" />
+                    <Controls:CustomImage Source="{Binding Image.Source}" Aspect="AspectFit" WidthRequest="50" HeightRequest="50" />
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                        <Controls:CustomImage Source="{Binding Indictor.Source}" Aspect="AspectFit" WidthRequest="20"
-                                              HeightRequest="20" />
+                        <Controls:CustomImage Source="{Binding Indictor.Source}" Aspect="AspectFit" WidthRequest="20" HeightRequest="20" />
                         <Label Text="{Binding MeasureWithUnit}" HorizontalOptions="Center" />
                     </StackLayout>
                 </StackLayout>
             </DataTemplate>
+            <Thickness x:Key="SmallTopMargin">0,10,0,0</Thickness>
+            <Color x:Key="ThemeBackgroundDetailColor">#F0F0F0</Color>
+            <Color x:Key="ThemeTextColor">#000000</Color>
+            <Style TargetType="BoxView" x:Key="HorizontalSeparatorBoxViewStyle">
+                <Setter Property="HeightRequest" Value="1.5" />
+                <Setter Property="BackgroundColor" Value="{StaticResource ThemeBackgroundDetailColor}" />
+            </Style>
+            <!-- TODO: Use TemplateBindings for text/icons/commands etc -->
+            <ControlTemplate x:Key="HeaderFooterControlTemplate">
+                <StackLayout>
+                    <!-- Header-->
+                    <!-- Content  -->
+                    <Grid VerticalOptions="FillAndExpand">
+                        <ContentPresenter />
+                    </Grid>
+                    <!-- Footer -->
+                    <Grid HeightRequest="60">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" BackgroundColor="White">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnHomeCommand}" />
+                            </Grid.GestureRecognizers>
+                            <Controls:ImageControl PortablePath="home.png" Style="{StaticResource IconStyle}" />
+                        </Grid>
+                        <Controls:CustomImage Grid.Column="1" Margin="10,5" Source="{TemplateBinding BindingContext.Image.Path}" WidthRequest="50" HeightRequest="50" Style="{StaticResource ImageHeaderStyle}">
+                            <Controls:CustomImage.GestureRecognizers>
+                                <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnProfileCommand}" />
+                            </Controls:CustomImage.GestureRecognizers>
+                            <Controls:CustomImage.Transformations>
+                                <fftransformations:CircleTransformation />
+                            </Controls:CustomImage.Transformations>
+                        </Controls:CustomImage>
+                        <Grid Grid.Column="2" BackgroundColor="White">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnNotificationCommand}" />
+                            </Grid.GestureRecognizers>
+                            <Label Text="{TemplateBinding BindingContext.NotificationsCount}" IsVisible="{TemplateBinding BindingContext.NotificationsCount,Converter={StaticResource IntToBoolConverter}}" TextColor="Red" FontAttributes="Bold" Margin="20,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" FontSize="12" />
+                            <Controls:ImageControl PortablePath="notification.png" Style="{StaticResource IconStyle}" />
+                        </Grid>
+                    </Grid>
+                </StackLayout>
+            </ControlTemplate>
+            <ControlTemplate x:Key="ProfileHeaderControlTemplate">
+                <StackLayout>
+                    <!-- Header-->
+                    <Grid HeightRequest="60" ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" BackgroundColor="{TemplateBinding BindingContext.FirstTabSelected}">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnGoToProfileChallengeCommand}" />
+                            </Grid.GestureRecognizers>
+                            <Controls:ImageControl PortablePath="exp.png" Style="{StaticResource IconStyle}" />
+                        </Grid>
+                        <Controls:SeparatorControl Grid.Column="1" />
+                        <Grid Grid.Column="2" BackgroundColor="{TemplateBinding BindingContext.SecondTabSelected}">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnGoToProfileMeasurmentCommand}" />
+                            </Grid.GestureRecognizers>
+                            <Controls:ImageControl PortablePath="timeLine.png" Style="{StaticResource IconStyle}" />
+                        </Grid>
+                        <Controls:SeparatorControl Grid.Column="3" />
+                        <Grid Grid.Column="4" BackgroundColor="{TemplateBinding BindingContext.ThirdTabSelected}">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnGoToProfileMeasurmentCommand}" />
+                            </Grid.GestureRecognizers>
+                            <Controls:ImageControl PortablePath="graph.png" Style="{StaticResource IconStyle}" />
+                        </Grid>
+                        <Controls:SeparatorControl Grid.Column="5" />
+                        <Grid Grid.Column="6" BackgroundColor="{TemplateBinding BindingContext.FourthTabSelected}">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnEditProfileCommand}" />
+                            </Grid.GestureRecognizers>
+                            <Controls:ImageControl PortablePath="settings.png" Style="{StaticResource IconStyle}" />
+                        </Grid>
+                    </Grid>
+                    <!-- Content  -->
+                    <Grid VerticalOptions="FillAndExpand">
+                        <ContentPresenter />
+                    </Grid>
+                    <!-- Footer -->
+                    <Grid HeightRequest="70">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" BackgroundColor="White">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnHomeCommand}" />
+                            </Grid.GestureRecognizers>
+                            <Controls:ImageControl PortablePath="home.png" Style="{StaticResource IconStyle}" />
+                        </Grid>
+                        <Controls:CustomImage Grid.Column="1" Margin="10,5" Source="{TemplateBinding BindingContext.Image.Path}" WidthRequest="60" HeightRequest="60" Style="{StaticResource ImageHeaderStyle}">
+                            <Controls:CustomImage.GestureRecognizers>
+                                <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnProfileCommand}" />
+                            </Controls:CustomImage.GestureRecognizers>
+                            <Controls:CustomImage.Transformations>
+                                <fftransformations:CircleTransformation />
+                            </Controls:CustomImage.Transformations>
+                        </Controls:CustomImage>
+                        <Grid Grid.Column="2" BackgroundColor="White">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnNotificationCommand}" />
+                            </Grid.GestureRecognizers>
+                            <Label Text="{TemplateBinding BindingContext.NotificationsCount}" IsVisible="{TemplateBinding BindingContext.NotificationsCount,Converter={StaticResource IntToBoolConverter}}" TextColor="Red" FontAttributes="Bold" Margin="20,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" FontSize="12" />
+                            <Controls:ImageControl PortablePath="notification.png" Style="{StaticResource IconStyle}" />
+                        </Grid>
+                    </Grid>
+                </StackLayout>
+            </ControlTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </prism:PrismApplication>

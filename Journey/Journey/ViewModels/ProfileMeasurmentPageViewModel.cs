@@ -38,6 +38,11 @@ namespace Journey.ViewModels
         {
             try
             {
+                SecondTabSelected = "#f1f1f1";
+                FirstTabSelected = "#ffffff";
+                ThirdTabSelected = "#ffffff";
+                FourthTabSelected = "#ffffff";
+
                 if (parameters.GetNavigationMode() == NavigationMode.Back)
                 {
                     var measurments = parameters.GetValue<List<ScaleMeasurment>>("Measurments");
@@ -122,6 +127,7 @@ namespace Journey.ViewModels
         }
 
         public bool NotAddMode => !_addMode;
+
 
         #endregion
 

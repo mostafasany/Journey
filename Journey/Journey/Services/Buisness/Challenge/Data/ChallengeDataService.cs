@@ -249,5 +249,123 @@ namespace Journey.Services.Buisness.Challenge.Data
 
             return status;
         }
+
+        public async Task<List<ChallengeActivityLog>> GetChallengeActivityLogAsync(string challengeId)
+        {
+            var account1 = new Models.Account.Account()
+            {
+                FirstName = "Mostafa",
+                LastName = "Khodeir",
+            };
+            var account2 = new Models.Account.Account()
+            {
+                FirstName = "Heba",
+                LastName = "EL Leithy",
+            };
+            var status = new List<ChallengeActivityLog>
+            {
+                new ChallengeWorkoutActivityLog
+                {
+                    Account=account1,
+                    DatetTime = DateTime.Now,
+                    Location = "FitX",
+                    Mine=true,
+                },
+                new ChallengeKmActivityLog
+                {
+                    Account=account1,
+                    DatetTime = DateTime.Now,
+                    KM = 6,   Mine=true,
+                },
+                new ChallengeWorkoutActivityLog
+                {
+                    Account=account1,
+                    DatetTime = DateTime.Now.AddDays(1),
+                    Location = "FitX",   Mine=true,
+                },
+                new ChallengeKmActivityLog
+                {
+                    Account=account1,
+                    DatetTime = DateTime.Now.AddDays(1),
+                    KM = 2,   Mine=true,
+                },
+                new ChallengeWorkoutActivityLog
+                {
+                    Account=account1,
+                    DatetTime = DateTime.Now.AddDays(2),
+                    Location = "FitX",   Mine=true,
+                },
+                new ChallengeKmActivityLog
+                {
+                    Account=account1,
+                    DatetTime = DateTime.Now.AddDays(2),
+                    KM = 5,   Mine=true,
+                },
+                new ChallengeWorkoutActivityLog
+                {
+                    Account=account1,
+                    DatetTime = DateTime.Now.AddDays(3),
+                    Location = "FitX",   Mine=true,
+                },
+                new ChallengeKmActivityLog
+                {
+                    Account=account1,
+                    DatetTime = DateTime.Now.AddDays(3),
+                    KM = 8,   Mine=true,
+                },
+                new ChallengeWorkoutActivityLog
+                {
+                    Account=account2,
+                    DatetTime = DateTime.Now,
+                    Location = "Golds Gym",   Mine=false,
+                },
+                new ChallengeKmActivityLog
+                {
+                    Account=account2,
+                    DatetTime = DateTime.Now,
+                    KM = 6,  Mine=false,
+                },
+                new ChallengeWorkoutActivityLog
+                {
+                    Account=account2,
+                    DatetTime = DateTime.Now.AddDays(1),
+                    Location = "Golds Gym",   Mine=false,
+                },
+                new ChallengeKmActivityLog
+                {
+                    Account=account2,
+                    DatetTime = DateTime.Now.AddDays(1),
+                    KM = 2,  Mine=false,
+                },
+                new ChallengeWorkoutActivityLog
+                {
+                    Account=account2,
+                    DatetTime = DateTime.Now.AddDays(2),
+                    Location = "Golds Gym", Mine=false,
+                },
+                new ChallengeKmActivityLog
+                {
+                    Account=account2,
+                    DatetTime = DateTime.Now.AddDays(2),
+                    KM = 5,  Mine=false,
+                },
+                new ChallengeWorkoutActivityLog
+                {
+                    Account=account2,
+                    DatetTime = DateTime.Now.AddDays(3),
+                    Location = "Golds Gym",  Mine=false,
+                },
+                new ChallengeKmActivityLog
+                {
+                    Account=account2,
+                    DatetTime = DateTime.Now.AddDays(3),
+                    KM = 8,  Mine=false,
+                },
+
+            };
+
+
+            return status;
+        }
     }
 }

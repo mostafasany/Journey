@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Abstractions.Services;
 using Journey.Models;
+using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Notification;
 using Prism.Commands;
 using Prism.Navigation;
@@ -10,14 +11,14 @@ using Unity;
 
 namespace Journey.ViewModels
 {
-    public class NotificationsPageViewModel : BaseViewModel, INavigationAware
+    public class NotificationsPageViewModel : MainNavigationViewModel, INavigationAware
     {
         private readonly IDeepLinkService _deepLinking;
         private readonly INotificationService _postCommentService;
 
-        public NotificationsPageViewModel(IUnityContainer container,
+        public NotificationsPageViewModel(IUnityContainer container, IAccountService accountService,
             INotificationService postCommentService, IDeepLinkService deepLinking) :
-            base(container)
+        base(container, accountService)
         {
             _postCommentService = postCommentService;
             _deepLinking = deepLinking;
@@ -104,7 +105,6 @@ namespace Journey.ViewModels
                 base.Intialize(sync);
 
                 Notifications = new ObservableCollection<Notifications>();
-
                 List<Notifications> postDTo = await _postCommentService.GetNotificationsAsync();
                 if (postDTo != null)
                     Notifications = new ObservableCollection<Notifications>(postDTo);

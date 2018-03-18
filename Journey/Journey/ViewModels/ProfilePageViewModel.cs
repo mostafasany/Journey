@@ -10,12 +10,12 @@ using Unity;
 
 namespace Journey.ViewModels
 {
-    public class ProfilePageViewModel : BaseViewModel
+    public class ProfilePageViewModel : MainNavigationViewModel
     {
         private readonly IAccountService _accountService;
 
         public ProfilePageViewModel(IUnityContainer container, IAccountService accountService) :
-            base(container) => _accountService = accountService;
+        base(container, accountService) => _accountService = accountService;
 
         #region Properties
 
@@ -34,6 +34,39 @@ namespace Journey.ViewModels
         {
             get => _friend;
             set => SetProperty(ref _friend, value);
+        }
+
+        private string _firstTabSelected = "#ffffff";
+
+        public string FirstTabSelected
+        {
+            get => _firstTabSelected;
+            set => SetProperty(ref _firstTabSelected, value);
+        }
+
+
+        private string _secondTabSelected = "#ffffff";
+
+        public string SecondTabSelected
+        {
+            get => _secondTabSelected;
+            set => SetProperty(ref _secondTabSelected, value);
+        }
+
+        private string _thirdTabSelected = "#ffffff";
+
+        public string ThirdTabSelected
+        {
+            get => _thirdTabSelected;
+            set => SetProperty(ref _thirdTabSelected, value);
+        }
+
+        private string _fourthTabSelected = "#ffffff";
+
+        public string FourthTabSelected
+        {
+            get => _fourthTabSelected;
+            set => SetProperty(ref _fourthTabSelected, value);
         }
 
         #endregion
@@ -88,46 +121,6 @@ namespace Journey.ViewModels
 
         #region Commands
 
-        #region OnMoreCommand
-
-        public DelegateCommand OnMoreCommand => new DelegateCommand(OnMore);
-
-        private async void OnMore()
-        {
-            try
-            {
-                var commands =
-                    new List<DialogCommand>
-                    {
-                        new DialogCommand
-                        {
-                            Label = AppResource.Profile_Edit,
-                            Invoked = () => OnEditProfile()
-                        },
-
-                        new DialogCommand
-                        {
-                            Label = AppResource.Logout,
-                            Invoked = () => { OnLogoutCommand.Execute(); }
-                        },
-                        new DialogCommand
-                        {
-                            Label = AppResource.Cancel,
-                            Invoked = () => { }
-                        }
-                    };
-
-                await DialogService.ShowMessageAsync("", AppResource.More,
-                    commands);
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.Handle(ex);
-            }
-        }
-
-        #endregion
-
         #region OnLogoutCommand
 
         public DelegateCommand OnLogoutCommand => new DelegateCommand(OnLogout);
@@ -171,6 +164,8 @@ namespace Journey.ViewModels
 
         private void OnEditProfile()
         {
+            if (NavigationService.CurrentPage == "UpdateProfilePage")
+                return;
             var parameters = new Dictionary<string, object>
             {
                 {"Account", LoggedInAccount},
@@ -203,30 +198,22 @@ namespace Journey.ViewModels
         {
             if (NavigationService.CurrentPage == "ProfileChallengePage")
                 return;
-            NavigationService.GoBack();
+
+            NavigationService.Navigate("ProfileChallengePage", null, null, null, false, true);
         }
 
         #endregion
 
-        #region OnBackCommand
+        #region OnGoToActivityLogCommand
 
-        public DelegateCommand OnBackCommand => new DelegateCommand(OnBack);
+        public DelegateCommand OnGoToActivityLogCommand => new DelegateCommand(OnGoToActivityLog);
 
-
-        private void OnBack()
+        private void OnGoToActivityLog()
         {
-            try
-            {
-                NavigationService.GoBack();
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.Handle(ex);
-            }
-            finally
-            {
-                HideProgress();
-            }
+            if (NavigationService.CurrentPage == "ProfileActivityLogPage")
+                return;
+
+            NavigationService.Navigate("ProfileActivityLogPage", null, null, null, false, true);
         }
 
         #endregion

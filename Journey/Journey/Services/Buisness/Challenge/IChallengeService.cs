@@ -13,5 +13,6 @@ namespace Journey.Services.Buisness.Challenge
         Task<Models.Challenge.Challenge> GetChallengeAsync(string challengeId);
         Task<List<ObservableChallengeProgressGroupCollection<AccountChallengeProgress>>> GetChallengePorgessAsync(string challengeId);
         Task<Models.Challenge.Challenge> UpdateExerciseNumberAsync(string challengeId);
+        Task<List<ChallengeActivityLog>> GetChallengeActivityLogAsync(string challengeId);
     }
 }

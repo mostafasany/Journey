@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using Journey.Models.Account;
 using Journey.Models.Challenge;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
@@ -37,6 +36,11 @@ namespace Journey.ViewModels
         {
             try
             {
+                FirstTabSelected = "#f1f1f1";
+                SecondTabSelected = "#ffffff";
+                ThirdTabSelected = "#ffffff";
+                FourthTabSelected = "#ffffff";
+
                 if (parameters.GetNavigationMode() == NavigationMode.Back)
                 {
                 }
@@ -100,6 +104,13 @@ namespace Journey.ViewModels
             set => SetProperty(ref _hasActiveChallenge, value);
         }
 
+        List<ChallengeActivityLog> _challengeActivityLog;
+        public List<ChallengeActivityLog> ChallengeActivityLog
+        {
+            get => _challengeActivityLog;
+            set => SetProperty(ref _challengeActivityLog, value);
+        }
+
         #endregion
 
         #region Methods
@@ -111,6 +122,7 @@ namespace Journey.ViewModels
                 ShowProgress();
                 if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
                 {
+                    ChallengeActivityLog = await _challengeService.GetChallengeActivityLogAsync(_accountService.LoggedInAccount.ChallengeId);
                     SelectedChallenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
                     if (SelectedChallenge != null)
                     {
@@ -129,7 +141,7 @@ namespace Journey.ViewModels
                         if (challenge1KmCount != challenge2KmCount)
                             WinnerAccountInKM = challenge1KmCount > challenge2KmCount ? challenge1?.Name : challenge2?.Name;
                         else
-                            WinnerAccountInKM =AppResource.Draw;
+                            WinnerAccountInKM = AppResource.Draw;
                     }
                     else
                     {

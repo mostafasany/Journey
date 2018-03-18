@@ -51,6 +51,10 @@
     <None Remove="Services\Mocks\AccountMock.xml" />
     <None Remove="Services\Mocks\MeMock.xml" />
     <None Remove="Assets\downArrow.png" />
+    <None Remove="Assets\running.png" />
+    <None Remove="Assets\workout.png" />
+    <None Remove="Assets\ic_settings_3x.png" />
+    <None Remove="Assets\ic_history_3x.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -104,6 +108,10 @@
     <EmbeddedResource Include="Services\Mocks\PostMock.xml" />
     <EmbeddedResource Include="Services\Mocks\MeMock.xml" />
     <EmbeddedResource Include="Assets\downArrow.png" />
+    <EmbeddedResource Include="Assets\running.png" />
+    <EmbeddedResource Include="Assets\workout.png" />
+    <EmbeddedResource Include="Assets\settings.png" />
+    <EmbeddedResource Include="Assets\timeLine.png" />
   </ItemGroup>
 
   <ItemGroup>

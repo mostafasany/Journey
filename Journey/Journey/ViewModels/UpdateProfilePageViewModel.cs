@@ -12,7 +12,7 @@ using Unity;
 
 namespace Journey.ViewModels
 {
-    public class UpdateProfilePageViewModel : BaseViewModel, INavigationAware
+    public class UpdateProfilePageViewModel : ProfilePageViewModel, INavigationAware
     {
         private readonly IAccountService _accountService;
         private readonly IBlobService _blobService;
@@ -20,7 +20,7 @@ namespace Journey.ViewModels
 
         public UpdateProfilePageViewModel(IUnityContainer container, IAccountService accountService,
             IBlobService blobService, IMediaService<Media> mediaService) :
-            base(container)
+        base(container, accountService)
         {
             _accountService = accountService;
             _blobService = blobService;
@@ -37,6 +37,11 @@ namespace Journey.ViewModels
         {
             try
             {
+                FirstTabSelected = "#ffffff";
+                SecondTabSelected = "#ffffff";
+                ThirdTabSelected = "#ffffff";
+                FourthTabSelected = "#f1f1f1";
+
                 ShowProgress();
                 Account loggedInAccount = parameters.GetValue<Account>("Account") ?? new Account();
                 FirstName = loggedInAccount.FirstName;
@@ -238,29 +243,6 @@ namespace Journey.ViewModels
             catch (Exception e)
             {
                 ExceptionService.HandleAndShowDialog(e);
-            }
-            finally
-            {
-                HideProgress();
-            }
-        }
-
-        #endregion
-
-        #region OnBackCommand
-
-        public DelegateCommand OnBackCommand => new DelegateCommand(OnBack);
-
-
-        private void OnBack()
-        {
-            try
-            {
-                NavigationService.GoBack();
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.Handle(ex);
             }
             finally
             {

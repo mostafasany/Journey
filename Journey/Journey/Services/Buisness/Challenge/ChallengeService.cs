@@ -40,8 +40,6 @@ namespace Journey.Services.Buisness.Challenge
         {
             try
             {
-                //if (_challenge != null)
-                // return _challenge;
                 Models.Challenge.Challenge _challenge = await _challengeDataService.GetChallengeAsync(challengeId);
                 return _challenge;
             }
@@ -214,7 +212,7 @@ namespace Journey.Services.Buisness.Challenge
                     Models.Account.Account winnerAccountInKm = null;
                     var orderedAccountExercises = progress.Accounts.OrderByDescending(a => a.TotalExercises);
                     var orderedAccountKM = progress.Accounts.OrderByDescending(a => a.TotalKm);
-                    if(orderedAccountExercises.FirstOrDefault().TotalExercises > orderedAccountExercises.LastOrDefault().TotalExercises)
+                    if (orderedAccountExercises.FirstOrDefault().TotalExercises > orderedAccountExercises.LastOrDefault().TotalExercises)
                     {
                         winnerAccountInExercises = orderedAccountExercises.FirstOrDefault().Account;
                     }
@@ -229,6 +227,19 @@ namespace Journey.Services.Buisness.Challenge
                 }
 
                 return list;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
+        }
+
+        public async Task<List<ChallengeActivityLog>> GetChallengeActivityLogAsync(string challengeId)
+        {
+            try
+            {
+                var _challengeLog = await _challengeDataService.GetChallengeActivityLogAsync(challengeId);
+                return _challengeLog.OrderByDescending(a => a.DatetTime).ToList();
             }
             catch (Exception ex)
             {

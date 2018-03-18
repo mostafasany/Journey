@@ -19,16 +19,113 @@ using Unity;
 
 namespace Journey.ViewModels
 {
-    public class HomePageViewModel : BaseViewModel, INavigationAware
+    public class MainNavigationViewModel : BaseViewModel
+    {
+        private readonly IAccountService _accountService;
+        public MainNavigationViewModel(IUnityContainer container, IAccountService accountService) : base(container)
+        {
+            _accountService = accountService;
+            LoadAccount();
+        }
+
+        async void LoadAccount()
+        {
+            LoggedInAccount = await _accountService.GetAccountAsync();
+        }
+
+        public Media Image => LoggedInAccount == null
+           ? new Media { Path = "http://bit.ly/2zBffZy" }
+           : _loggedInAccount.Image;
+
+        private Account _loggedInAccount;
+
+        public Account LoggedInAccount
+        {
+            get => _loggedInAccount;
+            set
+            {
+                SetProperty(ref _loggedInAccount, value);
+                RaisePropertyChanged(nameof(Image));
+            }
+        }
+
+        #region OnProfileCommand
+
+        private ICommand _onProfileCommand;
+
+        public ICommand OnProfileCommand => _onProfileCommand ??
+                                            (_onProfileCommand =
+                                                new DelegateCommand(OnProfile));
+
+        private async void OnProfile()
+        {
+            try
+            {
+                if (LoggedInAccount != null)
+                    await NavigationService.Navigate("ProfileChallengePage");
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.Handle(ex);
+            }
+        }
+
+        #endregion
+
+        #region OnHomeCommand
+
+        private ICommand _onHomeCommand;
+
+        public ICommand OnHomeCommand => _onHomeCommand ?? (_onHomeCommand = new DelegateCommand(OnHome));
+
+        private async void OnHome()
+        {
+            try
+            {
+                await NavigationService.Navigate("HomePage");
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.Handle(ex);
+            }
+        }
+
+        #endregion
+
+        #region OnNotificationCommand
+
+        private ICommand _onNotificationCommand;
+
+        public ICommand OnNotificationCommand => _onNotificationCommand ??
+                                                 (_onNotificationCommand =
+                                                     new DelegateCommand(OnNotification));
+
+        private async void OnNotification()
+        {
+            try
+            {
+                await NavigationService.Navigate("NotificationsPage");
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.Handle(ex);
+            }
+        }
+
+        #endregion
+    }
+
+    public class HomePageViewModel : MainNavigationViewModel, INavigationAware
     {
         public readonly INotificationService _notificationService;
         public readonly NewPostPageViewModel NewPostPageViewModel;
         private readonly IAccountService _accountService;
         private readonly IPostService _postService;
 
-        public HomePageViewModel(IUnityContainer container, IPostService postService, IAccountService accountService,
+        public HomePageViewModel(IUnityContainer container, IPostService postService,
+                                 IAccountService accountService,
             NewPostPageViewModel newPostPageViewModel, INotificationService notificationService) :
-            base(container)
+        base(container, accountService)
         {
             _notificationService = notificationService;
             _postService = postService;
@@ -57,7 +154,7 @@ namespace Journey.ViewModels
                 var location = parameters.GetValue<Location>("Location");
                 if (location != null)
                     NewPostPageViewModel.NewPost.Location =
-                        new PostActivity {Action = "At", Activity = location.Name, Image = location.Image};
+                        new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
             }
             catch (Exception ex)
             {
@@ -148,9 +245,7 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        public Media Image => LoggedInAccount == null
-            ? new Media {Path = "http://bit.ly/2zBffZy"}
-            : _loggedInAccount.Image;
+
 
         private Account _loggedInAccount;
 
@@ -160,7 +255,6 @@ namespace Journey.ViewModels
             set
             {
                 SetProperty(ref _loggedInAccount, value);
-                RaisePropertyChanged(nameof(Image));
                 RaisePropertyChanged(nameof(WelcomeMessage));
             }
         }
@@ -412,51 +506,6 @@ namespace Journey.ViewModels
                 bool isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
                     await NavigationService.Navigate("SearchFriendPage");
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.Handle(ex);
-            }
-        }
-
-        #endregion
-
-        #region OnProfileCommand
-
-        private ICommand _onProfileCommand;
-
-        public ICommand OnProfileCommand => _onProfileCommand ??
-                                            (_onProfileCommand =
-                                                new DelegateCommand(OnProfile));
-
-        private async void OnProfile()
-        {
-            try
-            {
-                if (LoggedInAccount != null)
-                    await NavigationService.Navigate("ProfileChallengePage");
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.Handle(ex);
-            }
-        }
-
-        #endregion
-
-        #region OnNotificationCommand
-
-        private ICommand _onNotificationCommand;
-
-        public ICommand OnNotificationCommand => _onNotificationCommand ??
-                                                 (_onNotificationCommand =
-                                                     new DelegateCommand(OnNotification));
-
-        private async void OnNotification()
-        {
-            try
-            {
-                await NavigationService.Navigate("NotificationsPage");
             }
             catch (Exception ex)
             {

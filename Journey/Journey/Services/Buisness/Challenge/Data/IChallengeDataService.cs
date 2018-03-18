@@ -11,5 +11,6 @@ namespace Journey.Services.Buisness.Challenge.Data
         Task<Models.Challenge.Challenge> GetChallengeAsync(string challengeId);
         Task<List<ChallengeProgress>> GetChallengePorgessAsync(string challengeId);
         Task<Models.Challenge.Challenge> UpdateChallengeAsync(Models.Challenge.Challenge challenge);
+        Task<List<ChallengeActivityLog>> GetChallengeActivityLogAsync(string challengeId);
     }
 }

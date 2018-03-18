@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" xmlns:selectors="clr-namespace:Journey.Views.Selectors" x:Class="Journey.Views.HomePage">
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" ControlTemplate="{StaticResource HeaderFooterControlTemplate}" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" xmlns:selectors="clr-namespace:Journey.Views.Selectors" x:Class="Journey.Views.HomePage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="PostTemplate">
@@ -120,7 +120,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid RowSpacing="0" Style="{StaticResource MainGridStyle}">
+        <Grid Style="{StaticResource MainGridStyle}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -129,22 +129,19 @@
                 <Controls:SeparatorControl WidthRequest="1" />
                 <ContentView x:Name="Container" WidthRequest="400" />
             </StackLayout>
-            <Grid Grid.Column="0" RowSpacing="0">
+            <Grid Grid.Column="0" RowSpacing="0" BackgroundColor="#d3d3d3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="1" />
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="1" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" HeightRequest="70" BackgroundColor="White" x:Name="Header">
+                <Grid Grid.Row="0" HeightRequest="60" BackgroundColor="White" x:Name="Header">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Controls:CustomImage Grid.Column="0" Margin="10,5" Source="{Binding Image.Path}" WidthRequest="60" HeightRequest="60" Style="{StaticResource ImageHeaderStyle}">
+                    <Controls:CustomImage Grid.Column="0" Margin="10,5" Source="{Binding Image.Path}" WidthRequest="50" HeightRequest="50" Style="{StaticResource ImageHeaderStyle}">
                         <Controls:CustomImage.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnProfileCommand}" />
                         </Controls:CustomImage.GestureRecognizers>
@@ -160,42 +157,15 @@
                     </Grid>
                     <Controls:LoadingControl IsVisible="{Binding IsLoading}" Grid.Column="2" HorizontalOptions="End" VerticalOptions="Center" Margin="20,0" />
                 </Grid>
-                <Controls:SeparatorControl Grid.Row="1" />
-                <Grid Grid.Row="2" RowSpacing="0" ColumnSpacing="1" Padding="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="1" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0" BackgroundColor="White">
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OnProfileCommand}" />
-                        </Grid.GestureRecognizers>
-                        <Controls:ImageControl PortablePath="person.png" Style="{StaticResource IconStyle}" />
-                    </Grid>
-                    <Controls:SeparatorControl Grid.Column="1" />
-                    <Grid Grid.Column="2" BackgroundColor="White">
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OnNotificationCommand}" />
-                        </Grid.GestureRecognizers>
-                        <Label Text="{Binding NotificationsCount}" IsVisible="{Binding NotificationsCount,Converter={StaticResource IntToBoolConverter}}" TextColor="Red" FontAttributes="Bold" Margin="20,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" FontSize="12" />
-                        <Controls:ImageControl PortablePath="notification.png" Style="{StaticResource IconStyle}" />
-                    </Grid>
-                </Grid>
-                <Controls:SeparatorControl Grid.Row="3" />
-                <Grid Grid.Row="4" IsVisible="{Binding HasNotActiveChallenge}">
+              <Grid Grid.Row="1" IsVisible="{Binding HasNotActiveChallenge}">
                     <Controls:ImageControl Aspect="AspectFill" PortablePath="challengeBanner.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
                     <StackLayout Orientation="Vertical" VerticalOptions="Center">
                         <Label Margin="0,5" Text="{resources:Translate Home_StartNewChallenge}" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" TextColor="White" />
                         <Button Margin="0,0,0,5" Text="Start" Command="{Binding OnStartNewChallengeCommand}" WidthRequest="150" HorizontalOptions="Center" FontSize="14" Style="{StaticResource SecondaryButtonStyle}" />
                     </StackLayout>
                 </Grid>
-                <ListView x:Name="lst" Grid.Row="5" BackgroundColor="#d3d3d3" Margin="0,5"
-                          CachingStrategy="RecycleElement" ItemsSource="{Binding PostsViewModels}"
-                          SeparatorVisibility="None" ItemTemplate="{StaticResource PostTemplate}"
-                          ItemAppearing="Handle_ItemAppearing" HasUnevenRows="true"
-                          IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}"
-                          RefreshAllowed="true" RefreshCommand="{Binding OnRefreshPostsCommand}">
+                <ListView x:Name="lst" Grid.Row="2" BackgroundColor="#d3d3d3" Margin="0,5" CachingStrategy="RecycleElement" ItemsSource="{Binding PostsViewModels}" SeparatorVisibility="None" ItemTemplate="{StaticResource PostTemplate}" ItemAppearing="Handle_ItemAppearing" HasUnevenRows="true"
+                    IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true" RefreshCommand="{Binding OnRefreshPostsCommand}">
                 </ListView>
             </Grid>
         </Grid>
