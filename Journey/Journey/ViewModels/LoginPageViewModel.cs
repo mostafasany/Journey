@@ -92,7 +92,7 @@ namespace Journey.ViewModels
             try
             {
                 if (App.Authenticator == null) return;
-                ShowProgress();
+               
                 MobileServiceUser authenticated = await _accountService.AutehticateAsync();
                 if (authenticated == null)
                 {
@@ -100,6 +100,7 @@ namespace Journey.ViewModels
                         AppResource.Login_CantLoginTitle);
                     return;
                 }
+                ShowProgress();
 
 
                 MobileServiceClient client = _azureService.CreateOrGetAzureClient(authenticated.UserId,

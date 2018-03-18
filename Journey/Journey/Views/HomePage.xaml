@@ -37,20 +37,13 @@
                                     </Image.GestureRecognizers>
                                 </Controls:ImageControl>
                                 <Label Grid.Column="1" Grid.Row="1" Text="{Binding Post.FormatedDate}" TextColor="Gray" FontSize="14" VerticalOptions="Center" HorizontalOptions="End" />
-                                <!-- <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" IsVisible="{Binding Post.HasActivity}" VerticalOptions="Center">
-                                    <Label Text="{Binding Post.Activity.Action}" TextColor="Black" FontSize="12" HorizontalOptions="Start" VerticalOptions="Center" />
-                                    <Controls:CustomImage Source="{Binding Post.Activity.Image}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
-                                    <Label Text="{Binding Post.Activity.Activity}" FontAttributes="Bold" TextColor="Black" FontSize="14" HorizontalOptions="Start" VerticalOptions="Center" LineBreakMode="NoWrap" />
-                                </StackLayout>-->
                                 <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" IsVisible="{Binding Post.HasLocation}" VerticalOptions="Center">
                                     <Label Text="{Binding Post.Location.Action}" TextColor="Black" FontSize="12" HorizontalOptions="Start" VerticalOptions="Center" />
                                     <Controls:CustomImage Source="{Binding Post.Location.Image}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
                                     <Label Text="{Binding Post.Location.Activity}" FontAttributes="Bold" TextColor="Black" FontSize="14" HorizontalOptions="Start" VerticalOptions="Center" LineBreakMode="NoWrap" />
                                 </StackLayout>
-                                <!--<Label Grid.Column="1" Grid.Row="0" Text="{Binding Post.PostType.FormatedExpPoint}" TextColor="Orange" FontSize="14" VerticalOptions="Start" HorizontalOptions="End" />-->
                             </Grid>
                             <Label Grid.Row="1" Text="{Binding Post.Feed}" TextColor="Gray" Margin="5,10,10,5" FontSize="14" HorizontalOptions="Fill" />
-                            <!-- <Controls:ImageViewerControl Grid.Row="2" IsVisible="{Binding Post.HasMeasuremnts}" BackgroundColor="White" ItemsSource="{Binding Post.Measuremnts}" Margin="0,10" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" ItemTemplate="{StaticResource ScaleTemplate}" />-->
                             <Controls:ImageViewerControl Grid.Row="2" x:Name="parent" ItemsSource="{Binding Post.MediaList}" IsVisible="{Binding Post.HasMediaList}" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
                                 <Controls:ImageViewerControl.ItemTemplate>
                                     <DataTemplate>
@@ -157,7 +150,7 @@
                     </Grid>
                     <Controls:LoadingControl IsVisible="{Binding IsLoading}" Grid.Column="2" HorizontalOptions="End" VerticalOptions="Center" Margin="20,0" />
                 </Grid>
-              <Grid Grid.Row="1" IsVisible="{Binding HasNotActiveChallenge}">
+                <Grid Grid.Row="1" IsVisible="{Binding HasNotActiveChallenge}">
                     <Controls:ImageControl Aspect="AspectFill" PortablePath="challengeBanner.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
                     <StackLayout Orientation="Vertical" VerticalOptions="Center">
                         <Label Margin="0,5" Text="{resources:Translate Home_StartNewChallenge}" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" TextColor="White" />

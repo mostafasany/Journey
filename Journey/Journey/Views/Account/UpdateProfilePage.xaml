@@ -23,8 +23,10 @@
                 <Image Source="{Binding Image.Path}" Style="{StaticResource ImageBodyStyle}" WidthRequest="300" HeightRequest="200" HorizontalOptions="Center" />
                 <Button Text="{resources:Translate UpdateProfile_Upload}" Command="{Binding UploadImageCommand}" Style="{StaticResource SecondaryButtonStyle}" />
             </StackLayout>
-            <Button Grid.Row="2" Text="{resources:Translate UpdateProfile_Finish}" Margin="0,0,0,10" Command="{Binding FinishCommand}" Style="{StaticResource PrimaryButtonStyle}" />
-            <Button Grid.Row="3" Text="{resources:Translate Logout}" Margin="0,0,0,10" Command="{Binding OnLogoutCommand}" Style="{StaticResource SecondaryButtonStyle}" />
+            <StackLayout Orientation="Horizontal" Grid.Row="2" HorizontalOptions="Center" Margin="5,0,5,10">
+                <Button Text="{resources:Translate UpdateProfile_Finish}" Command="{Binding FinishCommand}" Style="{StaticResource PrimaryButtonStyle}" />
+                <Button Text="{resources:Translate Logout}" Command="{Binding OnLogoutCommand}" Style="{StaticResource SecondaryButtonStyle}" />
+            </StackLayout>
         </Grid>
     </ContentPage.Content>
 </local:BasePage>

@@ -154,7 +154,8 @@ namespace Journey.ViewModels
                     if (comment != null)
                     {
                         comment.Account = LoggedInAccount;
-                        Comments.Add(comment);
+                        comment.Mine = true;
+                        Comments.Insert(0,comment);
                         NewComment = "";
                     }
                 }

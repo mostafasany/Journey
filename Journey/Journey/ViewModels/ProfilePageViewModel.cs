@@ -164,8 +164,8 @@ namespace Journey.ViewModels
 
         private void OnEditProfile()
         {
-            if (NavigationService.CurrentPage == "UpdateProfilePage")
-                return;
+            //if (NavigationService.CurrentPage == "UpdateProfilePage")
+                //return;
             var parameters = new Dictionary<string, object>
             {
                 {"Account", LoggedInAccount},
@@ -182,8 +182,8 @@ namespace Journey.ViewModels
 
         private void OnGoToProfileMeasurment()
         {
-            if (NavigationService.CurrentPage == "ProfileMeasurmentPage")
-                return;
+            //if (NavigationService.CurrentPage == "ProfileMeasurmentPage")
+                //return;
 
             NavigationService.Navigate("ProfileMeasurmentPage", null, null, null, false, true);
         }
@@ -196,8 +196,8 @@ namespace Journey.ViewModels
 
         private void OnGoToProfileChallenge()
         {
-            if (NavigationService.CurrentPage == "ProfileChallengePage")
-                return;
+            //if (NavigationService.CurrentPage == "ProfileChallengePage")
+                //return;
 
             NavigationService.Navigate("ProfileChallengePage", null, null, null, false, true);
         }
@@ -210,8 +210,8 @@ namespace Journey.ViewModels
 
         private void OnGoToActivityLog()
         {
-            if (NavigationService.CurrentPage == "ProfileActivityLogPage")
-                return;
+            //if (NavigationService.CurrentPage == "ProfileActivityLogPage")
+                //return;
 
             NavigationService.Navigate("ProfileActivityLogPage", null, null, null, false, true);
         }
