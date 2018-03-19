@@ -38,7 +38,7 @@
                 <Setter Property="HorizontalOptions" Value="Center" />
             </Style>
             <Style TargetType="Editor" x:Key="EditorFormStyle">
-                <Setter Property="HeightRequest" Value="150" />
+                <Setter Property="HeightRequest" Value="100" />
                 <Setter Property="TextColor" Value="{StaticResource LightTextColor}" />
                 <Setter Property="Margin" Value="0,0,0,15" />
                 <Setter Property="BackgroundColor" Value="#ededed" />
@@ -121,6 +121,23 @@
                 <Setter Property="HorizontalOptions" Value="Start" />
                 <Setter Property="VerticalOptions" Value="Start" />
             </Style>
+            <DataTemplate x:Key="LocationTemplate">
+                <Controls:UnSelectableViewCell>
+                    <ViewCell.View>
+                        <Grid Padding="5" BackgroundColor="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Controls:CustomImage Grid.Column="0" Source="{Binding Image}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="70" HeightRequest="70" />
+                            <StackLayout Grid.Column="1">
+                                <Label Text="{Binding Name}" TextColor="Black" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
+                                <Label Text="{Binding NearFormated}" TextColor="Gray" FontSize="12" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell.View>
+                </Controls:UnSelectableViewCell>
+            </DataTemplate>
             <DataTemplate x:Key="ScaleTemplate">
                 <StackLayout Orientation="Vertical">
                     <Label Text="{Binding Title}" HorizontalOptions="Center" />

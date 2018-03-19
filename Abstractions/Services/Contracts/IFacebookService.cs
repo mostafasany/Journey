@@ -13,7 +13,7 @@ namespace Abstractions.Services.Contracts
 
         string FacebookToken { get; set; }
 
-        Task<List<Location>> GetLocationsAsync(string name, double lat, double lng);
+        Task<List<Location>> GetLocationsAsync(string name, double lat, double lng,int? minLocationDistanceInMeter);
 
         void InviteFriends();
 

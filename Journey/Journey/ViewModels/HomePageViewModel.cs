@@ -133,7 +133,6 @@ namespace Journey.ViewModels
 
     public class HomePageViewModel : MainNavigationViewModel, INavigationAware
     {
-       // public readonly INotificationService _notificationService;
         public readonly NewPostPageViewModel NewPostPageViewModel;
         private readonly IAccountService _accountService;
         private readonly IPostService _postService;
@@ -143,7 +142,6 @@ namespace Journey.ViewModels
             NewPostPageViewModel newPostPageViewModel) :
         base(container, accountService,notificationService)
         {
-            
             _postService = postService;
             _accountService = accountService;
             NewPostPageViewModel = newPostPageViewModel;
@@ -402,7 +400,7 @@ namespace Journey.ViewModels
 
         private void UpdateChallengeBanner()
         {
-            HasNotActiveChallenge = LoggedInAccount != null && LoggedInAccount.HasNotActiveChallenge;
+            HasNotActiveChallenge = true;//LoggedInAccount != null && LoggedInAccount.HasNotActiveChallenge;
         }
 
         protected override void Cleanup()

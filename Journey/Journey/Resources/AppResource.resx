@@ -360,6 +360,9 @@
 	<data name="Challenge_Winner" xml:space="preserve">
     <value>Winner till now in</value>
   </data>
+    <data name="Challenge_ChooseYourWorkoutPlace" xml:space="preserve">
+    <value>Choose Your Workout Place</value>
+  </data>
 	<data name="KM" xml:space="preserve">
     <value>Kilometers</value>
   </data>

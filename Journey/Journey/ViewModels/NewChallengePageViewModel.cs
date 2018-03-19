@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Abstractions.Models;
 using Abstractions.Services.Contracts;
 using Journey.Models.Account;
 using Journey.Models.Challenge;
@@ -19,11 +20,16 @@ namespace Journey.ViewModels
     {
         private readonly IAccountService _accountService;
         private readonly IChallengeService _challengeService;
+        private readonly IFacebookService _facebookService;
+        private readonly ILocationService _locationService;
 
-        public NewChallengePageViewModel(IUnityContainer container,
+        public NewChallengePageViewModel(IUnityContainer container, ILocationService locationService,
+            IFacebookService facebookService,
             IChallengeService challengeService, IAccountService accountService) :
             base(container)
         {
+            _locationService = locationService;
+            _facebookService = facebookService;
             _challengeService = challengeService;
             _accountService = accountService;
         }
@@ -41,7 +47,11 @@ namespace Journey.ViewModels
                 var mode = parameters.GetValue<int>("Mode");
                 IsAddMode = false;
                 IsApproveRequestMode = false;
-
+                Intialize();
+                if (parameters?.GetNavigationMode() == NavigationMode.Back)
+                {
+                    SelectedLocation = parameters.GetValue<Location>("Location");
+                }
                 if (mode == 0)
                 {
                     //Add
@@ -73,6 +83,7 @@ namespace Journey.ViewModels
                         //Approve Request 
                     }
                 }
+
             }
             catch (Exception e)
             {
@@ -130,26 +141,34 @@ namespace Journey.ViewModels
             set => SetProperty(ref _selectedChallenge, value);
         }
 
+        private Location _selectedLocation;
+
+        public Location SelectedLocation
+        {
+            get => _selectedLocation;
+            set => SetProperty(ref _selectedLocation, value);
+        }
         //List<Interval> intervalList;
         //public List<Interval> IntervalList
         //{
         //    get => intervalList;
-        //    set => Set(ref intervalList, value);
+        //    set => SetProperty(ref intervalList, value);
         //}
 
         //Interval selectedInterval;
         //public Interval SelectedInterval
         //{
         //    get => selectedInterval;
-        //    set => Set(ref selectedInterval, value);
+        //    set => SetProperty(ref selectedInterval, value);
         //}
 
         #endregion
 
         #region Methods
 
-        public override void Intialize(bool sync = false)
+        public async override void Intialize(bool sync = false)
         {
+
         }
 
         protected override void Cleanup()
@@ -186,6 +205,11 @@ namespace Journey.ViewModels
                     await DialogService.ShowMessageAsync(AppResource.Error, AppResource.Challenge_DataValidation);
                     return;
                 }
+                if (SelectedLocation == null)
+                {
+                    await DialogService.ShowMessageAsync(AppResource.Post_LocationMust, AppResource.Error);
+                    return;
+                }
 
                 var startChallengeCommand = new DialogCommand
                 {
@@ -210,7 +234,7 @@ namespace Journey.ViewModels
             catch (Exception ex)
             {
                 ExceptionService.Handle(ex);
-                await DialogService.ShowGenericErrorMessageAsync(AppResource.Error, ex.Message);
+                await DialogService.ShowGenericErrorMessageAsync(ex.Message,AppResource.Error);
             }
             finally
             {
@@ -243,7 +267,7 @@ namespace Journey.ViewModels
             }
             catch (Exception ex)
             {
-                await DialogService.ShowGenericErrorMessageAsync(AppResource.Error, ex.Message);
+                await DialogService.ShowGenericErrorMessageAsync(ex.Message,AppResource.Error);
             }
             finally
             {
@@ -297,6 +321,17 @@ namespace Journey.ViewModels
             {
                 HideProgress();
             }
+        }
+
+        #endregion
+
+        #region OnGetWorkoutLocationCommand
+
+        public DelegateCommand OnGetWorkoutLocationCommand => new DelegateCommand(OnGetWorkoutLocation);
+
+        private async void OnGetWorkoutLocation()
+        {
+            await NavigationService.Navigate("ChooseLocationPage");
         }
 
         #endregion

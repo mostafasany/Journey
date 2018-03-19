@@ -14,16 +14,14 @@ namespace Journey.ViewModels
     {
         private readonly IFacebookService _facebookService;
         private readonly ILocationService _locationService;
-        private readonly ISettingsService _settingsService;
-        private const string DefaultLocation = "DefaultLocation";
+
 
         public ChooseLocationPageViewModel(IUnityContainer container, ILocationService locationService,
-            IFacebookService facebookService, ISettingsService settingsService) :
+            IFacebookService facebookService) :
             base(container)
         {
             _locationService = locationService;
             _facebookService = facebookService;
-            _settingsService = settingsService;
         }
 
         #region Methods
@@ -36,7 +34,7 @@ namespace Journey.ViewModels
                 await Task.Delay(1000);
                 Location position = await _locationService.ObtainMyLocationAsync();
                 if (position != null)
-                    Locations = await _facebookService.GetLocationsAsync(Name, position.Lat, position.Lng);
+                    Locations = await _facebookService.GetLocationsAsync(SearchKeyword, position.Lat, position.Lng,500);
 
                 SelectedLocation = null;
                 base.Intialize(sync);
@@ -63,6 +61,8 @@ namespace Journey.ViewModels
         {
             try
             {
+               
+
                 Intialize();
             }
             catch (Exception ex)
@@ -79,16 +79,12 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        private string _name;
+        private string _searchKeyword;
 
-        public string Name
+        public string SearchKeyword
         {
-            get => _name;
-            set
-            {
-                _name = value;
-                RaisePropertyChanged();
-            }
+            get => _searchKeyword;
+            set => SetProperty(ref _searchKeyword, value);
         }
 
         private List<Location> _locations;
@@ -96,11 +92,7 @@ namespace Journey.ViewModels
         public List<Location> Locations
         {
             get => _locations;
-            set
-            {
-                _locations = value;
-                RaisePropertyChanged();
-            }
+            set => SetProperty(ref _locations, value);
         }
 
         private Location _selectedLocation;
@@ -129,57 +121,26 @@ namespace Journey.ViewModels
 
         private async void OnSelectedLocation(Location selectedLocation)
         {
-            var dafaultLocationCommand = new DialogCommand
-            {
-                Label = AppResource.Yes,
-                Invoked = async () =>
-                {
-                    string locationId = await _settingsService.Get(DefaultLocation);
-                    if (locationId != selectedLocation.Id)
-                        await _settingsService.Set(DefaultLocation, selectedLocation.Id);
-                    NavigationService.GoBack(selectedLocation, "Location");
-                }
-            };
-
-            var cancelCommand = new DialogCommand
-            {
-                Label = AppResource.No
-            };
-
-            var commands = new List<DialogCommand>
-            {
-                dafaultLocationCommand,
-                cancelCommand
-            };
-            await DialogService.ShowMessageAsync("", AppResource.Location_DefaultLocationTitle, commands);
+            NavigationService.GoBack(selectedLocation, "Location");  
         }
 
         #endregion
 
         #region OnSearchCommand
 
-        //public DelegateCommand OnSearchCommand => new DelegateCommand(OnSearch);
+        public DelegateCommand OnSearchCommand => new DelegateCommand(OnSearch);
 
-        //private async void OnSearch()
-        //{
-        //    try
-        //    {
-        //        IsBusy = true;
-        //        // var position = await locationService.ObtainMyLocationAsync();
-        //        if (string.IsNullOrEmpty(Name))
-        //            Locations = originalLocations;
-        //        else
-        //            Locations = originalLocations.Where(a => a.Name.IndexOf(Name,0,System.StringComparison.OrdinalIgnoreCase)>0).ToList();
-        //    }
-        //    catch (System.Exception ex)
-        //    {
-        //        ExceptionService.Handle(ex);
-        //    }
-        //    finally
-        //    {
-        //        IsBusy = false;
-        //    }
-        //}
+        private async void OnSearch()
+        {
+            try
+            {
+                Intialize(); 
+            }
+            catch (System.Exception ex)
+            {
+                ExceptionService.Handle(ex);
+            }
+        }
 
         #endregion
 

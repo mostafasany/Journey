@@ -188,17 +188,17 @@ namespace Journey.ViewModels
         {
             try
             {
-                if (NewPost?.HasLocation == false)
-                {
-                    await DialogService.ShowMessageAsync(AppResource.Post_LocationMust, AppResource.Error);
-                    return;
-                }
+                //if (NewPost?.HasLocation == false)
+                //{
+                //    await DialogService.ShowMessageAsync(AppResource.Post_LocationMust, AppResource.Error);
+                //    return;
+                //}
 
-                if (NewPost?.MediaList == null || NewPost?.MediaList?.Count == 0)
-                {
-                    await DialogService.ShowMessageAsync(AppResource.Post_UploadImageMust, AppResource.Error);
-                    return;
-                }
+                //if (NewPost?.MediaList == null || NewPost?.MediaList?.Count == 0)
+                //{
+                //    await DialogService.ShowMessageAsync(AppResource.Post_UploadImageMust, AppResource.Error);
+                //    return;
+                //}
 
                 if (IsProgress())
                     return;

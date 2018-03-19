@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
@@ -24,7 +24,7 @@
                             </Controls:CustomImage>
                             <Label Grid.Column="1" Text="{Binding Name}" TextColor="Black" FontSize="20" Margin="5,0"
                                    HorizontalOptions="Start" VerticalOptions="Center" />
-                            <StackLayout Grid.Column="2" BackgroundColor="White">
+                            <StackLayout Grid.Column="2" BackgroundColor="Transparent">
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer
                                         Command="{Binding Path=BindingContext.OnSelectedFriendCommand, Source={x:Reference Name=parent}}"
@@ -58,7 +58,7 @@
                         <TapGestureRecognizer Command="{Binding OnBackCommand}" CommandParameter="{Binding}" />
                     </Controls:ImageControl.GestureRecognizers>
                 </Controls:ImageControl>
-                <SearchBar Grid.Column="1" BackgroundColor="White" WidthRequest="400"
+                <SearchBar Grid.Column="1" BackgroundColor="Transparent" WidthRequest="400"
                            Placeholder="{resources:Translate SearchFriends_Placholder}"
                            Text="{Binding SearchKeyword,Mode=TwoWay}" SearchCommand="{Binding OnSearchCommand}" />
             </Grid>
@@ -67,7 +67,7 @@
             <ListView x:Name="parent" Grid.Row="2" Margin="10" RowHeight="100" SeparatorVisibility="None"
                       ItemsSource="{Binding FriendsList}" ItemTemplate="{StaticResource FriendTemplate}"
                       SelectedItem="{Binding SelectedFriend,Mode=TwoWay}" IsPullToRefreshEnabled="true"
-                      IsRefreshing="{Binding IsPullRefreshLoading}"
+                      IsRefreshing="{Binding IsPullRefreshLoading}" BackgroundColor="White"
                       RefreshAllowed="true" RefreshCommand="{Binding OnPullRefreshRequestCommand}"
                       HorizontalOptions="Start" />
         </Grid>

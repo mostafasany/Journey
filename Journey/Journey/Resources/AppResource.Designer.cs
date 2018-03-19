@@ -533,6 +533,12 @@ namespace Journey.Resources {
             }
         }
         
+        internal static string Challenge_ChooseYourWorkoutPlace {
+            get {
+                return ResourceManager.GetString("Challenge_ChooseYourWorkoutPlace", resourceCulture);
+            }
+        }
+        
         internal static string KM {
             get {
                 return ResourceManager.GetString("KM", resourceCulture);

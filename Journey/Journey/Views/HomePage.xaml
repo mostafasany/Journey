@@ -113,7 +113,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid Style="{StaticResource MainGridStyle}">
+        <Grid Style="{StaticResource MainGridStyle}" ColumnSpacing="0" BackgroundColor="White">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -122,7 +122,7 @@
                 <Controls:SeparatorControl WidthRequest="1" />
                 <ContentView x:Name="Container" WidthRequest="400" />
             </StackLayout>
-            <Grid Grid.Column="0" RowSpacing="0" BackgroundColor="#d3d3d3">
+            <Grid Grid.Column="0" RowSpacing="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
