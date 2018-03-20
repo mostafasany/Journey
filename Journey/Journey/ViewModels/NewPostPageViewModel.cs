@@ -238,7 +238,7 @@ namespace Journey.ViewModels
                 }
 
             ShowProgress();
-            if (AddPostToChallenge)
+            if (!string.IsNullOrEmpty(LoggedInAccount.ChallengeId))
                 NewPost.Challenge = LoggedInAccount.ChallengeId;
             Post post = await _postService.AddPostAsync(NewPost, _imagesPath);
             if (post == null)
