@@ -550,5 +550,17 @@ namespace Journey.Resources {
                 return ResourceManager.GetString("Draw", resourceCulture);
             }
         }
+        
+        internal static string Comments_NoComments {
+            get {
+                return ResourceManager.GetString("Comments_NoComments", resourceCulture);
+            }
+        }
+        
+        internal static string Location_NoPlaces {
+            get {
+                return ResourceManager.GetString("Location_NoPlaces", resourceCulture);
+            }
+        }
     }
 }

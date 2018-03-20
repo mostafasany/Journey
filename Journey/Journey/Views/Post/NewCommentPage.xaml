@@ -42,13 +42,12 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                             <StackLayout Grid.Row="0" Margin="20,0" Orientation="Vertical">
+                            <StackLayout Grid.Row="0" Margin="20,0" Orientation="Vertical">
                                 <Grid BackgroundColor="Maroon" Padding="20">
                                     <Label Text="{Binding CommentText}" TextColor="White" FontSize="14" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
                                 </Grid>
                                 <Controls:ImageControl Margin="0,-27,0,0" WidthRequest="50" HeightRequest="50" HorizontalOptions="End" VerticalOptions="Start" PortablePath="downArrow.png" />
                             </StackLayout>
-
                             <Grid Grid.Row="1" Margin="5,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -85,8 +84,9 @@
                     <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
                 </Image.GestureRecognizers>
             </Controls:ImageControl>
-            <ListView Grid.Row="1" SeparatorVisibility="None" HasUnevenRows="true" HorizontalOptions="FillAndExpand" ItemTemplate="{StaticResource CommentTemplateSelector}" BackgroundColor="White" ItemsSource="{Binding Comments}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
-                RefreshCommand="{Binding OnPullRefreshRequestCommand}" />
+            <ListView Grid.Row="1" IsVisible="{Binding NoComments,Converter={StaticResource BoolInverterConverter}}" SeparatorVisibility="None" HasUnevenRows="true" HorizontalOptions="FillAndExpand" ItemTemplate="{StaticResource CommentTemplateSelector}" BackgroundColor="White" ItemsSource="{Binding Comments}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}"
+                RefreshAllowed="true" RefreshCommand="{Binding OnPullRefreshRequestCommand}" />
+            <Label Grid.Row="1" IsVisible="{Binding NoComments}" HorizontalOptions="Center" VerticalOptions="Center" Text="{resources:Translate Comments_NoComments}" TextColor="Gray" FontSize="20" />
             <Controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" Margin="20,0" />
             <Label Grid.Row="3" Margin="10,20,0,5" Text="Leave Comment" />
             <Grid Grid.Row="4" Margin="10,0">

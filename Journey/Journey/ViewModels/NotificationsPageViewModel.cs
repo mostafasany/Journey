@@ -16,9 +16,9 @@ namespace Journey.ViewModels
         private readonly IDeepLinkService _deepLinking;
         private readonly INotificationService _postCommentService;
 
-        public NotificationsPageViewModel(IUnityContainer container, IAccountService accountService,INotificationService notificationService,
+        public NotificationsPageViewModel(IUnityContainer container, IAccountService accountService, INotificationService notificationService,
             INotificationService postCommentService, IDeepLinkService deepLinking) :
-        base(container, accountService,notificationService)
+        base(container, accountService, notificationService)
         {
             _postCommentService = postCommentService;
             _deepLinking = deepLinking;
@@ -85,12 +85,9 @@ namespace Journey.ViewModels
             set => SetProperty(ref _isPullRefreshLoading, value);
         }
 
-        private bool _noNofications;
-
         public bool NoNofications
         {
-            get => _noNofications;
-            set => SetProperty(ref _noNofications, value);
+            get => Notifications == null || Notifications.Count == 0;
         }
 
         #endregion
@@ -109,7 +106,7 @@ namespace Journey.ViewModels
                 if (postDTo != null)
                     Notifications = new ObservableCollection<Notifications>(postDTo);
 
-                NoNofications = Notifications == null || Notifications.Count == 0;
+                RaisePropertyChanged(nameof(NoNofications));
             }
             catch (Exception e)
             {

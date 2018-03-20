@@ -123,6 +123,7 @@ namespace Journey.Services.Buisness.Post.Translators
                     FirstName = post.Fname,
                     Image = new Media {Path = post.Profile}
                 };
+                postDto.Liked = post.Liked;
                 postDto.LikesCount = post.Likes;
                 postDto.SharesCount = post.Shares;
                 postDto.CommentsCount = post.Comments;

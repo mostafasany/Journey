@@ -43,7 +43,10 @@
                     <Label Text="Challenge Terms" Style="{StaticResource LabelHeaderStyle}" />
                     <Editor Text="{Binding SelectedChallenge.Terms}" Style="{StaticResource EditorFormStyle}" />
                     <Button Text="{resources:Translate Challenge_ChooseYourWorkoutPlace}" Command="{Binding OnGetWorkoutLocationCommand}" />
-                    <Label Text="{Binding SelectedLocation.Name}" HorizontalOptions="Center" />
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                        <Controls:CustomImage Source="{Binding SelectedLocation.Image}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="40" HeightRequest="40" />
+                        <Label Text="{Binding SelectedLocation.Name}" Margin="10,0" VerticalOptions="Center"/>
+                    </StackLayout>
                 </StackLayout>
                 <Button Text="{resources:Translate Challenge_Start}" Grid.Row="3" IsVisible="{Binding IsAddMode}" Margin="10" VerticalOptions="End" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding OnStartChallengeCommand}" />
                 <Button Text="{resources:Translate Challenge_Approve}" Grid.Row="3" IsVisible="{Binding IsApproveRequestMode}" Margin="10" VerticalOptions="End" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding OnApproveRequestCommand}" />

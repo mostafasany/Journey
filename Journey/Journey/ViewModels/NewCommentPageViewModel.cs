@@ -72,6 +72,10 @@ namespace Journey.ViewModels
             }
         }
 
+        public bool NoComments
+        {
+            get => Comments == null || Comments.Count == 0;
+        }
 
         private string _newComment;
 
@@ -106,9 +110,12 @@ namespace Journey.ViewModels
                 ShowProgress();
                 base.Intialize(sync);
                 LoggedInAccount = await _accountService.GetAccountAsync();
+                Comments = new ObservableCollection<Comment>();
+                List<Comment> commentsDTo = await _postCommentService.GetCommentsAsync(_postId, true);
+                if (commentsDTo != null)
+                    Comments = new ObservableCollection<Comment>(commentsDTo);
 
-                List<Comment> postDTo = await _postCommentService.GetCommentsAsync(_postId, true);
-                if (postDTo != null) Comments = new ObservableCollection<Comment>(postDTo);
+                RaisePropertyChanged(nameof(NoComments));
             }
             catch (Exception e)
             {
@@ -155,8 +162,9 @@ namespace Journey.ViewModels
                     {
                         comment.Account = LoggedInAccount;
                         comment.Mine = true;
-                        Comments.Insert(0,comment);
+                        Comments.Insert(0, comment);
                         NewComment = "";
+                        RaisePropertyChanged(nameof(NoComments));
                     }
                 }
             }

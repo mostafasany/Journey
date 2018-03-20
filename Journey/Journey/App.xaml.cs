@@ -173,7 +173,7 @@ namespace Journey
 
             container.RegisterType<IPostService, PostService>(new ContainerControlledLifetimeManager());
 
-            if (Device.RuntimePlatform == Device.UWP)
+            if (Device.RuntimePlatform == Device.WinPhone)
             {
                 container.RegisterType<IPostDataService, PostDataMockService>(new ContainerControlledLifetimeManager());
                 container.RegisterType<IAccountDataService, AccountDataMockService>(new ContainerControlledLifetimeManager());

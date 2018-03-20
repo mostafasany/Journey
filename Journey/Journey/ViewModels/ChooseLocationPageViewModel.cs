@@ -34,7 +34,9 @@ namespace Journey.ViewModels
                 await Task.Delay(1000);
                 Location position = await _locationService.ObtainMyLocationAsync();
                 if (position != null)
-                    Locations = await _facebookService.GetLocationsAsync(SearchKeyword, position.Lat, position.Lng,500);
+                    Locations = await _facebookService.GetLocationsAsync(SearchKeyword, position.Lat, position.Lng,null);
+
+                RaisePropertyChanged(nameof(NoLocations));
 
                 SelectedLocation = null;
                 base.Intialize(sync);
@@ -61,8 +63,6 @@ namespace Journey.ViewModels
         {
             try
             {
-               
-
                 Intialize();
             }
             catch (Exception ex)
@@ -93,6 +93,11 @@ namespace Journey.ViewModels
         {
             get => _locations;
             set => SetProperty(ref _locations, value);
+        }
+
+        public bool NoLocations
+        {
+            get => Locations == null || Locations.Count == 0;
         }
 
         private Location _selectedLocation;

@@ -69,7 +69,7 @@ namespace Abstractions.Forms
                       .OrderBy(loc => loc.Near).ToList();
                 }
                   
-                else return locations;
+                else return locations.OrderBy(loc => loc.Near).ToList();
             }
             catch (Exception ex)
             {
