@@ -331,22 +331,23 @@ namespace Journey.ViewModels
             try
             {
                 ShowProgress();
-                if (_accountService.IsAccountAuthenticated())
-                {
-                    var tasks = new List<Task>
-                    {
-                        LoadAccount(sync),
-                        LoadPosts()
-                    };
-                    ShowProgress();
-                    await Task.WhenAll(tasks);
-                }
-                else
-                {
-                    await LoadAccount(sync);  
-                    await LoadPosts();
-                }
-
+                //if (_accountService.IsAccountAuthenticated())
+                //{
+                //    var tasks = new List<Task>
+                //    {
+                //        LoadAccount(sync),
+                //        LoadPosts()
+                //    };
+                //    ShowProgress();
+                //    await Task.WhenAll(tasks);
+                //}
+                //else
+                //{
+                //    await LoadAccount(sync);  
+                //    await LoadPosts();
+                //}
+                await LoadAccount(sync);
+                await LoadPosts();
                 base.Intialize(sync);
             }
             catch (Exception e)

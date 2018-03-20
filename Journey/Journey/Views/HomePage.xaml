@@ -126,6 +126,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" HeightRequest="60" BackgroundColor="White" x:Name="Header">
@@ -162,7 +163,8 @@
                         <Button Margin="0,0,0,5" Text="Start" Command="{Binding OnStartNewChallengeCommand}" WidthRequest="150" HorizontalOptions="Center" FontSize="14" Style="{StaticResource SecondaryButtonStyle}" />
                     </StackLayout>
                 </Grid>
-                <ListView x:Name="lst" Grid.Row="2" BackgroundColor="#d3d3d3" Margin="0,5" CachingStrategy="RecycleElement" ItemsSource="{Binding PostsViewModels}" SeparatorVisibility="None" ItemTemplate="{StaticResource PostTemplate}" ItemAppearing="Handle_ItemAppearing" HasUnevenRows="true"
+                <Controls:SeparatorControl Grid.Row="2" HeightRequest="1" />
+                <ListView x:Name="lst" Grid.Row="3" BackgroundColor="#d3d3d3" Margin="0,5" CachingStrategy="RecycleElement" ItemsSource="{Binding PostsViewModels}" SeparatorVisibility="None" ItemTemplate="{StaticResource PostTemplate}" ItemAppearing="Handle_ItemAppearing" HasUnevenRows="true"
                     IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true" RefreshCommand="{Binding OnRefreshPostsCommand}">
                 </ListView>
             </Grid>
