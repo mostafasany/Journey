@@ -365,7 +365,7 @@ namespace Journey.ViewModels
             //{
             _pageNo = 0;
 
-            List<PostBase> postsList = await _postService.GetPostsAsync(_pageNo, null, _postService.RefreshPosts);
+            List<PostBase> postsList = await _postService.GetPostsAsync(_pageNo, LoggedInAccount?.ChallengeId, _postService.RefreshPosts);
             SetPostViewModel(postsList);
             NoPosts = PostsViewModels == null || PostsViewModels.Count == 0;
 
@@ -532,7 +532,7 @@ namespace Journey.ViewModels
             {
                 // ShowProgress();
                 _pageNo++;
-                List<PostBase> nextPageItems = await _postService.GetPostsAsync(_pageNo);
+                List<PostBase> nextPageItems = await _postService.GetPostsAsync(_pageNo,LoggedInAccount?.ChallengeId);
                 if (nextPageItems != null && nextPageItems.Count > 0)
                     foreach (PostBase item in nextPageItems)
                         PostsViewModels.Add(PostToPostViewModel(item));

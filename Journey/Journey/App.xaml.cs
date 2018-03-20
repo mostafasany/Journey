@@ -173,12 +173,12 @@ namespace Journey
 
             container.RegisterType<IPostService, PostService>(new ContainerControlledLifetimeManager());
 
-            if (Device.RuntimePlatform == Device.WinPhone)
-            {
-                container.RegisterType<IPostDataService, PostDataMockService>(new ContainerControlledLifetimeManager());
-                container.RegisterType<IAccountDataService, AccountDataMockService>(new ContainerControlledLifetimeManager());
-            }
-            else
+            //if (Device.RuntimePlatform == Device.WinPhone)
+            //{
+            //    container.RegisterType<IPostDataService, PostDataMockService>(new ContainerControlledLifetimeManager());
+            //    container.RegisterType<IAccountDataService, AccountDataMockService>(new ContainerControlledLifetimeManager());
+            //}
+            //else
             {
                 container.RegisterType<IPostDataService, PostDataService>(new ContainerControlledLifetimeManager());
                 container.RegisterType<IAccountDataService, AccountDataService>(new ContainerControlledLifetimeManager());

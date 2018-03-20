@@ -151,6 +151,11 @@
                     <Controls:LoadingControl IsVisible="{Binding IsLoading}" Grid.Column="2" HorizontalOptions="End" VerticalOptions="Center" Margin="20,0" />
                 </Grid>
                 <Grid Grid.Row="1" IsVisible="{Binding HasNotActiveChallenge}">
+                    <Grid.HeightRequest>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="WinPhone, Windows" Value="100" />
+                        </OnPlatform>
+                    </Grid.HeightRequest>
                     <Controls:ImageControl Aspect="AspectFill" PortablePath="challengeBanner.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
                     <StackLayout Orientation="Vertical" VerticalOptions="Center">
                         <Label Margin="0,5" Text="{resources:Translate Home_StartNewChallenge}" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" TextColor="White" />

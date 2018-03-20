@@ -118,6 +118,7 @@
     <Content Include="Assets\back.png" />
     <Content Include="Assets\backwhite.png" />
     <Content Include="Assets\camera.png" />
+    <Content Include="Assets\challengeBanner.png" />
     <Content Include="Assets\check.png" />
     <Content Include="Assets\clear.png" />
     <Content Include="Assets\comment.png" />
