@@ -21,7 +21,7 @@
             </Grid>
             <ListView Grid.Row="2" IsVisible="{Binding NoLocations,Converter={StaticResource BoolInverterConverter}}" SeparatorVisibility="None" RowHeight="80" Margin="10,0" ItemTemplate="{StaticResource LocationTemplate}" BackgroundColor="White" ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedLocation,Mode=TwoWay}" HorizontalOptions="Fill" />
             <Label Grid.Row="2" IsVisible="{Binding NoLocations}" HorizontalOptions="Center" VerticalOptions="Center" Text="{resources:Translate Location_NoPlaces}" TextColor="Gray" FontSize="20" />
-            <Controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="End" />
+            <Controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,30"/>
         </Grid>
     </ContentPage.Content>
 </local:BasePage>
