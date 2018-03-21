@@ -60,12 +60,11 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
             }
         }
 
-        public async Task<List<ChallengeActivityLog>> GetActivitsAsync(string challengeId, int page, int size)
+        public async Task<List<ChallengeActivityLog>> GetActivitsAsync(string challengeId)
         {
             try
             {
-                MockData2();
-                string api = string.Format("ChallengeActivity?size={0}&page={1}&challenge={2}", size, page, challengeId);
+                string api = string.Format("ChallengeActivity?challenge={0}",challengeId);
                 List<AzureChallengeActivity> logs = await _client.InvokeApiAsync<List<AzureChallengeActivity>>(api, HttpMethod.Get, null);
 
                 if (logs == null || logs.Count == 0)

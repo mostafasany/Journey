@@ -8,7 +8,7 @@ namespace Journey.Services.Buisness.ChallengeActivity
     {
         Task<ChallengeActivityLog> AddActivityAsync(ChallengeActivityLog log);
         Task<bool> DeleteActivityAsync(ChallengeActivityLog log);
-        Task<List<ChallengeActivityLog>> GetActivitsAsync(string challengeId, int page, int size);
+        Task<List<ChallengeActivityLog>> GetActivitsAsync(string challengeId);
         Task<List<ObservableChallengeProgressGroupCollection<AccountChallengeProgress>>> GetChallengePorgessAsync(string challengeId);
     }
 }

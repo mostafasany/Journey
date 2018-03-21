@@ -48,9 +48,10 @@ namespace Journey.ViewModels
                 IsAddMode = false;
                 IsApproveRequestMode = false;
                 Intialize();
+                Location location = null;
                 if (parameters?.GetNavigationMode() == NavigationMode.Back)
                 {
-                    SelectedLocation = parameters.GetValue<Location>("Location");
+                    location = parameters.GetValue<Location>("Location");
                 }
 
                 if (mode == 0)
@@ -66,6 +67,8 @@ namespace Journey.ViewModels
                         challengesAccount.Add(new ChallengeAccount(LoggedInAccount));
                         challengesAccount.Add(new ChallengeAccount(ToChallenge));
                         SelectedChallenge.ChallengeAccounts = challengesAccount;
+                        if(location!=null)
+                        SelectedChallenge.SelectedLocation = location;
                     }
                 }
                 else
@@ -73,7 +76,7 @@ namespace Journey.ViewModels
                     var challengeId = parameters.GetValue<string>("Challenge");
                     if (!string.IsNullOrEmpty(challengeId))
                         SelectedChallenge = await _challengeService.GetChallengeAsync(challengeId);
-
+                  
                     if (mode == 1)
                     {
                         //Edit
@@ -141,13 +144,7 @@ namespace Journey.ViewModels
             set => SetProperty(ref _selectedChallenge, value);
         }
 
-        private Location _selectedLocation;
 
-        public Location SelectedLocation
-        {
-            get => _selectedLocation;
-            set => SetProperty(ref _selectedLocation, value);
-        }
         //List<Interval> intervalList;
         //public List<Interval> IntervalList
         //{
@@ -205,7 +202,7 @@ namespace Journey.ViewModels
                     return;
                 }
 
-                if (SelectedLocation == null)
+                if (SelectedChallenge?.SelectedLocation == null)
                 {
                     await DialogService.ShowMessageAsync(AppResource.Post_LocationMust, AppResource.Error);
                     return;

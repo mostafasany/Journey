@@ -46,11 +46,11 @@ namespace Journey.Services.Buisness.ChallengeActivity
             }
         }
 
-        public async Task<List<ChallengeActivityLog>> GetActivitsAsync(string challengeId, int page, int size)
+        public async Task<List<ChallengeActivityLog>> GetActivitsAsync(string challengeId)
         {
             try
             {
-                List<ChallengeActivityLog> logDto = await _challengeActivityDataService.GetActivitsAsync(challengeId, page, size);
+                List<ChallengeActivityLog> logDto = await _challengeActivityDataService.GetActivitsAsync(challengeId);
                 return logDto;
             }
             catch (Exception ex)
@@ -63,7 +63,9 @@ namespace Journey.Services.Buisness.ChallengeActivity
         {
             try
             {
-                List<ChallengeActivityLog> challengeProgress = await _challengeActivityDataService.GetActivitsAsync(challengeId, -1, -1);
+                List<ChallengeActivityLog> challengeProgress = await _challengeActivityDataService.GetActivitsAsync(challengeId);
+                if (!challengeProgress.Any())
+                    return null;
                 List<KeyGroupedChallengeProgress> orderedList = challengeProgress
                     .OrderBy(a => a.DatetTime)
                     .GroupBy(a => a.DatetTime.ToString("MMMM"))

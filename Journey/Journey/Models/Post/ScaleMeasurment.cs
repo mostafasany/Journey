@@ -57,7 +57,7 @@ namespace Journey.Models.Post
         {
             get
             {
-                string color = UpIndictor ? "#00ff00" : "#e55c43";
+                string color = UpIndictor ? "#008080" : "#800000";
                 return color;
             }
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using Abstractions.Forms;
+using Abstractions.Models;
 using Journey.Models.Post;
 using Prism.Mvvm;
 
@@ -85,6 +86,14 @@ namespace Journey.Models.Challenge
         {
             get => image;
             set => SetProperty(ref image, value);
+        }
+
+        private Location _selectedLocation;
+
+        public Location SelectedLocation
+        {
+            get => _selectedLocation;
+            set => SetProperty(ref _selectedLocation, value);
         }
     }
 }

@@ -77,7 +77,7 @@ namespace Journey.ViewModels
                 ShowProgress();
                 if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
                 {
-                    ChallengeActivityLog = await _challengeActivityService.GetActivitsAsync(_accountService.LoggedInAccount.ChallengeId, -1, -1);
+                    ChallengeActivityLog = await _challengeActivityService.GetActivitsAsync(_accountService.LoggedInAccount.ChallengeId);
                 }
 
                 base.Intialize(sync);
