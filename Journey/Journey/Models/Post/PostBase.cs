@@ -51,7 +51,7 @@ namespace Journey.Models.Post
             set
             {
                 SetProperty(ref dateTime, value);
-                RaisePropertyChanged("FormatedDate");
+                RaisePropertyChanged(nameof(FormatedDate));
             }
         }
 

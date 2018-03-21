@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Journey.Models.Challenge;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Challenge;
+using Journey.Services.Buisness.ChallengeActivity;
 using Journey.Services.Buisness.Notification;
 using Prism.Navigation;
 using Unity;
@@ -11,13 +12,15 @@ namespace Journey.ViewModels
 {
     public class ProfileActivityLogPageViewModel : ProfilePageViewModel, INavigationAware
     {
+        private readonly IChallengeActivityService _challengeActivityService;
         private readonly IAccountService _accountService;
         private readonly IChallengeService _challengeService;
 
         public ProfileActivityLogPageViewModel(IUnityContainer container, IAccountService accountService,INotificationService notificationService,
-            IChallengeService challengeService) :
+            IChallengeService challengeService, IChallengeActivityService challengeActivityService) :
         base(container, accountService,notificationService)
         {
+            _challengeActivityService = challengeActivityService;
             _accountService = accountService;
             _challengeService = challengeService;
         }
@@ -73,7 +76,7 @@ namespace Journey.ViewModels
                 ShowProgress();
                 if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
                 {
-                    ChallengeActivityLog = await _challengeService.GetChallengeActivityLogAsync(_accountService.LoggedInAccount.ChallengeId);
+                    ChallengeActivityLog = await _challengeActivityService.GetActivitsAsync(_accountService.LoggedInAccount.ChallengeId,-1,-1);
                 }
 
                 base.Intialize(sync);

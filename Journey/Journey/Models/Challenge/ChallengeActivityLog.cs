@@ -1,5 +1,4 @@
 ﻿using System;
-using Journey.Models.Post;
 using Prism.Mvvm;
 
 namespace Journey.Models.Challenge
@@ -9,6 +8,8 @@ namespace Journey.Models.Challenge
         private DateTime _datetTime;
 
         private Account.Account _account;
+
+        public string Challenge;
 
         private string _id;
 
@@ -25,7 +26,7 @@ namespace Journey.Models.Challenge
             {
                 _datetTime = value;
                 RaisePropertyChanged();
-                RaisePropertyChanged("FormatedDate");
+                RaisePropertyChanged(nameof(FormatedDate));
             }
         }
 
@@ -48,9 +49,9 @@ namespace Journey.Models.Challenge
 
     public class ChallengeWorkoutActivityLog : ChallengeActivityLog
     {
-        private string _location;
+        private Abstractions.Models.Location _location;
 
-        public string Location
+        public Abstractions.Models.Location Location
         {
             get => _location;
             set => SetProperty(ref _location, value);

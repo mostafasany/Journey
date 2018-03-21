@@ -6,23 +6,25 @@ using Journey.Models.Challenge;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Challenge;
+using Journey.Services.Buisness.ChallengeActivity;
 using Journey.Services.Buisness.Notification;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
-using ChallengeAccount = Journey.Models.Challenge.ChallengeAccount;
 
 namespace Journey.ViewModels
 {
     public class ProfileChallengePageViewModel : ProfilePageViewModel, INavigationAware
     {
         private readonly IAccountService _accountService;
+        private readonly IChallengeActivityService _challengeActivityService;
         private readonly IChallengeService _challengeService;
 
-        public ProfileChallengePageViewModel(IUnityContainer container, IAccountService accountService,INotificationService notificationService,
-            IChallengeService challengeService) :
-        base(container, accountService,notificationService)
+        public ProfileChallengePageViewModel(IUnityContainer container, IAccountService accountService, INotificationService notificationService,
+            IChallengeService challengeService, IChallengeActivityService challengeActivityService) :
+            base(container, accountService, notificationService)
         {
+            _challengeActivityService = challengeActivityService;
             _accountService = accountService;
             _challengeService = challengeService;
         }
@@ -120,7 +122,7 @@ namespace Journey.ViewModels
                     if (SelectedChallenge != null)
                     {
                         HasActiveChallenge = true;
-                        ChallengeProgress = await _challengeService.GetChallengePorgessAsync(SelectedChallenge.Id);
+                        ChallengeProgress = await _challengeActivityService.GetChallengePorgessAsync(SelectedChallenge.Id);
                         ChallengeAccount challenge1 = SelectedChallenge.ChallengeAccounts.FirstOrDefault();
                         ChallengeAccount challenge2 = SelectedChallenge.ChallengeAccounts.LastOrDefault();
                         int challenge1ExerciseCount = ChallengeProgress.Count(a => a.WinnerAccountInExercises?.Name == challenge1.Name);
@@ -199,6 +201,7 @@ namespace Journey.ViewModels
         #region OnStartNewChallengeCommand
 
         private ICommand _onStartNewChallengeCommand;
+
 
         public ICommand OnStartNewChallengeCommand => _onStartNewChallengeCommand ??
                                                       (_onStartNewChallengeCommand =

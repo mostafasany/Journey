@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Journey.Models.Challenge;
+﻿using System.Threading.Tasks;
 
 namespace Journey.Services.Buisness.Challenge
 {
@@ -11,8 +9,5 @@ namespace Journey.Services.Buisness.Challenge
         Task<bool> CheckAccountHasChallengeAsync();
         Task<Models.Challenge.Challenge> EndChallengeAsync(Models.Challenge.Challenge challenge);
         Task<Models.Challenge.Challenge> GetChallengeAsync(string challengeId);
-        Task<List<ObservableChallengeProgressGroupCollection<AccountChallengeProgress>>> GetChallengePorgessAsync(string challengeId);
-        Task<Models.Challenge.Challenge> UpdateExerciseNumberAsync(string challengeId);
-        Task<List<ChallengeActivityLog>> GetChallengeActivityLogAsync(string challengeId);
     }
 }

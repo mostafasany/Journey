@@ -18,7 +18,6 @@ namespace Journey.Services.Buisness.Post.Dto
         [JsonProperty(PropertyName = "images")]
         public string Images { get; set; }
 
-
         [JsonProperty(PropertyName = "location")]
         public string Location { get; set; }
 

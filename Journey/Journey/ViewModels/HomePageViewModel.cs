@@ -23,6 +23,11 @@ namespace Journey.ViewModels
     {
         private readonly IAccountService _accountService;
         private readonly INotificationService _notificationService;
+
+        private Account _loggedInAccount;
+
+        private int _notificationsCount;
+
         public MainNavigationViewModel(IUnityContainer container, IAccountService accountService, INotificationService notificationService) : base(container)
         {
             _notificationService = notificationService;
@@ -31,21 +36,9 @@ namespace Journey.ViewModels
             LoadNotificationsCount();
         }
 
-        private async void LoadAccount()
-        {
-            LoggedInAccount = await _accountService.GetAccountAsync();
-        }
-
-        private async void  LoadNotificationsCount()
-        {
-            NotificationsCount = await _notificationService.GetNotificationsCountAsync();
-        }
-
         public Media Image => LoggedInAccount == null
-           ? new Media { Path = "http://bit.ly/2zBffZy" }
-           : _loggedInAccount.Image;
-
-        private Account _loggedInAccount;
+            ? new Media {Path = "http://bit.ly/2zBffZy"}
+            : _loggedInAccount.Image;
 
         public Account LoggedInAccount
         {
@@ -57,12 +50,20 @@ namespace Journey.ViewModels
             }
         }
 
-        private int _notificationsCount;
-
         public int NotificationsCount
         {
             get => _notificationsCount;
             set => SetProperty(ref _notificationsCount, value);
+        }
+
+        private async void LoadAccount()
+        {
+            LoggedInAccount = await _accountService.GetAccountAsync();
+        }
+
+        private async void LoadNotificationsCount()
+        {
+            NotificationsCount = await _notificationService.GetNotificationsCountAsync();
         }
 
         #region OnProfileCommand
@@ -138,9 +139,9 @@ namespace Journey.ViewModels
         private readonly IPostService _postService;
 
         public HomePageViewModel(IUnityContainer container, IPostService postService,
-                                 IAccountService accountService,INotificationService notificationService,
+            IAccountService accountService, INotificationService notificationService,
             NewPostPageViewModel newPostPageViewModel) :
-        base(container, accountService,notificationService)
+            base(container, accountService, notificationService)
         {
             _postService = postService;
             _accountService = accountService;
@@ -168,7 +169,7 @@ namespace Journey.ViewModels
                 var location = parameters.GetValue<Location>("Location");
                 if (location != null)
                     NewPostPageViewModel.NewPost.Location =
-                        new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
+                        new PostActivity {Action = "At", Activity = location.Name, Image = location.Image};
             }
             catch (Exception ex)
             {
@@ -259,8 +260,6 @@ namespace Journey.ViewModels
 
         #region Properties
 
-
-
         private Account _loggedInAccount;
 
         public Account LoggedInAccount
@@ -282,8 +281,6 @@ namespace Journey.ViewModels
                 return AppResource.Home_WelcomeMessage_Logout;
             }
         }
-
-       
 
         private bool _hasNotActiveChallenge;
 
@@ -331,21 +328,6 @@ namespace Journey.ViewModels
             try
             {
                 ShowProgress();
-                //if (_accountService.IsAccountAuthenticated())
-                //{
-                //    var tasks = new List<Task>
-                //    {
-                //        LoadAccount(sync),
-                //        LoadPosts()
-                //    };
-                //    ShowProgress();
-                //    await Task.WhenAll(tasks);
-                //}
-                //else
-                //{
-                //    await LoadAccount(sync);  
-                //    await LoadPosts();
-                //}
                 await LoadAccount(sync);
                 await LoadPosts();
                 base.Intialize(sync);
@@ -397,11 +379,9 @@ namespace Journey.ViewModels
             RaisePropertyChanged(nameof(IsLoggedIn));
         }
 
-       
-
         private void UpdateChallengeBanner()
         {
-            HasNotActiveChallenge = true;//LoggedInAccount != null && LoggedInAccount.HasNotActiveChallenge;
+            HasNotActiveChallenge = true; //LoggedInAccount != null && LoggedInAccount.HasNotActiveChallenge;
         }
 
         protected override void Cleanup()
@@ -533,7 +513,7 @@ namespace Journey.ViewModels
             {
                 // ShowProgress();
                 _pageNo++;
-                List<PostBase> nextPageItems = await _postService.GetPostsAsync(_pageNo,LoggedInAccount?.ChallengeId);
+                List<PostBase> nextPageItems = await _postService.GetPostsAsync(_pageNo, LoggedInAccount?.ChallengeId);
                 if (nextPageItems != null && nextPageItems.Count > 0)
                     foreach (PostBase item in nextPageItems)
                         PostsViewModels.Add(PostToPostViewModel(item));
@@ -543,10 +523,6 @@ namespace Journey.ViewModels
             catch (Exception ex)
             {
                 ExceptionService.Handle(ex);
-            }
-            finally
-            {
-                //HideProgress();
             }
         }
 

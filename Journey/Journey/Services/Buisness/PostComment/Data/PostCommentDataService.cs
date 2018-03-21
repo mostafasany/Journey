@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Models.Post;
 using Journey.Services.Azure;
-using Journey.Services.Buisness.Post.Translators;
 using Journey.Services.Buisness.PostComment.Dto;
+using Journey.Services.Buisness.PostComment.Translators;
 using Microsoft.WindowsAzure.MobileServices;
 
 namespace Journey.Services.Buisness.PostComment.Data
@@ -29,13 +29,13 @@ namespace Journey.Services.Buisness.PostComment.Data
                 if (comment == null)
                     return null;
                 string account = _client.CurrentUser.UserId;
-                AzurePostComments commentDto = PostDataTranslators.TranslateComment(comment, post, account);
+                AzurePostComments commentDto = CommentsDataTranslators.TranslateComment(comment, post, account);
 
                 await _azureComment.InsertAsync(commentDto);
 
                 //await SyncCommentAsync(post);
 
-                Comment comm = PostDataTranslators.TranslateComment(commentDto);
+                Comment comm = CommentsDataTranslators.TranslateComment(commentDto);
                 return comm;
             }
             catch (Exception ex)
@@ -59,7 +59,7 @@ namespace Journey.Services.Buisness.PostComment.Data
                 if (comments == null || comments.Count == 0)
                     return null;
 
-                List<Comment> commentsDTo = PostDataTranslators.TranslateComments(comments);
+                List<Comment> commentsDTo = CommentsDataTranslators.TranslateComments(comments);
                 commentsDTo.Where(a => a.Account.Id == _client.CurrentUser.UserId).ToList().ForEach(c => c.Mine = true );
                 return commentsDTo;
             }

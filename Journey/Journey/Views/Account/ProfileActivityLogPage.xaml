@@ -18,7 +18,7 @@
                             <Controls:ImageControl Grid.Column="1" HorizontalOptions="Center" PortablePath="workout.png" WidthRequest="40" HeightRequest="40" Margin="10,0" />
                             <StackLayout Grid.Column="0" Orientation="Vertical" HorizontalOptions="Center">
                                 <Grid BackgroundColor="Maroon" Padding="5,10">
-                                    <Label Text="{Binding Location}" TextColor="White" FontSize="14" HorizontalOptions="Center" />
+                                    <Label Text="{Binding Location.Name}" TextColor="White" FontSize="14" HorizontalOptions="Center" />
                                 </Grid>
                                 <!--  <Controls:ImageControl Margin="0,-27,0,0" WidthRequest="50" HeightRequest="50" HorizontalOptions="Start" VerticalOptions="Start" PortablePath="downArrow.png" />-->
                             </StackLayout>
@@ -69,7 +69,7 @@
                             <Controls:ImageControl Grid.Column="1" HorizontalOptions="Center" PortablePath="workout.png" WidthRequest="40" HeightRequest="40" Margin="10,0" />
                             <StackLayout Grid.Column="2" Orientation="Vertical" HorizontalOptions="Center">
                                 <Grid BackgroundColor="Teal" Padding="5,10">
-                                    <Label Text="{Binding Location}" TextColor="White" FontSize="14" HorizontalOptions="Center" />
+                                    <Label Text="{Binding Location.Name}" TextColor="White" FontSize="14" HorizontalOptions="Center" />
                                 </Grid>
                                 <!--  <Controls:ImageControl Margin="0,-27,0,0" WidthRequest="50" HeightRequest="50" HorizontalOptions="Start" VerticalOptions="Start" PortablePath="downArrow.png" />-->
                             </StackLayout>

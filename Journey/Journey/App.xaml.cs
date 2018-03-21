@@ -8,6 +8,8 @@ using Journey.Services.Buisness.Account.Data;
 using Journey.Services.Buisness.Blob;
 using Journey.Services.Buisness.Challenge;
 using Journey.Services.Buisness.Challenge.Data;
+using Journey.Services.Buisness.ChallengeActivity;
+using Journey.Services.Buisness.ChallengeActivity.Data;
 using Journey.Services.Buisness.DeepLink;
 using Journey.Services.Buisness.Friend;
 using Journey.Services.Buisness.Friend.Data;
@@ -29,7 +31,6 @@ using Prism.Navigation;
 using Prism.Unity;
 using Unity;
 using Unity.Lifetime;
-using Xamarin.Forms;
 using INavigationService = Abstractions.Services.Contracts.INavigationService;
 
 namespace Journey
@@ -199,6 +200,11 @@ namespace Journey
 
             container.RegisterType<IChallengeService, ChallengeService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IChallengeDataService, ChallengeDataService>(
+                new ContainerControlledLifetimeManager());
+
+            container.RegisterType<IChallengeActivityService, ChallengeActivityService>(
+                new ContainerControlledLifetimeManager());
+            container.RegisterType<IChallengeActivityDataService, ChallengeActivityDataService>(
                 new ContainerControlledLifetimeManager());
 
             container.RegisterType<IDeepLinkService, DeepLinkService>(new ContainerControlledLifetimeManager());

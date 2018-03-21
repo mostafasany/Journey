@@ -49,7 +49,7 @@ namespace Journey.Models.Post
             {
                 dateTime = value;
                 RaisePropertyChanged();
-                RaisePropertyChanged("FormatedDate");
+                RaisePropertyChanged(nameof(FormatedDate));
             }
         }
 

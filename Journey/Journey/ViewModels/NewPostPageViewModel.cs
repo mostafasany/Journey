@@ -11,7 +11,6 @@ using Journey.Models.Account;
 using Journey.Models.Post;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
-using Journey.Services.Buisness.Challenge;
 using Journey.Services.Buisness.Post;
 using Prism.Commands;
 using Prism.Navigation;
@@ -23,22 +22,19 @@ namespace Journey.ViewModels
     {
         private readonly IAccountService _accountService;
         private readonly IBlobService _blobService;
-        private readonly IChallengeService _challengeService;
         private readonly IMediaService<Media> _mediaService;
         private readonly IPostService _postService;
         private readonly ISettingsService _settingsService;
         private const string LastPostDate = "LastPostDate";
 
         public NewPostPageViewModel(IUnityContainer container, IBlobService blobService,
-            IPostService postService, IMediaService<Media> mediaService, IAccountService accountService,
-            IChallengeService challengeService, ISettingsService settingsService) :
+            IPostService postService, IMediaService<Media> mediaService, IAccountService accountService, ISettingsService settingsService) :
             base(container)
         {
             _mediaService = mediaService;
             _postService = postService;
             _blobService = blobService;
             _accountService = accountService;
-            _challengeService = challengeService;
             _settingsService = settingsService;
             NewPost = new Post();
         }
@@ -58,7 +54,7 @@ namespace Journey.ViewModels
                     var location = parameters.GetValue<Location>("Location");
                     if (location != null)
                         NewPost.Location =
-                            new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
+                            new PostActivity {Action = "At", Activity = location.Name, Image = location.Image};
                 }
 
                 Intialize();
@@ -250,13 +246,8 @@ namespace Journey.ViewModels
             if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
             {
                 string date = await _settingsService.Get(LastPostDate);
-                DateTime parsedDate;
-                DateTime.TryParse(date, out parsedDate);
-                if (parsedDate.Date != DateTime.Now.Date)
-                {
-                    await _settingsService.Set(LastPostDate, DateTime.Now.Date.ToString(CultureInfo.InvariantCulture));
-                    await _challengeService.UpdateExerciseNumberAsync(_accountService.LoggedInAccount.ChallengeId);
-                }
+                DateTime.TryParse(date, out DateTime parsedDate);
+                if (parsedDate.Date != DateTime.Now.Date) await _settingsService.Set(LastPostDate, DateTime.Now.Date.ToString(CultureInfo.InvariantCulture));
             }
 
             NewPost = new Post();
@@ -300,14 +291,14 @@ namespace Journey.ViewModels
                                 }
                             }
                         },
-                    new DialogCommand
+                        new DialogCommand
                         {
-                        Label = AppResource.Gallery,
+                            Label = AppResource.Gallery,
                             Invoked = async () =>
                             {
                                 try
                                 {
-                                Media media = await _mediaService.PickPhotoAsync();
+                                    Media media = await _mediaService.PickPhotoAsync();
                                     AddMedia(media);
                                 }
                                 catch (NotSupportedException)
@@ -318,7 +309,7 @@ namespace Journey.ViewModels
                         },
                         new DialogCommand
                         {
-                        Label = AppResource.TakeVideo,
+                            Label = AppResource.TakeVideo,
                             Invoked = async () =>
                             {
                                 try
@@ -332,14 +323,14 @@ namespace Journey.ViewModels
                                 }
                             }
                         },
-                    new DialogCommand
+                        new DialogCommand
                         {
                             Label = AppResource.PickVideo,
                             Invoked = async () =>
                             {
                                 try
                                 {
-                                Media media = await _mediaService.PickVideoAsync();
+                                    Media media = await _mediaService.PickVideoAsync();
                                     AddMedia(media);
                                 }
                                 catch (NotSupportedException)
