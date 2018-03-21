@@ -5,6 +5,7 @@ namespace Journey.Models.Post
 {
     public class Comment : BindableBase
     {
+        private bool _mine;
         private Account.Account account;
 
         private string commentText;
@@ -23,8 +24,6 @@ namespace Journey.Models.Post
                 RaisePropertyChanged();
             }
         }
-
-        private bool _mine;
 
         public bool Mine
         {

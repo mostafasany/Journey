@@ -52,6 +52,7 @@ namespace Journey.ViewModels
                 {
                     SelectedLocation = parameters.GetValue<Location>("Location");
                 }
+
                 if (mode == 0)
                 {
                     //Add
@@ -83,7 +84,6 @@ namespace Journey.ViewModels
                         //Approve Request 
                     }
                 }
-
             }
             catch (Exception e)
             {
@@ -168,7 +168,6 @@ namespace Journey.ViewModels
 
         public async override void Intialize(bool sync = false)
         {
-
         }
 
         protected override void Cleanup()
@@ -205,6 +204,7 @@ namespace Journey.ViewModels
                     await DialogService.ShowMessageAsync(AppResource.Error, AppResource.Challenge_DataValidation);
                     return;
                 }
+
                 if (SelectedLocation == null)
                 {
                     await DialogService.ShowMessageAsync(AppResource.Post_LocationMust, AppResource.Error);
@@ -234,7 +234,7 @@ namespace Journey.ViewModels
             catch (Exception ex)
             {
                 ExceptionService.Handle(ex);
-                await DialogService.ShowGenericErrorMessageAsync(ex.Message,AppResource.Error);
+                await DialogService.ShowGenericErrorMessageAsync(ex.Message, AppResource.Error);
             }
             finally
             {
@@ -267,7 +267,7 @@ namespace Journey.ViewModels
             }
             catch (Exception ex)
             {
-                await DialogService.ShowGenericErrorMessageAsync(ex.Message,AppResource.Error);
+                await DialogService.ShowGenericErrorMessageAsync(ex.Message, AppResource.Error);
             }
             finally
             {

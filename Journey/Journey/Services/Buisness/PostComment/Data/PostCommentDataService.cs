@@ -60,7 +60,7 @@ namespace Journey.Services.Buisness.PostComment.Data
                     return null;
 
                 List<Comment> commentsDTo = CommentsDataTranslators.TranslateComments(comments);
-                commentsDTo.Where(a => a.Account.Id == _client.CurrentUser.UserId).ToList().ForEach(c => c.Mine = true );
+                commentsDTo.Where(a => a.Account.Id == _client.CurrentUser.UserId).ToList().ForEach(c => c.Mine = true);
                 return commentsDTo;
             }
             catch (Exception ex)

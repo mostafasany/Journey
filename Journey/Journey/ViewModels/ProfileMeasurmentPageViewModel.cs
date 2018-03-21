@@ -21,9 +21,9 @@ namespace Journey.ViewModels
         private readonly IAccountGoalService _accountGoalService;
         private readonly IAccountMeasurmentService _accountMeasurmentService;
 
-        public ProfileMeasurmentPageViewModel(IUnityContainer container, IAccountService accountService,INotificationService notificationService,
+        public ProfileMeasurmentPageViewModel(IUnityContainer container, IAccountService accountService, INotificationService notificationService,
             IAccountGoalService accountGoalService, IAccountMeasurmentService accountMeasurmentService) :
-        base(container, accountService,notificationService)
+            base(container, accountService, notificationService)
         {
             _accountGoalService = accountGoalService;
             _accountMeasurmentService = accountMeasurmentService;
@@ -128,7 +128,6 @@ namespace Journey.ViewModels
         }
 
         public bool NotAddMode => !_addMode;
-
 
         #endregion
 

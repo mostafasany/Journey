@@ -1,17 +1,19 @@
 ﻿using System;
+using Abstractions.Models;
 using Prism.Mvvm;
 
 namespace Journey.Models.Challenge
 {
     public class ChallengeActivityLog : BindableBase
     {
-        private DateTime _datetTime;
-
-        private Account.Account _account;
-
         public string Challenge;
 
+        private Account.Account _account;
+        private DateTime _datetTime;
+
         private string _id;
+
+        private bool _mine;
 
         public string Id
         {
@@ -38,8 +40,6 @@ namespace Journey.Models.Challenge
             set => SetProperty(ref _account, value);
         }
 
-        private bool _mine;
-
         public bool Mine
         {
             get => _mine;
@@ -49,9 +49,9 @@ namespace Journey.Models.Challenge
 
     public class ChallengeWorkoutActivityLog : ChallengeActivityLog
     {
-        private Abstractions.Models.Location _location;
+        private Location _location;
 
-        public Abstractions.Models.Location Location
+        public Location Location
         {
             get => _location;
             set => SetProperty(ref _location, value);

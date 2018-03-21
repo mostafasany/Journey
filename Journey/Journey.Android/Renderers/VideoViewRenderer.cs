@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(VideoView), typeof(VideoViewRenderer))]
+
 namespace Journey.Droid.Renderers
 {
     public class VideoViewRenderer : ViewRenderer<VideoView, VideoSurface>
@@ -14,7 +15,7 @@ namespace Journey.Droid.Renderers
 
         public static void Init()
         {
-            var temp = DateTime.Now;
+            DateTime temp = DateTime.Now;
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<VideoView> e)
@@ -30,7 +31,7 @@ namespace Journey.Droid.Renderers
 
         protected override void OnMeasure(int widthMeasureSpec, int heightMeasureSpec)
         {
-            var p = _videoSurface.LayoutParameters;
+            LayoutParams p = _videoSurface.LayoutParameters;
             p.Height = heightMeasureSpec;
             p.Width = widthMeasureSpec;
             _videoSurface.LayoutParameters = p;

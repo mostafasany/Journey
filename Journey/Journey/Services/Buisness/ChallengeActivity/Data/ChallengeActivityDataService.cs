@@ -98,97 +98,124 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
             {
                 new ChallengeWorkoutActivityLog
                 {
-                    Account=account1,
+                    Account = account1,
                     DatetTime = DateTime.Now.AddMonths(1),
-                    Location = new Location{Name = "FitX"},
-                    Mine=true,
+                    Location = new Location {Name = "FitX"},
+                    Mine = true,
                     Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
                 new ChallengeWorkoutActivityLog
                 {
-                    Account=account1,
+                    Account = account1,
                     DatetTime = DateTime.Now.AddMonths(1).AddDays(1),
-                    Location = new Location{Name = "FitX"},   Mine=true,Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
+                    Location = new Location {Name = "FitX"},
+                    Mine = true,
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
                 new ChallengeKmActivityLog
                 {
-                    Account=account1,
+                    Account = account1,
                     DatetTime = DateTime.Now.AddMonths(1).AddDays(1),
-                    KM = 2,   Mine=true,Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
+                    KM = 2,
+                    Mine = true,
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
                 new ChallengeWorkoutActivityLog
                 {
-                    Account=account1,
+                    Account = account1,
                     DatetTime = DateTime.Now.AddMonths(1).AddDays(2),
-                    Location = new Location{Name = "FitX"},    Mine=true,Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
+                    Location = new Location {Name = "FitX"},
+                    Mine = true,
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
                 new ChallengeKmActivityLog
                 {
-                    Account=account1,
-                    DatetTime = DateTime.Now.AddMonths(1).AddDays(2),Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c",
-                    KM = 5,   Mine=true,
+                    Account = account1,
+                    DatetTime = DateTime.Now.AddMonths(1).AddDays(2),
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c",
+                    KM = 5,
+                    Mine = true,
                 },
                 new ChallengeWorkoutActivityLog
                 {
-                    Account=account1,
+                    Account = account1,
                     DatetTime = DateTime.Now.AddMonths(1).AddDays(3),
-                    Location = new Location{Name = "FitX"},   Mine=true,Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
+                    Location = new Location {Name = "FitX"},
+                    Mine = true,
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
                 new ChallengeKmActivityLog
                 {
-                    Account=account1,
-                    DatetTime = DateTime.Now.AddMonths(1).AddDays(3),Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c",
-                    KM = 8,   Mine=true,
+                    Account = account1,
+                    DatetTime = DateTime.Now.AddMonths(1).AddDays(3),
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c",
+                    KM = 8,
+                    Mine = true,
                 },
                 new ChallengeWorkoutActivityLog
                 {
-                    Account=account2,
+                    Account = account2,
                     DatetTime = DateTime.Now.AddMonths(1),
-                    Location = new Location{Name = "FitX"},    Mine=false,Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
+                    Location = new Location {Name = "FitX"},
+                    Mine = false,
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
                 new ChallengeKmActivityLog
                 {
-                    Account=account2,
+                    Account = account2,
                     DatetTime = DateTime.Now.AddMonths(1),
-                    KM = 6,  Mine=false,Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
+                    KM = 6,
+                    Mine = false,
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
                 new ChallengeWorkoutActivityLog
                 {
-                    Account=account2,
+                    Account = account2,
                     DatetTime = DateTime.Now.AddMonths(1).AddDays(1),
-                    Location = new Location{Name = "FitX"},    Mine=false,Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
+                    Location = new Location {Name = "FitX"},
+                    Mine = false,
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
                 new ChallengeKmActivityLog
                 {
-                    Account=account2,
+                    Account = account2,
                     DatetTime = DateTime.Now.AddMonths(1).AddDays(1),
-                    KM = 2,  Mine=false,Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
+                    KM = 2,
+                    Mine = false,
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
                 new ChallengeWorkoutActivityLog
                 {
-                    Account=account2,
+                    Account = account2,
                     DatetTime = DateTime.Now.AddMonths(1).AddDays(2),
-                    Location = new Location{Name = "FitX"},  Mine=false,Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
+                    Location = new Location {Name = "FitX"},
+                    Mine = false,
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
                 new ChallengeKmActivityLog
                 {
-                    Account=account2,
+                    Account = account2,
                     DatetTime = DateTime.Now.AddMonths(1).AddDays(2),
-                    KM = 5,  Mine=false,Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
+                    KM = 5,
+                    Mine = false,
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
                 new ChallengeWorkoutActivityLog
                 {
-                    Account=account2,
+                    Account = account2,
                     DatetTime = DateTime.Now.AddMonths(1).AddDays(3),
-                    Location = new Location{Name = "FitX"},   Mine=false,Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
+                    Location = new Location {Name = "FitX"},
+                    Mine = false,
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
                 new ChallengeKmActivityLog
                 {
-                    Account=account2,
+                    Account = account2,
                     DatetTime = DateTime.Now.AddMonths(1).AddDays(3),
-                    KM = 8,  Mine=false,Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
+                    KM = 8,
+                    Mine = false,
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
-
             };
 
             foreach (var sta in status)
@@ -215,42 +242,52 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
             {
                 new ChallengeWorkoutActivityLog
                 {
-                    Account=account1,
+                    Account = account1,
                     DatetTime = DateTime.Now.AddMonths(1),
-                    Location = new Location{Name = "FitX"},
-                    Mine=true,
+                    Location = new Location {Name = "FitX"},
+                    Mine = true,
                     Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
                 new ChallengeWorkoutActivityLog
                 {
-                    Account=account1,
+                    Account = account1,
                     DatetTime = DateTime.Now.AddMonths(1).AddDays(1),
-                    Location = new Location{Name = "FitX"},   Mine=true,Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
+                    Location = new Location {Name = "FitX"},
+                    Mine = true,
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
                 new ChallengeKmActivityLog
                 {
-                    Account=account1,
+                    Account = account1,
                     DatetTime = DateTime.Now.AddMonths(1).AddDays(2),
-                    KM = 4,  Mine=false,Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
+                    KM = 4,
+                    Mine = false,
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
 
                 new ChallengeWorkoutActivityLog
                 {
-                    Account=account2,
+                    Account = account2,
                     DatetTime = DateTime.Now.AddMonths(1),
-                    Location = new Location{Name = "Golds Gym"},   Mine=false,Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
+                    Location = new Location {Name = "Golds Gym"},
+                    Mine = false,
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
                 new ChallengeKmActivityLog
                 {
-                    Account=account2,
+                    Account = account2,
                     DatetTime = DateTime.Now.AddMonths(1).AddDays(1),
-                    KM = 8,  Mine=false,Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
+                    KM = 8,
+                    Mine = false,
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
                 new ChallengeKmActivityLog
                 {
-                    Account=account2,
+                    Account = account2,
                     DatetTime = DateTime.Now.AddMonths(1).AddDays(2),
-                    KM = 6,  Mine=false,Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
+                    KM = 6,
+                    Mine = false,
+                    Challenge = "10a4ad4c-38a8-4be5-890b-317aacc0e27c"
                 },
             };
 

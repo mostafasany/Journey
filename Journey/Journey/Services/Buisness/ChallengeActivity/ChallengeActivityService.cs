@@ -11,15 +11,15 @@ namespace Journey.Services.Buisness.ChallengeActivity
 {
     public class ChallengeActivityService : IChallengeActivityService
     {
-        private readonly IChallengeActivityDataService _challengeActivityDataService;
         private readonly IAccountService _accountService;
+        private readonly IChallengeActivityDataService _challengeActivityDataService;
 
         public ChallengeActivityService(IChallengeActivityDataService challengeActivityDataService, IAccountService accountService)
         {
             _accountService = accountService;
-               _challengeActivityDataService = challengeActivityDataService;
+            _challengeActivityDataService = challengeActivityDataService;
         }
-     
+
         public async Task<ChallengeActivityLog> AddActivityAsync(ChallengeActivityLog log)
         {
             try
@@ -63,7 +63,7 @@ namespace Journey.Services.Buisness.ChallengeActivity
         {
             try
             {
-                List<ChallengeActivityLog> challengeProgress = await _challengeActivityDataService.GetActivitsAsync(challengeId,-1,-1);
+                List<ChallengeActivityLog> challengeProgress = await _challengeActivityDataService.GetActivitsAsync(challengeId, -1, -1);
                 List<KeyGroupedChallengeProgress> orderedList = challengeProgress
                     .OrderBy(a => a.DatetTime)
                     .GroupBy(a => a.DatetTime.ToString("MMMM"))
@@ -79,7 +79,6 @@ namespace Journey.Services.Buisness.ChallengeActivity
                                 TotalExercises = b.Count(e => e is ChallengeWorkoutActivityLog)
                             }
                         ).ToList()
-
                     })
                     .ToList();
 
@@ -94,10 +93,12 @@ namespace Journey.Services.Buisness.ChallengeActivity
                     {
                         winnerAccountInExercises = orderedAccountExercises.FirstOrDefault().Account;
                     }
+
                     if (orderedAccountKm.FirstOrDefault().TotalKm > orderedAccountKm.LastOrDefault().TotalKm)
                     {
                         winnerAccountInKm = orderedAccountKm.FirstOrDefault().Account;
                     }
+
                     var groupedData =
                         new ObservableChallengeProgressGroupCollection<AccountChallengeProgress>(progress.Key, progress.Accounts, winnerAccountInKm, winnerAccountInExercises);
 
@@ -111,6 +112,5 @@ namespace Journey.Services.Buisness.ChallengeActivity
                 throw new BusinessException(ex.Message, ex);
             }
         }
-
     }
 }

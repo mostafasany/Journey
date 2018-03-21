@@ -20,7 +20,7 @@ namespace Abstractions.Forms
             "https://graph.facebook.com/search?q={0}&distance={1}&type={2}&center={3},{4}&fields=id,name,talking_about_count,checkins,location,picture.type(large)";
 
         private const string ApiSearch =
-           "https://graph.facebook.com/search?q={0}&type={1}&center={2},{3}&fields=id,name,talking_about_count,checkins,location,picture.type(large)";
+            "https://graph.facebook.com/search?q={0}&type={1}&center={2},{3}&fields=id,name,talking_about_count,checkins,location,picture.type(large)";
 
 
         public FacebookService(IUnityContainer container, IHttpService httpService, ILocationService locationService,
@@ -62,13 +62,14 @@ namespace Abstractions.Forms
                     };
                     locations.Add(fr);
                 }
+
                 if (minLocationDistanceInMeter != null)
                 {
-                    double minLocation= minLocationDistanceInMeter.Value / 1000.0;
+                    double minLocation = minLocationDistanceInMeter.Value / 1000.0;
                     return locations.Where(loc => loc.Near <= minLocation)
-                      .OrderBy(loc => loc.Near).ToList();
+                        .OrderBy(loc => loc.Near).ToList();
                 }
-                  
+
                 else return locations.OrderBy(loc => loc.Near).ToList();
             }
             catch (Exception ex)

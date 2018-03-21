@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abstractions.Models;
 using Abstractions.Services.Contracts;
-using Journey.Resources;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
@@ -34,7 +33,7 @@ namespace Journey.ViewModels
                 await Task.Delay(1000);
                 Location position = await _locationService.ObtainMyLocationAsync();
                 if (position != null)
-                    Locations = await _facebookService.GetLocationsAsync(SearchKeyword, position.Lat, position.Lng,null);
+                    Locations = await _facebookService.GetLocationsAsync(SearchKeyword, position.Lat, position.Lng, null);
 
                 RaisePropertyChanged(nameof(NoLocations));
 
@@ -126,7 +125,7 @@ namespace Journey.ViewModels
 
         private async void OnSelectedLocation(Location selectedLocation)
         {
-            NavigationService.GoBack(selectedLocation, "Location");  
+            NavigationService.GoBack(selectedLocation, "Location");
         }
 
         #endregion
@@ -139,9 +138,9 @@ namespace Journey.ViewModels
         {
             try
             {
-                Intialize(); 
+                Intialize();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 ExceptionService.Handle(ex);
             }

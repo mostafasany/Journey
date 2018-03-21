@@ -1,33 +1,33 @@
 ﻿using System;
-using System.Threading.Tasks;
-using Android.Media;
-using MediaOrientation = Android.Media.Orientation;
 using System.IO;
+using System.Threading.Tasks;
+using Abstractions.Forms;
 using Android.Graphics;
+using Android.Media;
+using Journey.Droid.Services;
 using Plugin.Media.Abstractions;
 using Xamarin.Forms;
-using Journey.Droid.Services;
-using Abstractions.Forms;
+using MediaOrientation = Android.Media.Orientation;
 
 [assembly: Dependency(typeof(MediaFileExtensions))]
+
 namespace Journey.Droid.Services
 {
     public class MediaFileExtensions : IMediaFileExtensions
     {
         /// <summary>
-        ///  Rotate an image if required.
+        ///     Rotate an image if required.
         /// </summary>
         /// <param name="file">The file image</param>
         /// <returns>True if rotation occured, else fal</returns>
-        async public Task<bool> FixOrientationAsync(MediaFile file)
+        public async Task<bool> FixOrientationAsync(MediaFile file)
         {
             if (file == null)
                 return false;
             try
             {
-
-                var filePath = file.Path;
-                var orientation = GetRotation(filePath);
+                string filePath = file.Path;
+                int? orientation = GetRotation(filePath);
 
                 if (!orientation.HasValue)
                     return false;
@@ -35,8 +35,10 @@ namespace Journey.Droid.Services
                 Bitmap bmp = RotateImage(filePath, orientation.Value);
                 var quality = 90;
 
-                using (var stream = File.Open(filePath, FileMode.OpenOrCreate))
+                using (FileStream stream = File.Open(filePath, FileMode.OpenOrCreate))
+                {
                     await bmp.CompressAsync(Bitmap.CompressFormat.Png, quality, stream);
+                }
 
                 bmp.Recycle();
 
@@ -48,12 +50,12 @@ namespace Journey.Droid.Services
             }
         }
 
-        static int? GetRotation(string filePath)
+        private static int? GetRotation(string filePath)
         {
             try
             {
-                ExifInterface ei = new ExifInterface(filePath);
-                var orientation = (MediaOrientation)ei.GetAttributeInt(ExifInterface.TagOrientation, (int)MediaOrientation.Normal);
+                var ei = new ExifInterface(filePath);
+                var orientation = (MediaOrientation) ei.GetAttributeInt(ExifInterface.TagOrientation, (int) MediaOrientation.Normal);
                 switch (orientation)
                 {
                     case MediaOrientation.Rotate90:
@@ -65,7 +67,6 @@ namespace Journey.Droid.Services
                     default:
                         return null;
                 }
-
             }
             catch (Exception)
             {
@@ -77,9 +78,9 @@ namespace Journey.Droid.Services
         {
             Bitmap originalImage = BitmapFactory.DecodeFile(filePath);
 
-            Matrix matrix = new Matrix();
+            var matrix = new Matrix();
             matrix.PostRotate(rotation);
-            var rotatedImage = Bitmap.CreateBitmap(originalImage, 0, 0, originalImage.Width, originalImage.Height, matrix, true);
+            Bitmap rotatedImage = Bitmap.CreateBitmap(originalImage, 0, 0, originalImage.Width, originalImage.Height, matrix, true);
             originalImage.Recycle();
             return rotatedImage;
         }

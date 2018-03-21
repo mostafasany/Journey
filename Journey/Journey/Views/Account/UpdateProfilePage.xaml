@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" ControlTemplate="{StaticResource ProfileHeaderControlTemplate}" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.UpdateProfilePage">
+
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                ControlTemplate="{StaticResource ProfileHeaderControlTemplate}"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views"
+                xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources"
+                x:Class="Journey.Views.UpdateProfilePage">
     <ContentPage.Content>
         <ScrollView>
             <Grid Style="{StaticResource MainGridStyle}">
@@ -14,19 +19,30 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Controls:LoadingControl Grid.Column="0" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
-                    <Controls:ImageControl PortablePath="loading.png" Grid.Column="0" IsVisible="{Binding IsNotLoading}" Style="{StaticResource ImageHeaderStyle}" />
-                    <Label Grid.Column="1" Text="{resources:Translate UpdateProfile_Welcome}" Style="{StaticResource LabelHeaderStyle}" />
+                    <Controls:LoadingControl Grid.Column="0" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
+                                             VerticalOptions="Center" />
+                    <Controls:ImageControl PortablePath="loading.png" Grid.Column="0"
+                                           IsVisible="{Binding IsNotLoading}" Style="{StaticResource ImageHeaderStyle}" />
+                    <Label Grid.Column="1" Text="{resources:Translate UpdateProfile_Welcome}"
+                           Style="{StaticResource LabelHeaderStyle}" />
                 </Grid>
                 <StackLayout Grid.Row="1" Orientation="Vertical" HorizontalOptions="Center">
-                    <Entry Text="{Binding FirstName,Mode=TwoWay}" Placeholder="{resources:Translate UpdateProfile_FirstName}" Style="{StaticResource EntryFormStyle}" WidthRequest="200" />
-                    <Entry Text="{Binding LastName,Mode=TwoWay}" Placeholder="{resources:Translate UpdateProfile_LastName}" Style="{StaticResource EntryFormStyle}" WidthRequest="200" />
-                    <Image Source="{Binding Image.Path}" Style="{StaticResource ImageBodyStyle}" WidthRequest="300" HeightRequest="200" HorizontalOptions="Center" />
-                    <Button Text="{resources:Translate UpdateProfile_Upload}" Command="{Binding UploadImageCommand}" Style="{StaticResource SecondaryButtonStyle}" />
+                    <Entry Text="{Binding FirstName,Mode=TwoWay}"
+                           Placeholder="{resources:Translate UpdateProfile_FirstName}"
+                           Style="{StaticResource EntryFormStyle}" WidthRequest="200" />
+                    <Entry Text="{Binding LastName,Mode=TwoWay}"
+                           Placeholder="{resources:Translate UpdateProfile_LastName}"
+                           Style="{StaticResource EntryFormStyle}" WidthRequest="200" />
+                    <Image Source="{Binding Image.Path}" Style="{StaticResource ImageBodyStyle}" WidthRequest="300"
+                           HeightRequest="200" HorizontalOptions="Center" />
+                    <Button Text="{resources:Translate UpdateProfile_Upload}" Command="{Binding UploadImageCommand}"
+                            Style="{StaticResource SecondaryButtonStyle}" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Grid.Row="2" HorizontalOptions="Center" Margin="5,0,5,10">
-                    <Button Text="{resources:Translate UpdateProfile_Finish}" Command="{Binding FinishCommand}" Style="{StaticResource PrimaryButtonStyle}" />
-                    <Button Text="{resources:Translate Logout}" Command="{Binding OnLogoutCommand}" Style="{StaticResource SecondaryButtonStyle}" />
+                    <Button Text="{resources:Translate UpdateProfile_Finish}" Command="{Binding FinishCommand}"
+                            Style="{StaticResource PrimaryButtonStyle}" />
+                    <Button Text="{resources:Translate Logout}" Command="{Binding OnLogoutCommand}"
+                            Style="{StaticResource SecondaryButtonStyle}" />
                 </StackLayout>
             </Grid>
         </ScrollView>

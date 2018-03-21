@@ -3,17 +3,17 @@ using System.Threading.Tasks;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using FFImageLoading.Forms.Droid;
+using Journey.Constants;
+using Journey.Droid.Renderers;
+using Journey.Services.Azure;
 using Microsoft.WindowsAzure.MobileServices;
+using Plugin.CurrentActivity;
+using Plugin.Permissions;
 using Prism;
 using Prism.Ioc;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using Plugin.Permissions;
-using Journey.Constants;
-using Journey.Services.Azure;
-using Permission = Android.Content.PM.Permission;
-using FFImageLoading.Forms.Droid;
-using Journey.Droid.Renderers;
 
 namespace Journey.Droid
 {
@@ -23,31 +23,13 @@ namespace Journey.Droid
     {
         private MobileServiceUser _user;
 
-        protected override void OnCreate(Bundle bundle)
-        {
-            TabLayoutResource = Resource.Layout.Tabbar;
-            ToolbarResource = Resource.Layout.Toolbar;
-
-            base.OnCreate(bundle);
-
-            Forms.Init(this, bundle);
-            CachedImageRenderer.Init(false);
-            VideoViewRenderer.Init();
-            App.Init((IAzureAuthenticateService) this);
-            Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
-            LoadApplication(new App(new AndroidInitializer()));
-        }
-
         public async Task<MobileServiceUser> Authenticate()
         {
             try
             {
                 if (_user == null)
-                {
-                    // Sign in with Facebook login using a server-managed flow.
                     _user = await App.Client.LoginAsync(this,
                         MobileServiceAuthenticationProvider.Facebook, Constant.AppName);
-                }
             }
             catch (Exception)
             {
@@ -61,6 +43,21 @@ namespace Journey.Droid
         {
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             //base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        protected override void OnCreate(Bundle bundle)
+        {
+            TabLayoutResource = Resource.Layout.Tabbar;
+            ToolbarResource = Resource.Layout.Toolbar;
+
+            base.OnCreate(bundle);
+
+            Forms.Init(this, bundle);
+            CachedImageRenderer.Init(false);
+            VideoViewRenderer.Init();
+            App.Init(this);
+            CrossCurrentActivity.Current.Activity = this;
+            LoadApplication(new App(new AndroidInitializer()));
         }
     }
 

@@ -7,6 +7,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(VideoView), typeof(VideoViewRenderer))]
+
 namespace Journey.iOS.Renderers
 {
     [Preserve(AllMembers = true)]
@@ -15,11 +16,11 @@ namespace Journey.iOS.Renderers
         private VideoSurface _videoSurface;
 
         /// <summary>
-        /// Used for registration with dependency service
+        ///     Used for registration with dependency service
         /// </summary>
-        public async static void Init()
+        public static async void Init()
         {
-            var temp = DateTime.Now;
+            DateTime temp = DateTime.Now;
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<VideoView> e)

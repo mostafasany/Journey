@@ -1,5 +1,4 @@
 ﻿using Journey.Models.Challenge;
-using Journey.Models.Post;
 using Xamarin.Forms;
 
 namespace Journey.Views.Selectors
@@ -29,6 +28,7 @@ namespace Journey.Views.Selectors
                 else
                     return OtherKMTemplate;
             }
+
             return MeWorkoutTemplate;
         }
     }

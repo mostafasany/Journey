@@ -18,7 +18,7 @@ namespace Journey.ViewModels
 
         public NotificationsPageViewModel(IUnityContainer container, IAccountService accountService, INotificationService notificationService,
             INotificationService postCommentService, IDeepLinkService deepLinking) :
-        base(container, accountService, notificationService)
+            base(container, accountService, notificationService)
         {
             _postCommentService = postCommentService;
             _deepLinking = deepLinking;

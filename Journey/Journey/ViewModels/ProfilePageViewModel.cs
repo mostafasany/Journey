@@ -15,8 +15,8 @@ namespace Journey.ViewModels
     {
         private readonly IAccountService _accountService;
 
-        public ProfilePageViewModel(IUnityContainer container, IAccountService accountService,INotificationService notificationService) :
-        base(container, accountService,notificationService) => _accountService = accountService;
+        public ProfilePageViewModel(IUnityContainer container, IAccountService accountService, INotificationService notificationService) :
+            base(container, accountService, notificationService) => _accountService = accountService;
 
         #region Properties
 
@@ -166,7 +166,7 @@ namespace Journey.ViewModels
         private void OnEditProfile()
         {
             //if (NavigationService.CurrentPage == "UpdateProfilePage")
-                //return;
+            //return;
             var parameters = new Dictionary<string, object>
             {
                 {"Account", LoggedInAccount},
@@ -184,7 +184,7 @@ namespace Journey.ViewModels
         private void OnGoToProfileMeasurment()
         {
             //if (NavigationService.CurrentPage == "ProfileMeasurmentPage")
-                //return;
+            //return;
 
             NavigationService.Navigate("ProfileMeasurmentPage", null, null, null, false, true);
         }
@@ -198,7 +198,7 @@ namespace Journey.ViewModels
         private void OnGoToProfileChallenge()
         {
             //if (NavigationService.CurrentPage == "ProfileChallengePage")
-                //return;
+            //return;
 
             NavigationService.Navigate("ProfileChallengePage", null, null, null, false, true);
         }
@@ -212,7 +212,7 @@ namespace Journey.ViewModels
         private void OnGoToActivityLog()
         {
             //if (NavigationService.CurrentPage == "ProfileActivityLogPage")
-                //return;
+            //return;
 
             NavigationService.Navigate("ProfileActivityLogPage", null, null, null, false, true);
         }

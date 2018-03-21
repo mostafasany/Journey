@@ -1,61 +1,65 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using Abstractions.Forms;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
+using Android.Net;
 using Android.OS;
 using Java.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using File = Java.IO.File;
+using ShareService = Journey.Droid.Services.ShareService;
 
-[assembly: Dependency(typeof(Journey.Droid.Services.ShareService))]
+[assembly: Dependency(typeof(ShareService))]
+
 namespace Journey.Droid.Services
 {
-    public class ShareService : Activity, Abstractions.Forms.IShare
+    public class ShareService : Activity, IShare
     {
         public async Task Share(string subject, string message,
-                                List<Abstractions.Forms.Media> mediaItems)
+            List<Media> mediaItems)
         {
             var intent = new Intent(Intent.ActionSendMultiple);
             intent.PutExtra(Intent.ExtraSubject, subject);
             intent.PutExtra(Intent.ExtraText, message);
             intent.SetType("image/*");
             intent.SetType("video/*");
-  
+
             var handler = new ImageLoaderSourceHandler();
 
 
-            List<Android.Net.Uri> files = new List<Android.Net.Uri>();
-            int id = 0;
-            foreach (var media in mediaItems)
-            {
-                if(media.Type== Abstractions.Forms.MediaType.Image)
+            var files = new List<Uri>();
+            var id = 0;
+            foreach (Media media in mediaItems)
+                if (media.Type == MediaType.Image)
                 {
-                    var bitmap = await handler.LoadImageAsync(media.Source, this);
-                    var ex = media.Ext;
-                    var fileName = string.Format("{0}{1}", id++, ex);
-                    var path = Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDownloads
-                                                                             + File.Separator + fileName);
+                    Bitmap bitmap = await handler.LoadImageAsync(media.Source, this);
+                    string ex = media.Ext;
+                    string fileName = string.Format("{0}{1}", id++, ex);
+                    File path = Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDownloads
+                                                                              + File.Separator + fileName);
 
-                    using (var os = new System.IO.FileStream(path.AbsolutePath, System.IO.FileMode.Create))
+                    using (var os = new FileStream(path.AbsolutePath, FileMode.Create))
                     {
                         bitmap.Compress(Bitmap.CompressFormat.Png, 100, os);
                     }
-                    files.Add(Android.Net.Uri.FromFile(path));
+
+                    files.Add(Uri.FromFile(path));
                 }
                 else
                 {
-                    var ex = media.Ext;
-                    var fileName = string.Format("{0}{1}", id++, ex);
-                    var path = Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDownloads
-                                                                             + File.Separator + fileName);
-                                          FileOutputStream filestream = new FileOutputStream(path);
+                    string ex = media.Ext;
+                    string fileName = string.Format("{0}{1}", id++, ex);
+                    File path = Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDownloads
+                                                                              + File.Separator + fileName);
+                    var filestream = new FileOutputStream(path);
                     filestream.Write(media.SourceArray);
                     filestream.Close();
                 }
 
-
-            }
             var uris = new List<IParcelable>();
             files.ForEach(file =>
             {
@@ -68,12 +72,9 @@ namespace Journey.Droid.Services
 
         public async Task Share(string subject, string message, byte[] video)
         {
-            FileOutputStream filestream = new FileOutputStream("test.mp4");
+            var filestream = new FileOutputStream("test.mp4");
             filestream.Write(video);
             filestream.Close();
-
         }
     }
-
-
 }

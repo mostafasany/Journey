@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
+using FFImageLoading.Forms.Touch;
+using FFImageLoading.Transformations;
 using Foundation;
+using Journey.Constants;
+using Journey.iOS.Renderers;
+using Journey.Services.Azure;
 using Microsoft.WindowsAzure.MobileServices;
 using Prism;
 using Prism.Ioc;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using Journey.Constants;
-using Journey.Services.Azure;
-using FFImageLoading.Forms.Touch;
-using FFImageLoading.Transformations;
-using Journey.iOS.Renderers;
 
 namespace Journey.iOS
 {
@@ -22,6 +22,32 @@ namespace Journey.iOS
     public class AppDelegate : FormsApplicationDelegate, IAzureAuthenticateService
     {
         private MobileServiceUser _user;
+
+        public async Task<MobileServiceUser> Authenticate()
+        {
+            try
+            {
+                // Sign in with Facebook login using a server-managed flow.
+                if (_user == null)
+                {
+                    UIWindow window = UIApplication.SharedApplication.KeyWindow;
+                    UIViewController viewController = window.RootViewController;
+                    if (viewController != null)
+                    {
+                        while (viewController.PresentedViewController != null)
+                            viewController = viewController.PresentedViewController;
+
+                        _user = await App.Client.LoginAsync(viewController, MobileServiceAuthenticationProvider.Facebook,
+                            Constant.AppName);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return _user;
+        }
 
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
@@ -44,35 +70,7 @@ namespace Journey.iOS
             return base.FinishedLaunching(app, options);
         }
 
-        public async Task<MobileServiceUser> Authenticate()
-        {
-            try
-            {
-                // Sign in with Facebook login using a server-managed flow.
-                if (_user == null)
-                {
-                    var window = UIApplication.SharedApplication.KeyWindow;
-                    var viewController = window.RootViewController;
-                    if (viewController != null)
-                    {
-                        while (viewController.PresentedViewController != null)
-                            viewController = viewController.PresentedViewController;
-
-                        _user = await App.Client.LoginAsync(viewController, MobileServiceAuthenticationProvider.Facebook,
-                            Constant.AppName);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-            return _user;
-        }
-
-        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
-        {
-            return Journey.App.Client.ResumeWithURL(url);
-        }
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options) => App.Client.ResumeWithURL(url);
     }
 
 
