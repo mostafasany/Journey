@@ -223,6 +223,36 @@ namespace Journey.ViewModels
 
         #endregion
 
+
+        #region OnViewChallengeCommand
+
+        private ICommand _onViewChallengeCommand;
+
+
+        public ICommand OnViewChallengeCommand => _onViewChallengeCommand ?? (
+            _onViewChallengeCommand =
+         new DelegateCommand(ViewChallenge));
+
+        private async void ViewChallenge()
+        {
+            try
+            {
+                string id = _accountService.LoggedInAccount.ChallengeId;
+                var parameters = new Dictionary<string, object>
+                        {
+                            {"Challenge", id},
+                            {"Mode", 1}
+                        };
+                await NavigationService.Navigate("NewChallengePage", parameters);
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.Handle(ex);
+            }
+        }
+
+        #endregion
+
         #endregion
     }
 }

@@ -365,9 +365,21 @@ namespace Journey.Resources {
             }
         }
         
+        internal static string Challenge_View {
+            get {
+                return ResourceManager.GetString("Challenge_View", resourceCulture);
+            }
+        }
+        
         internal static string Challenge_StartDate {
             get {
                 return ResourceManager.GetString("Challenge_StartDate", resourceCulture);
+            }
+        }
+        
+        internal static string Challenge_Edit {
+            get {
+                return ResourceManager.GetString("Challenge_Edit", resourceCulture);
             }
         }
         

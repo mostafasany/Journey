@@ -44,6 +44,23 @@ namespace Journey.Services.Buisness.Challenge.Data
             }
         }
 
+        public async Task<Models.Challenge.Challenge> EditChallengeAsync(Models.Challenge.Challenge challenge)
+        {
+            try
+            {
+                if (challenge == null)
+                    return null;
+                AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge);
+                await _azureChallenge.UpdateAsync(accountDto);
+                challenge = ChallengeDataTranslator.TranslateChallenge(accountDto);
+                return challenge;
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(ex.Message, ex);
+            }
+        }
+
         public async Task<Models.Challenge.Challenge> GetChallengeAsync(string challengeId)
         {
             try

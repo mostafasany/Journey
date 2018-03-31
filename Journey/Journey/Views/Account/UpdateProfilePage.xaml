@@ -38,12 +38,12 @@
                     <Button Text="{resources:Translate UpdateProfile_Upload}" Command="{Binding UploadImageCommand}"
                             Style="{StaticResource SecondaryButtonStyle}" />
                 </StackLayout>
-                <StackLayout Orientation="Horizontal" Grid.Row="2" HorizontalOptions="Center" Margin="5,0,5,10">
-                    <Button Text="{resources:Translate UpdateProfile_Finish}" Command="{Binding FinishCommand}"
+                <Grid  Grid.Row="2" HorizontalOptions="Center" Margin="5,0,5,10">
+                    <Button Grid.Column="0" Text="{resources:Translate UpdateProfile_Finish}" Command="{Binding FinishCommand}"
                             Style="{StaticResource PrimaryButtonStyle}" />
-                    <Button Text="{resources:Translate Logout}" Command="{Binding OnLogoutCommand}"
+                    <Button  Grid.Column="1" Text="{resources:Translate Logout}" Command="{Binding OnLogoutCommand}"
                             Style="{StaticResource SecondaryButtonStyle}" />
-                </StackLayout>
+                </Grid>
             </Grid>
         </ScrollView>
     </ContentPage.Content>

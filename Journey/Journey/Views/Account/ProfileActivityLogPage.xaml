@@ -20,9 +20,9 @@
                             </Grid.ColumnDefinitions>
                             <StackLayout Grid.Column="2" HorizontalOptions="Fill">
                                 <Label Text="{Binding Account.Name}" TextColor="Gray" FontSize="14"
-                                       VerticalOptions="Center" HorizontalOptions="End" />
+                                       VerticalOptions="Center" HorizontalOptions="Start" />
                                 <Label Text="{Binding FormatedDate}" TextColor="Gray" FontSize="12"
-                                       HorizontalOptions="Start" VerticalOptions="Center" />
+                                       HorizontalOptions="End" VerticalOptions="Center" />
                             </StackLayout>
                             <Controls:ImageControl Grid.Column="1" HorizontalOptions="Center"
                                                    PortablePath="workout.png" WidthRequest="40" HeightRequest="40"
@@ -49,9 +49,9 @@
                             </Grid.ColumnDefinitions>
                             <StackLayout Grid.Column="2" HorizontalOptions="Fill">
                                 <Label Text="{Binding Account.Name}" TextColor="Gray" FontSize="14"
-                                       VerticalOptions="Center" HorizontalOptions="End" />
-                                <Label Text="{Binding FormatedDate}" TextColor="Gray" FontSize="12"
                                        VerticalOptions="Center" HorizontalOptions="Start" />
+                                <Label Text="{Binding FormatedDate}" TextColor="Gray" FontSize="12"
+                                       VerticalOptions="Center" HorizontalOptions="End" />
                             </StackLayout>
                             <Controls:ImageControl Grid.Column="1" HorizontalOptions="Center"
                                                    PortablePath="running.png" WidthRequest="40" HeightRequest="40"

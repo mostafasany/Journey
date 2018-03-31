@@ -10,14 +10,14 @@
         <ResourceDictionary>
             <Converters:BoolInverterConverter x:Key="BoolInverterConverter" />
             <Converters:IntToBoolConverter x:Key="IntToBoolConverter" />
-            <Color x:Key="Primary">#591587</Color>
-            <Color x:Key="PrimaryDark">#591587</Color>
+            <Color x:Key="Primary"> #b2d8d8</Color>
+            <Color x:Key="PrimaryDark">#004c4c</Color>
             <Color x:Key="LightBackgroundColor">#FFFFFF</Color>
             <Color x:Key="DarkBackgroundColor">#ebebeb</Color>
-            <Color x:Key="PlaceholderTextColor">#ebebeb</Color>
-            <Color x:Key="LightTextColor">#591587</Color>
-            <Color x:Key="DarkTextColor">#591587</Color>
-            <Color x:Key="FacebookColor">#591587</Color>
+            <Color x:Key="PlaceholderTextColor">#004c4c</Color>
+            <Color x:Key="LightTextColor">#004c4c</Color>
+            <Color x:Key="DarkTextColor">#004c4c</Color>
+            <Color x:Key="FacebookColor">#004c4c</Color>
             <Style TargetType="Grid" x:Key="MainGridStyle">
                 <Setter Property="Margin">
                     <Setter.Value>
@@ -174,7 +174,7 @@
                     <Grid VerticalOptions="FillAndExpand">
                         <ContentPresenter />
                     </Grid>
-                    <BoxView Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />
+                <!--    <BoxView Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />-->
                     <!-- Footer -->
                     <Grid HeightRequest="60">
                         <Grid.ColumnDefinitions>
@@ -267,7 +267,7 @@
                                                  HorizontalOptions="Center" VerticalOptions="Center" />
                         <ContentPresenter IsVisible="{TemplateBinding BindingContext.IsNotLoading}" />
                     </Grid>
-                    <BoxView Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />
+                <!--    <BoxView Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />-->
                     <!-- Footer -->
                     <Grid HeightRequest="70">
                         <Grid.ColumnDefinitions>

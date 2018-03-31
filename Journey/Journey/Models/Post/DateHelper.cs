@@ -58,20 +58,20 @@ namespace Journey.Models.Post
                 if (timesince.Days % 31 != 0)
                     months += 1;
                 return
-                    $"{months} {(months == 1 ? AppResource.Date_Month : AppResource.Date_Months)} {AppResource.Date_Ago}";
+                    $"{months} {(months == 1 ? AppResource.Date_Month : AppResource.Date_Months)}";
             }
 
             if (timesince.Days > 0)
                 return
-                    $"{timesince.Days} {(timesince.Days == 1 ? AppResource.Date_Day : AppResource.Date_Days)} {AppResource.Date_Ago}";
+                    $"{timesince.Days} {(timesince.Days == 1 ? AppResource.Date_Day : AppResource.Date_Days)}";
             if (timesince.Hours > 0)
                 return
-                    $"{timesince.Hours} {(timesince.Hours == 1 ? AppResource.Date_Hour : AppResource.Date_Hours)} {AppResource.Date_Ago}";
+                    $"{timesince.Hours} {(timesince.Hours == 1 ? AppResource.Date_Hour : AppResource.Date_Hours)}";
             if (timesince.Minutes > 0)
                 return
-                    $"{timesince.Minutes} {(timesince.Minutes == 1 ? AppResource.Date_Minute : AppResource.Date_Minutes)} {AppResource.Date_Ago}";
+                    $"{timesince.Minutes} {(timesince.Minutes == 1 ? AppResource.Date_Minute : AppResource.Date_Minutes)}";
             if (timesince.Seconds > 5)
-                return $"{timesince.Seconds} {AppResource.Date_Seconds} {AppResource.Date_Ago}";
+                return $"{timesince.Seconds} {AppResource.Date_Seconds}";
             return AppResource.Date_JustNow;
         }
     }

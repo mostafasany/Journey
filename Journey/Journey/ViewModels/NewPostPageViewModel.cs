@@ -15,6 +15,8 @@ using Journey.Services.Buisness.Post;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
+using Journey.Services.Buisness.ChallengeActivity;
+using Journey.Services.Buisness.Challenge;
 
 namespace Journey.ViewModels
 {
@@ -26,11 +28,17 @@ namespace Journey.ViewModels
         private readonly IPostService _postService;
         private readonly ISettingsService _settingsService;
         private const string LastPostDate = "LastPostDate";
-
+        private readonly IChallengeActivityService _challengeActivityService;
+        private readonly IChallengeService _challengeService;
         public NewPostPageViewModel(IUnityContainer container, IBlobService blobService,
-            IPostService postService, IMediaService<Media> mediaService, IAccountService accountService, ISettingsService settingsService) :
+            IPostService postService, IMediaService<Media> mediaService,
+                                    IAccountService accountService, ISettingsService settingsService,
+                                    IChallengeActivityService challengeActivityService,
+                                    IChallengeService challengeService) :
             base(container)
         {
+            _challengeService = challengeService;
+            _challengeActivityService = challengeActivityService;
             _mediaService = mediaService;
             _postService = postService;
             _blobService = blobService;
@@ -51,10 +59,10 @@ namespace Journey.ViewModels
             {
                 if (parameters?.GetNavigationMode() == NavigationMode.Back)
                 {
-                    var location = parameters.GetValue<Location>("Location");
-                    if (location != null)
+                    _location = parameters.GetValue<Location>("Location");
+                    if (_location != null)
                         NewPost.Location =
-                            new PostActivity {Action = "At", Activity = location.Name, Image = location.Image};
+                                   new PostActivity { Action = "At", Activity = _location.Name, Image = _location.Image };
                 }
 
                 Intialize();
@@ -73,6 +81,9 @@ namespace Journey.ViewModels
         #endregion
 
         #region Properties
+
+        private Location _location;
+        Models.Challenge.Challenge _challenge;
 
         private Account _loggedInAccount;
 
@@ -143,6 +154,8 @@ namespace Journey.ViewModels
             {
                 ShowProgress();
                 LoggedInAccount = await _accountService.GetAccountAsync();
+                _challenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
+
                 base.Intialize(sync);
             }
             catch (Exception e)
@@ -247,7 +260,18 @@ namespace Journey.ViewModels
             {
                 string date = await _settingsService.Get(LastPostDate);
                 DateTime.TryParse(date, out DateTime parsedDate);
-                if (parsedDate.Date != DateTime.Now.Date) await _settingsService.Set(LastPostDate, DateTime.Now.Date.ToString(CultureInfo.InvariantCulture));
+               // if (parsedDate.Date != DateTime.Now.Date)
+                {
+                    await _settingsService.Set(LastPostDate, DateTime.Now.Date.ToString(CultureInfo.InvariantCulture));
+                    if (_challenge.SelectedLocation?.Id == _location?.Id)
+                        await _challengeActivityService.AddActivityAsync(new Models.Challenge.ChallengeWorkoutActivityLog()
+                        {
+                            Account = _accountService.LoggedInAccount,
+                            Challenge = _challenge.Id,
+                            DatetTime = DateTime.Now,
+                            Location = _location,
+                        });
+                }
             }
 
             NewPost = new Post();

@@ -82,6 +82,21 @@ namespace Journey.Services.Buisness.Challenge
             }
         }
 
+        public async Task<Models.Challenge.Challenge> EditChallengeAsync(Models.Challenge.Challenge challenge)
+        {
+            try
+            {
+                Models.Challenge.Challenge challengeDto = await _challengeDataService.EditChallengeAsync(challenge);
+
+                return challengeDto;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
+        }
+
+
         public async Task<bool> CheckAccountHasChallengeAsync()
         {
             try

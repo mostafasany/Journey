@@ -25,5 +25,8 @@ namespace Journey.Services.Buisness.Challenge.Dto
 
         [JsonProperty(PropertyName = "terms")]
         public string Terms { get; set; }
+
+        [JsonProperty(PropertyName = "location")]
+        public string Location { get; set; }
     }
 }

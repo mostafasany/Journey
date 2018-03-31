@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
+using Abstractions.Models;
 using Journey.Models.Challenge;
 using Journey.Services.Buisness.Challenge.Dto;
+using Newtonsoft.Json;
 
 namespace Journey.Services.Buisness.Challenge.Translators
 {
@@ -18,6 +20,8 @@ namespace Journey.Services.Buisness.Challenge.Translators
                 postDto.Account1 = challenge.ChallengeAccounts[0].Id;
                 postDto.Account2 = challenge.ChallengeAccounts[1].Id;
                 postDto.Status = challenge.IsActive;
+                if (challenge.SelectedLocation != null)
+                postDto.Location=JsonConvert.SerializeObject(challenge.SelectedLocation);
             }
 
             return postDto;
@@ -41,6 +45,9 @@ namespace Journey.Services.Buisness.Challenge.Translators
                 postDto.ChallengeAccounts.Add(
                     new ChallengeAccount(new Models.Account.Account {Id = challenge.Account2})
                 );
+
+                if(challenge.Location!=null)
+                postDto.SelectedLocation = JsonConvert.DeserializeObject<Location>(challenge.Location);
             }
 
             return postDto;
