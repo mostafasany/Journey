@@ -1,38 +1,11 @@
-﻿using Abstractions.Forms;
-using Abstractions.Services;
-using Abstractions.Services.Contracts;
-using Journey.Constants;
+﻿using Journey.Constants;
 using Journey.Services.Azure;
-using Journey.Services.Buisness.Account;
-using Journey.Services.Buisness.Account.Data;
-using Journey.Services.Buisness.Blob;
-using Journey.Services.Buisness.Challenge;
-using Journey.Services.Buisness.Challenge.Data;
-using Journey.Services.Buisness.ChallengeActivity;
-using Journey.Services.Buisness.ChallengeActivity.Data;
-using Journey.Services.Buisness.DeepLink;
-using Journey.Services.Buisness.Friend;
-using Journey.Services.Buisness.Friend.Data;
-using Journey.Services.Buisness.Goal;
-using Journey.Services.Buisness.Goal.Data;
-using Journey.Services.Buisness.Measurment;
-using Journey.Services.Buisness.Measurment.Data;
-using Journey.Services.Buisness.Notification;
-using Journey.Services.Buisness.Notification.Data;
-using Journey.Services.Buisness.Post;
-using Journey.Services.Buisness.Post.Data;
-using Journey.Services.Buisness.PostComment;
-using Journey.Services.Buisness.PostComment.Data;
 using Journey.Views;
 using Microsoft.WindowsAzure.MobileServices;
 using Prism;
 using Prism.Ioc;
-using Prism.Navigation;
 using Prism.Unity;
-using Unity;
-using Unity.Lifetime;
 using Xamarin.Forms.Xaml;
-using INavigationService = Abstractions.Services.Contracts.INavigationService;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Journey
@@ -41,9 +14,6 @@ namespace Journey
     {
         public App(IPlatformInitializer initializer = null) : base(initializer)
         {
-            //Prism.Common.ApplicationProvider
-            // Prism.AppModel.ApplicationStore
-            //DeviceService
         }
 
         public static IAzureAuthenticateService Authenticator { get; private set; }
@@ -58,26 +28,7 @@ namespace Journey
         protected override async void OnInitialized()
         {
             InitializeComponent();
-            var settingsService = Container.Resolve<ISettingsService>();
-
-            if (settingsService != null)
-            {
-                var azureService = Container.Resolve<IAzureService>();
-                var accountService = Container.Resolve<IAccountService>();
-                var facebookService = Container.Resolve<IFacebookService>();
-                facebookService.FacebookToken = await settingsService.Get(facebookService.FacebookTokenKey);
-                string userToken = await settingsService.Get(accountService.AccountTokenKey);
-                string userId = await settingsService.Get(accountService.AccountIdKey);
-                accountService.Token = userToken;
-
-                azureService.CreateOrGetAzureClient(userId, userToken);
-
-                await NavigationService.NavigateAsync(string.IsNullOrEmpty(userId) ? "LoginPage" : "HomePage");
-            }
-            else
-            {
-                await NavigationService.NavigateAsync("LoginPage");
-            }
+            await NavigationService.NavigateAsync("SplashScreenPage");
         }
 
         protected override void OnResume()
@@ -97,7 +48,7 @@ namespace Journey
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            IUnityContainer container = containerRegistry.GetContainer();
+            containerRegistry.RegisterForNavigation<SplashScreenPage>();
             containerRegistry.RegisterForNavigation<HomePage>();
             containerRegistry.RegisterForNavigation<LoginPage>();
             containerRegistry.RegisterForNavigation<UpdateProfilePage>();
@@ -114,113 +65,6 @@ namespace Journey
             containerRegistry.RegisterForNavigation<ChooseChallengeFriendPage>();
             containerRegistry.RegisterForNavigation<NewChallengePage>();
             containerRegistry.RegisterForNavigation<NotificationsPage>();
-           
-            RegitserAppServices(container);
-
-            RegitserBuisnessServices(container);
-        }
-
-        private void ConfigureDialogService(IUnityContainer container)
-        {
-            container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
-            var dialogService = Container.Resolve<IDialogService>() as DialogService;
-            if (dialogService != null)
-            {
-                dialogService.ErrorMessageTitle = "Error Occured";
-                dialogService.ErrorMessageBody = "Please try again later";
-                dialogService.NoInternetMessageBody = "No internet";
-                dialogService.NoInternetMessageTitle =
-                    "No internet connection available,Please reconnect and try again later";
-            }
-        }
-
-        private void RegitserAppServices(IUnityContainer container)
-        {
-            container.RegisterInstance(typeof(IUnityContainer), container);
-            container.RegisterType<IExceptionService, ExceptionService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IHttpService, HttpService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<ILoggerService, LoggerService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IMediaService<Media>, MediaService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<INavigationService, NavigationService>(
-                new ContainerControlledLifetimeManager());
-            container.RegisterType<Prism.Navigation.INavigationService, PageNavigationService>(
-                new ContainerControlledLifetimeManager());
-
-            container.RegisterType<ISerializerService, SerializerService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IShareService, ShareService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<ILocationService, LocationService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<ISettingsService, SettingsService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IBlobService, BlobService>(new ContainerControlledLifetimeManager());
-
-            //container.RegisterType<IResourceLoaderService, ResourceLoaderService>(
-            //    new ContainerControlledLifetimeManager());
-            //container.RegisterType<IPopupService, PopupService>(new ContainerControlledLifetimeManager());
-            //container.RegisterType<IInternetService, InternetService>(new ContainerControlledLifetimeManager());
-            //container.RegisterType<ILocalStorageService, LocalStorageService>(new ContainerControlledLifetimeManager());
-
-            //var popupService = Container.Resolve<IPopupService>() as PopupService;
-            //popupService?.RegisterPopup("FilterPopup", typeof(FilterMovieUserControl));
-
-            ConfigureDialogService(container);
-
-            //ConfigureRateReviewService();
-
-            //ConfigureForceUpdateService();
-
-            //ConfigurePlatformService();
-        }
-       
-
-        private void RegitserBuisnessServices(IUnityContainer container)
-        {
-            container.RegisterType<IAzureService, AzureService>(new ContainerControlledLifetimeManager());
-
-            container.RegisterType<IPostService, PostService>(new ContainerControlledLifetimeManager());
-
-            //if (Device.RuntimePlatform == Device.WinPhone)
-            //{
-            //    container.RegisterType<IPostDataService, PostDataMockService>(new ContainerControlledLifetimeManager());
-            //    container.RegisterType<IAccountDataService, AccountDataMockService>(new ContainerControlledLifetimeManager());
-            //}
-            //else
-            {
-                container.RegisterType<IPostDataService, PostDataService>(new ContainerControlledLifetimeManager());
-                container.RegisterType<IAccountDataService, AccountDataService>(new ContainerControlledLifetimeManager());
-            }
-
-            container.RegisterType<IPostCommentService, PostCommentService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IPostCommentDataService, PostCommentDataService>(
-                new ContainerControlledLifetimeManager());
-
-            container.RegisterType<IFacebookService, FacebookService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IAccountService, AccountService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IFriendService, FriendService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IFriendDataService, FriendDataService>(new ContainerControlledLifetimeManager());
-
-            container.RegisterType<INotificationDataService, NotificationDataService>(
-                new ContainerControlledLifetimeManager());
-            container.RegisterType<INotificationService, NotificationService>(new ContainerControlledLifetimeManager());
-
-            container.RegisterType<IChallengeService, ChallengeService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IChallengeDataService, ChallengeDataService>(
-                new ContainerControlledLifetimeManager());
-
-            container.RegisterType<IChallengeActivityService, ChallengeActivityService>(
-                new ContainerControlledLifetimeManager());
-            container.RegisterType<IChallengeActivityDataService, ChallengeActivityDataService>(
-                new ContainerControlledLifetimeManager());
-
-            container.RegisterType<IDeepLinkService, DeepLinkService>(new ContainerControlledLifetimeManager());
-
-
-            container.RegisterType<IAccountGoalService, AccountGoalService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IAccountGoalDataService, AccountGoalDataService>(
-                new ContainerControlledLifetimeManager());
-
-            container.RegisterType<IAccountMeasurmentService, AccountMeasurmentService>(
-                new ContainerControlledLifetimeManager());
-            container.RegisterType<IAccountMeasurmentDataService, AccountMeasurmentDataService>(
-                new ContainerControlledLifetimeManager());
         }
     }
 }

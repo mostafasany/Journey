@@ -509,18 +509,19 @@ namespace Journey.ViewModels
                                                  (_onGetMorePostsCommand =
                                                      new DelegateCommand(OnGetMorePosts));
 
-        private async void OnGetMorePosts()
+            private async void OnGetMorePosts()
         {
             try
             {
                 // ShowProgress();
                 _pageNo++;
+
                 List<PostBase> nextPageItems = await _postService.GetPostsAsync(_pageNo, LoggedInAccount?.ChallengeId);
                 if (nextPageItems != null && nextPageItems.Count > 0)
                     foreach (PostBase item in nextPageItems)
                         PostsViewModels.Add(PostToPostViewModel(item));
-                else
-                    _pageNo--;
+                //else
+                    //_pageNo--;
             }
             catch (Exception ex)
             {

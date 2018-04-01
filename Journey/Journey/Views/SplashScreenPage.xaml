@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Journey.Views.SplashScreenPage">
+    <ContentPage.Content>
+        <Controls:LoadingControl IsVisible="true" HorizontalOptions="Center" VerticalOptions="Center" />
+    </ContentPage.Content>
+</ContentPage>

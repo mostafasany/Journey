@@ -17,7 +17,7 @@ using Xamarin.Forms.Platform.Android;
 
 namespace Journey.Droid
 {
-    [Activity(Label = "Journey", Icon = "@drawable/icon", Theme = "@style/MainTheme",
+    [Activity(Label = "Journey",MainLauncher = false, Icon = "@drawable/icon", Theme = "@style/MainTheme",
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : FormsAppCompatActivity, IAzureAuthenticateService
     {
