@@ -37,7 +37,7 @@ namespace Journey.ViewModels
         }
 
         public Media Image => LoggedInAccount == null
-            ? new Media {Path = "http://bit.ly/2zBffZy"}
+            ? new Media { Path = "http://bit.ly/2zBffZy" }
             : _loggedInAccount.Image;
 
         public Account LoggedInAccount
@@ -99,7 +99,8 @@ namespace Journey.ViewModels
         {
             try
             {
-                await NavigationService.Navigate("HomePage");
+                if (NavigationService.CurrentPage != "HomePage")
+                    await NavigationService.Navigate("HomePage");
             }
             catch (Exception ex)
             {
@@ -121,7 +122,8 @@ namespace Journey.ViewModels
         {
             try
             {
-                await NavigationService.Navigate("NotificationsPage");
+                if (NavigationService.CurrentPage != "NotificationsPage")
+                    await NavigationService.Navigate("NotificationsPage");
             }
             catch (Exception ex)
             {
@@ -169,7 +171,7 @@ namespace Journey.ViewModels
                 var location = parameters.GetValue<Location>("Location");
                 if (location != null)
                     NewPostPageViewModel.NewPost.Location =
-                        new PostActivity {Action = "At", Activity = location.Name, Image = location.Image};
+                        new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
             }
             catch (Exception ex)
             {
@@ -381,7 +383,7 @@ namespace Journey.ViewModels
 
         private void UpdateChallengeBanner()
         {
-            HasNotActiveChallenge = true; //LoggedInAccount != null && LoggedInAccount.HasNotActiveChallenge;
+            HasNotActiveChallenge = LoggedInAccount != null && LoggedInAccount.HasNotActiveChallenge;
         }
 
         protected override void Cleanup()

@@ -5,6 +5,7 @@ using Journey.ViewModels;
 using Journey.ViewModels.Wall;
 using Journey.Views.Post;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Journey.Views
 {

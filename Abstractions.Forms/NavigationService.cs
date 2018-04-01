@@ -12,7 +12,7 @@ namespace Abstractions.Forms
     {
         private readonly Prism.Navigation.INavigationService _navigationService;
 
-        public NavigationService(IUnityContainer container) //:base(container)
+        public NavigationService(IUnityContainer container)
             => _navigationService = container.Resolve<Prism.Navigation.INavigationService>();
 
         public string CurrentPage { get; set; }

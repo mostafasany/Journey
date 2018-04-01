@@ -14,24 +14,20 @@ namespace Journey.Views
         protected override void OnAppearing()
         {
             _viewModel = BindingContext as BaseViewModel;
-            //if(this.Navigation.ModalStack.Count()>0)
-            //{
-            //    var navigationService = _viewModel?.Container.Resolve<INavigationService>();
-            //    navigationService.CurrentPage = this.Navigation.ModalStack?.LastOrDefault()?.ToString();
-            //}
 
-            LogPageView();
-            base.OnAppearing();
-        }
-
-        protected override void OnDisappearing()
-        {
             if (Navigation.ModalStack.Count() > 0)
             {
                 var navigationService = _viewModel?.Container.Resolve<INavigationService>();
                 string page = Navigation.ModalStack?.LastOrDefault()?.ToString();
                 navigationService.CurrentPage = page.Split(".".ToArray()).LastOrDefault();
             }
+            LogPageView();
+            base.OnAppearing();
+        }
+
+        protected override void OnDisappearing()
+        {
+
 
             base.OnDisappearing();
         }

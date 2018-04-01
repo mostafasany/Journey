@@ -51,8 +51,10 @@ namespace Journey.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
-
+            //https://blog.xamarin.com/3-big-things-explore-xamarin-forms-2-5-0-pre-release/
+            Forms.SetFlags("FastRenderers_Experimental");
             Forms.Init(this, bundle);
+
             CachedImageRenderer.Init(false);
             VideoViewRenderer.Init();
             App.Init(this);

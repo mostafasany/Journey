@@ -268,6 +268,11 @@ namespace Journey.ViewModels
                 bool hasActiveChallange = await _challengeService.CheckAccountHasChallengeAsync();
                 if (!hasActiveChallange)
                 {
+                    if(string.IsNullOrEmpty(SelectedChallenge.SelectedLocation.Id))
+                    {
+                        await DialogService.ShowMessageAsync(AppResource.Challenge_LocationMust, "");
+                        return;
+                    }
                     Challenge challenge = await _challengeService.AddChallengeAsync(SelectedChallenge);
                     if (challenge != null)
                     {

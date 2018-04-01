@@ -256,21 +256,22 @@ namespace Journey.ViewModels
                 return;
             }
 
-            if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
+            if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId) &&
+                _challenge.SelectedLocation?.Id == _location?.Id)
             {
                 string date = await _settingsService.Get(LastPostDate);
                 DateTime.TryParse(date, out DateTime parsedDate);
-               // if (parsedDate.Date != DateTime.Now.Date)
+                if (parsedDate.Date != DateTime.Now.Date)
                 {
                     await _settingsService.Set(LastPostDate, DateTime.Now.Date.ToString(CultureInfo.InvariantCulture));
-                    if (_challenge.SelectedLocation?.Id == _location?.Id)
-                        await _challengeActivityService.AddActivityAsync(new Models.Challenge.ChallengeWorkoutActivityLog()
-                        {
-                            Account = _accountService.LoggedInAccount,
-                            Challenge = _challenge.Id,
-                            DatetTime = DateTime.Now,
-                            Location = _location,
-                        });
+
+                    await _challengeActivityService.AddActivityAsync(new Models.Challenge.ChallengeWorkoutActivityLog()
+                    {
+                        Account = _accountService.LoggedInAccount,
+                        Challenge = _challenge.Id,
+                        DatetTime = DateTime.Now,
+                        Location = _location,
+                    });
                 }
             }
 

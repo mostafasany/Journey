@@ -31,8 +31,10 @@ using Prism.Navigation;
 using Prism.Unity;
 using Unity;
 using Unity.Lifetime;
+using Xamarin.Forms.Xaml;
 using INavigationService = Abstractions.Services.Contracts.INavigationService;
 
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Journey
 {
     public partial class App : PrismApplication
@@ -112,6 +114,7 @@ namespace Journey
             containerRegistry.RegisterForNavigation<ChooseChallengeFriendPage>();
             containerRegistry.RegisterForNavigation<NewChallengePage>();
             containerRegistry.RegisterForNavigation<NotificationsPage>();
+           
             RegitserAppServices(container);
 
             RegitserBuisnessServices(container);
@@ -166,7 +169,7 @@ namespace Journey
 
             //ConfigurePlatformService();
         }
-
+       
 
         private void RegitserBuisnessServices(IUnityContainer container)
         {

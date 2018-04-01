@@ -274,7 +274,10 @@
     <value>Approve Challenge</value>
   </data>
     <data name="Challenge_ApproveMessage" xml:space="preserve">
-    <value>   Challenge will be started when your friend approve</value>
+    <value>Challenge will be started when your friend approve</value>
+  </data>
+    <data name="Challenge_LocationMust" xml:space="preserve">
+    <value>Please choose workout place</value>
   </data>
     <data name="Challenge_View" xml:space="preserve">
     <value>View Challenge</value>
