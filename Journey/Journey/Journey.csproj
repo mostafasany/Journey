@@ -55,6 +55,7 @@
     <None Remove="Assets\workout.png" />
     <None Remove="Assets\ic_settings_3x.png" />
     <None Remove="Assets\ic_history_3x.png" />
+    <None Remove="Assets\challenge.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -112,6 +113,7 @@
     <EmbeddedResource Include="Assets\workout.png" />
     <EmbeddedResource Include="Assets\settings.png" />
     <EmbeddedResource Include="Assets\timeLine.png" />
+    <EmbeddedResource Include="Assets\challenge.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -145,6 +147,10 @@
     <Folder Include="Services\Buisness\Challenge\Translators\" />
     <Folder Include="Services\Buisness\DeepLink\" />
     <Folder Include="Converters\" />
+    <Folder Include="ViewModels\Account\" />
+    <Folder Include="ViewModels\Challenge\" />
+    <Folder Include="ViewModels\Post\" />
+    <Folder Include="Services\Buisness\Workout\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -152,6 +158,9 @@
     <ProjectReference Include="..\..\Abstractions.Forms\Abstractions.Forms.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Views\Account\ChooseChallengeFriendPage.xaml.cs" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\AppResource.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -227,11 +236,14 @@
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Controls\SeparatorControl.xaml.cs">
       <DependentUpon>SeparatorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Account\ChooseChallengeFriendPage.xaml.cs">
-      <DependentUpon>ProfileActivityLogPage.xaml</DependentUpon>
-    </Compile>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Account\ProfileActivityLogPage.xaml.cs">
       <DependentUpon>ProfileActivityLogPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Account\ChooseChallengeFriendPage.xaml.cs">
+      <DependentUpon>ProfileLogWorkoutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Account\ProfileLogWorkoutPage.xaml.cs">
+      <DependentUpon>ProfileLogWorkoutPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

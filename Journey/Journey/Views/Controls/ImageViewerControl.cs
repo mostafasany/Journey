@@ -83,11 +83,13 @@ namespace Journey.Views.Controls
                     //i++;
                     //if (i == 4)
                     //break;
-                    var view = (View) ItemTemplate.CreateContent();
-                    var bindableObject = view as BindableObject;
+
+                    var view = (ViewCell)ItemTemplate.CreateContent();
+                    //var view = (View) ItemTemplate.CreateContent();
+                    var bindableObject = view.View as BindableObject;
                     if (bindableObject != null)
                         bindableObject.BindingContext = newItem;
-                    _imageStack.Children.Add(view);
+                    _imageStack.Children.Add(view.View);
                 }
             }
         }

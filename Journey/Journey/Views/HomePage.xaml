@@ -5,7 +5,7 @@
             <DataTemplate x:Key="PostTemplate">
                 <Controls:UnSelectableViewCell>
                     <ViewCell.View>
-                        <Grid Margin="0,0,0,5" RowSpacing="0" BackgroundColor="White"  CompressedLayout.IsHeadless="true">
+                        <Grid Margin="0,0,0,5" RowSpacing="0" BackgroundColor="White" CompressedLayout.IsHeadless="true">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -46,11 +46,15 @@
                             <Controls:ImageViewerControl Grid.Row="2" x:Name="parent" ItemsSource="{Binding Post.MediaList}" IsVisible="{Binding Post.HasMediaList}" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
                                 <Controls:ImageViewerControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Controls:CustomImage Source="{Binding Source}" HeightRequest="200" Aspect="AspectFit">
-                                            <Controls:CustomImage.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Path=BindingContext.OnGalleryDetailsCommand, Source={x:Reference Name=parent}}" />
-                                            </Controls:CustomImage.GestureRecognizers>
-                                        </Controls:CustomImage>
+                                        <ViewCell>
+                                            <ViewCell.View>
+                                                <Controls:CustomImage Source="{Binding Source}" HeightRequest="200" Aspect="AspectFit">
+                                                    <Controls:CustomImage.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.OnGalleryDetailsCommand, Source={x:Reference Name=parent}}" />
+                                                    </Controls:CustomImage.GestureRecognizers>
+                                                </Controls:CustomImage>
+                                            </ViewCell.View>
+                                        </ViewCell>
                                     </DataTemplate>
                                 </Controls:ImageViewerControl.ItemTemplate>
                             </Controls:ImageViewerControl>

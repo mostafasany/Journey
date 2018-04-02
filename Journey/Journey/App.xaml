@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
-                        xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-                        xmlns:Controls="clr-namespace:Journey.Views.Controls"
-                        xmlns:Converters="clr-namespace:Journey.Converters"
-                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                        xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms" x:Class="Journey.App">
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:Converters="clr-namespace:Journey.Converters" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms" x:Class="Journey.App">
     <Application.Resources>
         <ResourceDictionary>
             <Converters:BoolInverterConverter x:Key="BoolInverterConverter" />
@@ -22,7 +16,7 @@
                 <Setter Property="Margin">
                     <Setter.Value>
                         <OnPlatform x:TypeArguments="Thickness">
-                           <!-- <On Platform="iOS" Value="0,0,0,0" />-->
+                            <!-- <On Platform="iOS" Value="0,0,0,0" />-->
                             <On Platform="iOS,Android, WinPhone, Windows" Value="0,5,0,0" />
                         </OnPlatform>
                     </Setter.Value>
@@ -135,13 +129,10 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Controls:CustomImage Grid.Column="0" Source="{Binding Image}" VerticalOptions="Center"
-                                                  HorizontalOptions="Start" WidthRequest="70" HeightRequest="70" />
+                            <Controls:CustomImage Grid.Column="0" Source="{Binding Image}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="70" HeightRequest="70" />
                             <StackLayout Grid.Column="1">
-                                <Label Text="{Binding Name}" TextColor="Black" FontSize="16" FontAttributes="Bold"
-                                       VerticalOptions="Center" HorizontalOptions="Start" />
-                                <Label Text="{Binding NearFormated}" TextColor="Gray" FontSize="12"
-                                       FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
+                                <Label Text="{Binding Name}" TextColor="Black" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
+                                <Label Text="{Binding NearFormated}" TextColor="Gray" FontSize="12" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
                             </StackLayout>
                         </Grid>
                     </ViewCell.View>
@@ -150,11 +141,9 @@
             <DataTemplate x:Key="ScaleTemplate">
                 <StackLayout Orientation="Vertical">
                     <Label Text="{Binding Title}" HorizontalOptions="Center" />
-                    <Controls:CustomImage Source="{Binding Image.Source}" Aspect="AspectFit" WidthRequest="50"
-                                          HeightRequest="50" />
+                    <Controls:CustomImage Source="{Binding Image.Source}" Aspect="AspectFit" WidthRequest="50" HeightRequest="50" />
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                        <Controls:CustomImage Source="{Binding Indictor.Source}" Aspect="AspectFit" WidthRequest="20"
-                                              HeightRequest="20" />
+                        <Controls:CustomImage Source="{Binding Indictor.Source}" Aspect="AspectFit" WidthRequest="20" HeightRequest="20" />
                         <Label Text="{Binding MeasureWithUnit}" HorizontalOptions="Center" />
                     </StackLayout>
                 </StackLayout>
@@ -174,7 +163,7 @@
                     <Grid VerticalOptions="FillAndExpand">
                         <ContentPresenter />
                     </Grid>
-                <!--    <BoxView Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />-->
+                    <!--    <BoxView Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />-->
                     <!-- Footer -->
                     <Grid HeightRequest="60">
                         <Grid.ColumnDefinitions>
@@ -188,9 +177,7 @@
                             </Grid.GestureRecognizers>
                             <Controls:ImageControl PortablePath="home.png" Style="{StaticResource IconStyle}" />
                         </Grid>
-                        <Controls:CustomImage Grid.Column="1" Margin="10,5"
-                                              Source="{TemplateBinding BindingContext.Image.Path}" WidthRequest="50"
-                                              HeightRequest="50" Style="{StaticResource ImageHeaderStyle}">
+                        <Controls:CustomImage Grid.Column="1" Margin="10,5" Source="{TemplateBinding BindingContext.Image.Path}" WidthRequest="50" HeightRequest="50" Style="{StaticResource ImageHeaderStyle}">
                             <Controls:CustomImage.GestureRecognizers>
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnProfileCommand}" />
                             </Controls:CustomImage.GestureRecognizers>
@@ -202,10 +189,7 @@
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnNotificationCommand}" />
                             </Grid.GestureRecognizers>
-                            <Label Text="{TemplateBinding BindingContext.NotificationsCount}"
-                                   IsVisible="{TemplateBinding BindingContext.NotificationsCount,Converter={StaticResource IntToBoolConverter}}"
-                                   TextColor="Red" FontAttributes="Bold" Margin="20,0,0,0" HorizontalOptions="Center"
-                                   VerticalOptions="Start" FontSize="12" />
+                            <Label Text="{TemplateBinding BindingContext.NotificationsCount}" IsVisible="{TemplateBinding BindingContext.NotificationsCount,Converter={StaticResource IntToBoolConverter}}" TextColor="Red" FontAttributes="Bold" Margin="20,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" FontSize="12" />
                             <Controls:ImageControl PortablePath="notification.png" Style="{StaticResource IconStyle}" />
                         </Grid>
                     </Grid>
@@ -215,7 +199,7 @@
                 <StackLayout>
                     <StackLayout.Margin>
                         <OnPlatform x:TypeArguments="Thickness">
-                          <!--  <On Platform="iOS" Value="0,17,0,0" />-->
+                            <!--  <On Platform="iOS" Value="0,17,0,0" />-->
                             <On Platform="iOS,Android, WinPhone, Windows" Value="0,0,0,0" />
                         </OnPlatform>
                     </StackLayout.Margin>
@@ -229,32 +213,38 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="1" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0" BackgroundColor="{TemplateBinding BindingContext.FirstTabSelected}">
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Command="{TemplateBinding BindingContext.OnGoToProfileChallengeCommand}" />
+                                <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnGoToProfileChallengeCommand}" />
                             </Grid.GestureRecognizers>
-                            <Controls:ImageControl PortablePath="exp.png" Style="{StaticResource IconStyle}" />
+                            <Controls:ImageControl PortablePath="challenge.png" Style="{StaticResource IconStyle}" />
                         </Grid>
                         <Controls:SeparatorControl Grid.Column="1" />
                         <Grid Grid.Column="2" BackgroundColor="{TemplateBinding BindingContext.SecondTabSelected}">
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Command="{TemplateBinding BindingContext.OnGoToActivityLogCommand}" />
+                                <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnLogWorkoutCommand}" />
                             </Grid.GestureRecognizers>
-                            <Controls:ImageControl PortablePath="timeLine.png" Style="{StaticResource IconStyle}" />
+                            <Controls:ImageControl PortablePath="exp.png" Style="{StaticResource IconStyle}" />
                         </Grid>
                         <Controls:SeparatorControl Grid.Column="3" />
                         <Grid Grid.Column="4" BackgroundColor="{TemplateBinding BindingContext.ThirdTabSelected}">
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Command="{TemplateBinding BindingContext.OnGoToProfileMeasurmentCommand}" />
+                                <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnGoToActivityLogCommand}" />
                             </Grid.GestureRecognizers>
-                            <Controls:ImageControl PortablePath="graph.png" Style="{StaticResource IconStyle}" />
+                            <Controls:ImageControl PortablePath="timeLine.png" Style="{StaticResource IconStyle}" />
                         </Grid>
                         <Controls:SeparatorControl Grid.Column="5" />
                         <Grid Grid.Column="6" BackgroundColor="{TemplateBinding BindingContext.FourthTabSelected}">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnGoToProfileMeasurmentCommand}" />
+                            </Grid.GestureRecognizers>
+                            <Controls:ImageControl PortablePath="graph.png" Style="{StaticResource IconStyle}" />
+                        </Grid>
+                        <Controls:SeparatorControl Grid.Column="7" />
+                        <Grid Grid.Column="8" BackgroundColor="{TemplateBinding BindingContext.FifthTabSelected}">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnEditProfileCommand}" />
                             </Grid.GestureRecognizers>
@@ -263,11 +253,10 @@
                     </Grid>
                     <!-- Content  -->
                     <Grid VerticalOptions="FillAndExpand">
-                        <Controls:LoadingControl IsVisible="{TemplateBinding BindingContext.IsLoading}"
-                                                 HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Controls:LoadingControl IsVisible="{TemplateBinding BindingContext.IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
                         <ContentPresenter IsVisible="{TemplateBinding BindingContext.IsNotLoading}" />
                     </Grid>
-                <!--    <BoxView Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />-->
+                    <!--    <BoxView Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />-->
                     <!-- Footer -->
                     <Grid HeightRequest="70">
                         <Grid.ColumnDefinitions>
@@ -281,9 +270,7 @@
                             </Grid.GestureRecognizers>
                             <Controls:ImageControl PortablePath="home.png" Style="{StaticResource IconStyle}" />
                         </Grid>
-                        <Controls:CustomImage Grid.Column="1" Margin="10,5"
-                                              Source="{TemplateBinding BindingContext.Image.Path}" WidthRequest="60"
-                                              HeightRequest="60" Style="{StaticResource ImageHeaderStyle}">
+                        <Controls:CustomImage Grid.Column="1" Margin="10,5" Source="{TemplateBinding BindingContext.Image.Path}" WidthRequest="60" HeightRequest="60" Style="{StaticResource ImageHeaderStyle}">
                             <Controls:CustomImage.GestureRecognizers>
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnProfileCommand}" />
                             </Controls:CustomImage.GestureRecognizers>
@@ -295,10 +282,7 @@
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnNotificationCommand}" />
                             </Grid.GestureRecognizers>
-                            <Label Text="{TemplateBinding BindingContext.NotificationsCount}"
-                                   IsVisible="{TemplateBinding BindingContext.NotificationsCount,Converter={StaticResource IntToBoolConverter}}"
-                                   TextColor="Red" FontAttributes="Bold" Margin="20,0,0,0" HorizontalOptions="Center"
-                                   VerticalOptions="Start" FontSize="12" />
+                            <Label Text="{TemplateBinding BindingContext.NotificationsCount}" IsVisible="{TemplateBinding BindingContext.NotificationsCount,Converter={StaticResource IntToBoolConverter}}" TextColor="Red" FontAttributes="Bold" Margin="20,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" FontSize="12" />
                             <Controls:ImageControl PortablePath="notification.png" Style="{StaticResource IconStyle}" />
                         </Grid>
                     </Grid>

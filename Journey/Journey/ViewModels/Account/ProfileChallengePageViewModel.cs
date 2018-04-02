@@ -39,11 +39,9 @@ namespace Journey.ViewModels
         {
             try
             {
+                ClearTabSelection();
                 FirstTabSelected = "#f1f1f1";
-                SecondTabSelected = "#ffffff";
-                ThirdTabSelected = "#ffffff";
-                FourthTabSelected = "#ffffff";
-
+              
                 if (parameters.GetNavigationMode() == NavigationMode.Back)
                 {
                 }

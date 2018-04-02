@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" ControlTemplate="{StaticResource ProfileHeaderControlTemplate}" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:selectors="clr-namespace:Journey.Views.Selectors" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.ProfileChallengePage">
-    <ContentPage.Resources>
-        <ResourceDictionary />
-    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <Grid RowSpacing="0" ColumnSpacing="0" HorizontalOptions="FillAndExpand">
             <Grid.RowDefinitions>

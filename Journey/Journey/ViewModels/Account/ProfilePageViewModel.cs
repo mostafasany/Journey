@@ -70,6 +70,14 @@ namespace Journey.ViewModels
             set => SetProperty(ref _fourthTabSelected, value);
         }
 
+        private string _fifthTabSelected = "#ffffff";
+
+        public string FifthTabSelected
+        {
+            get => _fifthTabSelected;
+            set => SetProperty(ref _fifthTabSelected, value);
+        }
+
         #endregion
 
         #region Methods
@@ -104,13 +112,28 @@ namespace Journey.ViewModels
             }
         }
 
-
         protected override void Cleanup()
         {
             try
             {
                 //Here Cleanup any resources
                 base.Cleanup();
+            }
+            catch (Exception e)
+            {
+                ExceptionService.HandleAndShowDialog(e);
+            }
+        }
+
+        protected  void ClearTabSelection()
+        {
+            try
+            {
+                FirstTabSelected = "#ffffff";
+                SecondTabSelected = "#ffffff";
+                ThirdTabSelected = "#ffffff";
+                FourthTabSelected = "#ffffff";
+                FifthTabSelected = "#ffffff";
             }
             catch (Exception e)
             {
@@ -173,6 +196,20 @@ namespace Journey.ViewModels
                 {"ComeFromProfile", true}
             };
             NavigationService.Navigate("UpdateProfilePage", parameters);
+        }
+
+        #endregion
+
+        #region OnLogWorkoutCommand
+
+        public DelegateCommand OnLogWorkoutCommand => new DelegateCommand(OnLogWorkout);
+
+        private void OnLogWorkout()
+        {
+            if (NavigationService.CurrentPage == "ProfileLogWorkoutPage")
+                return;
+
+            NavigationService.Navigate("ProfileLogWorkoutPage", null, null, null, false, true);
         }
 
         #endregion

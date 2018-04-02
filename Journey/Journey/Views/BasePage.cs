@@ -18,8 +18,11 @@ namespace Journey.Views
             if (Navigation.ModalStack.Count() > 0)
             {
                 var navigationService = _viewModel?.Container.Resolve<INavigationService>();
-                string page = Navigation.ModalStack?.LastOrDefault()?.ToString();
-                navigationService.CurrentPage = page.Split(".".ToArray()).LastOrDefault();
+                if(navigationService!=null)
+                {
+                    string page = Navigation.ModalStack?.LastOrDefault()?.ToString();
+                    navigationService.CurrentPage = page.Split(".".ToArray()).LastOrDefault();
+                }
             }
             LogPageView();
             base.OnAppearing();

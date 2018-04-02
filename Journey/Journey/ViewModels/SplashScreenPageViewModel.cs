@@ -185,6 +185,8 @@ namespace Journey.ViewModels
                 new ContainerControlledLifetimeManager());
             container.RegisterType<IAccountMeasurmentDataService, AccountMeasurmentDataService>(
                 new ContainerControlledLifetimeManager());
+
+            container.RegisterType<IWorkoutService, WorkoutService>(new ContainerControlledLifetimeManager());
         }
 
 
