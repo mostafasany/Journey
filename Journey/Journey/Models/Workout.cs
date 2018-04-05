@@ -1,28 +1,25 @@
-﻿using Prism.Mvvm;
+﻿using System.Collections.Generic;
+using Prism.Mvvm;
 
 namespace Journey.Models
 {
     public class Workout : BindableBase
     {
-        private string id;
-
         private string image;
 
-        private string title;
+        private string name;
 
+        private string unit = "Kg";
         private string weight;
-        private string reps;
+        private string rips;
+        private List<Workout> workouts;
+        public string Id { get; set; }
+        public string Parent { get; set; }
 
-        public string Id
+        public string Name
         {
-            get => id;
-            set => SetProperty(ref id, value);
-        }
-
-        public string Title
-        {
-            get => title;
-            set => SetProperty(ref title, value);
+            get => name;
+            set => SetProperty(ref name, value);
         }
 
         public string Image
@@ -37,12 +34,23 @@ namespace Journey.Models
             set => SetProperty(ref weight, value);
         }
 
-        public string Reps
+        public string Rips
         {
-            get => reps;
-            set => SetProperty(ref reps, value);
+            get => rips;
+            set => SetProperty(ref rips, value);
         }
 
+        public string Unit
+        {
+            get => unit;
+            set => SetProperty(ref unit, value);
+        }
+
+        public List<Workout> Workouts
+        {
+            get => workouts;
+            set => SetProperty(ref workouts, value);
+        }
 
     }
 }

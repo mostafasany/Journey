@@ -42,10 +42,6 @@ namespace Journey.ViewModels
                 ClearTabSelection();
                 FirstTabSelected = "#f1f1f1";
               
-                if (parameters.GetNavigationMode() == NavigationMode.Back)
-                {
-                }
-
                 if (parameters.GetNavigationMode() == NavigationMode.New)
                     Intialize();
             }

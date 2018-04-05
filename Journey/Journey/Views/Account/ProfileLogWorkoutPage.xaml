@@ -9,8 +9,8 @@
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding Path=BindingContext.OnSelectedWorkoutCategoryCommand, Source={x:Reference Name=parent}}" CommandParameter="{Binding }" />
                             </Grid.GestureRecognizers>
-                            <Controls:CustomImage Source="{Binding Image}" Aspect="AspectFit" WidthRequest="200" HeightRequest="100" />
-                            <Label Text="{Binding Title}" TextColor="White" FontSize="20" HorizontalOptions="Center" VerticalOptions="End" />
+                            <Controls:CustomImage Source="{Binding Workout.Image}" Aspect="AspectFit" WidthRequest="200" HeightRequest="100" />
+                            <Label Text="{Binding Workout.Name}" TextColor="White" FontSize="20" HorizontalOptions="Center" VerticalOptions="End" />
                         </Grid>
                     </ViewCell.View>
                 </ViewCell>
@@ -18,20 +18,26 @@
             <DataTemplate x:Key="WorkoutSubCategoryTemplate">
                 <ViewCell>
                     <ViewCell.View>
-                        <Grid>
+                        <Grid HorizontalOptions="Fill">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Controls:CustomImage Grid.RowSpan="2" Grid.Column="0" Source="{Binding Image}" Aspect="AspectFit" WidthRequest="120" HeightRequest="80" />
-                            <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding Title}" TextColor="Gray" HorizontalOptions="Start" VerticalOptions="Center" />
-                            <Entry Grid.Row="1" Grid.Column="1" BackgroundColor="White"   TextColor="Black" Keyboard="Numeric" Placeholder="Kg" Text="{Binding Weight,Mode=TwoWay}" />
-                            <Entry Grid.Row="1" Grid.Column="2" BackgroundColor="White"   TextColor="Black" Keyboard="Numeric" Placeholder="Reps" Text="{Binding Reps,Mode=TwoWay}" />
+                            <Controls:CustomImage Grid.RowSpan="2" Grid.Column="0" Source="{Binding Workout.Image}" Aspect="AspectFit" WidthRequest="120" HeightRequest="80" />
+                            <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"  Text="{Binding Workout.Name}" TextColor="Gray" HorizontalOptions="Start" VerticalOptions="Center" />
+                            <Entry Grid.Row="1" Grid.Column="1" BackgroundColor="White"  Margin="5,0" TextColor="Black" Keyboard="Numeric" Placeholder="{Binding Workout.Unit}" Text="{Binding Workout.Weight,Mode=TwoWay}" />
+                            <Entry Grid.Row="1" Grid.Column="2" BackgroundColor="White"  Margin="5,0" TextColor="Black" Keyboard="Numeric" Placeholder="Reps" Text="{Binding Workout.Rips,Mode=TwoWay}" />
+                            <Controls:ImageControl Grid.RowSpan="2" Grid.Column="3" PortablePath="check.png" Aspect="AspectFit" Style="{StaticResource IconStyle}" HorizontalOptions="End" VerticalOptions="End">
+                                <Controls:ImageControl.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding LogCommand}" CommandParameter="{Binding}" />
+                                </Controls:ImageControl.GestureRecognizers>
+                            </Controls:ImageControl>
                         </Grid>
                     </ViewCell.View>
                 </ViewCell>

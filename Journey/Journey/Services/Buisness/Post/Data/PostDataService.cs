@@ -30,6 +30,7 @@ namespace Journey.Services.Buisness.Post.Data
                     return null;
 
                 AzurePost postDto = PostDataTranslators.TranslatePost(post, _client.CurrentUser.UserId, images);
+                postDto.Liked = null;
                 await _azurePost.InsertAsync(postDto);
 
                 await SyncPostAsync(post.Challenge);

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Journey.Models;
-using Journey.Models.Challenge;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.ChallengeActivity;
 using Journey.Services.Buisness.Notification;
@@ -15,14 +13,12 @@ namespace Journey.ViewModels
     public class ProfileLogWorkoutPageViewModel : ProfilePageViewModel, INavigationAware
     {
         private readonly IAccountService _accountService;
-        private readonly IChallengeActivityService _challengeActivityService;
-        private readonly Services.Buisness.Measurment.IWorkoutService _workoutService;
+        private readonly Services.Buisness.Workout.IWorkoutService _workoutService;
 
         public ProfileLogWorkoutPageViewModel(IUnityContainer container, IAccountService accountService, INotificationService notificationService,
-                                              Services.Buisness.Measurment.IWorkoutService workoutService, IChallengeActivityService challengeActivityService) :
+                                              Services.Buisness.Workout.IWorkoutService workoutService) :
             base(container, accountService, notificationService)
         {
-            _challengeActivityService = challengeActivityService;
             _accountService = accountService;
             _workoutService = workoutService;
         }
@@ -58,26 +54,26 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        List<Workout> _workoutCategories;
+        List<Wall.WorkoutLogViewModel> _workoutCategories;
 
-        public List<Workout> WorkoutCategories
+        public List<Wall.WorkoutLogViewModel> WorkoutCategories
         {
             get => _workoutCategories;
             set => SetProperty(ref _workoutCategories, value);
         }
 
-        Workout _selectedWorkoutCategory;
+        Wall.WorkoutLogViewModel _selectedWorkoutCategory;
 
-        public Workout SelectedWorkoutCategory
+        public Wall.WorkoutLogViewModel SelectedWorkoutCategory
         {
             get => _selectedWorkoutCategory;
             set => SetProperty(ref _selectedWorkoutCategory, value);
         }
 
 
-        List<Workout> _workoutSubCategories;
+        List<Wall.WorkoutLogViewModel> _workoutSubCategories;
 
-        public List<Workout> WorkoutSubCategories
+        public List<Wall.WorkoutLogViewModel> WorkoutSubCategories
         {
             get => _workoutSubCategories;
             set => SetProperty(ref _workoutSubCategories, value);
@@ -92,10 +88,16 @@ namespace Journey.ViewModels
             try
             {
                 ShowProgress();
-                WorkoutCategories = await _workoutService.GetWorkoutCategoriesAsync();
-                if (WorkoutCategories.Any())
+                var categories = await _workoutService.GetLogWorkoutsAsync();
+                WorkoutCategories = new List<Wall.WorkoutLogViewModel>();
+                if (categories.Any())
                 {
+                    foreach (var item in categories)
+                    {
+                        WorkoutCategories.Add(ConvertToWorkoutLogViewModel(item));
+                    }
                     SelectedWorkoutCategory = WorkoutCategories.FirstOrDefault();
+                    OnSelectedWorkoutCategory(SelectedWorkoutCategory);
                 }
 
                 base.Intialize(sync);
@@ -108,6 +110,14 @@ namespace Journey.ViewModels
             {
                 HideProgress();
             }
+        }
+
+        private Wall.WorkoutLogViewModel ConvertToWorkoutLogViewModel(Models.Workout item)
+        {
+            return new Wall.WorkoutLogViewModel(Container)
+            {
+                Workout = item
+            };
         }
 
         protected override void Cleanup()
@@ -129,12 +139,19 @@ namespace Journey.ViewModels
 
         #region OnRefreshPostsCommand
 
-        public DelegateCommand<Workout> OnSelectedWorkoutCategoryCommand => new DelegateCommand<Workout>(OnSelectedWorkoutCategory);
+        public DelegateCommand<Wall.WorkoutLogViewModel> OnSelectedWorkoutCategoryCommand => new DelegateCommand<Wall.WorkoutLogViewModel>(OnSelectedWorkoutCategory);
 
 
-        private async void OnSelectedWorkoutCategory(Workout value)
+        private async void OnSelectedWorkoutCategory(Wall.WorkoutLogViewModel value)
         {
-            WorkoutSubCategories = await _workoutService.GetWorkoutSubCategoriesAsync(value.Id);
+            WorkoutSubCategories = new List<Wall.WorkoutLogViewModel>();
+            if (value?.Workout?.Workouts == null)
+                return;
+
+            foreach (var item in value.Workout.Workouts)
+            {
+                WorkoutSubCategories.Add(ConvertToWorkoutLogViewModel(item));
+            }
         }
 
         #endregion

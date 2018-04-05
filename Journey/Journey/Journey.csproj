@@ -151,6 +151,9 @@
     <Folder Include="ViewModels\Challenge\" />
     <Folder Include="ViewModels\Post\" />
     <Folder Include="Services\Buisness\Workout\" />
+    <Folder Include="Services\Buisness\Workout\Dto\" />
+    <Folder Include="Services\Buisness\Workout\Data\" />
+    <Folder Include="Services\Buisness\Workout\Translators\" />
   </ItemGroup>
 
   <ItemGroup>

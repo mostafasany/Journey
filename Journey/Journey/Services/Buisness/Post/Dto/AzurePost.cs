@@ -48,8 +48,9 @@ namespace Journey.Services.Buisness.Post.Dto
         [JsonProperty(PropertyName = "lname")]
         public string Lname { get; set; }
 
+      
         [JsonProperty(PropertyName = "liked")]
-        public bool Liked { get; set; }
+        public bool? Liked { get; set; }
 
         [JsonProperty(PropertyName = "profile")]
         public string Profile { get; set; }
