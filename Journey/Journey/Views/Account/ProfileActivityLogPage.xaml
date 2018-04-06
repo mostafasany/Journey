@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:local="clr-namespace:Journey.Views"
-                xmlns:controls="clr-namespace:Journey.Views.Controls"
-                xmlns:selectors="clr-namespace:Journey.Views.Selectors"
-                ControlTemplate="{StaticResource ProfileHeaderControlTemplate}"
-                x:Class="Journey.Views.ProfileActivityLogPage">
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:controls="clr-namespace:Journey.Views.Controls" xmlns:selectors="clr-namespace:Journey.Views.Selectors" ControlTemplate="{StaticResource ProfileHeaderControlTemplate}" x:Class="Journey.Views.ProfileActivityLogPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="OtherWorkoutTemplate">
@@ -19,18 +12,13 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <StackLayout Grid.Column="2" HorizontalOptions="Fill">
-                                <Label Text="{Binding Account.Name}" TextColor="Gray" FontSize="14"
-                                       VerticalOptions="Center" HorizontalOptions="Start" />
-                                <Label Text="{Binding FormatedDate}" TextColor="Gray" FontSize="12"
-                                       HorizontalOptions="End" VerticalOptions="Center" />
+                                <Label Text="{Binding Account.Name}" TextColor="Gray" FontSize="14" VerticalOptions="Center" HorizontalOptions="Start" />
+                                <Label Text="{Binding FormatedDate}" TextColor="Gray" FontSize="12" HorizontalOptions="Start" VerticalOptions="Center" />
                             </StackLayout>
-                            <controls:ImageControl Grid.Column="1" HorizontalOptions="Center"
-                                                   PortablePath="workout.png" WidthRequest="40" HeightRequest="40"
-                                                   Margin="10,0" />
+                            <controls:ImageControl Grid.Column="1" HorizontalOptions="Center" PortablePath="workout.png" WidthRequest="40" HeightRequest="40" Margin="10,0" />
                             <StackLayout Grid.Column="0" Orientation="Vertical" HorizontalOptions="Center">
                                 <Grid BackgroundColor="Maroon" Padding="5,10">
-                                    <Label Text="{Binding Location.Name}" TextColor="White" FontSize="14"
-                                           HorizontalOptions="Center" />
+                                    <Label Text="{Binding Location.Name}" TextColor="White" FontSize="14" HorizontalOptions="Center" />
                                 </Grid>
                                 <!--  <Controls:ImageControl Margin="0,-27,0,0" WidthRequest="50" HeightRequest="50" HorizontalOptions="Start" VerticalOptions="Start" PortablePath="downArrow.png" />-->
                             </StackLayout>
@@ -48,19 +36,14 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <StackLayout Grid.Column="2" HorizontalOptions="Fill">
-                                <Label Text="{Binding Account.Name}" TextColor="Gray" FontSize="14"
-                                       VerticalOptions="Center" HorizontalOptions="Start" />
-                                <Label Text="{Binding FormatedDate}" TextColor="Gray" FontSize="12"
-                                       VerticalOptions="Center" HorizontalOptions="End" />
+                                <Label Text="{Binding Account.Name}" TextColor="Gray" FontSize="14" VerticalOptions="Center" HorizontalOptions="Start" />
+                                <Label Text="{Binding FormatedDate}" TextColor="Gray" FontSize="12" VerticalOptions="Center" HorizontalOptions="Start" />
                             </StackLayout>
-                            <controls:ImageControl Grid.Column="1" HorizontalOptions="Center"
-                                                   PortablePath="running.png" WidthRequest="40" HeightRequest="40"
-                                                   Margin="10,0" />
+                            <controls:ImageControl Grid.Column="1" HorizontalOptions="Center" PortablePath="running.png" WidthRequest="40" HeightRequest="40" Margin="10,0" />
                             <StackLayout Grid.Column="0" Orientation="Vertical" HorizontalOptions="Center">
                                 <Grid BackgroundColor="Maroon" Padding="5,10">
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                                        <Label Text="{Binding KM}" TextColor="White" FontSize="14"
-                                               HorizontalOptions="Center" />
+                                        <Label Text="{Binding KM}" TextColor="White" FontSize="14" HorizontalOptions="Center" />
                                         <Label Text="Km" TextColor="White" FontSize="14" HorizontalOptions="Center" />
                                     </StackLayout>
                                 </Grid>
@@ -80,18 +63,13 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <StackLayout Grid.Column="0" HorizontalOptions="Fill">
-                                <Label Text="{Binding Account.Name}" TextColor="Gray" FontSize="14"
-                                       VerticalOptions="Center" HorizontalOptions="Start" />
-                                <Label Text="{Binding FormatedDate}" TextColor="Gray" FontSize="12"
-                                       VerticalOptions="Center" HorizontalOptions="End" />
+                                <Label Text="{Binding Account.Name}" TextColor="Gray" FontSize="14" VerticalOptions="Center" HorizontalOptions="Start" />
+                                <Label Text="{Binding FormatedDate}" TextColor="Gray" FontSize="12" VerticalOptions="Center" HorizontalOptions="Start" />
                             </StackLayout>
-                            <controls:ImageControl Grid.Column="1" HorizontalOptions="Center"
-                                                   PortablePath="workout.png" WidthRequest="40" HeightRequest="40"
-                                                   Margin="10,0" />
+                            <controls:ImageControl Grid.Column="1" HorizontalOptions="Center" PortablePath="workout.png" WidthRequest="40" HeightRequest="40" Margin="10,0" />
                             <StackLayout Grid.Column="2" Orientation="Vertical" HorizontalOptions="Center">
                                 <Grid BackgroundColor="Teal" Padding="5,10">
-                                    <Label Text="{Binding Location.Name}" TextColor="White" FontSize="14"
-                                           HorizontalOptions="Center" />
+                                    <Label Text="{Binding Location.Name}" TextColor="White" FontSize="14" HorizontalOptions="Center" />
                                 </Grid>
                                 <!--  <Controls:ImageControl Margin="0,-27,0,0" WidthRequest="50" HeightRequest="50" HorizontalOptions="Start" VerticalOptions="Start" PortablePath="downArrow.png" />-->
                             </StackLayout>
@@ -109,19 +87,14 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <StackLayout Grid.Column="0" HorizontalOptions="Fill">
-                                <Label Text="{Binding Account.Name}" TextColor="Gray" FontSize="14"
-                                       VerticalOptions="Center" HorizontalOptions="Start" />
-                                <Label Text="{Binding FormatedDate}" TextColor="Gray" FontSize="12"
-                                       VerticalOptions="Center" HorizontalOptions="End" />
+                                <Label Text="{Binding Account.Name}" TextColor="Gray" FontSize="14" VerticalOptions="Center" HorizontalOptions="Start" />
+                                <Label Text="{Binding FormatedDate}" TextColor="Gray" FontSize="12" VerticalOptions="Center" HorizontalOptions="Start" />
                             </StackLayout>
-                            <controls:ImageControl Grid.Column="1" HorizontalOptions="Center"
-                                                   PortablePath="running.png" WidthRequest="40" HeightRequest="40"
-                                                   Margin="10,0" />
+                            <controls:ImageControl Grid.Column="1" HorizontalOptions="Center" PortablePath="running.png" WidthRequest="40" HeightRequest="40" Margin="10,0" />
                             <StackLayout Grid.Column="2" Orientation="Vertical" HorizontalOptions="Center">
                                 <Grid BackgroundColor="Teal" Padding="5,10">
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                                        <Label Text="{Binding KM}" TextColor="White" FontSize="14"
-                                               HorizontalOptions="Center" />
+                                        <Label Text="{Binding KM}" TextColor="White" FontSize="14" HorizontalOptions="Center" />
                                         <Label Text="Km" TextColor="White" FontSize="14" HorizontalOptions="Center" />
                                     </StackLayout>
                                 </Grid>
@@ -131,17 +104,12 @@
                     </ViewCell.View>
                 </controls:UnSelectableViewCell>
             </DataTemplate>
-            <selectors:ActivityLogTemplateSelector x:Key="ActivityLogTemplateSelector"
-                                                   OtherWorkoutTemplate="{StaticResource OtherWorkoutTemplate}"
-                                                   OtherKMTemplate="{StaticResource OtherKMTemplate}"
-                                                   MeWorkoutTemplate="{StaticResource MeWorkoutTemplate}"
-                                                   MeKMTemplate="{StaticResource MeKMTemplate}" />
+            <selectors:ActivityLogTemplateSelector x:Key="ActivityLogTemplateSelector" OtherWorkoutTemplate="{StaticResource OtherWorkoutTemplate}" OtherKMTemplate="{StaticResource OtherKMTemplate}" MeWorkoutTemplate="{StaticResource MeWorkoutTemplate}" MeKMTemplate="{StaticResource MeKMTemplate}" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid Style="{StaticResource MainGridStyle}">
-            <ListView ItemsSource="{Binding ChallengeActivityLog}" HorizontalOptions="Center" SeparatorVisibility="None"
-                      ItemTemplate="{StaticResource ActivityLogTemplateSelector}" HasUnevenRows="true" />
+            <ListView ItemsSource="{Binding ChallengeActivityLog}" HorizontalOptions="Center" SeparatorVisibility="None" ItemTemplate="{StaticResource ActivityLogTemplateSelector}" HasUnevenRows="true" />
         </Grid>
     </ContentPage.Content>
 </local:BasePage>

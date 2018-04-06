@@ -37,8 +37,9 @@
                 </ListView.GroupHeaderTemplate>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <Grid Padding="10" HorizontalOptions="Center">
+                        <controls:UnSelectableViewCell>
+                             <ViewCell.View>
+                            <Grid Padding="0,10" BackgroundColor="White">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
@@ -60,7 +61,8 @@
                                     <Label Text="{resources:Translate KM}" Margin="10,0,0,0" />
                                 </StackLayout>
                             </Grid>
-                        </ViewCell>
+                                </ViewCell.View>
+                        </controls:UnSelectableViewCell>>
                     </DataTemplate>
                 </ListView.ItemTemplate>
                 <ListView.Footer>

@@ -22,7 +22,7 @@
                     </Setter.Value>
                 </Setter>
                 <Setter Property="RowSpacing" Value="0" />
-                <Setter Property="Padding" Value="10,0" />
+                <Setter Property="Padding" Value="5,0" />
                 <Setter Property="HorizontalOptions" Value="FillAndExpand" />
                 <Setter Property="VerticalOptions" Value="FillAndExpand" />
             </Style>
@@ -145,17 +145,20 @@
             <DataTemplate x:Key="ScaleTemplate">
                 <Controls:UnSelectableViewCell>
                     <ViewCell.View>
-                        <Grid BackgroundColor="White" Margin="5,5,5,0">
+                        <Grid BackgroundColor="White">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Label Text="{Binding Title}" Margin="5,0" FontAttributes="Bold"
-                                   Style="{StaticResource LabelHeaderStyle}" />
-                            <Grid Grid.Column="1" BackgroundColor="{Binding Color}" WidthRequest="100">
-                                <Label HorizontalOptions="Center" TextColor="White" Text="{Binding MeasureWithUnit}"
-                                       Style="{StaticResource LabelHeaderStyle}" />
+                            <Label Text="{Binding Title}" Grid.Row="0" Margin="5,0" FontAttributes="Bold" Style="{StaticResource LabelHeaderStyle}" />
+                            <Grid Grid.Column="1" Grid.Row="0" BackgroundColor="{Binding Color}" WidthRequest="100">
+                                <Label HorizontalOptions="Center" TextColor="White" Text="{Binding MeasureWithUnit}" Style="{StaticResource LabelHeaderStyle}" />
                             </Grid>
+                            <Controls:SeparatorControl Grid.Row="1" Grid.ColumnSpan="2" Margin="0,1" HeightRequest="1" />
                         </Grid>
                     </ViewCell.View>
                 </Controls:UnSelectableViewCell>
@@ -169,15 +172,20 @@
             </Style>
             <!-- TODO: Use TemplateBindings for text/icons/commands etc -->
             <ControlTemplate x:Key="HeaderFooterControlTemplate">
-                <StackLayout>
+                <Grid RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="60" />
+                    </Grid.RowDefinitions>
                     <!-- Header-->
                     <!-- Content  -->
-                    <Grid VerticalOptions="FillAndExpand">
+                    <Grid Grid.Row="0" VerticalOptions="FillAndExpand">
                         <ContentPresenter />
                     </Grid>
-                    <BoxView Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />
+                    <BoxView Grid.Row="1" Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />
                     <!-- Footer -->
-                    <Grid HeightRequest="60">
+                    <Grid Grid.Row="2" HeightRequest="60">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
@@ -205,18 +213,25 @@
                             <Controls:ImageControl PortablePath="notification.png" Style="{StaticResource IconStyle}" />
                         </Grid>
                     </Grid>
-                </StackLayout>
+                </Grid>
             </ControlTemplate>
             <ControlTemplate x:Key="ProfileHeaderControlTemplate">
-                <StackLayout>
-                    <StackLayout.Margin>
+                <Grid RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="70" />
+                    </Grid.RowDefinitions>
+                    <Grid.Margin>
                         <OnPlatform x:TypeArguments="Thickness">
                             <!--  <On Platform="iOS" Value="0,17,0,0" />-->
                             <On Platform="iOS,Android, WinPhone, Windows" Value="0,0,0,0" />
                         </OnPlatform>
-                    </StackLayout.Margin>
+                    </Grid.Margin>
                     <!-- Header-->
-                    <Grid HeightRequest="60" ColumnSpacing="0">
+                    <Grid Grid.Row="0" HeightRequest="60" ColumnSpacing="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="1" />
@@ -263,15 +278,15 @@
                             <Controls:ImageControl PortablePath="settings.png" Style="{StaticResource IconStyle}" />
                         </Grid>
                     </Grid>
-                    <BoxView Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />
+                    <BoxView Grid.Row="1" Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />
                     <!-- Content  -->
-                    <Grid VerticalOptions="FillAndExpand">
+                    <Grid Grid.Row="2" VerticalOptions="FillAndExpand">
                         <Controls:LoadingControl IsVisible="{TemplateBinding BindingContext.IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
                         <ContentPresenter IsVisible="{TemplateBinding BindingContext.IsNotLoading}" />
                     </Grid>
-                    <BoxView Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />
+                    <BoxView Grid.Row="3" Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />
                     <!-- Footer -->
-                    <Grid HeightRequest="70">
+                    <Grid Grid.Row="4" HeightRequest="70">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
@@ -299,7 +314,7 @@
                             <Controls:ImageControl PortablePath="notification.png" Style="{StaticResource IconStyle}" />
                         </Grid>
                     </Grid>
-                </StackLayout>
+                </Grid>
             </ControlTemplate>
         </ResourceDictionary>
     </Application.Resources>
