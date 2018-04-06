@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls"
-                xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-                xmlns:resources="clr-namespace:Journey.Resources" xmlns:localViews="clr-namespace:Journey.Views.Post"
+                xmlns:local="clr-namespace:Journey.Views" xmlns:controls="clr-namespace:Journey.Views.Controls"
+                xmlns:localViews="clr-namespace:Journey.Views.Post"
                 x:Class="Journey.Views.NewPostPage">
     <ContentPage.Content>
-        <Grid RowSpacing="0" Style="{StaticResource MainGridStyle}">
+        <Grid Style="{StaticResource MainGridStyle}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Controls:ImageControl Grid.Row="0" Margin="10,0" PortablePath="clear.png"
+            <controls:ImageControl Grid.Row="0" Margin="10,0" PortablePath="clear.png"
                                    Style="{StaticResource IconStyle}" HorizontalOptions="End">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
                 </Image.GestureRecognizers>
-            </Controls:ImageControl>
+            </controls:ImageControl>
             <ContentView Grid.Row="1">
                 <ContentView.Content>
                     <localViews:NewPostView />

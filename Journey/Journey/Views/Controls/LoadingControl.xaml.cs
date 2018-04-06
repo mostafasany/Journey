@@ -9,7 +9,7 @@ namespace Journey.Views.Controls
         public LoadingControl()
         {
             InitializeComponent();
-            RotateElement(loading, new CancellationToken());
+            RotateElement(Loading, new CancellationToken());
         }
 
         private async Task RotateElement(VisualElement element, CancellationToken cancellation)

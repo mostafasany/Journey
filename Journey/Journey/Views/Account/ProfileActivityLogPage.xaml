@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-                ControlTemplate="{StaticResource ProfileHeaderControlTemplate}"
-                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views"
-                xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:local="clr-namespace:Journey.Views"
+                xmlns:controls="clr-namespace:Journey.Views.Controls"
                 xmlns:selectors="clr-namespace:Journey.Views.Selectors"
-                xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources"
+                ControlTemplate="{StaticResource ProfileHeaderControlTemplate}"
                 x:Class="Journey.Views.ProfileActivityLogPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="OtherWorkoutTemplate">
-                <Controls:UnSelectableViewCell>
+                <controls:UnSelectableViewCell>
                     <ViewCell.View>
                         <Grid BackgroundColor="White" RowSpacing="0" Padding="5,20">
                             <Grid.ColumnDefinitions>
@@ -24,7 +24,7 @@
                                 <Label Text="{Binding FormatedDate}" TextColor="Gray" FontSize="12"
                                        HorizontalOptions="End" VerticalOptions="Center" />
                             </StackLayout>
-                            <Controls:ImageControl Grid.Column="1" HorizontalOptions="Center"
+                            <controls:ImageControl Grid.Column="1" HorizontalOptions="Center"
                                                    PortablePath="workout.png" WidthRequest="40" HeightRequest="40"
                                                    Margin="10,0" />
                             <StackLayout Grid.Column="0" Orientation="Vertical" HorizontalOptions="Center">
@@ -36,10 +36,10 @@
                             </StackLayout>
                         </Grid>
                     </ViewCell.View>
-                </Controls:UnSelectableViewCell>
+                </controls:UnSelectableViewCell>
             </DataTemplate>
             <DataTemplate x:Key="OtherKMTemplate">
-                <Controls:UnSelectableViewCell>
+                <controls:UnSelectableViewCell>
                     <ViewCell.View>
                         <Grid BackgroundColor="White" RowSpacing="0" Padding="5,20">
                             <Grid.ColumnDefinitions>
@@ -53,7 +53,7 @@
                                 <Label Text="{Binding FormatedDate}" TextColor="Gray" FontSize="12"
                                        VerticalOptions="Center" HorizontalOptions="End" />
                             </StackLayout>
-                            <Controls:ImageControl Grid.Column="1" HorizontalOptions="Center"
+                            <controls:ImageControl Grid.Column="1" HorizontalOptions="Center"
                                                    PortablePath="running.png" WidthRequest="40" HeightRequest="40"
                                                    Margin="10,0" />
                             <StackLayout Grid.Column="0" Orientation="Vertical" HorizontalOptions="Center">
@@ -68,10 +68,10 @@
                             </StackLayout>
                         </Grid>
                     </ViewCell.View>
-                </Controls:UnSelectableViewCell>
+                </controls:UnSelectableViewCell>
             </DataTemplate>
             <DataTemplate x:Key="MeWorkoutTemplate">
-                <Controls:UnSelectableViewCell>
+                <controls:UnSelectableViewCell>
                     <ViewCell.View>
                         <Grid BackgroundColor="White" RowSpacing="0" Padding="5,20">
                             <Grid.ColumnDefinitions>
@@ -85,7 +85,7 @@
                                 <Label Text="{Binding FormatedDate}" TextColor="Gray" FontSize="12"
                                        VerticalOptions="Center" HorizontalOptions="End" />
                             </StackLayout>
-                            <Controls:ImageControl Grid.Column="1" HorizontalOptions="Center"
+                            <controls:ImageControl Grid.Column="1" HorizontalOptions="Center"
                                                    PortablePath="workout.png" WidthRequest="40" HeightRequest="40"
                                                    Margin="10,0" />
                             <StackLayout Grid.Column="2" Orientation="Vertical" HorizontalOptions="Center">
@@ -97,10 +97,10 @@
                             </StackLayout>
                         </Grid>
                     </ViewCell.View>
-                </Controls:UnSelectableViewCell>
+                </controls:UnSelectableViewCell>
             </DataTemplate>
             <DataTemplate x:Key="MeKMTemplate">
-                <Controls:UnSelectableViewCell>
+                <controls:UnSelectableViewCell>
                     <ViewCell.View>
                         <Grid BackgroundColor="White" RowSpacing="0" Padding="5,20">
                             <Grid.ColumnDefinitions>
@@ -114,7 +114,7 @@
                                 <Label Text="{Binding FormatedDate}" TextColor="Gray" FontSize="12"
                                        VerticalOptions="Center" HorizontalOptions="End" />
                             </StackLayout>
-                            <Controls:ImageControl Grid.Column="1" HorizontalOptions="Center"
+                            <controls:ImageControl Grid.Column="1" HorizontalOptions="Center"
                                                    PortablePath="running.png" WidthRequest="40" HeightRequest="40"
                                                    Margin="10,0" />
                             <StackLayout Grid.Column="2" Orientation="Vertical" HorizontalOptions="Center">
@@ -129,7 +129,7 @@
                             </StackLayout>
                         </Grid>
                     </ViewCell.View>
-                </Controls:UnSelectableViewCell>
+                </controls:UnSelectableViewCell>
             </DataTemplate>
             <selectors:ActivityLogTemplateSelector x:Key="ActivityLogTemplateSelector"
                                                    OtherWorkoutTemplate="{StaticResource OtherWorkoutTemplate}"
@@ -139,8 +139,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid RowSpacing="0" ColumnSpacing="0" HorizontalOptions="FillAndExpand">
-            <ListView ItemsSource="{Binding ChallengeActivityLog}" SeparatorVisibility="None"
+        <Grid Style="{StaticResource MainGridStyle}">
+            <ListView ItemsSource="{Binding ChallengeActivityLog}" HorizontalOptions="Center" SeparatorVisibility="None"
                       ItemTemplate="{StaticResource ActivityLogTemplateSelector}" HasUnevenRows="true" />
         </Grid>
     </ContentPage.Content>

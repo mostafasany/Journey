@@ -5,8 +5,8 @@
       xmlns="http://xamarin.com/schemas/2014/forms"
       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
       x:Class="Journey.Views.Controls.LoadingControl"
-      xmlns:Controls="clr-namespace:Journey.Views.Controls">
+      xmlns:controls="clr-namespace:Journey.Views.Controls">
 
-    <Controls:ImageControl PortablePath="loading.png" x:Name="loading"
+    <controls:ImageControl PortablePath="loading.png" x:Name="Loading"
                            Style="{StaticResource IconStyle}" VerticalOptions="Center" HorizontalOptions="Center" />
 </Grid>

@@ -4,7 +4,7 @@
         <ResourceDictionary>
             <Converters:BoolInverterConverter x:Key="BoolInverterConverter" />
             <Converters:IntToBoolConverter x:Key="IntToBoolConverter" />
-            <Color x:Key="Primary"> #b2d8d8</Color>
+            <Color x:Key="Primary">#b2d8d8</Color>
             <Color x:Key="PrimaryDark">#004c4c</Color>
             <Color x:Key="LightBackgroundColor">#FFFFFF</Color>
             <Color x:Key="DarkBackgroundColor">#ebebeb</Color>
@@ -21,6 +21,10 @@
                         </OnPlatform>
                     </Setter.Value>
                 </Setter>
+                <Setter Property="RowSpacing" Value="0" />
+                <Setter Property="Padding" Value="10,0" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
             </Style>
             <Style TargetType="ActivityIndicator" x:Key="ActivityIndicatorStyle">
                 <Setter Property="Color" Value="{StaticResource Primary}" />
@@ -139,14 +143,22 @@
                 </Controls:UnSelectableViewCell>
             </DataTemplate>
             <DataTemplate x:Key="ScaleTemplate">
-                <StackLayout Orientation="Vertical">
-                    <Label Text="{Binding Title}" HorizontalOptions="Center" />
-                    <Controls:CustomImage Source="{Binding Image.Source}" Aspect="AspectFit" WidthRequest="50" HeightRequest="50" />
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                        <Controls:CustomImage Source="{Binding Indictor.Source}" Aspect="AspectFit" WidthRequest="20" HeightRequest="20" />
-                        <Label Text="{Binding MeasureWithUnit}" HorizontalOptions="Center" />
-                    </StackLayout>
-                </StackLayout>
+                <Controls:UnSelectableViewCell>
+                    <ViewCell.View>
+                        <Grid BackgroundColor="White" Margin="5,5,5,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Title}" Margin="5,0" FontAttributes="Bold"
+                                   Style="{StaticResource LabelHeaderStyle}" />
+                            <Grid Grid.Column="1" BackgroundColor="{Binding Color}" WidthRequest="100">
+                                <Label HorizontalOptions="Center" TextColor="White" Text="{Binding MeasureWithUnit}"
+                                       Style="{StaticResource LabelHeaderStyle}" />
+                            </Grid>
+                        </Grid>
+                    </ViewCell.View>
+                </Controls:UnSelectableViewCell>
             </DataTemplate>
             <Thickness x:Key="SmallTopMargin">0,10,0,0</Thickness>
             <Color x:Key="ThemeBackgroundDetailColor">#F0F0F0</Color>
@@ -163,7 +175,7 @@
                     <Grid VerticalOptions="FillAndExpand">
                         <ContentPresenter />
                     </Grid>
-                    <!--    <BoxView Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />-->
+                    <BoxView Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />
                     <!-- Footer -->
                     <Grid HeightRequest="60">
                         <Grid.ColumnDefinitions>
@@ -251,12 +263,13 @@
                             <Controls:ImageControl PortablePath="settings.png" Style="{StaticResource IconStyle}" />
                         </Grid>
                     </Grid>
+                    <BoxView Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />
                     <!-- Content  -->
                     <Grid VerticalOptions="FillAndExpand">
                         <Controls:LoadingControl IsVisible="{TemplateBinding BindingContext.IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
                         <ContentPresenter IsVisible="{TemplateBinding BindingContext.IsNotLoading}" />
                     </Grid>
-                    <!--    <BoxView Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />-->
+                    <BoxView Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />
                     <!-- Footer -->
                     <Grid HeightRequest="70">
                         <Grid.ColumnDefinitions>

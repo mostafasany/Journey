@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls"
-                xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.MediaPage">
+                xmlns:local="clr-namespace:Journey.Views" xmlns:controls="clr-namespace:Journey.Views.Controls"
+                x:Class="Journey.Views.MediaPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="MediaTemplate">
-                <Controls:UnSelectableViewCell>
+                <controls:UnSelectableViewCell>
                     <ViewCell.View>
-                        <Controls:CustomImage Margin="0,0,0,5" Source="{Binding Thumbnail}" WidthRequest="500"
+                        <controls:CustomImage Margin="0,0,0,5" Source="{Binding Thumbnail}" WidthRequest="500"
                                               HeightRequest="300" Aspect="AspectFit" VerticalOptions="Fill"
                                               HorizontalOptions="Fill">
-                            <Controls:CustomImage.GestureRecognizers>
+                            <controls:CustomImage.GestureRecognizers>
                                 <TapGestureRecognizer
-                                    Command="{Binding Path=BindingContext.OnGalleryDetailsCommand, Source={x:Reference Name=parent}}"
+                                    Command="{Binding Path=BindingContext.OnGalleryDetailsCommand, Source={x:Reference Name=ParentListView}}"
                                     CommandParameter="{Binding}" />
-                            </Controls:CustomImage.GestureRecognizers>
-                        </Controls:CustomImage>
+                            </controls:CustomImage.GestureRecognizers>
+                        </controls:CustomImage>
                     </ViewCell.View>
-                </Controls:UnSelectableViewCell>
+                </controls:UnSelectableViewCell>
             </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -28,13 +28,13 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Controls:ImageControl Grid.Row="0" PortablePath="clear.png" Style="{StaticResource IconStyle}"
+            <controls:ImageControl Grid.Row="0" PortablePath="clear.png" Style="{StaticResource IconStyle}"
                                    HorizontalOptions="End" Margin="10,10">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
                 </Image.GestureRecognizers>
-            </Controls:ImageControl>
-            <ListView Grid.Row="1" x:Name="parent" HasUnevenRows="true" SeparatorVisibility="None"
+            </controls:ImageControl>
+            <ListView Grid.Row="1" x:Name="ParentListView" HasUnevenRows="true" SeparatorVisibility="None"
                       ItemTemplate="{StaticResource MediaTemplate}"
                       BackgroundColor="White" ItemsSource="{Binding MediaList}" HorizontalOptions="Fill" />
         </Grid>

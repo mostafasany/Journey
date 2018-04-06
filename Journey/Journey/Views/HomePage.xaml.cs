@@ -16,8 +16,8 @@ namespace Journey.Views
         public HomePage()
         {
             InitializeComponent();
-            var tapGestureRecognizer = new TapGestureRecognizer();
-            tapGestureRecognizer.Tapped += TapGestureRecognizer_Tapped;
+            //var tapGestureRecognizer = new TapGestureRecognizer();
+            //tapGestureRecognizer.Tapped += TapGestureRecognizer_Tapped;
             SizeChanged += HomePage_SizeChanged;
         }
 
@@ -70,10 +70,10 @@ namespace Journey.Views
             }
         }
 
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-        {
-            if (_vm.PostsViewModels?.FirstOrDefault() != null)
-                lst.ScrollTo(_vm.PostsViewModels.FirstOrDefault(), ScrollToPosition.Center, false);
-        }
+        //private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        //{
+        //    if (_vm.PostsViewModels?.FirstOrDefault() != null)
+        //        PostList.ScrollTo(_vm.PostsViewModels.FirstOrDefault(), ScrollToPosition.Center, false);
+        //}
     }
 }

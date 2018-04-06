@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" ControlTemplate="{StaticResource ProfileHeaderControlTemplate}" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:selectors="clr-namespace:Journey.Views.Selectors" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.ProfileChallengePage">
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:resources="clr-namespace:Journey.Resources"
+                xmlns:local="clr-namespace:Journey.Views"
+                xmlns:controls="clr-namespace:Journey.Views.Controls"
+                ControlTemplate="{StaticResource ProfileHeaderControlTemplate}"
+                x:Class="Journey.Views.ProfileChallengePage">
     
     <ContentPage.Content>
-        <Grid RowSpacing="0" ColumnSpacing="0" HorizontalOptions="FillAndExpand">
+        <Grid Style="{StaticResource MainGridStyle}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" IsVisible="{Binding HasActiveChallenge,Converter={StaticResource BoolInverterConverter}}">
-                <Controls:ImageControl Aspect="AspectFill" PortablePath="challengeBanner.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                <controls:ImageControl Aspect="AspectFill" PortablePath="challengeBanner.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
                 <StackLayout Orientation="Vertical">
                     <Label Margin="0,5" Text="{resources:Translate Home_StartNewChallenge}" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" TextColor="White" />
                     <Button Margin="0,0,0,5" Text="Start" Command="{Binding OnStartNewChallengeCommand}" WidthRequest="150" HorizontalOptions="Center" FontSize="14" Style="{StaticResource SecondaryButtonStyle}" />
                 </StackLayout>
             </Grid>
-            <Button Grid.Row="1" IsVisible="{Binding HasActiveChallenge}"
-                    Text="{resources:Translate Challenge_View}" TextColor="Black" 
+            <Button Grid.Row="1" IsVisible="{Binding HasActiveChallenge}" Style="{StaticResource SecondaryButtonStyle}"
+                    Text="{resources:Translate Challenge_View}" TextColor="Black" Margin="0,10"
                     Command="{Binding OnViewChallengeCommand}"/>
 
             <ListView Grid.Row="2" ItemsSource="{Binding ChallengeProgress}" IsGroupingEnabled="true" HasUnevenRows="true">
@@ -38,12 +44,12 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <StackLayout Orientation="Horizontal" Grid.Column="0" Grid.RowSpan="2">
                                     <Label VerticalOptions="Center" Text="{Binding Account.Name}" Margin="5,0" WidthRequest="120" />
-                                    <Controls:SeparatorControl WidthRequest="1" />
+                                    <controls:SeparatorControl WidthRequest="1" />
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" Grid.Column="1" Grid.Row="0" Margin="5,0,0,0">
                                     <Label Text="{Binding TotalExercises}" />

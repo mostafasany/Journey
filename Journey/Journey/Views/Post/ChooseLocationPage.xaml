@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls"
+                xmlns:local="clr-namespace:Journey.Views" xmlns:controls="clr-namespace:Journey.Views.Controls"
                 xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.ChooseLocationPage">
     <ContentPage.Content>
-        <Grid RowSpacing="0" Style="{StaticResource MainGridStyle}">
+        <Grid Style="{StaticResource MainGridStyle}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -15,12 +15,12 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Controls:ImageControl Grid.Column="0" Margin="10,0,0,0" PortablePath="back.png"
+                <controls:ImageControl Grid.Column="0" Margin="10,0,0,0" PortablePath="back.png"
                                        Style="{StaticResource IconStyle}">
-                    <Controls:ImageControl.GestureRecognizers>
+                    <controls:ImageControl.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
-                    </Controls:ImageControl.GestureRecognizers>
-                </Controls:ImageControl>
+                    </controls:ImageControl.GestureRecognizers>
+                </controls:ImageControl>
                 <SearchBar Grid.Column="1" BackgroundColor="Transparent" WidthRequest="400"
                            Placeholder="{resources:Translate Challenge_ChooseYourWorkoutPlace}"
                            Text="{Binding SearchKeyword,Mode=TwoWay}" SearchCommand="{Binding OnSearchCommand}" />
@@ -32,7 +32,7 @@
                       HorizontalOptions="Fill" />
             <Label Grid.Row="2" IsVisible="{Binding NoLocations}" HorizontalOptions="Center" VerticalOptions="Center"
                    Text="{resources:Translate Location_NoPlaces}" TextColor="Gray" FontSize="20" />
-            <Controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
+            <controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
                                      VerticalOptions="End" Margin="0,0,0,30" />
         </Grid>
     </ContentPage.Content>

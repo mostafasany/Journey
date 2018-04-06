@@ -1,35 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:resources="clr-namespace:Journey.Resources"
+                xmlns:local="clr-namespace:Journey.Views"
+                xmlns:controls="clr-namespace:Journey.Views.Controls"
                 ControlTemplate="{StaticResource ProfileHeaderControlTemplate}"
-                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views"
-                xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-                xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources"
                 x:Class="Journey.Views.ProfileMeasurmentPage">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <DataTemplate x:Key="ScaleTemplate">
-                <Controls:UnSelectableViewCell>
-                    <ViewCell.View>
-                        <Grid BackgroundColor="White" Margin="5,5,5,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Label Text="{Binding Title}" Margin="5,0" FontAttributes="Bold"
-                                   Style="{StaticResource LabelHeaderStyle}" />
-                            <Grid Grid.Column="1" BackgroundColor="{Binding Color}" WidthRequest="100">
-                                <Label HorizontalOptions="Center" TextColor="White" Text="{Binding MeasureWithUnit}"
-                                       Style="{StaticResource LabelHeaderStyle}" />
-                            </Grid>
-                        </Grid>
-                    </ViewCell.View>
-                </Controls:UnSelectableViewCell>
-            </DataTemplate>
-        </ResourceDictionary>
-    </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid RowSpacing="0" ColumnSpacing="0" HorizontalOptions="FillAndExpand">
+        <Grid Style="{StaticResource MainGridStyle}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -61,24 +40,24 @@
                     <StackLayout Orientation="Horizontal" IsVisible="{Binding AddMode}">
                         <Entry BackgroundColor="White" WidthRequest="60" TextColor="Black" Keyboard="Numeric"
                                Text="{Binding Goal,Mode=TwoWay}" />
-                        <Controls:ImageControl PortablePath="checkWhite.png" Aspect="AspectFit"
+                        <controls:ImageControl PortablePath="checkWhite.png" Aspect="AspectFit"
                                                Style="{StaticResource IconStyle}" HorizontalOptions="End">
-                            <Controls:ImageControl.GestureRecognizers>
+                            <controls:ImageControl.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding OnAddGoalCommand}" CommandParameter="{Binding}" />
-                            </Controls:ImageControl.GestureRecognizers>
-                        </Controls:ImageControl>
+                            </controls:ImageControl.GestureRecognizers>
+                        </controls:ImageControl>
                     </StackLayout>
                 </StackLayout>
-                <Controls:ImageControl Grid.Column="2" PortablePath="moreWhite.png" Aspect="AspectFit"
+                <controls:ImageControl Grid.Row="0" Grid.Column="2" PortablePath="moreWhite.png" Aspect="AspectFit"
                                        Style="{StaticResource IconStyle}" HorizontalOptions="End">
-                    <Controls:ImageControl.GestureRecognizers>
+                    <controls:ImageControl.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnMeasurmentMoreCommand}" CommandParameter="{Binding}" />
-                    </Controls:ImageControl.GestureRecognizers>
-                </Controls:ImageControl>
+                    </controls:ImageControl.GestureRecognizers>
+                </controls:ImageControl>
             </Grid>
-            <Controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
+            <controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
                                      VerticalOptions="Center" />
-            <ListView Grid.Row="1" ItemsSource="{Binding Measuremnts}" ItemTemplate="{StaticResource ScaleTemplate}"
+            <ListView Grid.Row="1" ItemsSource="{Binding Measuremnts}" HorizontalOptions="Center" ItemTemplate="{StaticResource ScaleTemplate}"
                       RowHeight="60" IsPullToRefreshEnabled="true" SeparatorVisibility="None"
                       IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
                       RefreshCommand="{Binding OnRefreshPostsCommand}" />
