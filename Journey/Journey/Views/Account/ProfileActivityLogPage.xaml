@@ -3,7 +3,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="OtherWorkoutTemplate">
-                <controls:UnSelectableViewCell>
+                <ViewCell>
                     <ViewCell.View>
                         <Grid BackgroundColor="White" RowSpacing="0" Padding="5,20">
                             <Grid.ColumnDefinitions>
@@ -24,10 +24,10 @@
                             </StackLayout>
                         </Grid>
                     </ViewCell.View>
-                </controls:UnSelectableViewCell>
+                </ViewCell>
             </DataTemplate>
             <DataTemplate x:Key="OtherKMTemplate">
-                <controls:UnSelectableViewCell>
+                <ViewCell>
                     <ViewCell.View>
                         <Grid BackgroundColor="White" RowSpacing="0" Padding="5,20">
                             <Grid.ColumnDefinitions>
@@ -51,10 +51,10 @@
                             </StackLayout>
                         </Grid>
                     </ViewCell.View>
-                </controls:UnSelectableViewCell>
+                </ViewCell>
             </DataTemplate>
             <DataTemplate x:Key="MeWorkoutTemplate">
-                <controls:UnSelectableViewCell>
+                <ViewCell>
                     <ViewCell.View>
                         <Grid BackgroundColor="White" RowSpacing="0" Padding="5,20">
                             <Grid.ColumnDefinitions>
@@ -75,10 +75,10 @@
                             </StackLayout>
                         </Grid>
                     </ViewCell.View>
-                </controls:UnSelectableViewCell>
+                </ViewCell>
             </DataTemplate>
             <DataTemplate x:Key="MeKMTemplate">
-                <controls:UnSelectableViewCell>
+                <ViewCell>
                     <ViewCell.View>
                         <Grid BackgroundColor="White" RowSpacing="0" Padding="5,20">
                             <Grid.ColumnDefinitions>
@@ -102,7 +102,7 @@
                             </StackLayout>
                         </Grid>
                     </ViewCell.View>
-                </controls:UnSelectableViewCell>
+                </ViewCell>
             </DataTemplate>
             <selectors:ActivityLogTemplateSelector x:Key="ActivityLogTemplateSelector" OtherWorkoutTemplate="{StaticResource OtherWorkoutTemplate}" OtherKMTemplate="{StaticResource OtherKMTemplate}" MeWorkoutTemplate="{StaticResource MeWorkoutTemplate}" MeKMTemplate="{StaticResource MeKMTemplate}" />
         </ResourceDictionary>

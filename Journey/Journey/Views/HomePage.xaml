@@ -3,9 +3,9 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="PostTemplate">
-                <Controls:UnSelectableViewCell>
+                <ViewCell>
                     <ViewCell.View>
-                        <Grid Margin="0,0,0,5" RowSpacing="0" BackgroundColor="White" CompressedLayout.IsHeadless="true">
+                        <Grid RowSpacing="0" BackgroundColor="White" CompressedLayout.IsHeadless="true">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -98,10 +98,10 @@
                             <Controls:SeparatorControl Grid.Row="4" HeightRequest="2" />
                         </Grid>
                     </ViewCell.View>
-                </Controls:UnSelectableViewCell>
+                </ViewCell>
             </DataTemplate>
             <DataTemplate x:Key="AdsTemplate">
-                <Controls:UnSelectableViewCell>
+                <ViewCell>
                     <ViewCell.View>
                         <Grid RowSpacing="0">
                             <Grid.RowDefinitions>
@@ -112,7 +112,7 @@
                             <Button Grid.Row="1" Margin="5,0,5,5" Text="View More" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding OpenDeepLinkCommand}" />
                         </Grid>
                     </ViewCell.View>
-                </Controls:UnSelectableViewCell>
+                </ViewCell>
             </DataTemplate>
             <selectors:PostTemplateSelector x:Key="PostTemplateSelector" PostTemplate="{StaticResource PostTemplate}" AdsTemplate="{StaticResource AdsTemplate}" />
         </ResourceDictionary>

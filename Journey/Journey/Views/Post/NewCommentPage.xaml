@@ -8,7 +8,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="MeCommentTemplate">
-                <controls:UnSelectableViewCell>
+                <ViewCell>
                     <ViewCell.View>
                         <Grid BackgroundColor="White" RowSpacing="0" Padding="5,20">
                             <Grid.RowDefinitions>
@@ -43,10 +43,10 @@
                             </Grid>
                         </Grid>
                     </ViewCell.View>
-                </controls:UnSelectableViewCell>
+                </ViewCell>
             </DataTemplate>
             <DataTemplate x:Key="OtherCommentTemplate">
-                <controls:UnSelectableViewCell>
+                <ViewCell>
                     <ViewCell.View>
                         <Grid BackgroundColor="White" RowSpacing="0" Padding="5,20">
                             <Grid.RowDefinitions>
@@ -81,7 +81,7 @@
                             </Grid>
                         </Grid>
                     </ViewCell.View>
-                </controls:UnSelectableViewCell>
+                </ViewCell>
             </DataTemplate>
             <selectors:CommentTemplateSelector x:Key="CommentTemplateSelector"
                                                MeCommentTemplate="{StaticResource MeCommentTemplate}"

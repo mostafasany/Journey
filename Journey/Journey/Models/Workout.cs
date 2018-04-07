@@ -10,6 +10,8 @@ namespace Journey.Models
         private string name;
 
         private string unit = "Kg";
+        private string maxWeight;
+        private string maxRips;
         private string weight;
         private string rips;
         private List<Workout> workouts;
@@ -51,6 +53,20 @@ namespace Journey.Models
             get => workouts;
             set => SetProperty(ref workouts, value);
         }
+
+        public string MaxWeight
+        {
+            get => maxWeight;
+            set => SetProperty(ref maxWeight, value);
+        }
+
+
+        public string MaxRips
+        {
+            get => maxRips;
+            set => SetProperty(ref maxRips, value);
+        }
+
 
     }
 }

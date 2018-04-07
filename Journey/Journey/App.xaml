@@ -126,7 +126,7 @@
                 <Setter Property="VerticalOptions" Value="Start" />
             </Style>
             <DataTemplate x:Key="LocationTemplate">
-                <Controls:UnSelectableViewCell>
+                <ViewCell>
                     <ViewCell.View>
                         <Grid Padding="5" BackgroundColor="White">
                             <Grid.ColumnDefinitions>
@@ -140,10 +140,10 @@
                             </StackLayout>
                         </Grid>
                     </ViewCell.View>
-                </Controls:UnSelectableViewCell>
+                </ViewCell>
             </DataTemplate>
             <DataTemplate x:Key="ScaleTemplate">
-                <Controls:UnSelectableViewCell>
+                <ViewCell>
                     <ViewCell.View>
                         <Grid BackgroundColor="White">
                             <Grid.RowDefinitions>
@@ -161,7 +161,7 @@
                             <Controls:SeparatorControl Grid.Row="1" Grid.ColumnSpan="2" Margin="0,1" HeightRequest="1" />
                         </Grid>
                     </ViewCell.View>
-                </Controls:UnSelectableViewCell>
+                </ViewCell>
             </DataTemplate>
             <Thickness x:Key="SmallTopMargin">0,10,0,0</Thickness>
             <Color x:Key="ThemeBackgroundDetailColor">#F0F0F0</Color>

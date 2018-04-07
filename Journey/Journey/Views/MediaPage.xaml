@@ -6,7 +6,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="MediaTemplate">
-                <controls:UnSelectableViewCell>
+                <ViewCell>
                     <ViewCell.View>
                         <controls:CustomImage Margin="0,0,0,5" Source="{Binding Thumbnail}" WidthRequest="500"
                                               HeightRequest="300" Aspect="AspectFit" VerticalOptions="Fill"
@@ -18,7 +18,7 @@
                             </controls:CustomImage.GestureRecognizers>
                         </controls:CustomImage>
                     </ViewCell.View>
-                </controls:UnSelectableViewCell>
+                </ViewCell>
             </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>

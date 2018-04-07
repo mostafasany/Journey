@@ -3,7 +3,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="WorkoutTemplate">
-                <controls:UnSelectableViewCell>
+                <ViewCell>
                     <ViewCell.View>
                         <Grid BackgroundColor="White" HeightRequest="100">
                             <Grid.GestureRecognizers>
@@ -13,10 +13,10 @@
                             <Label Text="{Binding Workout.Name}" TextColor="White" FontSize="20" HorizontalOptions="Center" VerticalOptions="End" />
                         </Grid>
                     </ViewCell.View>
-                </controls:UnSelectableViewCell>>
+                </ViewCell>
             </DataTemplate>
             <DataTemplate x:Key="WorkoutSubCategoryTemplate">
-                <controls:UnSelectableViewCell>
+                <ViewCell>
                     <ViewCell.View>
                         <Grid BackgroundColor="White" Padding="5" HorizontalOptions="Fill">
                             <Grid.ColumnDefinitions>
@@ -30,9 +30,9 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Controls:CustomImage Grid.RowSpan="2" Grid.Column="0" Source="{Binding Workout.Image}" Aspect="AspectFit" WidthRequest="120" HeightRequest="80" />
-                            <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Text="{Binding Workout.Name}" TextColor="Gray" HorizontalOptions="Start" VerticalOptions="Center" />
-                            <Entry Grid.Row="1" Grid.Column="1" BackgroundColor="White" Margin="5,0" TextColor="Black" Keyboard="Numeric" Placeholder="{Binding Workout.Unit}" Text="{Binding Workout.Weight,Mode=TwoWay}" />
-                            <Entry Grid.Row="1" Grid.Column="2" BackgroundColor="White" Margin="5,0" TextColor="Black" Keyboard="Numeric" Placeholder="Reps" Text="{Binding Workout.Rips,Mode=TwoWay}" />
+                            <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding Workout.Name}" TextColor="Gray" HorizontalOptions="Start" VerticalOptions="Center" />
+                            <Entry Grid.Row="1" Grid.Column="1" BackgroundColor="White" Margin="5,0" TextColor="Black" Keyboard="Numeric" Placeholder="{Binding Workout.MaxWeight}" Text="{Binding Workout.Weight,Mode=TwoWay}" />
+                            <Entry Grid.Row="1" Grid.Column="2" BackgroundColor="White" Margin="5,0" TextColor="Black" Keyboard="Numeric" Placeholder="{Binding Workout.MaxRips}" Text="{Binding Workout.Rips,Mode=TwoWay}" />
                             <Controls:ImageControl Grid.RowSpan="2" Grid.Column="3" PortablePath="check.png" Aspect="AspectFit" Style="{StaticResource IconStyle}" HorizontalOptions="End" VerticalOptions="End">
                                 <Controls:ImageControl.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding LogCommand}" CommandParameter="{Binding}" />
@@ -40,7 +40,7 @@
                             </Controls:ImageControl>
                         </Grid>
                     </ViewCell.View>
-                </controls:UnSelectableViewCell>
+                </ViewCell>
             </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
