@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:Converters="clr-namespace:Journey.Converters" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms" x:Class="Journey.App">
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+                        xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:Converters="clr-namespace:Journey.Converters" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms" x:Class="Journey.App">
     <Application.Resources>
         <ResourceDictionary>
             <Converters:BoolInverterConverter x:Key="BoolInverterConverter" />
@@ -195,7 +197,7 @@
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnHomeCommand}" />
                             </Grid.GestureRecognizers>
-                            <Controls:ImageControl PortablePath="home.png" Style="{StaticResource IconStyle}" />
+                            <Controls:SVGImageControl PortablePath="home.svg" Style="{StaticResource IconStyle}" />
                         </Grid>
                         <Controls:CustomImage Grid.Column="1" Margin="10,5" Source="{TemplateBinding BindingContext.Image.Path}" WidthRequest="50" HeightRequest="50" Style="{StaticResource ImageHeaderStyle}">
                             <Controls:CustomImage.GestureRecognizers>
