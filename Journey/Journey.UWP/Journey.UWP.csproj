@@ -132,6 +132,7 @@
     <Content Include="Assets\fav.png" />
     <Content Include="Assets\graph.png" />
     <Content Include="Assets\home.png" />
+    <Content Include="Assets\home.svg" />
     <Content Include="Assets\info.png" />
     <Content Include="Assets\invite.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />

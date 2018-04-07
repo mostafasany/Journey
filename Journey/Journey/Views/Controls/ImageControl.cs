@@ -14,9 +14,10 @@ namespace Journey.Views.Controls
                     string val = newValue.ToString();
                     try
                     {
-                        (bindable as ImageControl).Source = Device.RuntimePlatform == Device.UWP
+                        var source = Device.RuntimePlatform == Device.UWP
                             ? ImageSource.FromFile("Assets/" + val)
                             : ImageSource.FromResource("Journey.Assets." + val);
+                        ((ImageControl) bindable).Source = source;
                     }
                     catch (Exception)
                     {
@@ -41,14 +42,16 @@ namespace Journey.Views.Controls
                     string val = newValue.ToString();
                     try
                     {
-                        var s1 = FFImageLoading.Svg.Forms.SvgImageSource.FromResource("Journey.Assets." + val);
-                        var s = FFImageLoading.Svg.Forms.SvgImageSource.FromFile("Journey.Assets." + val);
-                        (bindable as SVGImageControl).Source = s1;
+                        var source= Device.RuntimePlatform == Device.UWP
+                            ? FFImageLoading.Svg.Forms.SvgImageSource.FromFile("Assets/" + val)
+                              //  ? FFImageLoading.Svg.Forms.SvgImageSource.FromUri(new Uri("https://s.cdpn.io/3/kiwi.svg"))
+                            : FFImageLoading.Svg.Forms.SvgImageSource.FromResource("Journey.Assets." + val);
+
+                        ((SVGImageControl) bindable).Source = source;
 
                     }
                     catch (Exception ex)
                     {
-                        var s = ex.Message;
                     }
                 });
 
