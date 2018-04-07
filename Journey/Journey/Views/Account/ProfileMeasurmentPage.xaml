@@ -40,20 +40,20 @@
                     <StackLayout Orientation="Horizontal" IsVisible="{Binding AddMode}">
                         <Entry BackgroundColor="White" WidthRequest="60" TextColor="Black" Keyboard="Numeric"
                                Text="{Binding Goal,Mode=TwoWay}" />
-                        <controls:ImageControl PortablePath="checkWhite.png" Aspect="AspectFit"
+                        <controls:SVGImageControl PortablePath="done.svg" Aspect="AspectFit"
                                                Style="{StaticResource IconStyle}" HorizontalOptions="End">
-                            <controls:ImageControl.GestureRecognizers>
+                            <controls:SVGImageControl.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding OnAddGoalCommand}" CommandParameter="{Binding}" />
-                            </controls:ImageControl.GestureRecognizers>
-                        </controls:ImageControl>
+                            </controls:SVGImageControl.GestureRecognizers>
+                        </controls:SVGImageControl>
                     </StackLayout>
                 </StackLayout>
-                <controls:ImageControl Grid.Row="0" Grid.Column="2" PortablePath="moreWhite.png" Aspect="AspectFit"
+                <controls:SVGImageControl Grid.Row="0" Grid.Column="2" PortablePath="moreVert.svg" Aspect="AspectFit"
                                        Style="{StaticResource IconStyle}" HorizontalOptions="End">
-                    <controls:ImageControl.GestureRecognizers>
+                    <controls:SVGImageControl.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnMeasurmentMoreCommand}" CommandParameter="{Binding}" />
-                    </controls:ImageControl.GestureRecognizers>
-                </controls:ImageControl>
+                    </controls:SVGImageControl.GestureRecognizers>
+                </controls:SVGImageControl>
             </Grid>
             <controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
                                      VerticalOptions="Center" />

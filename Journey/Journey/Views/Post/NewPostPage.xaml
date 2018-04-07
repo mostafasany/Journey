@@ -10,12 +10,12 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <controls:ImageControl Grid.Row="0" Margin="10,0" PortablePath="clear.png"
+            <controls:SVGImageControl Grid.Row="0" Margin="10,0" PortablePath="close.svg"
                                    Style="{StaticResource IconStyle}" HorizontalOptions="End">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
                 </Image.GestureRecognizers>
-            </controls:ImageControl>
+            </controls:SVGImageControl>
             <ContentView Grid.Row="1">
                 <ContentView.Content>
                     <localViews:NewPostView />

@@ -15,12 +15,12 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <controls:ImageControl Grid.Column="0" Margin="10,0,0,0" PortablePath="back.png"
+                <controls:SVGImageControl Grid.Column="0" Margin="10,0,0,0" PortablePath="back.svg"
                                        Style="{StaticResource IconStyle}">
-                    <controls:ImageControl.GestureRecognizers>
+                    <controls:SVGImageControl.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
-                    </controls:ImageControl.GestureRecognizers>
-                </controls:ImageControl>
+                    </controls:SVGImageControl.GestureRecognizers>
+                </controls:SVGImageControl>
                 <SearchBar Grid.Column="1" BackgroundColor="Transparent" WidthRequest="400"
                            Placeholder="{resources:Translate Challenge_ChooseYourWorkoutPlace}"
                            Text="{Binding SearchKeyword,Mode=TwoWay}" SearchCommand="{Binding OnSearchCommand}" />

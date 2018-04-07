@@ -31,11 +31,11 @@
                                     </Controls:CustomImage.Transformations>
                                 </Controls:CustomImage>
                                 <Label Grid.Column="1" Grid.Row="0" Text="{Binding Post.Account.Name}" TextColor="#656565" FontSize="14" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
-                                <Controls:ImageControl Grid.Column="1" Grid.Row="0" PortablePath="more.png" HorizontalOptions="End" Style="{StaticResource IconStyle}">
+                                <Controls:SVGImageControl Grid.Column="1" Grid.Row="0" PortablePath="more.svg" HorizontalOptions="End" Style="{StaticResource IconStyle}">
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding OnPostDeleteCommand}" />
                                     </Image.GestureRecognizers>
-                                </Controls:ImageControl>
+                                </Controls:SVGImageControl>
                                 <Label Grid.Column="1" Grid.Row="1" Text="{Binding Post.FormatedDate}" TextColor="Gray" FontSize="14" VerticalOptions="Center" HorizontalOptions="End" />
                                 <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" IsVisible="{Binding Post.HasLocation}" VerticalOptions="Center">
                                     <Label Text="{Binding Post.Location.Action}" TextColor="Gray" FontSize="12" HorizontalOptions="Start" VerticalOptions="Center" />
@@ -67,32 +67,32 @@
                                 </Grid.ColumnDefinitions>
                                 <StackLayout Grid.Column="0" Orientation="Horizontal" Margin="20,0,0,0" HorizontalOptions="Center">
                                     <Label Text="{Binding Post.LikesCount}" TextColor="Gray" FontSize="14" VerticalOptions="Start" HorizontalOptions="End" />
-                                    <Controls:ImageControl PortablePath="fav.png" Style="{StaticResource IconStyle}" IsVisible="{Binding Post.NotLiked}">
+                                    <Controls:SVGImageControl PortablePath="notFavorite.svg" Style="{StaticResource IconStyle}" IsVisible="{Binding Post.NotLiked}">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding OnPostLikeCommand}" />
                                         </Image.GestureRecognizers>
-                                    </Controls:ImageControl>
-                                    <Controls:ImageControl PortablePath="unfav.png" Style="{StaticResource IconStyle}" IsVisible="{Binding Post.Liked}">
+                                    </Controls:SVGImageControl>
+                                    <Controls:SVGImageControl PortablePath="favorite.svg" Style="{StaticResource IconStyle}" IsVisible="{Binding Post.Liked}">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding OnPostLikeCommand}" />
                                         </Image.GestureRecognizers>
-                                    </Controls:ImageControl>
+                                    </Controls:SVGImageControl>
                                 </StackLayout>
                                 <StackLayout Grid.Column="1" Orientation="Horizontal" HorizontalOptions="Center">
                                     <Label Text="{Binding Post.CommentsCount}" TextColor="Gray" FontSize="14" VerticalOptions="Start" HorizontalOptions="End" />
-                                    <Controls:ImageControl PortablePath="comment.png" Style="{StaticResource IconStyle}">
+                                    <Controls:SVGImageControl PortablePath="comment.svg" Style="{StaticResource IconStyle}">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding OnPostCommentCommand}" />
                                         </Image.GestureRecognizers>
-                                    </Controls:ImageControl>
+                                    </Controls:SVGImageControl>
                                 </StackLayout>
                                 <StackLayout Grid.Column="2" Orientation="Horizontal" HorizontalOptions="Center">
                                     <Label Text="{Binding Post.SharesCount}" TextColor="Gray" FontSize="14" VerticalOptions="Start" HorizontalOptions="End" />
-                                    <Controls:ImageControl PortablePath="share.png" Style="{StaticResource IconStyle}">
+                                    <Controls:SVGImageControl PortablePath="share.svg" Style="{StaticResource IconStyle}">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding OnPostShareCommand}" />
                                         </Image.GestureRecognizers>
-                                    </Controls:ImageControl>
+                                    </Controls:SVGImageControl>
                                 </StackLayout>
                             </Grid>
                             <Controls:SeparatorControl Grid.Row="4" HeightRequest="2" />

@@ -56,7 +56,23 @@
     <None Remove="Assets\ic_settings_3x.png" />
     <None Remove="Assets\ic_history_3x.png" />
     <None Remove="Assets\challenge.png" />
-    <None Remove="Assets\home.svg" />
+    <None Remove="Assets\SVG\home.svg" />
+    <None Remove="Assets\SVG\comment.svg" />
+    <None Remove="Assets\SVG\favorite.svg" />
+    <None Remove="Assets\SVG\more.svg" />
+    <None Remove="Assets\SVG\notFavorite.svg" />
+    <None Remove="Assets\SVG\notification.svg" />
+    <None Remove="Assets\SVG\share.svg" />
+    <None Remove="Assets\SVG\close.svg" />
+    <None Remove="Assets\SVG\done.svg" />
+    <None Remove="Assets\SVG\back.svg" />
+    <None Remove="Assets\SVG\grapgh.svg" />
+    <None Remove="Assets\SVG\location.svg" />
+    <None Remove="Assets\SVG\settings.svg" />
+    <None Remove="Assets\SVG\timeline.svg" />
+    <None Remove="Assets\SVG\workout.svg" />
+    <None Remove="Assets\SVG\camera.svg" />
+    <None Remove="Assets\SVG\moreVert.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -115,7 +131,23 @@
     <EmbeddedResource Include="Assets\settings.png" />
     <EmbeddedResource Include="Assets\timeLine.png" />
     <EmbeddedResource Include="Assets\challenge.png" />
-    <EmbeddedResource Include="Assets\home.svg" />
+    <EmbeddedResource Include="Assets\SVG\home.svg" />
+    <EmbeddedResource Include="Assets\SVG\comment.svg" />
+    <EmbeddedResource Include="Assets\SVG\favorite.svg" />
+    <EmbeddedResource Include="Assets\SVG\more.svg" />
+    <EmbeddedResource Include="Assets\SVG\notFavorite.svg" />
+    <EmbeddedResource Include="Assets\SVG\notification.svg" />
+    <EmbeddedResource Include="Assets\SVG\share.svg" />
+    <EmbeddedResource Include="Assets\SVG\close.svg" />
+    <EmbeddedResource Include="Assets\SVG\done.svg" />
+    <EmbeddedResource Include="Assets\SVG\back.svg" />
+    <EmbeddedResource Include="Assets\SVG\graph.svg" />
+    <EmbeddedResource Include="Assets\SVG\location.svg" />
+    <EmbeddedResource Include="Assets\SVG\settings.svg" />
+    <EmbeddedResource Include="Assets\SVG\timeline.svg" />
+    <EmbeddedResource Include="Assets\SVG\workout.svg" />
+    <EmbeddedResource Include="Assets\SVG\camera.svg" />
+    <EmbeddedResource Include="Assets\SVG\moreVert.svg" />
   </ItemGroup>
 
   <ItemGroup>

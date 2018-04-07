@@ -10,11 +10,11 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <controls:ImageControl Grid.Row="0" HorizontalOptions="Start" PortablePath="back.png" Style="{StaticResource IconStyle}">
-                    <controls:ImageControl.GestureRecognizers>
+                <controls:SVGImageControl Grid.Row="0" HorizontalOptions="Start" PortablePath="back.svg" Style="{StaticResource IconStyle}">
+                    <controls:SVGImageControl.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnBackCommand}" CommandParameter="{Binding}" />
-                    </controls:ImageControl.GestureRecognizers>
-                </controls:ImageControl>
+                    </controls:SVGImageControl.GestureRecognizers>
+                </controls:SVGImageControl>
                 <controls:ImageViewerControl Grid.Row="1" ItemsSource="{Binding SelectedChallenge.ChallengeAccounts}" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
                     <controls:ImageViewerControl.ItemTemplate>
                         <DataTemplate>

@@ -47,11 +47,11 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
-                                        <controls:ImageControl Grid.Row="0" PortablePath="clear.png" VerticalOptions="Center" HorizontalOptions="End" WidthRequest="20" HeightRequest="20">
-                                            <controls:CustomImage.GestureRecognizers>
+                                        <controls:SVGImageControl Grid.Row="0" PortablePath="close.svg" VerticalOptions="Center" HorizontalOptions="End" WidthRequest="20" HeightRequest="20">
+                                            <controls:SVGImageControl.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding Path=BindingContext.OnImageDeleteCommand, Source={x:Reference Name=ParentImageViewerControl}}" CommandParameter="{Binding}" />
-                                            </controls:CustomImage.GestureRecognizers>
-                                        </controls:ImageControl>
+                                            </controls:SVGImageControl.GestureRecognizers>
+                                        </controls:SVGImageControl>
                                         <controls:CustomImage Grid.Row="1" Source="{Binding Thumbnail}" HeightRequest="160" Aspect="AspectFit">
                                             <controls:CustomImage.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding Path=BindingContext.OnGalleryDetailsCommand, Source={x:Reference Name=ParentImageViewerControl}}" />
@@ -69,21 +69,21 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <controls:ImageControl Grid.Column="0" Margin="0,0,0,60" PortablePath="camera.png" Style="{StaticResource IconStyle}" WidthRequest="40" HeightRequest="40">
+                    <controls:SVGImageControl Grid.Column="0" Margin="0,0,0,60" PortablePath="camera.svg" Style="{StaticResource IconStyle}" WidthRequest="40" HeightRequest="40">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnAddPhotoOrVideoCommand}" CommandParameter="{Binding}" />
                         </Image.GestureRecognizers>
-                    </controls:ImageControl>
-                    <controls:ImageControl Grid.Column="1" Margin="0,20,0,0" PortablePath="check.png" Style="{StaticResource IconStyle}" WidthRequest="40" HeightRequest="40">
+                    </controls:SVGImageControl>
+                    <controls:SVGImageControl Grid.Column="1" Margin="0,20,0,0" PortablePath="done.svg" Style="{StaticResource IconStyle}" WidthRequest="40" HeightRequest="40">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnNewPostCommand}" />
                         </Image.GestureRecognizers>
-                    </controls:ImageControl>
-                    <controls:ImageControl Grid.Column="2" Margin="0,0,0,60" PortablePath="location.png" Style="{StaticResource IconStyle}" WidthRequest="40" HeightRequest="40">
+                    </controls:SVGImageControl>
+                    <controls:SVGImageControl Grid.Column="2" Margin="0,0,0,60" PortablePath="location.svg" Style="{StaticResource IconStyle}" WidthRequest="40" HeightRequest="40">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding OnCheckInCommand}" CommandParameter="{Binding}" />
                         </Image.GestureRecognizers>
-                    </controls:ImageControl>
+                    </controls:SVGImageControl>
                 </Grid>
             </Grid>
         </ScrollView>
