@@ -70,5 +70,9 @@
 	<string>This app needs access always to location</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>This app needs access always to location</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>The apps need access to your Health Usage Share</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>The apps need access to your Health Usage Update</string>
 </dict>
 </plist>

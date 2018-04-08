@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace Abstractions.Services.Contracts
 {
+    public enum Unit { Year, KG, CM, KCAL, Steps,RunningWalking };
     public interface IHealthService
     {
         Task<bool> Authenticate();
@@ -11,6 +12,7 @@ namespace Abstractions.Services.Contracts
         Task GetCaloriesAsync();
         Task GetHeightAsync();
         Task GetStepsAsync();
+        Task GetRunningWalkingDistanceAsync();
         Task GetWeightAsync();
 
         event HealthDataEventHandler HealthDataChanged;

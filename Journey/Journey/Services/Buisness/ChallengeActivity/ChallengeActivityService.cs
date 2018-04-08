@@ -33,6 +33,19 @@ namespace Journey.Services.Buisness.ChallengeActivity
             }
         }
 
+        public async Task<ChallengeActivityLog> UpdateActivityAsync(ChallengeActivityLog log)
+        {
+            try
+            {
+                ChallengeActivityLog logDto = await _challengeActivityDataService.UpdateActivityAsync(log);
+                return logDto;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
+        }
+
         public async Task<bool> DeleteActivityAsync(ChallengeActivityLog log)
         {
             try
