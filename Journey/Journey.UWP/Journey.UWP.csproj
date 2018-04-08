@@ -113,50 +113,11 @@
     <None Include="Journey.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\add.png" />
-    <Content Include="Assets\addWhite.png" />
-    <Content Include="Assets\back.png" />
-    <Content Include="Assets\backwhite.png" />
-    <Content Include="Assets\camera.png" />
-    <Content Include="Assets\challenge.png" />
-    <Content Include="Assets\challengeBanner.png" />
-    <Content Include="Assets\check.png" />
-    <Content Include="Assets\clear.png" />
-    <Content Include="Assets\comment.png" />
-    <Content Include="Assets\downArrow.png" />
-    <Content Include="Assets\Eating.png" />
-    <Content Include="Assets\edit.png" />
-    <Content Include="Assets\Exercise.png" />
-    <Content Include="Assets\exit.png" />
-    <Content Include="Assets\exp.png" />
-    <Content Include="Assets\fav.png" />
-    <Content Include="Assets\graph.png" />
-    <Content Include="Assets\home.png" />
-    <Content Include="Assets\info.png" />
-    <Content Include="Assets\invite.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
-    <Content Include="Assets\location.png" />
-    <Content Include="Assets\login.png" />
-    <Content Include="Assets\logo.png" />
-    <Content Include="Assets\logout.png" />
-    <Content Include="Assets\meal.png" />
-    <Content Include="Assets\measure.png" />
-    <Content Include="Assets\more.png" />
-    <Content Include="Assets\moreWhite.png" />
-    <Content Include="Assets\notification.png" />
-    <Content Include="Assets\notificationAdd.png" />
-    <Content Include="Assets\person.png" />
-    <Content Include="Assets\personBlack.png" />
-    <Content Include="Assets\restore.png" />
-    <Content Include="Assets\running.png" />
-    <Content Include="Assets\schedule.png" />
-    <Content Include="Assets\search.png" />
-    <Content Include="Assets\settings.png" />
-    <Content Include="Assets\share.png" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-125.png" />
     <Content Include="Assets\SmallTile.scale-150.png" />
@@ -172,14 +133,6 @@
     <Content Include="Assets\StoreLogo.scale-150.png" />
     <Content Include="Assets\StoreLogo.scale-200.png" />
     <Content Include="Assets\StoreLogo.scale-400.png" />
-    <Content Include="Assets\loading.png" />
-    <Content Include="Assets\LoginLogo.png" />
-    <Content Include="Assets\timeLine.png" />
-    <Content Include="Assets\timer.png" />
-    <Content Include="Assets\unfav.png" />
-    <Content Include="Assets\videothumbnail.png" />
-    <EmbeddedResource Include="Assets\Work.png" />
-    <Content Include="Assets\workout.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-100.png" />
     <Content Include="Assets\LockScreenLogo.scale-125.png" />
@@ -237,6 +190,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\challengeBanner.png" />
+    <EmbeddedResource Include="Assets\compete.png" />
+    <EmbeddedResource Include="Assets\downArrow.png" />
+    <EmbeddedResource Include="Assets\loading.png" />
+    <EmbeddedResource Include="Assets\LoginLogo.png" />
+    <EmbeddedResource Include="Assets\running.png" />
+    <EmbeddedResource Include="Assets\videothumbnail.png" />
+    <EmbeddedResource Include="Assets\workout.png" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

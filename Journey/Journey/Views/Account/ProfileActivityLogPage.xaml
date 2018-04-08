@@ -20,8 +20,7 @@
                                 <Grid BackgroundColor="Maroon" Padding="5,10">
                                     <Label Text="{Binding Location.Name}" TextColor="White" FontSize="14" HorizontalOptions="Center" />
                                 </Grid>
-                                <!--  <Controls:ImageControl Margin="0,-27,0,0" WidthRequest="50" HeightRequest="50" HorizontalOptions="Start" VerticalOptions="Start" PortablePath="downArrow.png" />-->
-                            </StackLayout>
+                                 </StackLayout>
                         </Grid>
                     </ViewCell.View>
                 </ViewCell>
@@ -47,8 +46,7 @@
                                         <Label Text="Km" TextColor="White" FontSize="14" HorizontalOptions="Center" />
                                     </StackLayout>
                                 </Grid>
-                                <!--  <Controls:ImageControl Margin="0,-27,0,0" WidthRequest="50" HeightRequest="50" HorizontalOptions="Start" VerticalOptions="Start" PortablePath="downArrow.png" />-->
-                            </StackLayout>
+                               </StackLayout>
                         </Grid>
                     </ViewCell.View>
                 </ViewCell>
@@ -71,8 +69,7 @@
                                 <Grid BackgroundColor="Teal" Padding="5,10">
                                     <Label Text="{Binding Location.Name}" TextColor="White" FontSize="14" HorizontalOptions="Center" />
                                 </Grid>
-                                <!--  <Controls:ImageControl Margin="0,-27,0,0" WidthRequest="50" HeightRequest="50" HorizontalOptions="Start" VerticalOptions="Start" PortablePath="downArrow.png" />-->
-                            </StackLayout>
+                              </StackLayout>
                         </Grid>
                     </ViewCell.View>
                 </ViewCell>
@@ -98,8 +95,7 @@
                                         <Label Text="Km" TextColor="White" FontSize="14" HorizontalOptions="Center" />
                                     </StackLayout>
                                 </Grid>
-                                <!--  <Controls:ImageControl Margin="0,-27,0,0" WidthRequest="50" HeightRequest="50" HorizontalOptions="Start" VerticalOptions="Start" PortablePath="downArrow.png" />-->
-                            </StackLayout>
+                                 </StackLayout>
                         </Grid>
                     </ViewCell.View>
                 </ViewCell>

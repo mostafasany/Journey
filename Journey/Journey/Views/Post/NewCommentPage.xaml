@@ -98,12 +98,12 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <controls:ImageControl Grid.Row="0" PortablePath="clear.png" Style="{StaticResource IconStyle}"
+            <controls:SVGImageControl Grid.Row="0" PortablePath="close.svg" Style="{StaticResource IconStyle}"
                                    Margin="10,0" HorizontalOptions="End">
-                <Image.GestureRecognizers>
+                <controls:SVGImageControl.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
-                </Image.GestureRecognizers>
-            </controls:ImageControl>
+                </controls:SVGImageControl.GestureRecognizers>
+            </controls:SVGImageControl>
             <ListView Grid.Row="1" IsVisible="{Binding NoComments,Converter={StaticResource BoolInverterConverter}}"
                       SeparatorVisibility="None" HasUnevenRows="true" HorizontalOptions="FillAndExpand"
                       ItemTemplate="{StaticResource CommentTemplateSelector}" BackgroundColor="White"
@@ -122,11 +122,11 @@
                 </Grid.ColumnDefinitions>
                 <Editor Grid.Column="0" Text="{Binding NewComment}" Style="{StaticResource EditorFormStyle}"
                         HeightRequest="60" />
-                <controls:ImageControl Grid.Column="1" PortablePath="check.png" Style="{StaticResource IconStyle}">
+                <controls:SVGImageControl Grid.Column="1" PortablePath="done.svg" Style="{StaticResource IconStyle}">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnNewCommentCommand}" />
                     </Image.GestureRecognizers>
-                </controls:ImageControl>
+                </controls:SVGImageControl>
             </Grid>
         </Grid>
     </ContentPage.Content>

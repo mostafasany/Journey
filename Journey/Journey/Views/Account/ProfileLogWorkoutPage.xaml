@@ -33,11 +33,11 @@
                             <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding Workout.Name}" TextColor="Gray" HorizontalOptions="Start" VerticalOptions="Center" />
                             <Entry Grid.Row="1" Grid.Column="1" BackgroundColor="White" Margin="5,0" TextColor="Black" Keyboard="Numeric" Placeholder="{Binding Workout.MaxWeight}" Text="{Binding Workout.Weight,Mode=TwoWay}" />
                             <Entry Grid.Row="1" Grid.Column="2" BackgroundColor="White" Margin="5,0" TextColor="Black" Keyboard="Numeric" Placeholder="{Binding Workout.MaxRips}" Text="{Binding Workout.Rips,Mode=TwoWay}" />
-                            <Controls:ImageControl Grid.RowSpan="2" Grid.Column="3" PortablePath="check.png" Aspect="AspectFit" Style="{StaticResource IconStyle}" HorizontalOptions="End" VerticalOptions="End">
-                                <Controls:ImageControl.GestureRecognizers>
+                            <Controls:SVGImageControl Grid.RowSpan="2" Grid.Column="3" PortablePath="done.svg" Aspect="AspectFit" Style="{StaticResource IconStyle}" HorizontalOptions="End" VerticalOptions="End">
+                                <Controls:SVGImageControl.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding LogCommand}" CommandParameter="{Binding}" />
-                                </Controls:ImageControl.GestureRecognizers>
-                            </Controls:ImageControl>
+                                </Controls:SVGImageControl.GestureRecognizers>
+                            </Controls:SVGImageControl>
                         </Grid>
                     </ViewCell.View>
                 </ViewCell>

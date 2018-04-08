@@ -8,44 +8,8 @@
   <ItemGroup>
     <None Remove="Assets\loading.png" />
     <None Remove="Assets\LoginLogo.png" />
-    <None Remove="Assets\Eating.png" />
-    <None Remove="Assets\Exercise.png" />
-    <None Remove="Assets\Work.png" />
-    <None Remove="Assets\add.png" />
-    <None Remove="Assets\addWhite.png" />
-    <None Remove="Assets\camera.png" />
-    <None Remove="Assets\check.png" />
-    <None Remove="Assets\clear.png" />
     <None Remove="Assets\comment.png" />
-    <None Remove="Assets\edit.png" />
-    <None Remove="Assets\exp.png" />
-    <None Remove="Assets\fav.png" />
-    <None Remove="Assets\graph.png" />
-    <None Remove="Assets\home.png" />
-    <None Remove="Assets\info.png" />
-    <None Remove="Assets\invite.png" />
-    <None Remove="Assets\location.png" />
-    <None Remove="Assets\login.png" />
-    <None Remove="Assets\logout.png" />
-    <None Remove="Assets\meal.png" />
-    <None Remove="Assets\measure.png" />
-    <None Remove="Assets\more.png" />
-    <None Remove="Assets\notification.png" />
-    <None Remove="Assets\notificationAdd.png" />
-    <None Remove="Assets\person.png" />
-    <None Remove="Assets\personBlack.png" />
-    <None Remove="Assets\restore.png" />
-    <None Remove="Assets\schedule.png" />
-    <None Remove="Assets\search.png" />
-    <None Remove="Assets\share.png" />
-    <None Remove="Assets\timer.png" />
-    <None Remove="Assets\unfav.png" />
-    <None Remove="Assets\exit.png" />
     <None Remove="Assets\videothumbnail.png" />
-    <None Remove="Assets\moreWhite.png" />
-    <None Remove="Assets\back.png" />
-    <None Remove="Assets\backwhite.png" />
-    <None Remove="Assets\checkWhite.png" />
     <None Remove="Assets\compete.png" />
     <None Remove="Assets\challengeBanner.png" />
     <None Remove="Services\Mocks\AccountMock.xml" />
@@ -55,7 +19,24 @@
     <None Remove="Assets\workout.png" />
     <None Remove="Assets\ic_settings_3x.png" />
     <None Remove="Assets\ic_history_3x.png" />
-    <None Remove="Assets\challenge.png" />
+    <None Remove="Assets\SVG\home.svg" />
+    <None Remove="Assets\SVG\comment.svg" />
+    <None Remove="Assets\SVG\favorite.svg" />
+    <None Remove="Assets\SVG\more.svg" />
+    <None Remove="Assets\SVG\notFavorite.svg" />
+    <None Remove="Assets\SVG\notification.svg" />
+    <None Remove="Assets\SVG\share.svg" />
+    <None Remove="Assets\SVG\close.svg" />
+    <None Remove="Assets\SVG\done.svg" />
+    <None Remove="Assets\SVG\back.svg" />
+    <None Remove="Assets\SVG\grapgh.svg" />
+    <None Remove="Assets\SVG\location.svg" />
+    <None Remove="Assets\SVG\settings.svg" />
+    <None Remove="Assets\SVG\timeline.svg" />
+    <None Remove="Assets\SVG\workout.svg" />
+    <None Remove="Assets\SVG\camera.svg" />
+    <None Remove="Assets\SVG\moreVert.svg" />
+    <None Remove="Assets\SVG\back %28copy%29.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -64,44 +45,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Assets\loading.png" />
     <EmbeddedResource Include="Assets\LoginLogo.png" />
-    <EmbeddedResource Include="Assets\Eating.png" />
-    <EmbeddedResource Include="Assets\Exercise.png" />
-    <EmbeddedResource Include="Assets\Work.png" />
-    <EmbeddedResource Include="Assets\add.png" />
-    <EmbeddedResource Include="Assets\addWhite.png" />
-    <EmbeddedResource Include="Assets\camera.png" />
-    <EmbeddedResource Include="Assets\check.png" />
-    <EmbeddedResource Include="Assets\clear.png" />
-    <EmbeddedResource Include="Assets\comment.png" />
-    <EmbeddedResource Include="Assets\edit.png" />
-    <EmbeddedResource Include="Assets\exp.png" />
-    <EmbeddedResource Include="Assets\fav.png" />
-    <EmbeddedResource Include="Assets\graph.png" />
-    <EmbeddedResource Include="Assets\home.png" />
-    <EmbeddedResource Include="Assets\info.png" />
-    <EmbeddedResource Include="Assets\invite.png" />
-    <EmbeddedResource Include="Assets\location.png" />
-    <EmbeddedResource Include="Assets\login.png" />
-    <EmbeddedResource Include="Assets\logout.png" />
-    <EmbeddedResource Include="Assets\meal.png" />
-    <EmbeddedResource Include="Assets\measure.png" />
-    <EmbeddedResource Include="Assets\more.png" />
-    <EmbeddedResource Include="Assets\notification.png" />
-    <EmbeddedResource Include="Assets\notificationAdd.png" />
-    <EmbeddedResource Include="Assets\person.png" />
-    <EmbeddedResource Include="Assets\personBlack.png" />
-    <EmbeddedResource Include="Assets\restore.png" />
-    <EmbeddedResource Include="Assets\schedule.png" />
-    <EmbeddedResource Include="Assets\search.png" />
-    <EmbeddedResource Include="Assets\share.png" />
-    <EmbeddedResource Include="Assets\timer.png" />
-    <EmbeddedResource Include="Assets\unfav.png" />
-    <EmbeddedResource Include="Assets\exit.png" />
     <EmbeddedResource Include="Assets\videothumbnail.png" />
-    <EmbeddedResource Include="Assets\moreWhite.png" />
-    <EmbeddedResource Include="Assets\back.png" />
-    <EmbeddedResource Include="Assets\backwhite.png" />
-    <EmbeddedResource Include="Assets\checkWhite.png" />
     <EmbeddedResource Include="Assets\compete.png" />
     <EmbeddedResource Include="Assets\challengeBanner.png" />
     <EmbeddedResource Include="Services\Mocks\PostsMock.xml" />
@@ -111,9 +55,24 @@
     <EmbeddedResource Include="Assets\downArrow.png" />
     <EmbeddedResource Include="Assets\running.png" />
     <EmbeddedResource Include="Assets\workout.png" />
-    <EmbeddedResource Include="Assets\settings.png" />
-    <EmbeddedResource Include="Assets\timeLine.png" />
-    <EmbeddedResource Include="Assets\challenge.png" />
+    <EmbeddedResource Include="Assets\SVG\home.svg" />
+    <EmbeddedResource Include="Assets\SVG\comment.svg" />
+    <EmbeddedResource Include="Assets\SVG\favorite.svg" />
+    <EmbeddedResource Include="Assets\SVG\more.svg" />
+    <EmbeddedResource Include="Assets\SVG\notFavorite.svg" />
+    <EmbeddedResource Include="Assets\SVG\notification.svg" />
+    <EmbeddedResource Include="Assets\SVG\share.svg" />
+    <EmbeddedResource Include="Assets\SVG\close.svg" />
+    <EmbeddedResource Include="Assets\SVG\done.svg" />
+    <EmbeddedResource Include="Assets\SVG\back.svg" />
+    <EmbeddedResource Include="Assets\SVG\graph.svg" />
+    <EmbeddedResource Include="Assets\SVG\location.svg" />
+    <EmbeddedResource Include="Assets\SVG\settings.svg" />
+    <EmbeddedResource Include="Assets\SVG\timeline.svg" />
+    <EmbeddedResource Include="Assets\SVG\workout.svg" />
+    <EmbeddedResource Include="Assets\SVG\camera.svg" />
+    <EmbeddedResource Include="Assets\SVG\moreVert.svg" />
+    <EmbeddedResource Include="Assets\SVG\challenge.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -124,13 +83,14 @@
     <PackageReference Include="WindowsAzure.Storage" Version="9.0.0" />
     <PackageReference Include="Xam.Plugin.Media" Version="3.1.3" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
-    <PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
-    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.3.4" />
-    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.3.4" />
-    <PackageReference Include="Xamarin.FFImageLoading" Version="2.3.4" />
     <PackageReference Include="Xam.Plugin.Geolocator" Version="4.2.0" />
     <PackageReference Include="Plugin.MediaManager" Version="0.4.5" />
     <PackageReference Include="Plugin.Share" Version="7.1.1" />
+    <PackageReference Include="Xamarin.FFImageLoading" Version="2.3.6" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.3.6" />
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.3.6" />
+    <PackageReference Include="Xamarin.Forms" Version="2.5.1.444934" />
+    <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.3.6" />
   </ItemGroup>
 
   <ItemGroup>

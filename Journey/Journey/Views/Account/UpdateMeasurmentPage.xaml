@@ -16,11 +16,11 @@
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <controls:ImageControl Grid.Column="0" PortablePath="back.png" Style="{StaticResource IconStyle}">
-                    <controls:ImageControl.GestureRecognizers>
+                <controls:SVGImageControl Grid.Column="0" PortablePath="back.svg" Style="{StaticResource IconStyle}">
+                    <controls:SVGImageControl.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnBackCommand}" CommandParameter="{Binding}" />
-                    </controls:ImageControl.GestureRecognizers>
-                </controls:ImageControl>
+                    </controls:SVGImageControl.GestureRecognizers>
+                </controls:SVGImageControl>
                 <Label Grid.Column="1" Text="{resources:Translate Measurments_Message}" HorizontalOptions="Center"
                        Style="{StaticResource LabelHeaderStyle}" />
             </Grid>

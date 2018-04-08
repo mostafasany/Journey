@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:Converters="clr-namespace:Journey.Converters" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms" x:Class="Journey.App">
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms" xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:Converters="clr-namespace:Journey.Converters" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms" x:Class="Journey.App">
     <Application.Resources>
         <ResourceDictionary>
             <Converters:BoolInverterConverter x:Key="BoolInverterConverter" />
@@ -195,7 +195,7 @@
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnHomeCommand}" />
                             </Grid.GestureRecognizers>
-                            <Controls:ImageControl PortablePath="home.png" Style="{StaticResource IconStyle}" />
+                            <Controls:SVGImageControl PortablePath="home.svg" Style="{StaticResource IconStyle}" />
                         </Grid>
                         <Controls:CustomImage Grid.Column="1" Margin="10,5" Source="{TemplateBinding BindingContext.Image.Path}" WidthRequest="50" HeightRequest="50" Style="{StaticResource ImageHeaderStyle}">
                             <Controls:CustomImage.GestureRecognizers>
@@ -210,7 +210,7 @@
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnNotificationCommand}" />
                             </Grid.GestureRecognizers>
                             <Label Text="{TemplateBinding BindingContext.NotificationsCount}" IsVisible="{TemplateBinding BindingContext.NotificationsCount,Converter={StaticResource IntToBoolConverter}}" TextColor="Red" FontAttributes="Bold" Margin="20,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" FontSize="12" />
-                            <Controls:ImageControl PortablePath="notification.png" Style="{StaticResource IconStyle}" />
+                            <Controls:SVGImageControl PortablePath="notification.svg" Style="{StaticResource IconStyle}" />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -247,35 +247,35 @@
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnGoToProfileChallengeCommand}" />
                             </Grid.GestureRecognizers>
-                            <Controls:ImageControl PortablePath="challenge.png" Style="{StaticResource IconStyle}" />
+                            <Controls:SVGImageControl PortablePath="challenge.svg" Style="{StaticResource IconStyle}" />
                         </Grid>
                         <Controls:SeparatorControl Grid.Column="1" />
                         <Grid Grid.Column="2" BackgroundColor="{TemplateBinding BindingContext.SecondTabSelected}">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnLogWorkoutCommand}" />
                             </Grid.GestureRecognizers>
-                            <Controls:ImageControl PortablePath="exp.png" Style="{StaticResource IconStyle}" />
+                            <Controls:SVGImageControl PortablePath="workout.svg" Style="{StaticResource IconStyle}" />
                         </Grid>
                         <Controls:SeparatorControl Grid.Column="3" />
                         <Grid Grid.Column="4" BackgroundColor="{TemplateBinding BindingContext.ThirdTabSelected}">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnGoToActivityLogCommand}" />
                             </Grid.GestureRecognizers>
-                            <Controls:ImageControl PortablePath="timeLine.png" Style="{StaticResource IconStyle}" />
+                            <Controls:SVGImageControl PortablePath="timeline.svg" Style="{StaticResource IconStyle}" />
                         </Grid>
                         <Controls:SeparatorControl Grid.Column="5" />
                         <Grid Grid.Column="6" BackgroundColor="{TemplateBinding BindingContext.FourthTabSelected}">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnGoToProfileMeasurmentCommand}" />
                             </Grid.GestureRecognizers>
-                            <Controls:ImageControl PortablePath="graph.png" Style="{StaticResource IconStyle}" />
+                            <Controls:SVGImageControl PortablePath="graph.svg" Style="{StaticResource IconStyle}" />
                         </Grid>
                         <Controls:SeparatorControl Grid.Column="7" />
                         <Grid Grid.Column="8" BackgroundColor="{TemplateBinding BindingContext.FifthTabSelected}">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnEditProfileCommand}" />
                             </Grid.GestureRecognizers>
-                            <Controls:ImageControl PortablePath="settings.png" Style="{StaticResource IconStyle}" />
+                            <Controls:SVGImageControl PortablePath="settings.svg" Style="{StaticResource IconStyle}" />
                         </Grid>
                     </Grid>
                     <BoxView Grid.Row="1" Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />
@@ -296,7 +296,7 @@
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnHomeCommand}" />
                             </Grid.GestureRecognizers>
-                            <Controls:ImageControl PortablePath="home.png" Style="{StaticResource IconStyle}" />
+                            <Controls:SVGImageControl PortablePath="home.svg" Style="{StaticResource IconStyle}" />
                         </Grid>
                         <Controls:CustomImage Grid.Column="1" Margin="10,5" Source="{TemplateBinding BindingContext.Image.Path}" WidthRequest="60" HeightRequest="60" Style="{StaticResource ImageHeaderStyle}">
                             <Controls:CustomImage.GestureRecognizers>
@@ -311,7 +311,7 @@
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnNotificationCommand}" />
                             </Grid.GestureRecognizers>
                             <Label Text="{TemplateBinding BindingContext.NotificationsCount}" IsVisible="{TemplateBinding BindingContext.NotificationsCount,Converter={StaticResource IntToBoolConverter}}" TextColor="Red" FontAttributes="Bold" Margin="20,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" FontSize="12" />
-                            <Controls:ImageControl PortablePath="notification.png" Style="{StaticResource IconStyle}" />
+                            <Controls:SVGImageControl PortablePath="notification.svg" Style="{StaticResource IconStyle}" />
                         </Grid>
                     </Grid>
                 </Grid>
