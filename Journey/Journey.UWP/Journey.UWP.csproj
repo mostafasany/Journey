@@ -190,6 +190,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\challengeBanner.png" />
+    <EmbeddedResource Include="Assets\compete.png" />
+    <EmbeddedResource Include="Assets\downArrow.png" />
+    <EmbeddedResource Include="Assets\loading.png" />
+    <EmbeddedResource Include="Assets\LoginLogo.png" />
+    <EmbeddedResource Include="Assets\running.png" />
+    <EmbeddedResource Include="Assets\videothumbnail.png" />
+    <EmbeddedResource Include="Assets\workout.png" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

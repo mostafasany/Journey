@@ -19,7 +19,6 @@
     <None Remove="Assets\workout.png" />
     <None Remove="Assets\ic_settings_3x.png" />
     <None Remove="Assets\ic_history_3x.png" />
-    <None Remove="Assets\challenge.png" />
     <None Remove="Assets\SVG\home.svg" />
     <None Remove="Assets\SVG\comment.svg" />
     <None Remove="Assets\SVG\favorite.svg" />
@@ -37,6 +36,7 @@
     <None Remove="Assets\SVG\workout.svg" />
     <None Remove="Assets\SVG\camera.svg" />
     <None Remove="Assets\SVG\moreVert.svg" />
+    <None Remove="Assets\SVG\back %28copy%29.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,7 +55,6 @@
     <EmbeddedResource Include="Assets\downArrow.png" />
     <EmbeddedResource Include="Assets\running.png" />
     <EmbeddedResource Include="Assets\workout.png" />
-    <EmbeddedResource Include="Assets\challenge.png" />
     <EmbeddedResource Include="Assets\SVG\home.svg" />
     <EmbeddedResource Include="Assets\SVG\comment.svg" />
     <EmbeddedResource Include="Assets\SVG\favorite.svg" />
@@ -73,6 +72,7 @@
     <EmbeddedResource Include="Assets\SVG\workout.svg" />
     <EmbeddedResource Include="Assets\SVG\camera.svg" />
     <EmbeddedResource Include="Assets\SVG\moreVert.svg" />
+    <EmbeddedResource Include="Assets\SVG\challenge.svg" />
   </ItemGroup>
 
   <ItemGroup>

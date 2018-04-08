@@ -247,7 +247,7 @@
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnGoToProfileChallengeCommand}" />
                             </Grid.GestureRecognizers>
-                            <Controls:ImageControl PortablePath="challenge.png" Style="{StaticResource IconStyle}" />
+                            <Controls:SVGImageControl PortablePath="challenge.svg" Style="{StaticResource IconStyle}" />
                         </Grid>
                         <Controls:SeparatorControl Grid.Column="1" />
                         <Grid Grid.Column="2" BackgroundColor="{TemplateBinding BindingContext.SecondTabSelected}">
