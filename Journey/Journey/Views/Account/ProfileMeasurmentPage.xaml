@@ -57,7 +57,7 @@
             </Grid>
             <controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
                                      VerticalOptions="Center" />
-            <ListView Grid.Row="1" ItemsSource="{Binding Measuremnts}" HorizontalOptions="Center" ItemTemplate="{StaticResource ScaleTemplate}"
+            <ListView Grid.Row="1" Margin="0,10" ItemsSource="{Binding Measuremnts}" HorizontalOptions="Center" ItemTemplate="{StaticResource ScaleTemplate}"
                       RowHeight="60" IsPullToRefreshEnabled="true" SeparatorVisibility="None"
                       IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
                       RefreshCommand="{Binding OnRefreshPostsCommand}" />

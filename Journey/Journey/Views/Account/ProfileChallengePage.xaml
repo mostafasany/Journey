@@ -14,7 +14,7 @@
                     <Button Margin="0,0,0,5" Text="Start" Command="{Binding OnStartNewChallengeCommand}" WidthRequest="150" HorizontalOptions="Center" FontSize="14" Style="{StaticResource SecondaryButtonStyle}" />
                 </StackLayout>
             </Grid>
-            <Button Grid.Row="1" IsVisible="{Binding HasActiveChallenge}" Style="{StaticResource SecondaryButtonStyle}" Text="{resources:Translate Challenge_View}" TextColor="Black" Margin="0,10" Command="{Binding OnViewChallengeCommand}" />
+            <Button Grid.Row="1" IsVisible="{Binding HasActiveChallenge}" Style="{StaticResource SecondaryButtonStyle}" Text="{resources:Translate Challenge_View}"  Margin="0,10" Command="{Binding OnViewChallengeCommand}" />
             <ListView Grid.Row="2" ItemsSource="{Binding ChallengeProgress}" IsGroupingEnabled="true" HasUnevenRows="true">
                 <ListView.GroupHeaderTemplate>
                     <DataTemplate>

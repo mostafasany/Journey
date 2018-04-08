@@ -174,9 +174,6 @@
       <HintPath>..\..\packages\Validation.2.2.8\lib\dotnet\Validation.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.iOS" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.WindowsAzure.Storage">
       <HintPath>..\..\packages\WindowsAzure.Storage.9.0.0\lib\netstandard1.3\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
@@ -236,6 +233,9 @@
     </Reference>
     <Reference Include="FFImageLoading.Svg.Forms">
       <HintPath>..\..\packages\Xamarin.FFImageLoading.Svg.Forms.2.3.6\lib\Xamarin.iOS10\FFImageLoading.Svg.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
