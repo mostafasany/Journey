@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:controls="clr-namespace:Journey.Views.Controls" x:Class="Journey.Views.MediaPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="MediaTemplate">
+                <ViewCell>
+                    <ViewCell.View>
+                        <controls:CustomImage Margin="0,0,0,5" Source="{Binding Thumbnail}" WidthRequest="500" HeightRequest="300" Aspect="AspectFit" VerticalOptions="Fill" HorizontalOptions="Fill">
+                            <controls:CustomImage.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Path=BindingContext.OnGalleryDetailsCommand, Source={x:Reference Name=ParentListView}}" CommandParameter="{Binding}" />
+                            </controls:CustomImage.GestureRecognizers>
+                        </controls:CustomImage>
+                    </ViewCell.View>
+                </ViewCell>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid RowSpacing="0" Style="{StaticResource MainGridStyle}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <controls:SVGImageControl Grid.Row="0" PortablePath="close.svg" Style="{StaticResource IconStyle}" HorizontalOptions="End" Margin="10,10">
+                <controls:SVGImageControl.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
+                </controls:SVGImageControl.GestureRecognizers>
+            </controls:SVGImageControl>
+            <ListView Grid.Row="1" x:Name="ParentListView" HasUnevenRows="true" SeparatorVisibility="None" ItemTemplate="{StaticResource MediaTemplate}" BackgroundColor="White" ItemsSource="{Binding MediaList}" HorizontalOptions="Fill" />
+        </Grid>
+    </ContentPage.Content>
+</local:BasePage>

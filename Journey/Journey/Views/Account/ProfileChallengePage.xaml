@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:resources="clr-namespace:Journey.Resources" xmlns:local="clr-namespace:Journey.Views" xmlns:controls="clr-namespace:Journey.Views.Controls" ControlTemplate="{StaticResource ProfileHeaderControlTemplate}" x:Class="Journey.Views.ProfileChallengePage">
+    <ContentPage.Content>
+        <Grid Style="{StaticResource MainGridStyle}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" IsVisible="{Binding HasActiveChallenge,Converter={StaticResource BoolInverterConverter}}">
+                <controls:ImageControl Aspect="AspectFill" PortablePath="challengeBanner.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                <StackLayout Orientation="Vertical">
+                    <Label Margin="0,5" Text="{resources:Translate Home_StartNewChallenge}" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" TextColor="White" />
+                    <Button Margin="0,0,0,5" Text="Start" Command="{Binding OnStartNewChallengeCommand}" WidthRequest="150" HorizontalOptions="Center" FontSize="14" Style="{StaticResource SecondaryButtonStyle}" />
+                </StackLayout>
+            </Grid>
+            <Button Grid.Row="1" IsVisible="{Binding HasActiveChallenge}" Style="{StaticResource SecondaryButtonStyle}" Text="{resources:Translate Challenge_View}"  Margin="0,10" Command="{Binding OnViewChallengeCommand}" />
+            <ListView Grid.Row="2" ItemsSource="{Binding ChallengeProgress}" IsGroupingEnabled="true" HasUnevenRows="true">
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid HeightRequest="40">
+                                <Label HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" Text="{Binding Key}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Grid Padding="0,10" BackgroundColor="White">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout Orientation="Horizontal" Grid.Column="0" Grid.RowSpan="2">
+                                        <Label VerticalOptions="Center" Text="{Binding Account.Name}" Margin="5,0" WidthRequest="120" />
+                                        <controls:SeparatorControl WidthRequest="1" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" Grid.Column="1" Grid.Row="0" Margin="5,0,0,0">
+                                        <Label Text="{Binding TotalExercises}" />
+                                        <Label Text="{resources:Translate Challenge_Exercises}" Margin="10,0,0,0" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Margin="5,0,0,0">
+                                        <Label Text="{Binding TotalKm}" />
+                                        <Label Text="{resources:Translate KM}" Margin="10,0,0,0" />
+                                    </StackLayout>
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <Grid Padding="10" BackgroundColor="{StaticResource Primary}" IsVisible="{Binding IsLoading,Converter={StaticResource BoolInverterConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="{resources:Translate Challenge_Winner}" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5" />
+                        <Label Text="{resources:Translate Challenge_Exercises}" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5" />
+                        <Label Text="{resources:Translate KM}" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5" />
+                        <Label Text="{Binding WinnerAccountInExercises}" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" />
+                        <Label Text="{Binding WinnerAccountInKM}" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" />
+                    </Grid>
+                </ListView.Footer>
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
+</local:BasePage>

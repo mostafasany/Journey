@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:resources="clr-namespace:Journey.Resources"
+                xmlns:local="clr-namespace:Journey.Views"
+                xmlns:controls="clr-namespace:Journey.Views.Controls"
+                ControlTemplate="{StaticResource ProfileHeaderControlTemplate}"
+                x:Class="Journey.Views.ProfileMeasurmentPage">
+    <ContentPage.Content>
+        <Grid Style="{StaticResource MainGridStyle}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" BackgroundColor="{StaticResource Primary}" IsVisible="{Binding IsNotLoading}"
+                  Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Vertical" HorizontalOptions="Start"
+                             VerticalOptions="End">
+                    <Label TextColor="White" Text="{resources:Translate CurrentWeight}"
+                           Style="{StaticResource LabelHeaderStyle}" />
+                    <Label TextColor="White" Text="{Binding LoggedInAccount.AccountGoal.WeightWithUnit}" FontSize="30"
+                           FontAttributes="Bold" Style="{StaticResource LabelHeaderStyle}" />
+                </StackLayout>
+                <StackLayout Grid.Row="0" Grid.Column="1" Orientation="Vertical" HorizontalOptions="End"
+                             VerticalOptions="End">
+                    <Label TextColor="White" Text="Goal" Style="{StaticResource LabelHeaderStyle}" />
+                    <Label TextColor="White" IsVisible="{Binding NotAddMode}"
+                           Text="{Binding LoggedInAccount.AccountGoal.GoalWithUnit}" FontSize="20"
+                           Style="{StaticResource LabelHeaderStyle}" />
+                    <StackLayout Orientation="Horizontal" IsVisible="{Binding AddMode}">
+                        <Entry BackgroundColor="White" WidthRequest="60" TextColor="Black" Keyboard="Numeric"
+                               Text="{Binding Goal,Mode=TwoWay}" />
+                        <controls:SVGImageControl PortablePath="done.svg" Aspect="AspectFit"
+                                               Style="{StaticResource IconStyle}" HorizontalOptions="End">
+                            <controls:SVGImageControl.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OnAddGoalCommand}" CommandParameter="{Binding}" />
+                            </controls:SVGImageControl.GestureRecognizers>
+                        </controls:SVGImageControl>
+                    </StackLayout>
+                </StackLayout>
+                <controls:SVGImageControl Grid.Row="0" Grid.Column="2" PortablePath="moreVert.svg" Aspect="AspectFit"
+                                       Style="{StaticResource IconStyle}" HorizontalOptions="End">
+                    <controls:SVGImageControl.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnMeasurmentMoreCommand}" CommandParameter="{Binding}" />
+                    </controls:SVGImageControl.GestureRecognizers>
+                </controls:SVGImageControl>
+            </Grid>
+            <controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
+                                     VerticalOptions="Center" />
+            <ListView Grid.Row="1" Margin="0,10" ItemsSource="{Binding Measuremnts}" HorizontalOptions="Center" ItemTemplate="{StaticResource ScaleTemplate}"
+                      RowHeight="60" IsPullToRefreshEnabled="true" SeparatorVisibility="None"
+                      IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
+                      RefreshCommand="{Binding OnRefreshPostsCommand}" />
+        </Grid>
+    </ContentPage.Content>
+</local:BasePage>

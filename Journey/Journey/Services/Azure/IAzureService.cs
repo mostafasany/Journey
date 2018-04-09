@@ -4,6 +4,6 @@ namespace Journey.Services.Azure
 {
     public interface IAzureService
     {
-        MobileServiceClient CreateOrGetAzureClient(string id, string token);
+        MobileServiceClient CreateOrGetAzureClient(string id = "", string token = "");
     }
 }

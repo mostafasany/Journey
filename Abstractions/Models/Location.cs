@@ -16,6 +16,6 @@ namespace Abstractions.Models
 
         public double Lng { get; set; }
 
-        public Media Media { get; set; }
+        public string Image { get; set; }
     }
 }

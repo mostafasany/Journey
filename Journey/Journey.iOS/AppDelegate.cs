@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
+using FFImageLoading.Forms.Touch;
+using FFImageLoading.Transformations;
 using Foundation;
+using Journey.Constants;
+using Journey.iOS.Renderers;
+using Journey.Services.Azure;
 using Microsoft.WindowsAzure.MobileServices;
 using Prism;
 using Prism.Ioc;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using Journey.Constants;
-using Journey.Services.Azure;
-
 
 namespace Journey.iOS
 {
@@ -21,24 +23,6 @@ namespace Journey.iOS
     {
         private MobileServiceUser _user;
 
-        //
-        // This method is invoked when the application has loaded and is ready to run. In this 
-        // method you should instantiate the window, load the UI into it and then make the window
-        // visible.
-        //
-        // You have 17 seconds to return from this method, or iOS will terminate your application.
-        //
-        public override bool FinishedLaunching(UIApplication app, NSDictionary options)
-        {
-            Forms.Init();
-
-            App.Init(this);
-
-            LoadApplication(new App(new IosInitializer()));
-
-            return base.FinishedLaunching(app, options);
-        }
-
         public async Task<MobileServiceUser> Authenticate()
         {
             try
@@ -46,8 +30,8 @@ namespace Journey.iOS
                 // Sign in with Facebook login using a server-managed flow.
                 if (_user == null)
                 {
-                    var window = UIApplication.SharedApplication.KeyWindow;
-                    var viewController = window.RootViewController;
+                    UIWindow window = UIApplication.SharedApplication.KeyWindow;
+                    UIViewController viewController = window.RootViewController;
                     if (viewController != null)
                     {
                         while (viewController.PresentedViewController != null)
@@ -61,13 +45,32 @@ namespace Journey.iOS
             catch (Exception ex)
             {
             }
+
             return _user;
         }
 
-        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        //
+        // This method is invoked when the application has loaded and is ready to run. In this 
+        // method you should instantiate the window, load the UI into it and then make the window
+        // visible.
+        //
+        // You have 17 seconds to return from this method, or iOS will terminate your application.
+        //
+        public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            return Journey.App.Client.ResumeWithURL(url);
+            Forms.Init();
+
+            App.Init(this);
+            CachedImageRenderer.Init();
+            VideoViewRenderer.Init();
+            //https://github.com/luberda-molinet/FFImageLoading/issues/462
+            var ignore = new CircleTransformation();
+            LoadApplication(new App(new IosInitializer()));
+
+            return base.FinishedLaunching(app, options);
         }
+
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options) => App.Client.ResumeWithURL(url);
     }
 
 

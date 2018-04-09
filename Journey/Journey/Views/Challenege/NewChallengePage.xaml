@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views"
+                xmlns:controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.NewChallengePage">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid Style="{StaticResource MainGridStyle}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <controls:SVGImageControl Grid.Row="0" HorizontalOptions="Start" PortablePath="back.svg" Style="{StaticResource IconStyle}">
+                    <controls:SVGImageControl.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnBackCommand}" CommandParameter="{Binding}" />
+                    </controls:SVGImageControl.GestureRecognizers>
+                </controls:SVGImageControl>
+                <controls:ImageViewerControl Grid.Row="1" ItemsSource="{Binding SelectedChallenge.ChallengeAccounts}" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                    <controls:ImageViewerControl.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <Image Source="{Binding Image.Path}" WidthRequest="150" HeightRequest="150" Margin="8,0" Aspect="AspectFill" />
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </controls:ImageViewerControl.ItemTemplate>
+                </controls:ImageViewerControl>
+                <StackLayout Grid.Row="2" Orientation="Vertical" VerticalOptions="Fill">
+                    <controls:LoadingControl IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Grid Margin="0,10,0,20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Text="{resources:Translate Challenge_StartDate}" Style="{StaticResource LabelHeaderStyle}" />
+                        <DatePicker Grid.Row="0" IsEnabled="{Binding IsAddMode}" Grid.Column="1" Date="{Binding SelectedChallenge.StartDate}" WidthRequest="150" />
+                        <Label Grid.Row="1" Grid.Column="0" Text="{resources:Translate Challenge_EndDate}" Style="{StaticResource LabelHeaderStyle}" />
+                        <DatePicker Grid.Row="1" IsEnabled="{Binding IsAddMode}" Grid.Column="1" Date="{Binding SelectedChallenge.EndDate}" WidthRequest="150" />
+
+                    </Grid>
+                    <Label Text="Challenge Terms" Style="{StaticResource LabelHeaderStyle}" />
+                    <Editor Text="{Binding SelectedChallenge.Terms}" IsEnabled="{Binding IsAddMode}" Style="{StaticResource EditorFormStyle}" />
+                    <Button Text="{resources:Translate Challenge_ChooseYourWorkoutPlace}" Style="{StaticResource SecondaryButtonStyle}" TextColor="Black" Command="{Binding OnGetWorkoutLocationCommand}" />
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,10">
+                        <controls:CustomImage Source="{Binding SelectedChallenge.SelectedLocation.Image}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="40" HeightRequest="40" />
+                        <Label Text="{Binding SelectedChallenge.SelectedLocation.Name}" Margin="10,0" VerticalOptions="Center" />
+                    </StackLayout>
+                </StackLayout>
+                <Button Text="{resources:Translate Challenge_Start}" Grid.Row="3" IsVisible="{Binding IsAddMode}" Margin="10" VerticalOptions="End" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding OnStartChallengeCommand}" />
+                <Button Text="{resources:Translate Challenge_Edit}" Grid.Row="3" IsVisible="{Binding IsEditMode}" Margin="10" VerticalOptions="End" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding OnEditChallengeCommand}" />
+                <Button Text="{resources:Translate Challenge_Approve}" Grid.Row="3" IsVisible="{Binding IsApproveRequestMode}" Margin="10" VerticalOptions="End" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding OnApproveRequestCommand}" />
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</local:BasePage>

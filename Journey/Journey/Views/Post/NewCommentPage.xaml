@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:local="clr-namespace:Journey.Views" xmlns:controls="clr-namespace:Journey.Views.Controls"
+                xmlns:resources="clr-namespace:Journey.Resources"
+                xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                xmlns:selectors="clr-namespace:Journey.Views.Selectors" x:Class="Journey.Views.NewCommentPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="MeCommentTemplate">
+                <ViewCell>
+                    <ViewCell.View>
+                        <Grid BackgroundColor="White" RowSpacing="0" Padding="5,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <StackLayout Grid.Row="0" Margin="20,0" Orientation="Vertical">
+                                <Grid BackgroundColor="Teal" Padding="20">
+                                    <Label Text="{Binding CommentText}" TextColor="White" FontSize="14"
+                                           VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+                                </Grid>
+                                <controls:ImageControl Margin="0,-27,0,0" WidthRequest="50" HeightRequest="50"
+                                                       HorizontalOptions="Start" VerticalOptions="Start"
+                                                       PortablePath="downArrow.png" />
+                            </StackLayout>
+                            <Grid Grid.Row="1" Margin="5,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <controls:CustomImage Grid.Column="0" Source="{Binding Account.Image.Path}"
+                                                      WidthRequest="60" HeightRequest="60">
+                                    <controls:CustomImage.Transformations>
+                                        <fftransformations:CircleTransformation />
+                                    </controls:CustomImage.Transformations>
+                                </controls:CustomImage>
+                                <Label Grid.Column="1" Text="{Binding Account.Name}" TextColor="Gray" FontSize="14"
+                                       FontAttributes="Bold" HorizontalOptions="Start" VerticalOptions="Center" />
+                                <Label Grid.Column="2" Text="{Binding FormatedDate}" TextColor="Gray" FontSize="12"
+                                       HorizontalOptions="End" VerticalOptions="Center" />
+                            </Grid>
+                        </Grid>
+                    </ViewCell.View>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="OtherCommentTemplate">
+                <ViewCell>
+                    <ViewCell.View>
+                        <Grid BackgroundColor="White" RowSpacing="0" Padding="5,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <StackLayout Grid.Row="0" Margin="20,0" Orientation="Vertical">
+                                <Grid BackgroundColor="Maroon" Padding="20">
+                                    <Label Text="{Binding CommentText}" TextColor="White" FontSize="14"
+                                           VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+                                </Grid>
+                                <controls:ImageControl Margin="0,-27,0,0" WidthRequest="50" HeightRequest="50"
+                                                       HorizontalOptions="End" VerticalOptions="Start"
+                                                       PortablePath="downArrow.png" />
+                            </StackLayout>
+                            <Grid Grid.Row="1" Margin="5,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <controls:CustomImage Grid.Column="2" Source="{Binding Account.Image.Path}"
+                                                      WidthRequest="60" HeightRequest="60" HorizontalOptions="End">
+                                    <controls:CustomImage.Transformations>
+                                        <fftransformations:CircleTransformation />
+                                    </controls:CustomImage.Transformations>
+                                </controls:CustomImage>
+                                <Label Grid.Column="1" Text="{Binding Account.Name}" TextColor="Gray" FontSize="14"
+                                       FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="Center" />
+                                <Label Grid.Column="0" Text="{Binding FormatedDate}" TextColor="Gray" FontSize="12"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </Grid>
+                    </ViewCell.View>
+                </ViewCell>
+            </DataTemplate>
+            <selectors:CommentTemplateSelector x:Key="CommentTemplateSelector"
+                                               MeCommentTemplate="{StaticResource MeCommentTemplate}"
+                                               OtherCommentTemplate="{StaticResource OtherCommentTemplate}" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid Style="{StaticResource MainGridStyle}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <controls:SVGImageControl Grid.Row="0" PortablePath="close.svg" Style="{StaticResource IconStyle}"
+                                   Margin="10,0" HorizontalOptions="End">
+                <controls:SVGImageControl.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
+                </controls:SVGImageControl.GestureRecognizers>
+            </controls:SVGImageControl>
+            <ListView Grid.Row="1" IsVisible="{Binding NoComments,Converter={StaticResource BoolInverterConverter}}"
+                      SeparatorVisibility="None" HasUnevenRows="true" HorizontalOptions="FillAndExpand"
+                      ItemTemplate="{StaticResource CommentTemplateSelector}" BackgroundColor="White"
+                      ItemsSource="{Binding Comments}" IsPullToRefreshEnabled="true"
+                      IsRefreshing="{Binding IsPullRefreshLoading}"
+                      RefreshAllowed="true" RefreshCommand="{Binding OnPullRefreshRequestCommand}" />
+            <Label Grid.Row="1" IsVisible="{Binding NoComments}" HorizontalOptions="Center" VerticalOptions="Center"
+                   Text="{resources:Translate Comments_NoComments}" TextColor="Gray" FontSize="20" />
+            <controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
+                                     VerticalOptions="Center" Margin="20,0" />
+            <Label Grid.Row="3" Margin="10,20,0,5" Text="Leave Comment" />
+            <Grid Grid.Row="4" Margin="10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Editor Grid.Column="0" Text="{Binding NewComment}" Style="{StaticResource EditorFormStyle}"
+                        HeightRequest="60" />
+                <controls:SVGImageControl Grid.Column="1" PortablePath="done.svg" Style="{StaticResource IconStyle}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnNewCommentCommand}" />
+                    </Image.GestureRecognizers>
+                </controls:SVGImageControl>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</local:BasePage>

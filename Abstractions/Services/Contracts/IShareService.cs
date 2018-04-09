@@ -1,7 +1,11 @@
-﻿namespace Abstractions.Services.Contracts
+﻿using System.Threading.Tasks;
+
+namespace Abstractions.Services.Contracts
 {
     public interface IShareService
     {
-        void Share(string text, string title, string url);
+        Task ShareImages(string subject, string message, object image);
+        Task ShareText(string text, string title, string url);
+        Task ShareVideos(string subject, string message, object video);
     }
 }

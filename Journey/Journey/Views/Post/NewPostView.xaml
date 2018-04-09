@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Journey.Views.Post.NewPostView"
+             xmlns:controls="clr-namespace:Journey.Views.Controls" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:resources="clr-namespace:Journey.Resources">
+    <ContentView.Content>
+        <ScrollView>
+            <Grid RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <controls:CustomImage Grid.RowSpan="2" Grid.Column="0" Source="{Binding LoggedInAccount.Image.Path}" HorizontalOptions="Start" WidthRequest="100" HeightRequest="100">
+                        <controls:CustomImage.Transformations>
+                            <fftransformations:CircleTransformation />
+                        </controls:CustomImage.Transformations>
+                    </controls:CustomImage>
+                    <Grid Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill">
+                        <Label Text="{Binding LoggedInAccount.Name}" FontAttributes="Bold" TextColor="Black" FontSize="14" HorizontalOptions="Start" />
+                    </Grid>
+                    <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" IsVisible="{Binding Post.HasLocation}">
+                        <Label Text="{Binding NewPost.Location.Action}" TextColor="Black" FontSize="12" HorizontalOptions="Start" VerticalOptions="Center" />
+                        <controls:CustomImage Source="{Binding  NewPost.Location.Image}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
+                        <Label Text="{Binding  NewPost.Location.Activity}" FontAttributes="Bold" TextColor="Black" FontSize="14" HorizontalOptions="Start" VerticalOptions="Center" LineBreakMode="NoWrap" />
+                    </StackLayout>
+                </Grid>
+                <Label Grid.Row="1" Margin="5,10,0,5" Text="{resources:Translate NewPost_NewPostFeedPlaceholder}" />
+                <controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="End" VerticalOptions="Center" Margin="10,0" />
+                <Editor Grid.Row="2" Margin="5,0" Text="{Binding NewPost.Feed}" Style="{StaticResource EditorFormStyle}" />
+                <controls:ImageViewerControl x:Name="ParentImageViewerControl" Grid.Row="3" ItemsSource="{Binding NewPost.MediaList}" Margin="0,10" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
+                    <controls:ImageViewerControl.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <Grid Grid.Row="0" Margin="10,10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <controls:SVGImageControl Grid.Row="0" PortablePath="close.svg" VerticalOptions="Center" HorizontalOptions="End" WidthRequest="20" HeightRequest="20">
+                                            <controls:SVGImageControl.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Path=BindingContext.OnImageDeleteCommand, Source={x:Reference Name=ParentImageViewerControl}}" CommandParameter="{Binding}" />
+                                            </controls:SVGImageControl.GestureRecognizers>
+                                        </controls:SVGImageControl>
+                                        <controls:CustomImage Grid.Row="1" Source="{Binding Thumbnail}" HeightRequest="160" Aspect="AspectFit">
+                                            <controls:CustomImage.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Path=BindingContext.OnGalleryDetailsCommand, Source={x:Reference Name=ParentImageViewerControl}}" />
+                                            </controls:CustomImage.GestureRecognizers>
+                                        </controls:CustomImage>
+                                    </Grid>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </controls:ImageViewerControl.ItemTemplate>
+                </controls:ImageViewerControl>
+                <Grid Grid.Row="4" Margin="10,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <controls:SVGImageControl Grid.Column="0" Margin="0,0,0,60" PortablePath="camera.svg" Style="{StaticResource IconStyle}" WidthRequest="40" HeightRequest="40">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnAddPhotoOrVideoCommand}" CommandParameter="{Binding}" />
+                        </Image.GestureRecognizers>
+                    </controls:SVGImageControl>
+                    <controls:SVGImageControl Grid.Column="1" Margin="0,20,0,0" PortablePath="done.svg" Style="{StaticResource IconStyle}" WidthRequest="40" HeightRequest="40">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnNewPostCommand}" />
+                        </Image.GestureRecognizers>
+                    </controls:SVGImageControl>
+                    <controls:SVGImageControl Grid.Column="2" Margin="0,0,0,60" PortablePath="location.svg" Style="{StaticResource IconStyle}" WidthRequest="40" HeightRequest="40">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnCheckInCommand}" CommandParameter="{Binding}" />
+                        </Image.GestureRecognizers>
+                    </controls:SVGImageControl>
+                </Grid>
+            </Grid>
+        </ScrollView>
+    </ContentView.Content>
+</ContentView>

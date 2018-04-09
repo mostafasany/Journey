@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+
+<ArrayOfSocial xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Social>
+    <AccessToken>EAACIlea21ocBAMyZBOapnZAjiZAiEK9ZAmkMngf4YygrXIxNKDSracyehoSZCbxsc2ZB4ZBWfVZAkTEZA0tRSWbe1BToK0ctYWnn9Ke7s2UjuhlziPhe7sBnRiWQaR4kxORsO3HcsB88EBErSfUeZCmQsbYUvhauj0PNZCcQOA2D84nvW4V4sMkXyfZB</AccessToken>
+    <ProviderName>facebook</ProviderName>
+    <ExpireOn>2018-04-29T16:52:04.39166+02:00</ExpireOn>
+    <Claims>
+      <Claims>
+        <Typ>http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier</Typ>
+        <Val>10214354648717192</Val>
+      </Claims>
+      <Claims>
+        <Typ>http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress</Typ>
+        <Val>mostafasany.khodeir@hotmail.com</Val>
+      </Claims>
+      <Claims>
+        <Typ>http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name</Typ>
+        <Val>Mostafa Sany Khodeir</Val>
+      </Claims>
+      <Claims>
+        <Typ>urn:facebook:link</Typ>
+        <Val>https://www.facebook.com/app_scoped_user_id/10214354648717192/</Val>
+      </Claims>
+      <Claims>
+        <Typ>http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname</Typ>
+        <Val>Mostafa</Val>
+      </Claims>
+      <Claims>
+        <Typ>http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname</Typ>
+        <Val>Khodeir</Val>
+      </Claims>
+      <Claims>
+        <Typ>http://schemas.xmlsoap.org/ws/2005/05/identity/claims/gender</Typ>
+        <Val>male</Val>
+      </Claims>
+      <Claims>
+        <Typ>urn:facebook:locale</Typ>
+        <Val>en_GB</Val>
+      </Claims>
+      <Claims>
+        <Typ>urn:facebook:timezone</Typ>
+        <Val>1</Val>
+      </Claims>
+    </Claims>
+  </Social>
+</ArrayOfSocial>

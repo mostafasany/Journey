@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
-using Xamarin.Forms;
 using Microsoft.WindowsAzure.MobileServices;
+using Xamarin.Forms;
 using Application = Windows.UI.Xaml.Application;
 using Frame = Windows.UI.Xaml.Controls.Frame;
 
@@ -26,6 +25,17 @@ namespace Journey.UWP
             Suspending += OnSuspending;
         }
 
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            base.OnActivated(args);
+
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                var protocolArgs = args as ProtocolActivatedEventArgs;
+                Journey.App.Client.ResumeWithURL(protocolArgs.Uri);
+            }
+        }
+
         /// <summary>
         ///     Invoked when the application is launched normally by the end user.  Other entry points
         ///     will be used such as when the application is launched to open a specific file.
@@ -33,10 +43,10 @@ namespace Journey.UWP
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-#if DEBUG
-            if (Debugger.IsAttached)
-                DebugSettings.EnableFrameRateCounter = true;
-#endif
+//#if DEBUG
+//            if (Debugger.IsAttached)
+//                DebugSettings.EnableFrameRateCounter = true;
+//#endif
 
             var rootFrame = Window.Current.Content as Frame;
 
@@ -85,20 +95,9 @@ namespace Journey.UWP
         /// <param name="e">Details about the suspend request.</param>
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
-            var deferral = e.SuspendingOperation.GetDeferral();
+            SuspendingDeferral deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
-        }
-
-        protected override void OnActivated(IActivatedEventArgs args)
-        {
-            base.OnActivated(args);
-
-            if (args.Kind == ActivationKind.Protocol)
-            {
-                var protocolArgs = args as ProtocolActivatedEventArgs;
-                Journey.App.Client.ResumeWithURL(protocolArgs.Uri);
-            }
         }
     }
 }

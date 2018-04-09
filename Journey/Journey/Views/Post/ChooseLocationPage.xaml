@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:local="clr-namespace:Journey.Views" xmlns:controls="clr-namespace:Journey.Views.Controls"
+                xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.ChooseLocationPage">
+    <ContentPage.Content>
+        <Grid Style="{StaticResource MainGridStyle}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="5,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <controls:SVGImageControl Grid.Column="0" Margin="10,0,0,0" PortablePath="back.svg"
+                                       Style="{StaticResource IconStyle}">
+                    <controls:SVGImageControl.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
+                    </controls:SVGImageControl.GestureRecognizers>
+                </controls:SVGImageControl>
+                <SearchBar Grid.Column="1" BackgroundColor="Transparent" WidthRequest="400"
+                           Placeholder="{resources:Translate Challenge_ChooseYourWorkoutPlace}"
+                           Text="{Binding SearchKeyword,Mode=TwoWay}" SearchCommand="{Binding OnSearchCommand}" />
+            </Grid>
+            <ListView Grid.Row="2" IsVisible="{Binding NoLocations,Converter={StaticResource BoolInverterConverter}}"
+                      SeparatorVisibility="None" RowHeight="80" Margin="10,0"
+                      ItemTemplate="{StaticResource LocationTemplate}" BackgroundColor="White"
+                      ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedLocation,Mode=TwoWay}"
+                      HorizontalOptions="Fill" />
+            <Label Grid.Row="2" IsVisible="{Binding NoLocations}" HorizontalOptions="Center" VerticalOptions="Center"
+                   Text="{resources:Translate Location_NoPlaces}" TextColor="Gray" FontSize="20" />
+            <controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
+                                     VerticalOptions="End" Margin="0,0,0,30" />
+        </Grid>
+    </ContentPage.Content>
+</local:BasePage>

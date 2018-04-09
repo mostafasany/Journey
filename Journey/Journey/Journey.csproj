@@ -2,36 +2,211 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Journey</AssemblyName>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\loading.png" />
+    <None Remove="Assets\LoginLogo.png" />
+    <None Remove="Assets\comment.png" />
+    <None Remove="Assets\videothumbnail.png" />
+    <None Remove="Assets\compete.png" />
+    <None Remove="Assets\challengeBanner.png" />
+    <None Remove="Services\Mocks\AccountMock.xml" />
+    <None Remove="Services\Mocks\MeMock.xml" />
+    <None Remove="Assets\downArrow.png" />
+    <None Remove="Assets\running.png" />
+    <None Remove="Assets\workout.png" />
+    <None Remove="Assets\ic_settings_3x.png" />
+    <None Remove="Assets\ic_history_3x.png" />
+    <None Remove="Assets\SVG\home.svg" />
+    <None Remove="Assets\SVG\comment.svg" />
+    <None Remove="Assets\SVG\favorite.svg" />
+    <None Remove="Assets\SVG\more.svg" />
+    <None Remove="Assets\SVG\notFavorite.svg" />
+    <None Remove="Assets\SVG\notification.svg" />
+    <None Remove="Assets\SVG\share.svg" />
+    <None Remove="Assets\SVG\close.svg" />
+    <None Remove="Assets\SVG\done.svg" />
+    <None Remove="Assets\SVG\back.svg" />
+    <None Remove="Assets\SVG\grapgh.svg" />
+    <None Remove="Assets\SVG\location.svg" />
+    <None Remove="Assets\SVG\settings.svg" />
+    <None Remove="Assets\SVG\timeline.svg" />
+    <None Remove="Assets\SVG\workout.svg" />
+    <None Remove="Assets\SVG\camera.svg" />
+    <None Remove="Assets\SVG\moreVert.svg" />
+    <None Remove="Assets\SVG\back %28copy%29.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="LoginLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\loading.png" />
+    <EmbeddedResource Include="Assets\LoginLogo.png" />
+    <EmbeddedResource Include="Assets\videothumbnail.png" />
+    <EmbeddedResource Include="Assets\compete.png" />
+    <EmbeddedResource Include="Assets\challengeBanner.png" />
+    <EmbeddedResource Include="Services\Mocks\PostsMock.xml" />
+    <EmbeddedResource Include="Services\Mocks\AccountMock.xml" />
+    <EmbeddedResource Include="Services\Mocks\PostMock.xml" />
+    <EmbeddedResource Include="Services\Mocks\MeMock.xml" />
+    <EmbeddedResource Include="Assets\downArrow.png" />
+    <EmbeddedResource Include="Assets\running.png" />
+    <EmbeddedResource Include="Assets\workout.png" />
+    <EmbeddedResource Include="Assets\SVG\home.svg" />
+    <EmbeddedResource Include="Assets\SVG\comment.svg" />
+    <EmbeddedResource Include="Assets\SVG\favorite.svg" />
+    <EmbeddedResource Include="Assets\SVG\more.svg" />
+    <EmbeddedResource Include="Assets\SVG\notFavorite.svg" />
+    <EmbeddedResource Include="Assets\SVG\notification.svg" />
+    <EmbeddedResource Include="Assets\SVG\share.svg" />
+    <EmbeddedResource Include="Assets\SVG\close.svg" />
+    <EmbeddedResource Include="Assets\SVG\done.svg" />
+    <EmbeddedResource Include="Assets\SVG\back.svg" />
+    <EmbeddedResource Include="Assets\SVG\graph.svg" />
+    <EmbeddedResource Include="Assets\SVG\location.svg" />
+    <EmbeddedResource Include="Assets\SVG\settings.svg" />
+    <EmbeddedResource Include="Assets\SVG\timeline.svg" />
+    <EmbeddedResource Include="Assets\SVG\workout.svg" />
+    <EmbeddedResource Include="Assets\SVG\camera.svg" />
+    <EmbeddedResource Include="Assets\SVG\moreVert.svg" />
+    <EmbeddedResource Include="Assets\SVG\challenge.svg" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Mobile.Client" Version="4.0.2" />
     <PackageReference Include="Prism.Core" Version="7.0.0.396" />
     <PackageReference Include="Prism.Forms" Version="7.0.0.396" />
     <PackageReference Include="Prism.Unity.Forms" Version="7.0.0.396" />
-    <PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
+    <PackageReference Include="WindowsAzure.Storage" Version="9.0.0" />
+    <PackageReference Include="Xam.Plugin.Media" Version="3.1.3" />
+    <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
+    <PackageReference Include="Xam.Plugin.Geolocator" Version="4.2.0" />
+    <PackageReference Include="Plugin.MediaManager" Version="0.4.5" />
+    <PackageReference Include="Plugin.Share" Version="7.1.1" />
+    <PackageReference Include="Xamarin.FFImageLoading" Version="2.3.6" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.3.6" />
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.3.6" />
+    <PackageReference Include="Xamarin.Forms" Version="2.5.1.444934" />
+    <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.3.6" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Contracts\" />
+    <Folder Include="Services\Buisness\Account\Dto\" />
+    <Folder Include="Services\Buisness\Goal\Dto\" />
+    <Folder Include="Services\Buisness\Measurment\Dto\" />
+    <Folder Include="Services\Buisness\Post\Dto\" />
+    <Folder Include="ViewModels\Wall\" />
+    <Folder Include="Views\Challenege\" />
+    <Folder Include="Services\Buisness\Friend\Dto\" />
+    <Folder Include="Models\Challenge\" />
+    <Folder Include="Services\Buisness\Challenge\" />
+    <Folder Include="Services\Buisness\Challenge\Dto\" />
+    <Folder Include="Services\Buisness\Challenge\Translators\" />
+    <Folder Include="Services\Buisness\DeepLink\" />
+    <Folder Include="Converters\" />
+    <Folder Include="ViewModels\Account\" />
+    <Folder Include="ViewModels\Challenge\" />
+    <Folder Include="ViewModels\Post\" />
+    <Folder Include="Services\Buisness\Workout\" />
+    <Folder Include="Services\Buisness\Workout\Dto\" />
+    <Folder Include="Services\Buisness\Workout\Data\" />
+    <Folder Include="Services\Buisness\Workout\Translators\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Abstractions\Abstractions.csproj" />
+    <ProjectReference Include="..\..\Abstractions.Forms\Abstractions.Forms.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Views\Account\ChooseChallengeFriendPage.xaml.cs" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\AppResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\Account\ProfilePage.xaml.cs">
+      <DependentUpon>ProfileMeasurmentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Account\UpdateMeasurmentPage.xaml.cs">
+      <DependentUpon>UpdateMeasurmentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MediaPage.xaml.cs">
+      <DependentUpon>MediaPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Account\UpdateProfilePage.xaml.cs">
+      <DependentUpon>UpdateProfilePage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Account\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Post\ChooseLocationPage.xaml.cs">
+      <DependentUpon>ChooseLocationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Post\NewCommentPage.xaml.cs">
+      <DependentUpon>NewCommentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Post\NewPostPage.xaml.cs">
+      <DependentUpon>NewPostPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Challenege\LoginPage.xaml.cs">
+      <DependentUpon>ChooseChallengeFriendPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Challenege\ChooseChallengeFriendPage.xaml.cs">
+      <DependentUpon>ChooseChallengeFriendPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Challenege\MediaPage.xaml.cs">
+      <DependentUpon>NewChallengePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Challenege\NewChallengePage.cs">
+      <DependentUpon>NewChallengePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Challenege\NewChallengePage.xaml.cs">
+      <DependentUpon>NewChallengePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\ChooseLocationPage.xaml.cs">
+      <DependentUpon>ImagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\ImagePage.xaml.cs">
+      <DependentUpon>ImagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Challenege\ProfileChallengePage.xaml.cs">
+      <DependentUpon>ProfileChallengePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Account\ProfileMeasurmentPage.xaml.cs">
+      <DependentUpon>ProfileMeasurmentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Account\ProfileChallengePage.xaml.cs">
+      <DependentUpon>ProfileChallengePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\NewCommentPage.xaml.cs">
+      <DependentUpon>Post\Views\Post\NewCommentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\NotificationsPage.xaml.cs">
+      <DependentUpon>NotificationsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\SeparatorControl.xaml.cs">
+      <DependentUpon>SeparatorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Controls\SeparatorControl.xaml.cs">
+      <DependentUpon>SeparatorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Account\ProfileActivityLogPage.xaml.cs">
+      <DependentUpon>ProfileActivityLogPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Account\ChooseChallengeFriendPage.xaml.cs">
+      <DependentUpon>ProfileLogWorkoutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Account\ProfileLogWorkoutPage.xaml.cs">
+      <DependentUpon>ProfileLogWorkoutPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

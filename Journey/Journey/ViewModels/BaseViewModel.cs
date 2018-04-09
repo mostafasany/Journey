@@ -38,23 +38,18 @@ namespace Journey.ViewModels
         public bool IsLoading
         {
             get => _isLoading;
-            private set => SetProperty(ref _isLoading, value);
+            set
+            {
+                SetProperty(ref _isLoading, value);
+                RaisePropertyChanged(nameof(IsNotLoading));
+            }
         }
 
-        protected void ShowProgress()
-        {
-            IsLoading = true;
-        }
 
-        protected void HideProgress()
-        {
-            IsLoading = false;
-        }
+        public bool IsNotLoading => !IsLoading;
 
-        protected string Translate(string resource)
+        public virtual void Intialize(bool sync = false)
         {
-            var translatedResource = ResourceLoaderService.GetString(resource);
-            return translatedResource;
         }
 
 
@@ -66,8 +61,22 @@ namespace Journey.ViewModels
         {
         }
 
-        public virtual void Intialize()
+        protected void HideProgress()
         {
+            IsLoading = false;
+        }
+
+        protected bool IsProgress() => IsLoading;
+
+        protected void ShowProgress()
+        {
+            IsLoading = true;
+        }
+
+        protected string Translate(string resource)
+        {
+            string translatedResource = ResourceLoaderService.GetString(resource);
+            return translatedResource;
         }
     }
 }

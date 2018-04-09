@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using Abstractions.Services.Contracts;
 using Journey.ViewModels;
 using Unity;
@@ -13,13 +14,30 @@ namespace Journey.Views
         protected override void OnAppearing()
         {
             _viewModel = BindingContext as BaseViewModel;
+
+            if (Navigation.ModalStack.Count() > 0)
+            {
+                var navigationService = _viewModel?.Container.Resolve<INavigationService>();
+                if(navigationService!=null)
+                {
+                    string page = Navigation.ModalStack?.LastOrDefault()?.ToString();
+                    navigationService.CurrentPage = page.Split(".".ToArray()).LastOrDefault();
+                }
+            }
             LogPageView();
             base.OnAppearing();
         }
 
+        protected override void OnDisappearing()
+        {
+
+
+            base.OnDisappearing();
+        }
+
         private void LogPageView()
         {
-            var pageName = Path.GetFileName(ToString());
+            string pageName = Path.GetFileName(ToString());
             var loggerService = _viewModel?.Container.Resolve<ILoggerService>();
             loggerService?.LogPageView(pageName);
         }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" ControlTemplate="{StaticResource ProfileHeaderControlTemplate}" xmlns:controls="clr-namespace:Journey.Views.Controls" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.ProfileLogWorkoutPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="WorkoutTemplate">
+                <ViewCell>
+                    <ViewCell.View>
+                        <Grid BackgroundColor="White" HeightRequest="100">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Path=BindingContext.OnSelectedWorkoutCategoryCommand, Source={x:Reference Name=parent}}" CommandParameter="{Binding }" />
+                            </Grid.GestureRecognizers>
+                            <Controls:CustomImage Source="{Binding Workout.Image}" Aspect="AspectFit" WidthRequest="200" HeightRequest="100" />
+                            <Label Text="{Binding Workout.Name}" TextColor="White" FontSize="20" HorizontalOptions="Center" VerticalOptions="End" />
+                        </Grid>
+                    </ViewCell.View>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="WorkoutSubCategoryTemplate">
+                <ViewCell>
+                    <ViewCell.View>
+                        <Grid BackgroundColor="White" Padding="5" HorizontalOptions="Fill">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Controls:CustomImage Grid.RowSpan="2" Grid.Column="0" Source="{Binding Workout.Image}" Aspect="AspectFit" WidthRequest="120" HeightRequest="80" />
+                            <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding Workout.Name}" TextColor="Gray" HorizontalOptions="Start" VerticalOptions="Center" />
+                            <Entry Grid.Row="1" Grid.Column="1" BackgroundColor="White" Margin="5,0" TextColor="Black" Keyboard="Numeric" Placeholder="{Binding Workout.MaxWeight}" Text="{Binding Workout.Weight,Mode=TwoWay}" />
+                            <Entry Grid.Row="1" Grid.Column="2" BackgroundColor="White" Margin="5,0" TextColor="Black" Keyboard="Numeric" Placeholder="{Binding Workout.MaxRips}" Text="{Binding Workout.Rips,Mode=TwoWay}" />
+                            <Controls:SVGImageControl Grid.RowSpan="2" Grid.Column="3" PortablePath="done.svg" Aspect="AspectFit" Style="{StaticResource IconStyle}" HorizontalOptions="End" VerticalOptions="End">
+                                <Controls:SVGImageControl.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding LogCommand}" CommandParameter="{Binding}" />
+                                </Controls:SVGImageControl.GestureRecognizers>
+                            </Controls:SVGImageControl>
+                        </Grid>
+                    </ViewCell.View>
+                </ViewCell>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid HorizontalOptions="Center" Style="{StaticResource MainGridStyle}" Padding="10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Controls:ImageViewerControl Grid.Row="0" x:Name="parent" ItemsSource="{Binding WorkoutCategories}" ItemTemplate="{StaticResource WorkoutTemplate}" VerticalOptions="Start" />
+            <ListView Grid.Row="1" SeparatorVisibility="None" Margin="0,20" RowHeight="120" ItemsSource="{Binding WorkoutSubCategories}" ItemTemplate="{StaticResource WorkoutSubCategoryTemplate}" />
+        </Grid>
+    </ContentPage.Content>
+</local:BasePage>

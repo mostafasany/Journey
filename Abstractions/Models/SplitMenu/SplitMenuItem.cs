@@ -11,9 +11,6 @@ namespace Abstractions.Models.SplitMenu
 
         public ICommand Command { get; set; }
 
-        public override string ToString()
-        {
-            return DisplayName;
-        }
+        public override string ToString() => DisplayName;
     }
 }

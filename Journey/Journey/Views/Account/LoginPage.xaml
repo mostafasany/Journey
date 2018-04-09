@@ -3,13 +3,27 @@
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:local="clr-namespace:Journey.Views"
+                xmlns:controls="clr-namespace:Journey.Views.Controls"
+                xmlns:resources="clr-namespace:Journey.Resources"
                 x:Class="Journey.Views.LoginPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Login Page"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" />
-            <Button Text="Login" Command="{Binding LoginCommand}"></Button>
-        </StackLayout>
+        <Grid Style="{StaticResource MainGridStyle}" Margin="20,60">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="{resources:Translate AppName}" HorizontalOptions="Center"
+                   VerticalOptions="Center" FontSize="30" TextColor="{StaticResource Primary}" />
+            <controls:ImageControl PortablePath="loading.png" Grid.Row="1" Margin="0,30,0,0"
+                                   HorizontalOptions="Center" VerticalOptions="Start" WidthRequest="200"
+                                   HeightRequest="200" />
+            <controls:LoadingControl Grid.Row="2" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
+                                     VerticalOptions="Center" Margin="0,40,0,0" />
+            <Button Grid.Row="3" Text="Login Facebook" VerticalOptions="Center" TextColor="White"
+                    Style="{StaticResource FacebookButtonStyle}" Command="{Binding LoginCommand}" />
+        </Grid>
     </ContentPage.Content>
 </local:BasePage>
