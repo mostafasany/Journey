@@ -14,13 +14,13 @@ namespace Journey.ViewModels
     public class NotificationsPageViewModel : MainNavigationViewModel, INavigationAware
     {
         private readonly IDeepLinkService _deepLinking;
-        private readonly INotificationService _postCommentService;
+        private readonly INotificationService _notificationService;
 
         public NotificationsPageViewModel(IUnityContainer container, IAccountService accountService, INotificationService notificationService,
-            INotificationService postCommentService, IDeepLinkService deepLinking) :
+           IDeepLinkService deepLinking) :
             base(container, accountService, notificationService)
         {
-            _postCommentService = postCommentService;
+            _notificationService = notificationService;
             _deepLinking = deepLinking;
         }
 
@@ -99,7 +99,7 @@ namespace Journey.ViewModels
                 base.Intialize(sync);
 
                 Notifications = new ObservableCollection<Notifications>();
-                List<Notifications> postDTo = await _postCommentService.GetNotificationsAsync();
+                List<Notifications> postDTo = await _notificationService.GetNotificationsAsync();
                 if (postDTo != null)
                     Notifications = new ObservableCollection<Notifications>(postDTo);
 

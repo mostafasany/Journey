@@ -265,7 +265,8 @@ namespace Journey.ViewModels
                 _challenge.SelectedLocation != null &&
                 _challenge.SelectedLocation?.Id == _location?.Id)
             {
-                double near = _locationService.DistanceBetweenPlaces(_location.Lng, _location.Lat, _challenge.SelectedLocation.Lng, _challenge.SelectedLocation.Lat);
+                var myLocation=await _locationService.ObtainMyLocationAsync();
+                double near = _locationService.DistanceBetweenPlaces(myLocation.Lng, myLocation.Lat, _challenge.SelectedLocation.Lng, _challenge.SelectedLocation.Lat);
                 if (near <= MinDistanceForWorkout)
                 {
                     string date = await _settingsService.Get(LastPostDate);

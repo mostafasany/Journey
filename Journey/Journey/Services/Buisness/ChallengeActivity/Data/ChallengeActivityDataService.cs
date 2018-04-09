@@ -9,6 +9,7 @@ using Journey.Services.Azure;
 using Journey.Services.Buisness.ChallengeActivity.Dto;
 using Journey.Services.Buisness.ChallengeActivity.Translators;
 using Microsoft.WindowsAzure.MobileServices;
+using Newtonsoft.Json.Linq;
 
 namespace Journey.Services.Buisness.ChallengeActivity.Data
 {
@@ -21,6 +22,7 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
         {
             _client = azureService.CreateOrGetAzureClient();
             _azureChallengeActivity = _client.GetTable<AzureChallengeActivity>();
+
         }
 
         public async Task<ChallengeActivityLog> AddActivityAsync(ChallengeActivityLog log)
@@ -50,7 +52,10 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
                     return null;
 
                 AzureChallengeActivity logDto = ChallengeActivityDataTranslator.TranslateChallengeActivity(log);
-                await _azureChallengeActivity.UpdateAsync(logDto);
+                JObject jo = new JObject();
+                jo.Add(nameof(logDto.Id).ToLower(), logDto.Id);
+                jo.Add(nameof(logDto.Activity).ToLower(), logDto.Activity);
+                await _azureChallengeActivity.UpdateAsync(jo);
 
                 log = ChallengeActivityDataTranslator.TranslateChallengeActivity(logDto);
                 return log;
@@ -68,7 +73,7 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
                 if (log == null)
                     return false;
 
-                await _azureChallengeActivity.DeleteAsync(new AzureChallengeActivity {Id = log.Id});
+                await _azureChallengeActivity.DeleteAsync(new AzureChallengeActivity { Id = log.Id });
 
                 return true;
             }

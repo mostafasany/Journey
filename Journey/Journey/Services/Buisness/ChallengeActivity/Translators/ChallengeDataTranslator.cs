@@ -24,7 +24,6 @@ namespace Journey.Services.Buisness.ChallengeActivity.Translators
                 postDto.CreatedAt = activityLog.DatetTime;
                 postDto.Account = activityLog.Account.Id;
                 postDto.Challenge = activityLog.Challenge;
-
                 if (activityLog is ChallengeKmActivityLog logKm)
                 {
                     postDto.Type = ChallengeKmActivityLogId;

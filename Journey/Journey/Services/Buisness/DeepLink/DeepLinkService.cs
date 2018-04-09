@@ -16,7 +16,7 @@ namespace Journey.Services.Buisness.DeepLink
         private const string ChallengeRequestName = "challengerequest";
         private const string OurDomainName = "journey";
 
-        public DeepLinkService(INavigationService navigationService) => _navigationService = navigationService;
+       // public DeepLinkService(INavigationService navigationService) => _navigationService = navigationService;
 
         public void ParseDeepLinkingAndExecute(string deepLink)
         {
