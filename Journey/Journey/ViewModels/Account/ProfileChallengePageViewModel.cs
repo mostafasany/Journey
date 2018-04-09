@@ -217,7 +217,6 @@ namespace Journey.ViewModels
 
         #endregion
 
-
         #region OnViewChallengeCommand
 
         private ICommand _onViewChallengeCommand;

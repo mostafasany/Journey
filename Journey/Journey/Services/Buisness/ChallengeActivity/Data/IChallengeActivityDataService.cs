@@ -9,5 +9,6 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
         Task<ChallengeActivityLog> AddActivityAsync(ChallengeActivityLog log);
         Task<bool> DeleteActivityAsync(ChallengeActivityLog log);
         Task<List<ChallengeActivityLog>> GetActivitsAsync(string challengeId);
+        Task<ChallengeActivityLog> UpdateActivityAsync(ChallengeActivityLog log);
     }
 }

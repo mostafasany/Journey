@@ -105,6 +105,7 @@
     <Compile Include="Renderers\VideoViewRenderer.cs" />
     <Compile Include="Services\ShareService.cs" />
     <Compile Include="Services\MediaFileExtension.cs" />
+    <Compile Include="Services\HealthService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
@@ -246,6 +247,10 @@
     <ProjectReference Include="..\..\Abstractions.Forms\Abstractions.Forms.csproj">
       <Project>{BADCAB4E-C095-4868-AF47-2343625E6105}</Project>
       <Name>Abstractions.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Abstractions\Abstractions.csproj">
+      <Project>{2C910479-1896-44DA-BE23-00F1BB40E137}</Project>
+      <Name>Abstractions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

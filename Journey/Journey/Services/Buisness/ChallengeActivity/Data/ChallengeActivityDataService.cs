@@ -42,6 +42,25 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
             }
         }
 
+        public async Task<ChallengeActivityLog> UpdateActivityAsync(ChallengeActivityLog log)
+        {
+            try
+            {
+                if (log == null)
+                    return null;
+
+                AzureChallengeActivity logDto = ChallengeActivityDataTranslator.TranslateChallengeActivity(log);
+                await _azureChallengeActivity.UpdateAsync(logDto);
+
+                log = ChallengeActivityDataTranslator.TranslateChallengeActivity(logDto);
+                return log;
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(ex);
+            }
+        }
+
         public async Task<bool> DeleteActivityAsync(ChallengeActivityLog log)
         {
             try
