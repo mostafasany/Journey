@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using Abstractions.Exceptions;
+using Journey.Services.Buisness.Workout.Dto;
 
 namespace Journey.Services.Buisness.Workout.Translators
 {
     public static class WorkoutDataTranslator
     {
-
-        public static Dto.AzureAccountWorkouts TranslateLogWorkout(Models.Workout workout)
+        public static AzureAccountWorkouts TranslateLogWorkout(Models.Workout workout)
         {
             try
             {
-                var accountDto = new Dto.AzureAccountWorkouts();
+                var accountDto = new AzureAccountWorkouts();
                 if (workout == null) return accountDto;
 
 
@@ -28,11 +28,11 @@ namespace Journey.Services.Buisness.Workout.Translators
             }
         }
 
-        public static Dto.AzureWorkout TranslateWorkout(Models.Workout workout)
+        public static AzureWorkout TranslateWorkout(Models.Workout workout)
         {
             try
             {
-                var accountDto = new Dto.AzureWorkout();
+                var accountDto = new AzureWorkout();
                 if (workout == null) return accountDto;
 
                 accountDto.Id = workout.Id;
@@ -48,19 +48,7 @@ namespace Journey.Services.Buisness.Workout.Translators
             }
         }
 
-        public static List<Models.Workout> TranslateWorkouts(List<Dto.AzureWorkout> accounts)
-        {
-            try
-            {
-                return accounts.Select(TranslateWorkout).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new TranslationFailedException("Workout", ex.InnerException);
-            }
-        }
-
-        public static Models.Workout TranslateWorkout(Dto.AzureWorkout workout)
+        public static Models.Workout TranslateWorkout(AzureWorkout workout)
         {
             try
             {
@@ -80,5 +68,16 @@ namespace Journey.Services.Buisness.Workout.Translators
             }
         }
 
+        public static List<Models.Workout> TranslateWorkouts(List<AzureWorkout> accounts)
+        {
+            try
+            {
+                return accounts.Select(TranslateWorkout).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new TranslationFailedException("Workout", ex.InnerException);
+            }
+        }
     }
 }

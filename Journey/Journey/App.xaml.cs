@@ -8,6 +8,7 @@ using Prism.Unity;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
+
 namespace Journey
 {
     public partial class App : PrismApplication

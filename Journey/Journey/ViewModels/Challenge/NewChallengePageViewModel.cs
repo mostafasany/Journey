@@ -20,16 +20,11 @@ namespace Journey.ViewModels
     {
         private readonly IAccountService _accountService;
         private readonly IChallengeService _challengeService;
-        private readonly IFacebookService _facebookService;
-        private readonly ILocationService _locationService;
 
-        public NewChallengePageViewModel(IUnityContainer container, ILocationService locationService,
-            IFacebookService facebookService,
+        public NewChallengePageViewModel(IUnityContainer container,
             IChallengeService challengeService, IAccountService accountService) :
             base(container)
         {
-            _locationService = locationService;
-            _facebookService = facebookService;
             _challengeService = challengeService;
             _accountService = accountService;
         }
@@ -65,7 +60,6 @@ namespace Journey.ViewModels
                             challengesAccount.Add(new ChallengeAccount(LoggedInAccount));
                             challengesAccount.Add(new ChallengeAccount(ToChallenge));
                             SelectedChallenge.ChallengeAccounts = challengesAccount;
-
                         }
                     }
                     else
@@ -75,24 +69,16 @@ namespace Journey.ViewModels
                             SelectedChallenge = await _challengeService.GetChallengeAsync(challengeId);
 
                         if (mode == 1)
-                        {
                             IsEditMode = true;
-                        }
-                        else if (mode == 2)
-                        {
-                            IsApproveRequestMode = true;
-                            //Approve Request 
-                        }
+                        else if (mode == 2) IsApproveRequestMode = true;
                     }
                 }
                 else if (parameters?.GetNavigationMode() == NavigationMode.Back)
                 {
-
-                    Location location = parameters.GetValue<Location>("Location");
+                    var location = parameters.GetValue<Location>("Location");
                     if (location != null)
                         SelectedChallenge.SelectedLocation = location;
                 }
-
             }
             catch (Exception e)
             {
@@ -181,7 +167,7 @@ namespace Journey.ViewModels
 
         #region Methods
 
-        public async override void Intialize(bool sync = false)
+        public override void Intialize(bool sync = false)
         {
         }
 
@@ -213,7 +199,6 @@ namespace Journey.ViewModels
                 if (IsProgress())
                     return;
 
-                string[] options = { };
                 if (SelectedChallenge.StartDate >= SelectedChallenge.EndDate)
                 {
                     await DialogService.ShowMessageAsync(AppResource.Error, AppResource.Challenge_DataValidation);
@@ -268,11 +253,12 @@ namespace Journey.ViewModels
                 bool hasActiveChallange = await _challengeService.CheckAccountHasChallengeAsync();
                 if (!hasActiveChallange)
                 {
-                    if(string.IsNullOrEmpty(SelectedChallenge.SelectedLocation.Id))
+                    if (string.IsNullOrEmpty(SelectedChallenge.SelectedLocation.Id))
                     {
                         await DialogService.ShowMessageAsync(AppResource.Challenge_LocationMust, "");
                         return;
                     }
+
                     Challenge challenge = await _challengeService.AddChallengeAsync(SelectedChallenge);
                     if (challenge != null)
                     {
@@ -335,7 +321,7 @@ namespace Journey.ViewModels
                     return;
 
                 ShowProgress();
-                Challenge challenge = await _challengeService.EditChallengeAsync(SelectedChallenge);
+                SelectedChallenge = await _challengeService.EditChallengeAsync(SelectedChallenge);
             }
             catch (Exception ex)
             {

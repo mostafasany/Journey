@@ -2,11 +2,11 @@
 {
     public class CampaignAccount : Account
     {
-        private int exp;
+        private int _exp;
 
-        private bool liked;
+        private bool _liked;
 
-        private int likes;
+        private int _likes;
 
         public CampaignAccount(Account account)
         {
@@ -22,22 +22,22 @@
 
         public int Exp
         {
-            get => exp;
-            set => SetProperty(ref exp, value);
+            get => _exp;
+            set => SetProperty(ref _exp, value);
         }
 
         public int Likes
         {
-            get => likes;
-            set => SetProperty(ref likes, value);
+            get => _likes;
+            set => SetProperty(ref _likes, value);
         }
 
         public bool Liked
         {
-            get => liked;
+            get => _liked;
             set
             {
-                SetProperty(ref liked, value);
+                SetProperty(ref _liked, value);
                 RaisePropertyChanged(nameof(NotLiked));
             }
         }
@@ -45,6 +45,6 @@
 
         public bool NotLiked => !Liked;
 
-        public string FormatedExpPoint => $"{Exp} {"Exp"}";
+        public string FormatedExpPoint => $"{Exp} Exp";
     }
 }

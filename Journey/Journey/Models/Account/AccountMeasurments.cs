@@ -13,12 +13,5 @@
             Id = account.Id;
             Image = account.Image;
         }
-
-        //private List<ScaleMeasurment> measuremnts;
-        //public List<ScaleMeasurment> Measuremnts
-        //{
-        //    get => measuremnts;
-        //    set => SetProperty(ref measuremnts, value);
-        //}
     }
 }

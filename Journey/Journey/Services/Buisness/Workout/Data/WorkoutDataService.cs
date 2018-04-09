@@ -1,86 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Services.Azure;
+using Journey.Services.Buisness.Workout.Dto;
+using Journey.Services.Buisness.Workout.Translators;
 using Microsoft.WindowsAzure.MobileServices;
-using System.Linq;
+
 namespace Journey.Services.Buisness.Workout.Data
 {
     public class WorkoutDataService : IWorkoutDataService
     {
-        private readonly IMobileServiceTable<Dto.AzureWorkout> _azureWorkout;
-        private readonly IMobileServiceTable<Dto.AzureAccountWorkouts> _azureAccountWorkout;
-        private readonly MobileServiceClient _client;
-        IEnumerable<IGrouping<string, Dto.AzureWorkout>> _WorkoutGroupCategories;
-        IEnumerable<Dto.AzureAccountWorkouts> _AccountWorkouts;
+        private readonly IMobileServiceTable<AzureAccountWorkouts> _azureAccountWorkout;
+        private readonly IMobileServiceTable<AzureWorkout> _azureWorkout;
+        private IEnumerable<IGrouping<string, AzureWorkout>> _workoutGroupCategories;
+
         public WorkoutDataService(IAzureService azureService)
         {
-            _client = azureService.CreateOrGetAzureClient();
-            _azureWorkout = _client.GetTable<Dto.AzureWorkout>();
-            _azureAccountWorkout = _client.GetTable<Dto.AzureAccountWorkouts>();
-        }
-
-        private async Task<IEnumerable<IGrouping<string, Dto.AzureAccountWorkouts>>> GetAccountWorkoutAsync()
-        {
-            var account = _azureAccountWorkout.MobileServiceClient.CurrentUser.UserId;
-
-            IEnumerable<Dto.AzureAccountWorkouts> accountWorkouts = await _azureAccountWorkout.Where(a => a.Account == account)
-                                                               .ToListAsync();
-            var groupWorkout = accountWorkouts.GroupBy(a => a.Workout);
-            return groupWorkout;
-        }
-
-        private async Task SetWorkoutGroups()
-        {
-
-            if (_WorkoutGroupCategories == null)
-            {
-                var workoutCategories = await _azureWorkout.ToListAsync();
-                _WorkoutGroupCategories = workoutCategories.GroupBy(a => a.Parent);
-            }
-        }
-
-        private async Task<List<Models.Workout>> SetAccountMaxWeightWorkout(IEnumerable<IGrouping<string, Dto.AzureAccountWorkouts>> accountWorkoutGroups,
-                                                      List<Models.Workout> groupWorkoutDto)
-        {
-            if (accountWorkoutGroups != null && accountWorkoutGroups.Any())
-            {
-                foreach (var accountGroup in groupWorkoutDto)
-                {
-                    var grp = accountWorkoutGroups.Where(a => a.Key == accountGroup.Id).FirstOrDefault()
-                                        .OrderByDescending(a => a.Weight).ToList();
-                    accountGroup.MaxWeight ="Max: "+ grp.First().Weight;
-                    accountGroup.MaxRips = "Max: " + grp.First().Rips;
-                }
-            }
-            return groupWorkoutDto;
+            MobileServiceClient client = azureService.CreateOrGetAzureClient();
+            _azureWorkout = client.GetTable<AzureWorkout>();
+            _azureAccountWorkout = client.GetTable<AzureAccountWorkouts>();
         }
 
         public async Task<List<Models.Workout>> GetLogWorkoutsAsync()
         {
             try
             {
-                var accountWorkoutGroups = await GetAccountWorkoutAsync();
+                IEnumerable<IGrouping<string, AzureAccountWorkouts>> accountWorkoutGroups = await GetAccountWorkoutAsync();
 
                 await SetWorkoutGroups();
 
-                var workouts = _WorkoutGroupCategories.Where(a => a.Key == null);
-                var workoutDto = Translators.WorkoutDataTranslator.TranslateWorkouts(workouts.FirstOrDefault().ToList());
-                foreach (var item in workoutDto)
+                IEnumerable<IGrouping<string, AzureWorkout>> workouts = _workoutGroupCategories.Where(a => a.Key == null);
+                List<Models.Workout> workoutDto = WorkoutDataTranslator.TranslateWorkouts(workouts.FirstOrDefault().ToList());
+                foreach (Models.Workout item in workoutDto)
                 {
-                    var group = _WorkoutGroupCategories.Where(a => a.Key == item.Id);
+                    IEnumerable<IGrouping<string, AzureWorkout>> group = _workoutGroupCategories.Where(a => a.Key == item.Id);
                     if (group == null || group?.FirstOrDefault() == null)
                         continue;
 
-                    var groupWorkoutDto = Translators.WorkoutDataTranslator.TranslateWorkouts(group?.FirstOrDefault()?.ToList());
+                    List<Models.Workout> groupWorkoutDto = WorkoutDataTranslator.TranslateWorkouts(group?.FirstOrDefault()?.ToList());
 
-                    groupWorkoutDto = await SetAccountMaxWeightWorkout(accountWorkoutGroups, groupWorkoutDto);
+                    groupWorkoutDto =  SetAccountMaxWeightWorkout(accountWorkoutGroups, groupWorkoutDto);
 
                     item.Workouts = groupWorkoutDto;
                 }
-                return workoutDto;
 
+                return workoutDto;
             }
             catch (Exception ex)
             {
@@ -92,7 +58,7 @@ namespace Journey.Services.Buisness.Workout.Data
         {
             try
             {
-                Dto.AzureAccountWorkouts workoutDto = Translators.WorkoutDataTranslator.TranslateLogWorkout(workout);
+                AzureAccountWorkouts workoutDto = WorkoutDataTranslator.TranslateLogWorkout(workout);
                 workoutDto.Account = _azureAccountWorkout.MobileServiceClient.CurrentUser.UserId;
                 await _azureAccountWorkout.InsertAsync(workoutDto);
                 return true;
@@ -101,6 +67,16 @@ namespace Journey.Services.Buisness.Workout.Data
             {
                 throw new DataServiceException(ex.Message, ex);
             }
+        }
+
+        private async Task<IEnumerable<IGrouping<string, AzureAccountWorkouts>>> GetAccountWorkoutAsync()
+        {
+            string account = _azureAccountWorkout.MobileServiceClient.CurrentUser.UserId;
+
+            IEnumerable<AzureAccountWorkouts> accountWorkouts = await _azureAccountWorkout.Where(a => a.Account == account)
+                .ToListAsync();
+            IEnumerable<IGrouping<string, AzureAccountWorkouts>> groupWorkout = accountWorkouts.GroupBy(a => a.Workout);
+            return groupWorkout;
         }
 
         private async Task<Models.Workout> MockWorkout(Models.Workout workout)
@@ -125,14 +101,41 @@ namespace Journey.Services.Buisness.Workout.Data
                 //workouts.Add(new Models.Workout { Name = "Warming Up", Image = "https://bit.ly/2GN78xd" });
 
 
-                Dto.AzureWorkout workoutDto = Translators.WorkoutDataTranslator.TranslateWorkout(workout);
+                AzureWorkout workoutDto = WorkoutDataTranslator.TranslateWorkout(workout);
                 await _azureWorkout.InsertAsync(workoutDto);
-                workout = Translators.WorkoutDataTranslator.TranslateWorkout(workoutDto);
+                workout = WorkoutDataTranslator.TranslateWorkout(workoutDto);
                 return workout;
             }
             catch (Exception ex)
             {
                 throw new DataServiceException(ex.Message, ex);
+            }
+        }
+
+        private List<Models.Workout> SetAccountMaxWeightWorkout(IEnumerable<IGrouping<string, AzureAccountWorkouts>> accountWorkoutGroups,
+            List<Models.Workout> groupWorkoutDto)
+        {
+            if (accountWorkoutGroups != null && accountWorkoutGroups.Any())
+                foreach (Models.Workout accountGroup in groupWorkoutDto)
+                {
+                    List<AzureAccountWorkouts> grp = accountWorkoutGroups.Where(a => a.Key == accountGroup.Id).FirstOrDefault()
+                        .OrderByDescending(a => a.Weight).ToList();
+
+                    var maxWeightItem = grp.First();
+
+                    accountGroup.MaxWeight = maxWeightItem!=null? "Max: " + maxWeightItem.Weight: "Max";
+                    accountGroup.MaxRips = maxWeightItem!=null ?"Max: " + maxWeightItem.Rips : "Max";
+                }
+
+            return groupWorkoutDto;
+        }
+
+        private async Task SetWorkoutGroups()
+        {
+            if (_workoutGroupCategories == null)
+            {
+                List<AzureWorkout> workoutCategories = await _azureWorkout.ToListAsync();
+                _workoutGroupCategories = workoutCategories.GroupBy(a => a.Parent);
             }
         }
     }

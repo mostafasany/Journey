@@ -8,7 +8,7 @@ namespace Journey.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!string.IsNullOrEmpty(value?.ToString())) return value.ToString() == "0" ? false : true;
+            if (!string.IsNullOrEmpty(value?.ToString())) return value != null && value.ToString() != "0";
             return false;
         }
 

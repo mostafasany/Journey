@@ -2,9 +2,9 @@
 {
     public class AccountWeeklyUpdate : Account
     {
-        private double distanceCovered;
+        private double _distanceCovered;
 
-        private int numberOfWorkouts;
+        private int _numberOfWorkouts;
 
         public AccountWeeklyUpdate(Account account)
         {
@@ -16,16 +16,16 @@
 
         public double DistanceCovered
         {
-            get => distanceCovered;
-            set => SetProperty(ref distanceCovered, value);
+            get => _distanceCovered;
+            set => SetProperty(ref _distanceCovered, value);
         }
 
         public string DistanceCoveredWithUnit => $"{DistanceCovered} Km";
 
         public int NumberOfWorkouts
         {
-            get => numberOfWorkouts;
-            set => SetProperty(ref numberOfWorkouts, value);
+            get => _numberOfWorkouts;
+            set => SetProperty(ref _numberOfWorkouts, value);
         }
 
         public override string ToString() => Name;

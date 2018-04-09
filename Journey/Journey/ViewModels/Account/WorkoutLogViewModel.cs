@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using Journey.Models;
+using Journey.Services.Buisness.Workout;
 using Prism.Commands;
 using Unity;
 
@@ -8,11 +9,11 @@ namespace Journey.ViewModels.Wall
 {
     public class WorkoutLogViewModel : PostBaseViewModel
     {
-        private readonly Services.Buisness.Workout.IWorkoutService _workoutService;
+        private readonly IWorkoutService _workoutService;
 
-        public WorkoutLogViewModel(IUnityContainer container) : base(container) => _workoutService = container.Resolve<Services.Buisness.Workout.IWorkoutService>();
+        private Workout _workout;
 
-        Workout _workout;
+        public WorkoutLogViewModel(IUnityContainer container) : base(container) => _workoutService = container.Resolve<IWorkoutService>();
 
         public Workout Workout
         {
@@ -26,17 +27,14 @@ namespace Journey.ViewModels.Wall
         private ICommand _logCommand;
 
         public ICommand LogCommand => _logCommand ??
-                                               (_logCommand =
-                                                new DelegateCommand(Log));
+                                      (_logCommand =
+                                          new DelegateCommand(Log));
 
         private async void Log()
         {
             try
             {
-                if (Workout.Rips == string.Empty && Workout.Weight == string.Empty)
-                {
-                    return;
-                }
+                if (Workout.Rips == string.Empty && Workout.Weight == string.Empty) return;
 
                 await _workoutService.LogWorkout(Workout);
                 Workout.Rips = Workout.Weight = string.Empty;

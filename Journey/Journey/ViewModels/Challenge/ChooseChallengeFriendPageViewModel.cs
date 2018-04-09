@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using Abstractions.Services.Contracts;
 using Journey.Models.Account;
 using Journey.Resources;
-using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Friend;
 using Prism.Commands;
 using Prism.Navigation;
@@ -14,16 +13,11 @@ namespace Journey.ViewModels
 {
     public class ChooseChallengeFriendPageViewModel : BaseViewModel, INavigationAware
     {
-        private readonly IAccountService _accountService;
         private readonly IFriendService _friendService;
 
-        public ChooseChallengeFriendPageViewModel(IUnityContainer container, IAccountService accountService,
+        public ChooseChallengeFriendPageViewModel(IUnityContainer container,
             IFriendService friendService)
-            : base(container)
-        {
-            _accountService = accountService;
-            _friendService = friendService;
-        }
+            : base(container) => _friendService = friendService;
 
         #region Events
 
@@ -51,36 +45,36 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        private ObservableCollection<Account> friendsList;
+        private ObservableCollection<Account> _friendsList;
 
         public ObservableCollection<Account> FriendsList
         {
-            get => friendsList;
-            set => SetProperty(ref friendsList, value);
+            get => _friendsList;
+            set => SetProperty(ref _friendsList, value);
         }
 
-        private Account selectedFriend;
+        private Account _selectedFriend;
 
         public Account SelectedFriend
         {
-            get => selectedFriend;
-            set => SetProperty(ref selectedFriend, value);
+            get => _selectedFriend;
+            set => SetProperty(ref _selectedFriend, value);
         }
 
-        private string searchKeyword;
+        private string _searchKeyword;
 
         public string SearchKeyword
         {
-            get => searchKeyword;
-            set => SetProperty(ref searchKeyword, value);
+            get => _searchKeyword;
+            set => SetProperty(ref _searchKeyword, value);
         }
 
-        private bool isPullRefreshLoading;
+        private bool _isPullRefreshLoading;
 
         public bool IsPullRefreshLoading
         {
-            get => isPullRefreshLoading;
-            set => SetProperty(ref isPullRefreshLoading, value);
+            get => _isPullRefreshLoading;
+            set => SetProperty(ref _isPullRefreshLoading, value);
         }
 
         #endregion
@@ -183,7 +177,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                List<Account> friends = await _friendService.GetFriendsAsync(searchKeyword);
+                List<Account> friends = await _friendService.GetFriendsAsync(_searchKeyword);
                 if (friends != null)
                     FriendsList = new ObservableCollection<Account>(friends);
             }
@@ -205,7 +199,7 @@ namespace Journey.ViewModels
             {
                 IsPullRefreshLoading = true;
                 ShowProgress();
-                List<Account> friends = await _friendService.GetFriendsAsync(searchKeyword);
+                List<Account> friends = await _friendService.GetFriendsAsync(_searchKeyword);
                 if (friends != null)
                     FriendsList = new ObservableCollection<Account>(friends);
             }

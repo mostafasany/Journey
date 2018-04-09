@@ -11,12 +11,12 @@ namespace Journey.Services.Buisness.DeepLink
 {
     public class DeepLinkService : IDeepLinkService
     {
-        private readonly INavigationService navigationService;
+        private readonly INavigationService _navigationService;
         private const string ProfilePageName = "profile";
         private const string ChallengeRequestName = "challengerequest";
         private const string OurDomainName = "journey";
 
-        public DeepLinkService(INavigationService _navigationService) => navigationService = _navigationService;
+        public DeepLinkService(INavigationService navigationService) => _navigationService = navigationService;
 
         public void ParseDeepLinkingAndExecute(string deepLink)
         {
@@ -34,7 +34,7 @@ namespace Journey.Services.Buisness.DeepLink
                     string pageName = hostParts[2];
                     if (pageName == ProfilePageName)
                     {
-                        navigationService.Navigate("ProfileChallengePage");
+                        _navigationService.Navigate("ProfileChallengePage");
                     }
                     else if (pageName == ChallengeRequestName)
                     {
@@ -44,7 +44,7 @@ namespace Journey.Services.Buisness.DeepLink
                             {"Challenge", id},
                             {"Mode", 2}
                         };
-                        navigationService.Navigate("NewChallengePage", parameters);
+                        _navigationService.Navigate("NewChallengePage", parameters);
                     }
                 }
             }

@@ -84,7 +84,7 @@ namespace Journey.Views.Controls
                     //if (i == 4)
                     //break;
 
-                    var view = (ViewCell)ItemTemplate.CreateContent();
+                    var view = (ViewCell) ItemTemplate.CreateContent();
                     //var view = (View) ItemTemplate.CreateContent();
                     var bindableObject = view.View as BindableObject;
                     if (bindableObject != null)

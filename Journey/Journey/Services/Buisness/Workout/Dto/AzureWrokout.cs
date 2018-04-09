@@ -25,6 +25,4 @@ namespace Journey.Services.Buisness.Workout.Dto
         [CreatedAt]
         public DateTime CreatedAt { get; set; }
     }
-
-
 }

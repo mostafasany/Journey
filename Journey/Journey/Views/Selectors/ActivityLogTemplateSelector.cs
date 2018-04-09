@@ -12,21 +12,18 @@ namespace Journey.Views.Selectors
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            if (item is ChallengeWorkoutActivityLog)
+            if (item is ChallengeWorkoutActivityLog activityLog)
             {
-                var activityLog = item as ChallengeWorkoutActivityLog;
                 if (activityLog.Mine)
                     return MeWorkoutTemplate;
-                else
-                    return OtherWorkoutTemplate;
+                return OtherWorkoutTemplate;
             }
-            else if (item is ChallengeKmActivityLog)
+
+            if (item is ChallengeKmActivityLog activityLog1)
             {
-                var activityLog = item as ChallengeKmActivityLog;
-                if (activityLog.Mine)
+                if (activityLog1.Mine)
                     return MeKMTemplate;
-                else
-                    return OtherKMTemplate;
+                return OtherKMTemplate;
             }
 
             return MeWorkoutTemplate;

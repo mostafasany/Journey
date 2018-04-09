@@ -8,15 +8,15 @@ namespace Journey.Services.Buisness.Friend
 {
     public class FriendService : IFriendService
     {
-        private readonly IFriendDataService friendDataService;
+        private readonly IFriendDataService _friendDataService;
 
-        public FriendService(IFriendDataService _friendDataService) => friendDataService = _friendDataService;
+        public FriendService(IFriendDataService friendDataService) => _friendDataService = friendDataService;
 
         public async Task<List<string>> FollowAsync(List<string> followerId)
         {
             try
             {
-                List<string> failureIds = await friendDataService.FollowAsync(followerId);
+                List<string> failureIds = await _friendDataService.FollowAsync(followerId);
                 return failureIds;
             }
             catch (Exception ex)
@@ -29,7 +29,7 @@ namespace Journey.Services.Buisness.Friend
         {
             try
             {
-                bool status = await friendDataService.UnFollowAsync(friendshipId);
+                bool status = await _friendDataService.UnFollowAsync(friendshipId);
                 return status;
             }
             catch (Exception ex)
@@ -42,7 +42,7 @@ namespace Journey.Services.Buisness.Friend
         {
             try
             {
-                Models.Account.Account acc = await friendDataService.GetFriendAsync(id);
+                Models.Account.Account acc = await _friendDataService.GetFriendAsync(id);
                 return acc;
             }
             catch (Exception ex)
@@ -55,7 +55,7 @@ namespace Journey.Services.Buisness.Friend
         {
             try
             {
-                List<Models.Account.Account> friends = await friendDataService.GetFriendsAsync(name);
+                List<Models.Account.Account> friends = await _friendDataService.GetFriendsAsync(name);
                 return friends;
             }
             catch (Exception ex)
@@ -72,7 +72,6 @@ namespace Journey.Services.Buisness.Friend
                 List<Models.Account.Account> inpiredList = await GetFriendsAsync("");
                 //inpiredList.Select(a => a.Status = "Achieve and celebrate your health goals").ToList();
                 //inpiredList.Select(a => a.MediaList = gallery).ToList();
-
 
                 return inpiredList;
             }

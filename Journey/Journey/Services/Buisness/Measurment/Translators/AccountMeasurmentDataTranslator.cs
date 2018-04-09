@@ -69,7 +69,7 @@ namespace Journey.Services.Buisness.Measurment.Translators
                     });
                     measuremnts.Add(new ScaleMeasurment
                     {
-                        UpIndictor = false,
+                        UpIndictor = true,
                         Title = nameof(accountMeasurments.Fat),
                         Unit = "%",
                         Measure = accountMeasurments.Fat,
@@ -77,7 +77,7 @@ namespace Journey.Services.Buisness.Measurment.Translators
                     });
                     measuremnts.Add(new ScaleMeasurment
                     {
-                        UpIndictor = false,
+                        UpIndictor = true,
                         Title = nameof(accountMeasurments.BMI),
                         Unit = "",
                         Measure = accountMeasurments.BMI,

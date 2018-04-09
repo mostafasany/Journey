@@ -37,7 +37,7 @@ namespace Journey.ViewModels
         }
 
         public Media Image => LoggedInAccount == null
-            ? new Media { Path = "http://bit.ly/2zBffZy" }
+            ? new Media {Path = "http://bit.ly/2zBffZy"}
             : _loggedInAccount.Image;
 
         public Account LoggedInAccount
@@ -171,7 +171,7 @@ namespace Journey.ViewModels
                 var location = parameters.GetValue<Location>("Location");
                 if (location != null)
                     NewPostPageViewModel.NewPost.Location =
-                        new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
+                        new PostActivity {Action = "At", Activity = location.Name, Image = location.Image};
             }
             catch (Exception ex)
             {
@@ -262,6 +262,7 @@ namespace Journey.ViewModels
 
         #region Properties
 
+        //TODO:Try New Account LoggedInAccount
         private Account _loggedInAccount;
 
         public Account LoggedInAccount
@@ -325,7 +326,7 @@ namespace Journey.ViewModels
 
         #region Methods
 
-        public override async void Intialize(bool sync)
+        public override async void Intialize(bool sync=false)
         {
             try
             {
@@ -509,7 +510,7 @@ namespace Journey.ViewModels
                                                  (_onGetMorePostsCommand =
                                                      new DelegateCommand(OnGetMorePosts));
 
-            private async void OnGetMorePosts()
+        private async void OnGetMorePosts()
         {
             try
             {
@@ -521,7 +522,7 @@ namespace Journey.ViewModels
                     foreach (PostBase item in nextPageItems)
                         PostsViewModels.Add(PostToPostViewModel(item));
                 //else
-                    //_pageNo--;
+                //_pageNo--;
             }
             catch (Exception ex)
             {
@@ -572,8 +573,7 @@ namespace Journey.ViewModels
             try
             {
                 IsPullRefreshLoading = true;
-                //postService.RefreshPosts = true;
-                Intialize(false);
+                Intialize();
             }
             catch (Exception ex)
             {

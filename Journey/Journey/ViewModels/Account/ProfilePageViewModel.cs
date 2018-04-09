@@ -125,7 +125,7 @@ namespace Journey.ViewModels
             }
         }
 
-        protected  void ClearTabSelection()
+        protected void ClearTabSelection()
         {
             try
             {
