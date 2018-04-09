@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Abstractions.Forms;
 using Abstractions.Models;
 using Abstractions.Services.Contracts;
 using Journey.Models.Account;
+using Journey.Models.Challenge;
 using Journey.Models.Post;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
+using Journey.Services.Buisness.Challenge;
+using Journey.Services.Buisness.ChallengeActivity;
 using Journey.Services.Buisness.Post;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
-using Journey.Services.Buisness.ChallengeActivity;
-using Journey.Services.Buisness.Challenge;
 
 namespace Journey.ViewModels
 {
@@ -24,19 +26,23 @@ namespace Journey.ViewModels
     {
         private readonly IAccountService _accountService;
         private readonly IBlobService _blobService;
+        private readonly IChallengeActivityService _challengeActivityService;
+        private readonly IChallengeService _challengeService;
+        private readonly ILocationService _locationService;
         private readonly IMediaService<Media> _mediaService;
         private readonly IPostService _postService;
         private readonly ISettingsService _settingsService;
         private const string LastPostDate = "LastPostDate";
-        private readonly IChallengeActivityService _challengeActivityService;
-        private readonly IChallengeService _challengeService;
+        private const double MinDistanceForWorkout = 0.2;
+
         public NewPostPageViewModel(IUnityContainer container, IBlobService blobService,
-            IPostService postService, IMediaService<Media> mediaService,
-                                    IAccountService accountService, ISettingsService settingsService,
-                                    IChallengeActivityService challengeActivityService,
-                                    IChallengeService challengeService) :
+            IPostService postService, IMediaService<Media> mediaService, ILocationService locationService,
+            IAccountService accountService, ISettingsService settingsService,
+            IChallengeActivityService challengeActivityService,
+            IChallengeService challengeService) :
             base(container)
         {
+            _locationService = locationService;
             _challengeService = challengeService;
             _challengeActivityService = challengeActivityService;
             _mediaService = mediaService;
@@ -62,7 +68,7 @@ namespace Journey.ViewModels
                     _location = parameters.GetValue<Location>("Location");
                     if (_location != null)
                         NewPost.Location =
-                                   new PostActivity { Action = "At", Activity = _location.Name, Image = _location.Image };
+                            new PostActivity {Action = "At", Activity = _location.Name, Image = _location.Image};
                 }
 
                 Intialize();
@@ -83,7 +89,7 @@ namespace Journey.ViewModels
         #region Properties
 
         private Location _location;
-        Models.Challenge.Challenge _challenge;
+        private Challenge _challenge;
 
         private Account _loggedInAccount;
 
@@ -197,18 +203,6 @@ namespace Journey.ViewModels
         {
             try
             {
-                //if (NewPost?.HasLocation == false)
-                //{
-                //    await DialogService.ShowMessageAsync(AppResource.Post_LocationMust, AppResource.Error);
-                //    return;
-                //}
-
-                //if (NewPost?.MediaList == null || NewPost?.MediaList?.Count == 0)
-                //{
-                //    await DialogService.ShowMessageAsync(AppResource.Post_UploadImageMust, AppResource.Error);
-                //    return;
-                //}
-
                 if (IsProgress())
                     return;
 
@@ -256,29 +250,40 @@ namespace Journey.ViewModels
                 return;
             }
 
-            if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId) &&
-                _challenge.SelectedLocation?.Id == _location?.Id)
-            {
-                string date = await _settingsService.Get(LastPostDate);
-                DateTime.TryParse(date, out DateTime parsedDate);
-                if (parsedDate.Date != DateTime.Now.Date)
-                {
-                    await _settingsService.Set(LastPostDate, DateTime.Now.Date.ToString(CultureInfo.InvariantCulture));
-
-                    await _challengeActivityService.AddActivityAsync(new Models.Challenge.ChallengeWorkoutActivityLog()
-                    {
-                        Account = _accountService.LoggedInAccount,
-                        Challenge = _challenge.Id,
-                        DatetTime = DateTime.Now,
-                        Location = _location,
-                    });
-                }
-            }
+            await CheckIfCanAddWorkoutActivity();
 
             NewPost = new Post();
 
             _imagesPath = new List<string>();
             NavigationService.GoBack();
+        }
+
+        private async Task CheckIfCanAddWorkoutActivity()
+        {
+            if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId) &&
+                _location != null &&
+                _challenge.SelectedLocation != null &&
+                _challenge.SelectedLocation?.Id == _location?.Id)
+            {
+                double near = _locationService.DistanceBetweenPlaces(_location.Lng, _location.Lat, _challenge.SelectedLocation.Lng, _challenge.SelectedLocation.Lat);
+                if (near <= MinDistanceForWorkout)
+                {
+                    string date = await _settingsService.Get(LastPostDate);
+                    DateTime.TryParse(date, out DateTime parsedDate);
+                    if (parsedDate.Date != DateTime.Now.Date)
+                    {
+                        await _settingsService.Set(LastPostDate, DateTime.Now.Date.ToString(CultureInfo.InvariantCulture));
+
+                        await _challengeActivityService.AddActivityAsync(new ChallengeWorkoutActivityLog
+                        {
+                            Account = _accountService.LoggedInAccount,
+                            Challenge = _challenge.Id,
+                            DatetTime = DateTime.Now,
+                            Location = _location
+                        });
+                    }
+                }
+            }
         }
 
         #endregion

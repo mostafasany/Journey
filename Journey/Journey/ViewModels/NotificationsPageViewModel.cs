@@ -85,10 +85,7 @@ namespace Journey.ViewModels
             set => SetProperty(ref _isPullRefreshLoading, value);
         }
 
-        public bool NoNofications
-        {
-            get => Notifications == null || Notifications.Count == 0;
-        }
+        public bool NoNofications => Notifications == null || Notifications.Count == 0;
 
         #endregion
 

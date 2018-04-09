@@ -9,86 +9,85 @@ namespace Journey.Models.Challenge
 {
     public class Challenge : BindableBase
     {
-        private ObservableCollection<ChallengeAccount> challengeAccounts;
+        private Location _selectedLocation;
+        private ObservableCollection<ChallengeAccount> _challengeAccounts;
 
-        private DateTime endDate = DateTime.Now.AddMonths(6);
-        private string id;
-
-
-        private Media image;
-
-        private int interval;
-
-        private bool isActive;
+        private DateTime _endDate = DateTime.Now.AddMonths(6);
+        private string _id;
 
 
-        private ObservableCollection<PostBase> posts;
+        private Media _image;
 
-        private DateTime startDate = DateTime.Now;
+        private int _interval;
 
-        private string terms;
+        private bool _isActive;
+
+
+        private ObservableCollection<PostBase> _posts;
+
+        private DateTime _startDate = DateTime.Now;
+
+        private string _terms;
 
         public string Id
         {
-            get => id;
-            set => SetProperty(ref id, value);
+            get => _id;
+            set => SetProperty(ref _id, value);
         }
 
         public string Terms
         {
-            get => terms;
-            set => SetProperty(ref terms, value);
+            get => _terms;
+            set => SetProperty(ref _terms, value);
         }
 
         public DateTime EndDate
         {
-            get => endDate;
-            set => SetProperty(ref endDate, value);
+            get => _endDate;
+            set => SetProperty(ref _endDate, value);
         }
 
         public DateTime StartDate
         {
-            get => startDate;
-            set => SetProperty(ref startDate, value);
+            get => _startDate;
+            set => SetProperty(ref _startDate, value);
         }
 
 
-        public string StartDateFormated => startDate.ToString("Y");
+        public string StartDateFormated => _startDate.ToString("Y");
 
-        public string EndDateFormated => endDate.ToString("Y");
+        public string EndDateFormated => _endDate.ToString("Y");
 
 
         public bool IsActive
         {
-            get => isActive;
-            set => SetProperty(ref isActive, value);
+            get => _isActive;
+            set => SetProperty(ref _isActive, value);
         }
 
         public ObservableCollection<ChallengeAccount> ChallengeAccounts
         {
-            get => challengeAccounts;
-            set => SetProperty(ref challengeAccounts, value);
+            get => _challengeAccounts;
+            set => SetProperty(ref _challengeAccounts, value);
         }
 
         public ObservableCollection<PostBase> Posts
         {
-            get => posts;
-            set => SetProperty(ref posts, value);
+            get => _posts;
+            set => SetProperty(ref _posts, value);
         }
 
         public int Interval
         {
-            get => interval;
-            set => SetProperty(ref interval, value);
+            get => _interval;
+            set => SetProperty(ref _interval, value);
         }
 
         public Media Image
         {
-            get => image;
-            set => SetProperty(ref image, value);
+            get => _image;
+            set => SetProperty(ref _image, value);
         }
-
-        private Location _selectedLocation;
 
         public Location SelectedLocation
         {

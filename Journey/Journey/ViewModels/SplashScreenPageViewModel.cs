@@ -1,11 +1,9 @@
 ﻿using System;
+using Abstractions.Forms;
+using Abstractions.Services;
 using Abstractions.Services.Contracts;
 using Journey.Services.Azure;
 using Journey.Services.Buisness.Account;
-using Prism.Navigation;
-using Unity;
-using Abstractions.Forms;
-using Abstractions.Services;
 using Journey.Services.Buisness.Account.Data;
 using Journey.Services.Buisness.Blob;
 using Journey.Services.Buisness.Challenge;
@@ -25,10 +23,12 @@ using Journey.Services.Buisness.Post;
 using Journey.Services.Buisness.Post.Data;
 using Journey.Services.Buisness.PostComment;
 using Journey.Services.Buisness.PostComment.Data;
-using Prism.Ioc;
+using Journey.Services.Buisness.Workout;
+using Journey.Services.Buisness.Workout.Data;
+using Prism.Navigation;
+using Unity;
 using Unity.Lifetime;
-using INavigationService = Abstractions.Services.Contracts.INavigationService;
-
+using INavigationService = Prism.Navigation.INavigationService;
 
 namespace Journey.ViewModels
 {
@@ -47,7 +47,7 @@ namespace Journey.ViewModels
 
         public void OnNavigatedTo(NavigationParameters parameters)
         {
-            Intialize(false);
+            Intialize();
         }
 
         public void OnNavigatingTo(NavigationParameters parameters)
@@ -60,17 +60,16 @@ namespace Journey.ViewModels
 
         #region Properties
 
-
         #endregion
 
         #region Methods
 
-        public async override void Intialize(bool sync = false)
+        public override async void Intialize(bool sync = false)
         {
             try
             {
                 var settingsService = Container.Resolve<ISettingsService>();
-                var navigationService = Container.Resolve<Prism.Navigation.INavigationService>();
+                var navigationService = Container.Resolve<INavigationService>();
                 if (settingsService != null)
                 {
                     var azureService = Container.Resolve<IAzureService>();
@@ -89,6 +88,7 @@ namespace Journey.ViewModels
                 {
                     await navigationService.NavigateAsync("LoginPage");
                 }
+
                 base.Intialize(sync);
             }
             catch (Exception e)
@@ -104,15 +104,12 @@ namespace Journey.ViewModels
         public static void ConfigureDialogService(IUnityContainer container)
         {
             container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
-            var dialogService = container.Resolve<IDialogService>() as DialogService;
-            if (dialogService != null)
-            {
-                dialogService.ErrorMessageTitle = "Error Occured";
-                dialogService.ErrorMessageBody = "Please try again later";
-                dialogService.NoInternetMessageBody = "No internet";
-                dialogService.NoInternetMessageTitle =
-                    "No internet connection available,Please reconnect and try again later";
-            }
+            if (!(container.Resolve<IDialogService>() is DialogService dialogService)) return;
+            dialogService.ErrorMessageTitle = "Error Occured";
+            dialogService.ErrorMessageBody = "Please try again later";
+            dialogService.NoInternetMessageBody = "No internet";
+            dialogService.NoInternetMessageTitle =
+                "No internet connection available,Please reconnect and try again later";
         }
 
         public static void RegitserAppServices(IUnityContainer container)
@@ -122,9 +119,9 @@ namespace Journey.ViewModels
             container.RegisterType<IHttpService, HttpService>(new ContainerControlledLifetimeManager());
             container.RegisterType<ILoggerService, LoggerService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IMediaService<Media>, MediaService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<INavigationService, NavigationService>(
+            container.RegisterType<Abstractions.Services.Contracts.INavigationService, NavigationService>(
                 new ContainerControlledLifetimeManager());
-            container.RegisterType<Prism.Navigation.INavigationService, PageNavigationService>(
+            container.RegisterType<INavigationService, PageNavigationService>(
                 new ContainerControlledLifetimeManager());
 
             container.RegisterType<ISerializerService, SerializerService>(new ContainerControlledLifetimeManager());
@@ -186,8 +183,8 @@ namespace Journey.ViewModels
             container.RegisterType<IAccountMeasurmentDataService, AccountMeasurmentDataService>(
                 new ContainerControlledLifetimeManager());
 
-            container.RegisterType<Services.Buisness.Workout.IWorkoutService, Services.Buisness.Workout.WorkoutService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<Journey.Services.Buisness.Workout.Data.IWorkoutDataService, Journey.Services.Buisness.Workout.Data.WorkoutDataService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IWorkoutService, WorkoutService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IWorkoutDataService, WorkoutDataService>(new ContainerControlledLifetimeManager());
         }
 
 

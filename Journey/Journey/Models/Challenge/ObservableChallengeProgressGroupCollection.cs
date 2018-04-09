@@ -5,10 +5,10 @@ namespace Journey.Models.Challenge
 {
     public class ObservableChallengeProgressGroupCollection<T> : ObservableCollection<T>
     {
-        public ObservableChallengeProgressGroupCollection(string key, List<T> items, Account.Account winnerAccountInKM, Account.Account winnerAccountInExercises) : base(items)
+        public ObservableChallengeProgressGroupCollection(string key, List<T> items, Account.Account winnerAccountInKm, Account.Account winnerAccountInExercises) : base(items)
         {
             Key = key;
-            WinnerAccountInKM = winnerAccountInKM;
+            WinnerAccountInKM = winnerAccountInKm;
             WinnerAccountInExercises = winnerAccountInExercises;
         }
 

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Journey.Models.Challenge;
 using Journey.Services.Buisness.Account;
-using Journey.Services.Buisness.Challenge;
 using Journey.Services.Buisness.ChallengeActivity;
 using Journey.Services.Buisness.Notification;
 using Prism.Navigation;
@@ -14,15 +13,13 @@ namespace Journey.ViewModels
     {
         private readonly IAccountService _accountService;
         private readonly IChallengeActivityService _challengeActivityService;
-        private readonly IChallengeService _challengeService;
 
         public ProfileActivityLogPageViewModel(IUnityContainer container, IAccountService accountService, INotificationService notificationService,
-            IChallengeService challengeService, IChallengeActivityService challengeActivityService) :
+            IChallengeActivityService challengeActivityService) :
             base(container, accountService, notificationService)
         {
             _challengeActivityService = challengeActivityService;
             _accountService = accountService;
-            _challengeService = challengeService;
         }
 
         #region Events
@@ -37,7 +34,7 @@ namespace Journey.ViewModels
             {
                 ClearTabSelection();
                 ThirdTabSelected = "#f1f1f1";
-               
+
 
                 if (parameters.GetNavigationMode() == NavigationMode.New)
                     Intialize();
@@ -57,7 +54,7 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        List<ChallengeActivityLog> _challengeActivityLog;
+        private List<ChallengeActivityLog> _challengeActivityLog;
 
         public List<ChallengeActivityLog> ChallengeActivityLog
         {
@@ -74,10 +71,7 @@ namespace Journey.ViewModels
             try
             {
                 ShowProgress();
-                if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
-                {
-                    ChallengeActivityLog = await _challengeActivityService.GetActivitsAsync(_accountService.LoggedInAccount.ChallengeId);
-                }
+                if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId)) ChallengeActivityLog = await _challengeActivityService.GetActivitsAsync(_accountService.LoggedInAccount.ChallengeId);
 
                 base.Intialize(sync);
             }

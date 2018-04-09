@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abstractions.Contracts;
 using Abstractions.Exceptions;
-using Abstractions.Services.Contracts;
 using Journey.Services.Azure;
 using Journey.Services.Buisness.Account.Dto;
 using Journey.Services.Buisness.Account.Translators;
@@ -15,13 +14,11 @@ namespace Journey.Services.Buisness.Account.Data
     {
         private readonly IMobileServiceTable<AzureAccount> _accountTable;
         private readonly MobileServiceClient _client;
-        private readonly ISerializerService _serializerService;
 
-        public AccountDataService(IAzureService azureService, ISerializerService serializerService)
+        public AccountDataService(IAzureService azureService)
         {
             _client = azureService.CreateOrGetAzureClient();
             _accountTable = _client.GetTable<AzureAccount>();
-            _serializerService = serializerService;
         }
 
         public async Task<Models.Account.Account> AddUpdateAccountAsync(Models.Account.Account account, bool add)

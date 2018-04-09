@@ -94,10 +94,7 @@ namespace Journey.ViewModels
             set => SetProperty(ref _locations, value);
         }
 
-        public bool NoLocations
-        {
-            get => Locations == null || Locations.Count == 0;
-        }
+        public bool NoLocations => Locations == null || Locations.Count == 0;
 
         private Location _selectedLocation;
 
@@ -123,7 +120,7 @@ namespace Journey.ViewModels
 
         public DelegateCommand<Location> OnSelectedLocationCommand => new DelegateCommand<Location>(OnSelectedLocation);
 
-        private async void OnSelectedLocation(Location selectedLocation)
+        private void OnSelectedLocation(Location selectedLocation)
         {
             NavigationService.GoBack(selectedLocation, "Location");
         }
@@ -134,7 +131,7 @@ namespace Journey.ViewModels
 
         public DelegateCommand OnSearchCommand => new DelegateCommand(OnSearch);
 
-        private async void OnSearch()
+        private void OnSearch()
         {
             try
             {

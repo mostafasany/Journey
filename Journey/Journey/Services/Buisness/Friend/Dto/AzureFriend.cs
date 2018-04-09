@@ -16,6 +16,6 @@ namespace Journey.Services.Buisness.Friend.Dto
 
         [Deleted]
         [JsonIgnore]
-        public bool deleted { get; set; }
+        public bool Deleted { get; set; }
     }
 }

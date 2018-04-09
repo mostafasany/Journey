@@ -10,7 +10,6 @@ namespace Journey.Views.Selectors
 
         public DataTemplate PeopleYouKnowTemplate { get; set; }
 
-        // public DataTemplate ScaleMeasurmentsTemplate { get; set; }
         public DataTemplate WeeklyTemplate { get; set; }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container) => PostTemplate;

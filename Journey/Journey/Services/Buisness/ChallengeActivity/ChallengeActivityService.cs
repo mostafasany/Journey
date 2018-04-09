@@ -89,17 +89,16 @@ namespace Journey.Services.Buisness.ChallengeActivity
                 {
                     Models.Account.Account winnerAccountInExercises = null;
                     Models.Account.Account winnerAccountInKm = null;
-                    var orderedAccountExercises = progress.Accounts.OrderByDescending(a => a.TotalExercises);
-                    var orderedAccountKm = progress.Accounts.OrderByDescending(a => a.TotalKm);
-                    if (orderedAccountExercises.FirstOrDefault().TotalExercises > orderedAccountExercises.LastOrDefault().TotalExercises)
-                    {
-                        winnerAccountInExercises = orderedAccountExercises.FirstOrDefault().Account;
-                    }
+                    IOrderedEnumerable<AccountChallengeProgress> orderedAccountExercises = progress.Accounts.OrderByDescending(a => a.TotalExercises);
+                    IOrderedEnumerable<AccountChallengeProgress> orderedAccountKm = progress.Accounts.OrderByDescending(a => a.TotalKm);
+                    var firstOrderedExercise = orderedAccountExercises.FirstOrDefault();
+                    var lastOrderedExercise = orderedAccountExercises.LastOrDefault();
+                    if (firstOrderedExercise.TotalExercises > lastOrderedExercise.TotalExercises)
+                        winnerAccountInExercises = firstOrderedExercise.Account;
 
-                    if (orderedAccountKm.FirstOrDefault().TotalKm > orderedAccountKm.LastOrDefault().TotalKm)
-                    {
-                        winnerAccountInKm = orderedAccountKm.FirstOrDefault().Account;
-                    }
+                    var firstOrderedKm = orderedAccountKm.FirstOrDefault();
+                    if (firstOrderedKm.TotalKm > orderedAccountKm.LastOrDefault().TotalKm)
+                        winnerAccountInKm = firstOrderedKm.Account;
 
                     var groupedData =
                         new ObservableChallengeProgressGroupCollection<AccountChallengeProgress>(progress.Key, progress.Accounts, winnerAccountInKm, winnerAccountInExercises);

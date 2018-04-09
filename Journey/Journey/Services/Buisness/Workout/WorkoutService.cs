@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
+using Journey.Services.Buisness.Workout.Data;
 
 namespace Journey.Services.Buisness.Workout
 {
     public class WorkoutService : IWorkoutService
     {
-        private readonly Data.IWorkoutDataService _workoutDataService;
+        private readonly IWorkoutDataService _workoutDataService;
 
-        public WorkoutService(Data.IWorkoutDataService workoutDataService) => _workoutDataService = workoutDataService;
+        public WorkoutService(IWorkoutDataService workoutDataService) => _workoutDataService = workoutDataService;
 
         public async Task<List<Models.Workout>> GetLogWorkoutsAsync()
         {
@@ -36,6 +37,5 @@ namespace Journey.Services.Buisness.Workout
                 throw new BusinessException(ex.Message, ex);
             }
         }
-
     }
 }

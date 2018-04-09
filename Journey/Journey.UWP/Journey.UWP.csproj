@@ -133,6 +133,24 @@
     <Content Include="Assets\StoreLogo.scale-150.png" />
     <Content Include="Assets\StoreLogo.scale-200.png" />
     <Content Include="Assets\StoreLogo.scale-400.png" />
+    <Content Include="Assets\SVG\back.svg" />
+    <Content Include="Assets\SVG\camera.svg" />
+    <Content Include="Assets\SVG\challenge.svg" />
+    <Content Include="Assets\SVG\close.svg" />
+    <Content Include="Assets\SVG\comment.svg" />
+    <Content Include="Assets\SVG\done.svg" />
+    <Content Include="Assets\SVG\favorite.svg" />
+    <Content Include="Assets\SVG\graph.svg" />
+    <Content Include="Assets\SVG\home.svg" />
+    <Content Include="Assets\SVG\location.svg" />
+    <Content Include="Assets\SVG\more.svg" />
+    <Content Include="Assets\SVG\moreVert.svg" />
+    <Content Include="Assets\SVG\notFavorite.svg" />
+    <Content Include="Assets\SVG\notification.svg" />
+    <Content Include="Assets\SVG\settings.svg" />
+    <Content Include="Assets\SVG\share.svg" />
+    <Content Include="Assets\SVG\timeline.svg" />
+    <Content Include="Assets\SVG\workout.svg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-100.png" />
     <Content Include="Assets\LockScreenLogo.scale-125.png" />
@@ -191,14 +209,14 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Assets\challengeBanner.png" />
-    <EmbeddedResource Include="Assets\compete.png" />
-    <EmbeddedResource Include="Assets\downArrow.png" />
-    <EmbeddedResource Include="Assets\loading.png" />
-    <EmbeddedResource Include="Assets\LoginLogo.png" />
-    <EmbeddedResource Include="Assets\running.png" />
-    <EmbeddedResource Include="Assets\videothumbnail.png" />
-    <EmbeddedResource Include="Assets\workout.png" />
+    <Content Include="Assets\challengeBanner.png" />
+    <Content Include="Assets\compete.png" />
+    <Content Include="Assets\downArrow.png" />
+    <Content Include="Assets\loading.png" />
+    <Content Include="Assets\LoginLogo.png" />
+    <Content Include="Assets\running.png" />
+    <Content Include="Assets\videothumbnail.png" />
+    <Content Include="Assets\workout.png" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

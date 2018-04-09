@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:local="clr-namespace:Journey.Views" xmlns:controls="clr-namespace:Journey.Views.Controls"
                 xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.UpdateMeasurmentPage">
 
     <ContentPage.Content>
-        <Grid Style="{StaticResource MainGridStyle}" >
+        <Grid Style="{StaticResource MainGridStyle}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -24,7 +24,8 @@
                 <Label Grid.Column="1" Text="{resources:Translate Measurments_Message}" HorizontalOptions="Center"
                        Style="{StaticResource LabelHeaderStyle}" />
             </Grid>
-            <ListView Grid.Row="1" RowHeight="50" HorizontalOptions="Center" IsVisible="{Binding IsNotLoading}" SeparatorVisibility="None"
+            <ListView Grid.Row="1" RowHeight="50" HorizontalOptions="Center" IsVisible="{Binding IsNotLoading}"
+                      SeparatorVisibility="None"
                       ItemsSource="{Binding Measuremnts}" ItemTemplate="{StaticResource ScaleTemplate}" />
             <controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center"
                                      VerticalOptions="Center" />

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Journey.ViewModels;
 using Journey.ViewModels.Wall;
 using Journey.Views.Post;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace Journey.Views
 {

@@ -7,23 +7,23 @@ namespace Journey.Models.Account
 {
     public class Account : BindableBase
     {
-        private AccountGoal accountGoal;
+        private AccountGoal _accountGoal;
 
 
-        private string firstName;
+        private string _firstName;
 
-        private bool following;
+        private bool _following;
 
 
-        private string id;
+        private string _id;
 
-        private Media image;
+        private Media _image;
 
-        private string lastName;
+        private string _lastName;
 
-        private IEnumerable<Media> mediaList;
+        private IEnumerable<Media> _mediaList;
 
-        private string status;
+        private string _status;
         public string Token { get; set; }
         public string SocialToken { get; set; }
         public string SID { get; set; }
@@ -34,34 +34,34 @@ namespace Journey.Models.Account
 
         public string Id
         {
-            get => id;
-            set => SetProperty(ref id, value);
+            get => _id;
+            set => SetProperty(ref _id, value);
         }
 
         public string Status
         {
-            get => status;
-            set => SetProperty(ref status, value);
+            get => _status;
+            set => SetProperty(ref _status, value);
         }
 
         public string FirstName
         {
-            get => firstName;
-            set => SetProperty(ref firstName, value);
+            get => _firstName;
+            set => SetProperty(ref _firstName, value);
         }
 
         public string LastName
         {
-            get => lastName;
-            set => SetProperty(ref lastName, value);
+            get => _lastName;
+            set => SetProperty(ref _lastName, value);
         }
 
         public bool Following
         {
-            get => following;
+            get => _following;
             set
             {
-                SetProperty(ref following, value);
+                SetProperty(ref _following, value);
                 RaisePropertyChanged(nameof(NotFollowing));
             }
         }
@@ -75,20 +75,20 @@ namespace Journey.Models.Account
 
         public Media Image
         {
-            get => image;
-            set => SetProperty(ref image, value);
+            get => _image;
+            set => SetProperty(ref _image, value);
         }
 
         public AccountGoal AccountGoal
         {
-            get => accountGoal;
-            set => SetProperty(ref accountGoal, value);
+            get => _accountGoal;
+            set => SetProperty(ref _accountGoal, value);
         }
 
         public IEnumerable<Media> MediaList
         {
-            get => mediaList;
-            set => SetProperty(ref mediaList, value);
+            get => _mediaList;
+            set => SetProperty(ref _mediaList, value);
         }
 
         public bool HasNotActiveChallenge => string.IsNullOrEmpty(ChallengeId);
@@ -102,20 +102,20 @@ namespace Journey.Models.Account
 
     public class AccountGoal : BindableBase
     {
-        private DateTime end;
+        private DateTime _end;
 
-        private double goal;
+        private double _goal;
 
 
-        private DateTime start;
-        private double weight;
+        private DateTime _start;
+        private double _weight;
 
         public double Weight
         {
-            get => weight;
+            get => _weight;
             set
             {
-                SetProperty(ref weight, value);
+                SetProperty(ref _weight, value);
                 RaisePropertyChanged(nameof(WeightWithUnit));
             }
         }
@@ -124,22 +124,22 @@ namespace Journey.Models.Account
 
         public DateTime Start
         {
-            get => start;
-            set => SetProperty(ref start, value);
+            get => _start;
+            set => SetProperty(ref _start, value);
         }
 
         public DateTime End
         {
-            get => end;
-            set => SetProperty(ref end, value);
+            get => _end;
+            set => SetProperty(ref _end, value);
         }
 
         public double Goal
         {
-            get => goal;
+            get => _goal;
             set
             {
-                SetProperty(ref goal, value);
+                SetProperty(ref _goal, value);
                 RaisePropertyChanged(nameof(GoalWithUnit));
             }
         }

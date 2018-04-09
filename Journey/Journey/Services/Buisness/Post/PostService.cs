@@ -10,14 +10,6 @@ namespace Journey.Services.Buisness.Post
     public class PostService : IPostService
     {
         private readonly IPostDataService _postDataService;
-        //public enum Unit
-        //{
-        //    Year,
-        //    KG,
-        //    CM,
-        //    KCAL,
-        //    Steps
-        //}
 
         private const int PostPageSize = 10;
 

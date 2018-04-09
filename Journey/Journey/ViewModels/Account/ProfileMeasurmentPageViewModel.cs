@@ -41,7 +41,7 @@ namespace Journey.ViewModels
             {
                 ClearTabSelection();
                 FourthTabSelected = "#f1f1f1";
-              
+
 
                 if (parameters.GetNavigationMode() == NavigationMode.Back)
                 {

@@ -118,8 +118,7 @@ namespace Journey.Services.Buisness.Post.Data
             try
             {
                 var api = "post";
-                var param = new Dictionary<string, string>();
-                param.Add("action", post.Id + "," + "share");
+                var param = new Dictionary<string, string> {{"action", post.Id + "," + "share"}};
                 bool success = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
                 return success;
             }

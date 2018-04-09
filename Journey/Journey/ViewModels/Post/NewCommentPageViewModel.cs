@@ -72,10 +72,7 @@ namespace Journey.ViewModels
             }
         }
 
-        public bool NoComments
-        {
-            get => Comments == null || Comments.Count == 0;
-        }
+        public bool NoComments => Comments == null || Comments.Count == 0;
 
         private string _newComment;
 

@@ -10,11 +10,9 @@ namespace Journey.Views.Selectors
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            var comment = item as Comment;
-            if (comment == null || comment.Mine)
+            if (!(item is Comment comment) || comment.Mine)
                 return MeCommentTemplate;
-            else
-                return OtherCommentTemplate;
+            return OtherCommentTemplate;
         }
     }
 }

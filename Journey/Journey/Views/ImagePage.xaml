@@ -1,17 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:Controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.ImagePage">
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:local="clr-namespace:Journey.Views" xmlns:controls="clr-namespace:Journey.Views.Controls"
+                x:Class="Journey.Views.ImagePage">
     <ContentPage.Content>
         <Grid RowSpacing="0" Style="{StaticResource MainGridStyle}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Controls:SVGImageControl Grid.Row="0" PortablePath="close.svg" Style="{StaticResource IconStyle}" HorizontalOptions="End" Margin="10,10">
-                <Controls:SVGImageControl.GestureRecognizers>
+            <controls:SVGImageControl Grid.Row="0" PortablePath="close.svg" Style="{StaticResource IconStyle}"
+                                      HorizontalOptions="End" Margin="10,10">
+                <controls:SVGImageControl.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding OnCloseCommand}" />
-                </Controls:SVGImageControl.GestureRecognizers>
-            </Controls:SVGImageControl>
-            <Controls:CustomImage Grid.Row="1" Source="{Binding Media.Path}" Aspect="AspectFit" />
+                </controls:SVGImageControl.GestureRecognizers>
+            </controls:SVGImageControl>
+            <controls:CustomImage Grid.Row="1" Source="{Binding Media.Path}" Aspect="AspectFit" />
         </Grid>
     </ContentPage.Content>
 </local:BasePage>

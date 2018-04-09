@@ -13,16 +13,16 @@ namespace Journey.Services.Buisness.Friend.Data
     public class FriendDataService : IFriendDataService
     {
         private readonly MobileServiceClient _client;
-        private readonly IMobileServiceTable<AzureFriends> accountFriendsTable;
-        private readonly IMobileServiceTable<AzureAccount> accountTable;
+        private readonly IMobileServiceTable<AzureFriends> _accountFriendsTable;
+        private readonly IMobileServiceTable<AzureAccount> _accountTable;
 
         //private const string ApiFriends = "https://graph.facebook.com/me/friends?fields=id,name,picture.type(large)&limit=999";
 
         public FriendDataService(IAzureService azureService)
         {
             _client = azureService.CreateOrGetAzureClient();
-            accountTable = _client.GetTable<AzureAccount>();
-            accountFriendsTable = _client.GetTable<AzureFriends>();
+            _accountTable = _client.GetTable<AzureAccount>();
+            _accountFriendsTable = _client.GetTable<AzureFriends>();
         }
 
 
@@ -35,7 +35,7 @@ namespace Journey.Services.Buisness.Friend.Data
                     try
                     {
                         var newFriend = new AzureFriends {Accoun1 = _client.CurrentUser.UserId, Account2 = friend};
-                        await accountFriendsTable.InsertAsync(newFriend);
+                        await _accountFriendsTable.InsertAsync(newFriend);
                         if (string.IsNullOrEmpty(newFriend.Id))
                             failureRequest.Add(friend);
                     }
@@ -57,7 +57,7 @@ namespace Journey.Services.Buisness.Friend.Data
             try
             {
                 var deleteFriend = new AzureFriends {Id = friendshipId};
-                await accountFriendsTable.DeleteAsync(deleteFriend);
+                await _accountFriendsTable.DeleteAsync(deleteFriend);
                 return true;
             }
             catch (Exception ex)
@@ -73,7 +73,6 @@ namespace Journey.Services.Buisness.Friend.Data
                 // string api = string.Format("friends?id={0}", friend);
                 // List<AzureFriend> accountsTbl = await _client.InvokeApiAsync<List<AzureFriend>>(api, HttpMethod.Get, null);
 
-                Models.Account.Account account = null;
                 // accountTbl = await accountTable.Where(a => a.Id != account).ToListAsync();
                 //if (accountsTbl != null && accountsTbl.Count != 0)
                 //{
@@ -83,8 +82,8 @@ namespace Journey.Services.Buisness.Friend.Data
                 //else
                 //{
                 //    //TODO: Query is not correct ,if not friend found it return null , it should return account with no friend
-                AzureAccount accountDTO = await accountTable.LookupAsync(friend);
-                account = AccountDataTranslator.TranslateAccount(accountDTO);
+                AzureAccount accountDto = await _accountTable.LookupAsync(friend);
+                Models.Account.Account account = AccountDataTranslator.TranslateAccount(accountDto);
                 //}
 
 
@@ -100,14 +99,14 @@ namespace Journey.Services.Buisness.Friend.Data
         {
             try
             {
-                List<AzureAccount> accountTbl = null;
+                List<AzureAccount> accountTbl;
                 string account = _client.CurrentUser.UserId;
                 if (!string.IsNullOrEmpty(name))
-                    accountTbl = await accountTable.Where(a => a.Id != account &&
+                    accountTbl = await _accountTable.Where(a => a.Id != account &&
                                                                (a.FName.ToLower().Contains(name.ToLower()) || a.LName
                                                                     .ToLower().Contains(name.ToLower()))).ToListAsync();
                 else
-                    accountTbl = await accountTable.Where(a => a.Id != account).ToListAsync();
+                    accountTbl = await _accountTable.Where(a => a.Id != account).ToListAsync();
                 List<Models.Account.Account> accountDto = AccountDataTranslator.TranslateAccounts(accountTbl);
                 return accountDto;
             }

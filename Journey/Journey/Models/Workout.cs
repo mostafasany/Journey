@@ -6,14 +6,14 @@ namespace Journey.Models
     public class Workout : BindableBase
     {
         private string image;
+        private string maxRips;
+        private string maxWeight;
 
         private string name;
+        private string rips;
 
         private string unit = "Kg";
-        private string maxWeight;
-        private string maxRips;
         private string weight;
-        private string rips;
         private List<Workout> workouts;
         public string Id { get; set; }
         public string Parent { get; set; }
@@ -66,7 +66,5 @@ namespace Journey.Models
             get => maxRips;
             set => SetProperty(ref maxRips, value);
         }
-
-
     }
 }

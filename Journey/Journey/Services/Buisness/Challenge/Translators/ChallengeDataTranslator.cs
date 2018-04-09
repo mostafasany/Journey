@@ -21,7 +21,7 @@ namespace Journey.Services.Buisness.Challenge.Translators
                 postDto.Account2 = challenge.ChallengeAccounts[1].Id;
                 postDto.Status = challenge.IsActive;
                 if (challenge.SelectedLocation != null)
-                postDto.Location=JsonConvert.SerializeObject(challenge.SelectedLocation);
+                    postDto.Location = JsonConvert.SerializeObject(challenge.SelectedLocation);
             }
 
             return postDto;
@@ -46,8 +46,8 @@ namespace Journey.Services.Buisness.Challenge.Translators
                     new ChallengeAccount(new Models.Account.Account {Id = challenge.Account2})
                 );
 
-                if(challenge.Location!=null)
-                postDto.SelectedLocation = JsonConvert.DeserializeObject<Location>(challenge.Location);
+                if (challenge.Location != null)
+                    postDto.SelectedLocation = JsonConvert.DeserializeObject<Location>(challenge.Location);
             }
 
             return postDto;

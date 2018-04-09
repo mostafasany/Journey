@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
@@ -53,7 +53,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <controls:SVGImageControl Grid.Column="0" Margin="10,0,0,0" PortablePath="back.svg"
-                                       Style="{StaticResource IconStyle}">
+                                          Style="{StaticResource IconStyle}">
                     <controls:SVGImageControl.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OnBackCommand}" CommandParameter="{Binding}" />
                     </controls:SVGImageControl.GestureRecognizers>

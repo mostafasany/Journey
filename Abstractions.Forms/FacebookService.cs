@@ -39,7 +39,7 @@ namespace Abstractions.Forms
                     throw new ArgumentException(nameof(FacebookToken));
                 var locations = new List<Location>();
 
-                string api = "";
+                var api = "";
                 if (minLocationDistanceInMeter == null)
                     api = string.Format(ApiSearch, name, "place", lat, lng);
                 else
@@ -70,7 +70,7 @@ namespace Abstractions.Forms
                         .OrderBy(loc => loc.Near).ToList();
                 }
 
-                else return locations.OrderBy(loc => loc.Near).ToList();
+                return locations.OrderBy(loc => loc.Near).ToList();
             }
             catch (Exception ex)
             {

@@ -41,7 +41,7 @@ namespace Journey.ViewModels
             {
                 ClearTabSelection();
                 FirstTabSelected = "#f1f1f1";
-              
+
                 if (parameters.GetNavigationMode() == NavigationMode.New)
                     Intialize();
             }
@@ -224,8 +224,8 @@ namespace Journey.ViewModels
 
 
         public ICommand OnViewChallengeCommand => _onViewChallengeCommand ?? (
-            _onViewChallengeCommand =
-         new DelegateCommand(ViewChallenge));
+                                                      _onViewChallengeCommand =
+                                                          new DelegateCommand(ViewChallenge));
 
         private async void ViewChallenge()
         {
@@ -233,10 +233,10 @@ namespace Journey.ViewModels
             {
                 string id = _accountService.LoggedInAccount.ChallengeId;
                 var parameters = new Dictionary<string, object>
-                        {
-                            {"Challenge", id},
-                            {"Mode", 1}
-                        };
+                {
+                    {"Challenge", id},
+                    {"Mode", 1}
+                };
                 await NavigationService.Navigate("NewChallengePage", parameters);
             }
             catch (Exception ex)

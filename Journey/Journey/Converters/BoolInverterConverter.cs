@@ -8,8 +8,7 @@ namespace Journey.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var val = false;
-            bool.TryParse(value?.ToString(), out val);
+            bool.TryParse(value?.ToString(), out bool val);
             return !val;
         }
 

@@ -10,20 +10,6 @@ namespace Journey.Services.Buisness.Account.Dto
         public string Friend { get; set; }
     }
 
-    //public class AzureAccountChallenge : AzureAccount
-    //{
-
-    //    string challenge=string.Empty; //Not Exits in Account table
-
-
-    //    [JsonProperty(PropertyName = "challenge")]
-    //    public string Challenge
-    //    {
-    //        get { return challenge; }
-    //        set { challenge = value; }
-    //    }
-    //}
-
     public class AzureAccount
     {
         [JsonProperty(PropertyName = "id")]

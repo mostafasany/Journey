@@ -44,12 +44,12 @@ namespace Abstractions.Forms
                 IGeolocator locator = CrossGeolocator.Current;
                 locator.DesiredAccuracy = 100;
 
-                Position position = null;
-                Task<Position> task = Task.Run(() => locator.GetPositionAsync(TimeSpan.FromSeconds(2), null, true));
-                if (task.Wait(TimeSpan.FromSeconds(2)))
-                    position = task.Result;
-                if (position == null)
-                    position = await locator.GetPositionAsync(TimeSpan.FromSeconds(1), null, true);
+                Position position = await locator.GetPositionAsync();
+                //Task<Position> task = Task.Run(() => locator.GetPositionAsync(TimeSpan.FromSeconds(2), null, true));
+                //if (task.Wait(TimeSpan.FromSeconds(2)))
+                //    position = task.Result;
+                //if (position == null)
+                //    position = await locator.GetPositionAsync(TimeSpan.FromSeconds(1), null, true);
 
                 //CrossExternalMaps.Current.NavigateTo("teste", latitude, longitude);
                 //var locator = CrossGeolocator.Current;

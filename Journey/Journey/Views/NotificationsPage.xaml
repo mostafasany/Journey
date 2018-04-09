@@ -1,5 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" ControlTemplate="{StaticResource HeaderFooterControlTemplate}" x:Class="Journey.Views.NotificationsPage">
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:local="clr-namespace:Journey.Views" xmlns:controls="clr-namespace:Journey.Views.Controls"
+                xmlns:resources="clr-namespace:Journey.Resources"
+                ControlTemplate="{StaticResource HeaderFooterControlTemplate}"
+                x:Class="Journey.Views.NotificationsPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="NotificationTemplate">
@@ -14,9 +19,13 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <controls:ImageControl Grid.Column="0" PortablePath="compete.png" WidthRequest="50" HeightRequest="50" HorizontalOptions="Start" VerticalOptions="Center" />
-                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Title}" Style="{StaticResource LabelListItemStyle}" FontAttributes="Bold" />
-                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Message}" FontSize="14" Style="{StaticResource LabelListItemStyle}" />
+                            <controls:ImageControl Grid.Column="0" PortablePath="compete.png" WidthRequest="50"
+                                                   HeightRequest="50" HorizontalOptions="Start"
+                                                   VerticalOptions="Center" />
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Title}"
+                                   Style="{StaticResource LabelListItemStyle}" FontAttributes="Bold" />
+                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Message}"
+                                   FontSize="14" Style="{StaticResource LabelListItemStyle}" />
                         </Grid>
                     </ViewCell.View>
                 </ViewCell>
@@ -25,10 +34,16 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid Style="{StaticResource MainGridStyle}">
-            <controls:LoadingControl IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="End" Margin="20,0" />
-            <ListView IsVisible="{Binding NoNofications,Converter={StaticResource BoolInverterConverter}}" SeparatorVisibility="None" RowHeight="100" ItemsSource="{Binding Notifications}" ItemTemplate="{StaticResource NotificationTemplate}" HorizontalOptions="Start" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true" RefreshCommand="{Binding OnPullRefreshRequestCommand}"
-                SelectedItem="{Binding SelectedNotification,Mode=TwoWay}" />
-            <Label IsVisible="{Binding NoNofications}" HorizontalOptions="Center" VerticalOptions="Center" Text="{resources:Translate Notification_NoNotifications}" TextColor="Gray" FontSize="20" />
+            <controls:LoadingControl IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="End"
+                                     Margin="20,0" />
+            <ListView IsVisible="{Binding NoNofications,Converter={StaticResource BoolInverterConverter}}"
+                      SeparatorVisibility="None" RowHeight="100" ItemsSource="{Binding Notifications}"
+                      ItemTemplate="{StaticResource NotificationTemplate}" HorizontalOptions="Start"
+                      IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
+                      RefreshCommand="{Binding OnPullRefreshRequestCommand}"
+                      SelectedItem="{Binding SelectedNotification,Mode=TwoWay}" />
+            <Label IsVisible="{Binding NoNofications}" HorizontalOptions="Center" VerticalOptions="Center"
+                   Text="{resources:Translate Notification_NoNotifications}" TextColor="Gray" FontSize="20" />
         </Grid>
     </ContentPage.Content>
 </local:BasePage>
