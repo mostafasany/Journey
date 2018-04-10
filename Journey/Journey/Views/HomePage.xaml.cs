@@ -25,11 +25,6 @@ namespace Journey.Views
             _vm = BindingContext as HomePageViewModel;
         }
 
-        private void Handle_Focused(object sender, FocusEventArgs e)
-        {
-            _vm.OnSearchFriendsCommand.Execute(null);
-        }
-
         private void Handle_ItemAppearing(object sender, ItemVisibilityEventArgs e)
         {
             var viewCellDetails = e.Item as PostBaseViewModel;

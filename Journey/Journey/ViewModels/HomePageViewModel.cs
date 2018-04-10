@@ -509,54 +509,6 @@ namespace Journey.ViewModels
 
         #endregion
 
-        #region OnStartNewChallengeCommand
-
-        private ICommand _onStartNewChallengeCommand;
-
-        public ICommand OnStartNewChallengeCommand => _onStartNewChallengeCommand ??
-                                                      (_onStartNewChallengeCommand =
-                                                          new DelegateCommand(OnStartNewChallenge));
-
-        private async void OnStartNewChallenge()
-        {
-            try
-            {
-                bool isLogginIn = await _accountService.LoginFirstAsync();
-                if (isLogginIn)
-                    await NavigationService.Navigate("ChooseChallengeFriendPage");
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.Handle(ex);
-            }
-        }
-
-        #endregion
-
-        #region OnSearchFriendsCommand
-
-        private ICommand _onSearchFriendsCommand;
-
-        public ICommand OnSearchFriendsCommand => _onSearchFriendsCommand ??
-                                                  (_onSearchFriendsCommand =
-                                                      new DelegateCommand(OnSearchFriends));
-
-        private async void OnSearchFriends()
-        {
-            try
-            {
-                bool isLogginIn = await _accountService.LoginFirstAsync();
-                if (isLogginIn)
-                    await NavigationService.Navigate("SearchFriendPage");
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.Handle(ex);
-            }
-        }
-
-        #endregion
-
         #region OnGetMorePostsCommand
 
         private ICommand _onGetMorePostsCommand;
