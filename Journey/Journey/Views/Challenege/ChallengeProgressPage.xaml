@@ -5,7 +5,7 @@
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:resources="clr-namespace:Journey.Resources" xmlns:local="clr-namespace:Journey.Views"
                 xmlns:controls="clr-namespace:Journey.Views.Controls"
-                x:Class="Journey.Views.ProfileChallengePage">
+                x:Class="Journey.Views.ChallengeProgressPage">
     <ContentPage.Content>
         <Grid Style="{StaticResource MainGridStyle}">
             <Grid.RowDefinitions>
@@ -102,6 +102,8 @@
                     </Grid>
                 </ListView.Footer>
             </ListView>
+             <controls:LoadingControl Grid.Row="2" Margin="10,0" IsVisible="{Binding IsLoading}"
+                                     HorizontalOptions="Center" VerticalOptions="Center" />
         </Grid>
     </ContentPage.Content>
 </local:BasePage>

@@ -34,7 +34,7 @@ namespace Journey.Services.Buisness.DeepLink
                     string pageName = hostParts[2];
                     if (pageName == ProfilePageName)
                     {
-                        _navigationService.Navigate("ProfileChallengePage");
+                        _navigationService.Navigate("ChallengeProgressPage");
                     }
                     else if (pageName == ChallengeRequestName)
                     {

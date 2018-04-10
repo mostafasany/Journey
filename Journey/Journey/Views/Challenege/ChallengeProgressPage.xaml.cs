@@ -1,8 +1,8 @@
 ﻿namespace Journey.Views
 {
-    public partial class ProfileChallengePage : BasePage
+    public partial class ChallengeProgressPage : BasePage
     {
-        public ProfileChallengePage()
+        public ChallengeProgressPage()
         {
             InitializeComponent();
         }

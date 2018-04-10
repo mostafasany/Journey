@@ -219,20 +219,6 @@ namespace Journey.ViewModels
 
         #endregion
 
-        #region OnGoToProfileChallengeCommand
-
-        public DelegateCommand OnGoToProfileChallengeCommand => new DelegateCommand(OnGoToProfileChallenge);
-
-        private void OnGoToProfileChallenge()
-        {
-            if (NavigationService.CurrentPage == "ProfileChallengePage")
-                return;
-
-            NavigationService.Navigate("ProfileChallengePage", null, null, null, false, true);
-        }
-
-        #endregion
-
         #region OnGoToActivityLogCommand
 
         public DelegateCommand OnGoToActivityLogCommand => new DelegateCommand(OnGoToActivityLog);

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 ControlTemplate="{StaticResource HeaderFooterControlTemplate}"
@@ -172,7 +172,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" HeightRequest="60" BackgroundColor="White" x:Name="Header">
@@ -200,24 +200,9 @@
                     <controls:LoadingControl IsVisible="{Binding IsLoading}" Grid.Column="2" HorizontalOptions="End"
                                              VerticalOptions="Center" Margin="20,0" />
                 </Grid>
-                <Grid Grid.Row="1" IsVisible="{Binding HasNotActiveChallenge}">
-                    <!--<Grid.HeightRequest>
-                        <OnPlatform x:TypeArguments="x:Double">
-                            <On Platform="WinPhone, Windows" Value="50" />
-                        </OnPlatform>
-                    </Grid.HeightRequest>-->
-                    <controls:ImageControl Aspect="AspectFill" PortablePath="challengeBanner.png"
-                                           HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
-                    <StackLayout Orientation="Vertical" VerticalOptions="Center">
-                        <Label Margin="0,5" Text="{resources:Translate Home_StartNewChallenge}" FontSize="22"
-                               FontAttributes="Bold" HorizontalOptions="Center" TextColor="White" />
-                        <Button Margin="0,0,0,5" Text="Start" Command="{Binding OnStartNewChallengeCommand}"
-                                WidthRequest="150" HorizontalOptions="Center" FontSize="14"
-                                Style="{StaticResource SecondaryButtonStyle}" />
-                    </StackLayout>
-                </Grid>
-                <controls:SeparatorControl Grid.Row="2" HeightRequest="1" />
-                <ListView x:Name="PostList" Grid.Row="3" Margin="0,5" CachingStrategy="RecycleElement"
+              
+                <controls:SeparatorControl Grid.Row="1" HeightRequest="1" />
+                <ListView x:Name="PostList" Grid.Row="2" Margin="0,5" CachingStrategy="RecycleElement"
                           ItemsSource="{Binding PostsViewModels}" SeparatorVisibility="None"
                           ItemTemplate="{StaticResource PostTemplate}" ItemAppearing="Handle_ItemAppearing"
                           HasUnevenRows="true" IsPullToRefreshEnabled="true"

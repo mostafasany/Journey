@@ -14,13 +14,13 @@ using Unity;
 
 namespace Journey.ViewModels
 {
-    public class ProfileChallengePageViewModel : ProfilePageViewModel, INavigationAware
+    public class ChallengeProgressPageViewModel : MainNavigationViewModel, INavigationAware
     {
         private readonly IAccountService _accountService;
         private readonly IChallengeActivityService _challengeActivityService;
         private readonly IChallengeService _challengeService;
 
-        public ProfileChallengePageViewModel(IUnityContainer container, IAccountService accountService, INotificationService notificationService,
+        public ChallengeProgressPageViewModel(IUnityContainer container, IAccountService accountService, INotificationService notificationService,
             IChallengeService challengeService, IChallengeActivityService challengeActivityService) :
             base(container, accountService, notificationService)
         {

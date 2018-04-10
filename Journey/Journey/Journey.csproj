@@ -181,7 +181,7 @@
       <DependentUpon>ImagePage.xaml</DependentUpon>
     </Compile>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Challenege\ProfileChallengePage.xaml.cs">
-      <DependentUpon>ProfileChallengePage.xaml</DependentUpon>
+      <DependentUpon>..\Account\Views\Account\ProfileChallengePage.xaml</DependentUpon>
     </Compile>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Account\ProfileMeasurmentPage.xaml.cs">
       <DependentUpon>ProfileMeasurmentPage.xaml</DependentUpon>
@@ -209,6 +209,12 @@
     </Compile>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Account\ProfileLogWorkoutPage.xaml.cs">
       <DependentUpon>ProfileLogWorkoutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Challenege\ChallengeProgressPage.xaml.cs">
+      <DependentUpon>ChallengeProgressPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Challenege\StartNewChallengePage.xaml.cs">
+      <DependentUpon>StartNewChallengePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

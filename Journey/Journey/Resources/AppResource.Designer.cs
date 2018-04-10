@@ -586,5 +586,11 @@ namespace Journey.Resources {
                 return ResourceManager.GetString("Location_NoPlaces", resourceCulture);
             }
         }
+        
+        internal static string Challenge_Conditions {
+            get {
+                return ResourceManager.GetString("Challenge_Conditions", resourceCulture);
+            }
+        }
     }
 }

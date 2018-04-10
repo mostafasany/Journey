@@ -36,16 +36,16 @@ namespace Journey.ViewModels
             LoadNotificationsCount();
         }
 
-        private bool _hasNotActiveChallenge;
+        private bool _hasActiveChallenge;
 
-        public bool HasNotActiveChallenge
+        public bool HasActiveChallenge
         {
-            get => _hasNotActiveChallenge;
-            set => SetProperty(ref _hasNotActiveChallenge, value);
+            get => _hasActiveChallenge;
+            set => SetProperty(ref _hasActiveChallenge, value);
         }
 
         public Media Image => LoggedInAccount == null
-            ? new Media {Path = "http://bit.ly/2zBffZy"}
+            ? new Media { Path = "http://bit.ly/2zBffZy" }
             : _loggedInAccount.Image;
 
         public Account LoggedInAccount
@@ -77,9 +77,9 @@ namespace Journey.ViewModels
 
         private void UpdateChallengeBanner()
         {
-            HasNotActiveChallenge = LoggedInAccount != null && LoggedInAccount.HasNotActiveChallenge;
+            HasActiveChallenge = LoggedInAccount != null && !LoggedInAccount.HasNotActiveChallenge;
+            HasActiveChallenge = !HasActiveChallenge;
         }
-
 
         #region OnProfileCommand
 
@@ -125,41 +125,29 @@ namespace Journey.ViewModels
 
         #endregion
 
-        #region OnGoToProfileChallengeCommand
-
-        public DelegateCommand OnGoToProfileChallengeCommand => new DelegateCommand(OnGoToProfileChallenge);
-
-        private void OnGoToProfileChallenge()
-        {
-            if (NavigationService.CurrentPage == "ProfileChallengePage")
-                return;
-
-            NavigationService.Navigate("ProfileChallengePage", null, null, null, false, true);
-        }
-
-        #endregion
-
         #region OnChallengeCommand
 
         public DelegateCommand OnChallengeCommand => new DelegateCommand(OnChallenge);
 
         private async void OnChallenge()
         {
-            if (HasNotActiveChallenge)
+            if (HasActiveChallenge)
             {
-                if (NavigationService.CurrentPage == "ChooseChallengeFriendPage")
+                if (NavigationService.CurrentPage == "ChallengeProgressPage")
+                    return;
+
+                await NavigationService.Navigate("ChallengeProgressPage", null, null, null, false, true);
+
+            }
+            else
+            {
+                if (NavigationService.CurrentPage == "StartNewChallengePage")
                     return;
 
                 bool isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
-                    await NavigationService.Navigate("ChooseChallengeFriendPage");
-            }
-            else
-            {
-                if (NavigationService.CurrentPage == "ProfileChallengePage")
-                    return;
+                    await NavigationService.Navigate("StartNewChallengePage");
 
-               await NavigationService.Navigate("ProfileChallengePage", null, null, null, false, true);
             }
         }
 
@@ -240,7 +228,7 @@ namespace Journey.ViewModels
                 var location = parameters.GetValue<Location>("Location");
                 if (location != null)
                     NewPostPageViewModel.NewPost.Location =
-                        new PostActivity {Action = "At", Activity = location.Name, Image = location.Image};
+                        new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
             }
             catch (Exception ex)
             {
@@ -331,9 +319,8 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        //TODO:Try New Account LoggedInAccount
         private Account _loggedInAccount;
-        public Account LoggedInAccount
+        public new Account LoggedInAccount
         {
             get => _loggedInAccount;
             set
@@ -386,7 +373,8 @@ namespace Journey.ViewModels
         #endregion
 
         #region Methods
-        public override async void Intialize(bool sync=false)
+
+        public override async void Intialize(bool sync = false)
         {
             try
             {
@@ -441,7 +429,6 @@ namespace Journey.ViewModels
             RaisePropertyChanged(nameof(IsLoggedIn));
         }
 
-      
         protected override void Cleanup()
         {
             try

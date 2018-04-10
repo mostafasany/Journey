@@ -61,12 +61,13 @@ namespace Journey
             containerRegistry.RegisterForNavigation<ImagePage>();
             containerRegistry.RegisterForNavigation<ProfileMeasurmentPage>();
             containerRegistry.RegisterForNavigation<ProfileActivityLogPage>();
-            containerRegistry.RegisterForNavigation<ProfileChallengePage>();
+            containerRegistry.RegisterForNavigation<ChallengeProgressPage>();
             containerRegistry.RegisterForNavigation<UpdateMeasurmentPage>();
             containerRegistry.RegisterForNavigation<ChooseChallengeFriendPage>();
             containerRegistry.RegisterForNavigation<NewChallengePage>();
             containerRegistry.RegisterForNavigation<NotificationsPage>();
             containerRegistry.RegisterForNavigation<ProfileLogWorkoutPage>();
+            containerRegistry.RegisterForNavigation<StartNewChallengePage>();
         }
     }
 }

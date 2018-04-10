@@ -346,7 +346,7 @@
     <value>Current Weight</value>
   </data>
     <data name="Home_StartNewChallenge" xml:space="preserve">
-    <value>Start Your new challenge</value>
+    <value>Start a new challenge</value>
   </data>
     <data name="Post_LocationMust" xml:space="preserve">
     <value>Please check in !</value>
@@ -386,5 +386,30 @@
   </data>
     <data name="Location_NoPlaces" xml:space="preserve">
     <value>No Places</value>
+  </data>
+    <data name="Challenge_Conditions" xml:space="preserve">
+    <value>
+You are about to start new challenge,
+This challenge will last for 6 month,
+The terms for this competition is:
+
+In 6 months
+
+1- Number of daily exercise.
+    
+2-How many kilometers consumed.
+
+Day of Contest 
+   
+1-Max push-up , pull up , abs, squats, 
+  and jumping rope ,each in 10 min
+    
+2 Max kilometers per 30 min tridmil 
+    
+3-Max Weight lifting in biceps,triceps,
+  chest,back,leg and shoulder
+    
+4-People vote
+       </value>
   </data>
 </root>

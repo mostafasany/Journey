@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" ControlTemplate="{StaticResource HeaderFooterControlTemplate}" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.StartNewChallengePage">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid Style="{StaticResource MainGridStyle}" Margin="0,-5,0,0" Padding="-5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <controls:ImageControl Aspect="AspectFill" PortablePath="challengeBanner.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                    <StackLayout Orientation="Vertical" VerticalOptions="Center">
+                        <Label Text="{resources:Translate Home_StartNewChallenge}" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" TextColor="White" />
+                    </StackLayout>
+                </Grid>
+                <Label Grid.Row="1" Text="{resources:Translate Challenge_Conditions}" FontSize="18" VerticalOptions="Start" HorizontalOptions="Center" TextColor="Black" />
+                <Button Grid.Row="2" Margin="0,0,0,5" Text="{resources:Translate Challenge_Start}" Command="{Binding OnStartNewChallengeCommand}" WidthRequest="150" HorizontalOptions="Center" FontSize="14" Style="{StaticResource SecondaryButtonStyle}" />
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
