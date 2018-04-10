@@ -9,6 +9,7 @@
     <None Remove="Assets\loading.png" />
     <None Remove="Assets\LoginLogo.png" />
     <None Remove="Assets\comment.png" />
+    <None Remove="Assets\SVG\addFriend.svg" />
     <None Remove="Assets\videothumbnail.png" />
     <None Remove="Assets\compete.png" />
     <None Remove="Assets\challengeBanner.png" />
@@ -45,6 +46,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Assets\loading.png" />
     <EmbeddedResource Include="Assets\LoginLogo.png" />
+    <EmbeddedResource Include="Assets\SVG\addFriend.svg" />
     <EmbeddedResource Include="Assets\videothumbnail.png" />
     <EmbeddedResource Include="Assets\compete.png" />
     <EmbeddedResource Include="Assets\challengeBanner.png" />

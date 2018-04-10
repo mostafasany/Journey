@@ -44,6 +44,25 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
             }
         }
 
+        public async Task<List<ChallengeActivityLog>> GetAccountActivitiesAsync()
+        {
+            try
+            {
+                string api = "AccountActivity";
+                List<AzureChallengeActivity> logs = await _client.InvokeApiAsync<List<AzureChallengeActivity>>(api, HttpMethod.Get, null);
+
+                if (logs == null || logs.Count == 0)
+                    return null;
+                List<ChallengeActivityLog> logsDto = ChallengeActivityDataTranslator.TranslateChallengeActivityList(logs);
+                logsDto.Where(a => a.Account.Id == _client.CurrentUser.UserId).ToList().ForEach(c => c.Mine = true);
+                return logsDto;
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(ex);
+            }
+        }
+
         public async Task<ChallengeActivityLog> UpdateActivityAsync(ChallengeActivityLog log)
         {
             try
@@ -83,7 +102,7 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
             }
         }
 
-        public async Task<List<ChallengeActivityLog>> GetActivitsAsync(string challengeId)
+        public async Task<List<ChallengeActivityLog>> GetChallengeActivitiesAsync(string challengeId)
         {
             try
             {

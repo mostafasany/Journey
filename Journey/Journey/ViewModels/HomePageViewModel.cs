@@ -36,6 +36,14 @@ namespace Journey.ViewModels
             LoadNotificationsCount();
         }
 
+        private bool _hasNotActiveChallenge;
+
+        public bool HasNotActiveChallenge
+        {
+            get => _hasNotActiveChallenge;
+            set => SetProperty(ref _hasNotActiveChallenge, value);
+        }
+
         public Media Image => LoggedInAccount == null
             ? new Media {Path = "http://bit.ly/2zBffZy"}
             : _loggedInAccount.Image;
@@ -59,12 +67,19 @@ namespace Journey.ViewModels
         private async void LoadAccount()
         {
             LoggedInAccount = await _accountService.GetAccountAsync();
+            UpdateChallengeBanner();
         }
 
         private async void LoadNotificationsCount()
         {
             NotificationsCount = await _notificationService.GetNotificationsCountAsync();
         }
+
+        private void UpdateChallengeBanner()
+        {
+            HasNotActiveChallenge = LoggedInAccount != null && LoggedInAccount.HasNotActiveChallenge;
+        }
+
 
         #region OnProfileCommand
 
@@ -79,7 +94,7 @@ namespace Journey.ViewModels
             try
             {
                 if (LoggedInAccount != null)
-                    await NavigationService.Navigate("ProfileChallengePage");
+                    await NavigationService.Navigate("ProfileActivityLogPage");
             }
             catch (Exception ex)
             {
@@ -106,6 +121,60 @@ namespace Journey.ViewModels
             {
                 ExceptionService.Handle(ex);
             }
+        }
+
+        #endregion
+
+        #region OnGoToProfileChallengeCommand
+
+        public DelegateCommand OnGoToProfileChallengeCommand => new DelegateCommand(OnGoToProfileChallenge);
+
+        private void OnGoToProfileChallenge()
+        {
+            if (NavigationService.CurrentPage == "ProfileChallengePage")
+                return;
+
+            NavigationService.Navigate("ProfileChallengePage", null, null, null, false, true);
+        }
+
+        #endregion
+
+        #region OnChallengeCommand
+
+        public DelegateCommand OnChallengeCommand => new DelegateCommand(OnChallenge);
+
+        private async void OnChallenge()
+        {
+            if (HasNotActiveChallenge)
+            {
+                if (NavigationService.CurrentPage == "ChooseChallengeFriendPage")
+                    return;
+
+                bool isLogginIn = await _accountService.LoginFirstAsync();
+                if (isLogginIn)
+                    await NavigationService.Navigate("ChooseChallengeFriendPage");
+            }
+            else
+            {
+                if (NavigationService.CurrentPage == "ProfileChallengePage")
+                    return;
+
+               await NavigationService.Navigate("ProfileChallengePage", null, null, null, false, true);
+            }
+        }
+
+        #endregion
+
+        #region OnSearchFriendCommand
+
+        public DelegateCommand OnSearchFriendCommand => new DelegateCommand(OnSearchFriend);
+
+        private void OnSearchFriend()
+        {
+            if (NavigationService.CurrentPage == "FriendsPage")
+                return;
+
+            NavigationService.Navigate("FriendsPage", null, null, null, false, true);
         }
 
         #endregion
@@ -264,7 +333,6 @@ namespace Journey.ViewModels
 
         //TODO:Try New Account LoggedInAccount
         private Account _loggedInAccount;
-
         public Account LoggedInAccount
         {
             get => _loggedInAccount;
@@ -285,13 +353,6 @@ namespace Journey.ViewModels
             }
         }
 
-        private bool _hasNotActiveChallenge;
-
-        public bool HasNotActiveChallenge
-        {
-            get => _hasNotActiveChallenge;
-            set => SetProperty(ref _hasNotActiveChallenge, value);
-        }
 
         public bool IsLoggedOut => LoggedInAccount == null;
         public bool IsLoggedIn => LoggedInAccount != null;
@@ -325,7 +386,6 @@ namespace Journey.ViewModels
         #endregion
 
         #region Methods
-
         public override async void Intialize(bool sync=false)
         {
             try
@@ -376,17 +436,12 @@ namespace Journey.ViewModels
         private async Task LoadAccount(bool sync)
         {
             LoggedInAccount = await _accountService.GetAccountAsync(sync);
-            UpdateChallengeBanner();
 
             RaisePropertyChanged(nameof(IsLoggedOut));
             RaisePropertyChanged(nameof(IsLoggedIn));
         }
 
-        private void UpdateChallengeBanner()
-        {
-            HasNotActiveChallenge = LoggedInAccount != null && LoggedInAccount.HasNotActiveChallenge;
-        }
-
+      
         protected override void Cleanup()
         {
             try

@@ -3,7 +3,6 @@
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:resources="clr-namespace:Journey.Resources" xmlns:local="clr-namespace:Journey.Views"
                 xmlns:controls="clr-namespace:Journey.Views.Controls"
-                ControlTemplate="{StaticResource ProfileHeaderControlTemplate}"
                 x:Class="Journey.Views.ProfileChallengePage">
     <ContentPage.Content>
         <Grid Style="{StaticResource MainGridStyle}">
@@ -27,14 +26,20 @@
             <Button Grid.Row="1" IsVisible="{Binding HasActiveChallenge}" Style="{StaticResource SecondaryButtonStyle}"
                     Text="{resources:Translate Challenge_View}" Margin="0,10"
                     Command="{Binding OnViewChallengeCommand}" />
-            <ListView Grid.Row="2" ItemsSource="{Binding ChallengeProgress}" IsGroupingEnabled="true"
+            <ListView Grid.Row="2" HorizontalOptions="Center" ItemsSource="{Binding ChallengeProgress}" IsGroupingEnabled="true"
                       HasUnevenRows="true">
                 <ListView.GroupHeaderTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <Grid HeightRequest="40">
-                                <Label HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold"
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0"  HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold"
                                        Text="{Binding Key}" />
+                                <controls:SeparatorControl  Grid.Row="1"  HeightRequest="1" />
+
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

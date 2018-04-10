@@ -70,14 +70,6 @@ namespace Journey.ViewModels
             set => SetProperty(ref _fourthTabSelected, value);
         }
 
-        private string _fifthTabSelected = "#ffffff";
-
-        public string FifthTabSelected
-        {
-            get => _fifthTabSelected;
-            set => SetProperty(ref _fifthTabSelected, value);
-        }
-
         #endregion
 
         #region Methods
@@ -133,7 +125,6 @@ namespace Journey.ViewModels
                 SecondTabSelected = "#ffffff";
                 ThirdTabSelected = "#ffffff";
                 FourthTabSelected = "#ffffff";
-                FifthTabSelected = "#ffffff";
             }
             catch (Exception e)
             {

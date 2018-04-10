@@ -133,6 +133,7 @@
     <Content Include="Assets\StoreLogo.scale-150.png" />
     <Content Include="Assets\StoreLogo.scale-200.png" />
     <Content Include="Assets\StoreLogo.scale-400.png" />
+    <Content Include="Assets\SVG\addFriend.svg" />
     <Content Include="Assets\SVG\back.svg" />
     <Content Include="Assets\SVG\camera.svg" />
     <Content Include="Assets\SVG\challenge.svg" />

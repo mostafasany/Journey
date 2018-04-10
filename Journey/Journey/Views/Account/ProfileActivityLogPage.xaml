@@ -109,7 +109,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" IsVisible="{Binding HasHealthAPI}" Style="{StaticResource SecondaryButtonStyle}" Text="{resources:Translate Challenge_UpdateKMLog}" Margin="0,10" Command="{Binding OnLogKMCommand}" />
+            <Button Grid.Row="0" IsVisible="{Binding HasHealthApi}" Style="{StaticResource SecondaryButtonStyle}" Text="{resources:Translate Challenge_UpdateKMLog}" Margin="0,10" Command="{Binding OnLogKmCommand}" />
             <ListView Grid.Row="1" ItemsSource="{Binding ChallengeActivityLog}" HorizontalOptions="Center" SeparatorVisibility="None" ItemTemplate="{StaticResource ActivityLogTemplateSelector}" HasUnevenRows="true" />
         </Grid>
     </ContentPage.Content>

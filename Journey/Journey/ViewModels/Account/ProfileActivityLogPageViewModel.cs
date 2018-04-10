@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 using Abstractions.Services.Contracts;
 using Journey.Models.Challenge;
 using Journey.Services.Buisness.Account;
-using Journey.Services.Buisness.Challenge;
 using Journey.Services.Buisness.ChallengeActivity;
 using Journey.Services.Buisness.Notification;
 using Prism.Navigation;
@@ -18,18 +18,16 @@ namespace Journey.ViewModels
     {
         private readonly IAccountService _accountService;
         private readonly IChallengeActivityService _challengeActivityService;
-        private readonly IChallengeService _challengeService;
         private readonly ISettingsService _settingsService;
         private const string LastLogDateTime = "LastLogDateTime";
         private const string LastLogId = "LastLogId";
         public ProfileActivityLogPageViewModel(IUnityContainer container, IAccountService accountService,
                                                INotificationService notificationService, ISettingsService settingsService,
-            IChallengeService challengeService, IChallengeActivityService challengeActivityService) :
+            IChallengeActivityService challengeActivityService) :
             base(container, accountService, notificationService)
         {
             _challengeActivityService = challengeActivityService;
             _accountService = accountService;
-            _challengeService = challengeService;
             _settingsService = settingsService;
             SubscribeHealthService();
         }
@@ -42,10 +40,11 @@ namespace Journey.ViewModels
             var status = await healthService.Authenticate();
             if (status)
             {
-                HasHealthAPI = true;
+                HasHealthApi = true;
                 healthService.HealthDataChanged += HealthService_HealthDataChanged;
             }
         }
+
         #region Events
 
         void HealthService_HealthDataChanged(object sender, HealthDataEventArgs e)
@@ -78,7 +77,7 @@ namespace Journey.ViewModels
             try
             {
                 ClearTabSelection();
-                ThirdTabSelected = "#f1f1f1";
+                FirstTabSelected = "#f1f1f1";
 
                 if (parameters.GetNavigationMode() == NavigationMode.New)
                     Intialize();
@@ -107,12 +106,12 @@ namespace Journey.ViewModels
         }
 
 
-        bool _hasHealthAPI = false;
+        bool _hasHealthApi;
 
-        public bool HasHealthAPI
+        public bool HasHealthApi
         {
-            get => _hasHealthAPI;
-            set => SetProperty(ref _hasHealthAPI, value);
+            get => _hasHealthApi;
+            set => SetProperty(ref _hasHealthApi, value);
         }
 
         #endregion
@@ -126,7 +125,11 @@ namespace Journey.ViewModels
                 ShowProgress();
                 if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
                 {
-                    ChallengeActivityLog = await _challengeActivityService.GetActivitsAsync(_accountService.LoggedInAccount.ChallengeId);
+                    ChallengeActivityLog = await _challengeActivityService.GetChallengeActivitiesAsync(_accountService.LoggedInAccount.ChallengeId);
+                }
+                else
+                {
+                    ChallengeActivityLog = await _challengeActivityService.GetAccountActivitiesAsync();
                 }
 
                 base.Intialize(sync);
@@ -189,7 +192,7 @@ namespace Journey.ViewModels
             };
             var activity = await _challengeActivityService.AddActivityAsync(newActivity);
             await _settingsService.Set(LastLogId, activity.Id);
-            await _settingsService.Set(LastLogDateTime, currentDateTime.ToString());
+            await _settingsService.Set(LastLogDateTime, currentDateTime.ToString(CultureInfo.InvariantCulture));
             if (ChallengeActivityLog.Any())
             {
                 ChallengeActivityLog.Insert(0, activity);
@@ -205,7 +208,7 @@ namespace Journey.ViewModels
         {
             var currentDateTime = DateTime.Now;
             var lastLogId = await _settingsService.Get(LastLogId);
-            var activity = await _challengeActivityService.UpdateActivityAsync(new ChallengeKmActivityLog()
+            await _challengeActivityService.UpdateActivityAsync(new ChallengeKmActivityLog()
             {
                 Id = lastLogId,
                 Account = _accountService.LoggedInAccount,
@@ -213,9 +216,8 @@ namespace Journey.ViewModels
                 DatetTime = currentDateTime,
                 KM = km,
             });
-            await _settingsService.Set(LastLogDateTime, currentDateTime.ToString());
-            var updatedItem = ChallengeActivityLog.FirstOrDefault(a => a.Id == lastLogId) as ChallengeKmActivityLog;
-            if (updatedItem != null)
+            await _settingsService.Set(LastLogDateTime, currentDateTime.ToString(CultureInfo.InvariantCulture));
+            if (ChallengeActivityLog.FirstOrDefault(a => a.Id == lastLogId) is ChallengeKmActivityLog updatedItem)
                 updatedItem.KM = km;
         }
 
@@ -225,14 +227,14 @@ namespace Journey.ViewModels
 
         #region OnViewChallengeCommand
 
-        private ICommand _onLogKMCommand;
+        private ICommand _onLogKmCommand;
 
 
-        public ICommand OnLogKMCommand => _onLogKMCommand ?? (
-            _onLogKMCommand =
-            new Prism.Commands.DelegateCommand(LogKM));
+        public ICommand OnLogKmCommand => _onLogKmCommand ?? (
+            _onLogKmCommand =
+            new Prism.Commands.DelegateCommand(LogKm));
 
-        private async void LogKM()
+        private async void LogKm()
         {
             try
             {

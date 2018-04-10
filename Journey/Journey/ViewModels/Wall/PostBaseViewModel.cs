@@ -215,9 +215,7 @@ namespace Journey.ViewModels.Wall
                     {
                         Account loggedInAccount = await _accountService.GetAccountAsync();
                         if (account.Id == loggedInAccount.Id)
-                            await NavigationService.Navigate("ProfileMeasurmentPage");
-                        //else
-                        //await NavigationService.Navigate("FriendsPage", account.Id);
+                            await NavigationService.Navigate("ProfileActivityLogPage");
                     }
                 }
             }

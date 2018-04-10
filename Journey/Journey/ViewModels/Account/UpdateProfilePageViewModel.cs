@@ -39,7 +39,7 @@ namespace Journey.ViewModels
             try
             {
                 ClearTabSelection();
-                FifthTabSelected = "#f1f1f1";
+                FourthTabSelected = "#f1f1f1";
 
                 ShowProgress();
                 Account loggedInAccount = parameters.GetValue<Account>("Account") ?? new Account();
