@@ -123,15 +123,13 @@ namespace Journey.Droid
             }
         }
 
-
-
         protected override void OnStart()
         {
             base.OnStart();
 
             mClient.Connect();
         }
-       // /Users/mostafasany/Library/Developer/Xamarin/android-sdk-macosx
+     
         protected override void OnStop()
         {
             base.OnStop();

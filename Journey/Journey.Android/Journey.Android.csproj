@@ -273,7 +273,8 @@
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
-    <None Include="client_secret_881771234927-t54fk4jj0uetb58qgtnahifkrvvafm04.apps.googleusercontent.com.json" />
+    <None Include="client_secret_881771234927-0pamf49r0hneckcodhn2oeevkn509239.apps.googleusercontent.com.json" />
+    <None Include="client_id.json" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
