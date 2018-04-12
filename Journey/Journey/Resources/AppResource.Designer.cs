@@ -149,6 +149,12 @@ namespace Journey.Resources {
             }
         }
         
+        internal static string Challenge_Compete {
+            get {
+                return ResourceManager.GetString("Challenge_Compete", resourceCulture);
+            }
+        }
+        
         internal static string Yes {
             get {
                 return ResourceManager.GetString("Yes", resourceCulture);
@@ -566,6 +572,12 @@ namespace Journey.Resources {
         internal static string KM {
             get {
                 return ResourceManager.GetString("KM", resourceCulture);
+            }
+        }
+        
+        internal static string Friends_AddNewFriend {
+            get {
+                return ResourceManager.GetString("Friends_AddNewFriend", resourceCulture);
             }
         }
         

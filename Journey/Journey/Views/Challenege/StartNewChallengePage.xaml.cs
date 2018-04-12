@@ -1,8 +1,6 @@
-﻿using Xamarin.Forms;
-
-namespace Journey.Views
+﻿namespace Journey.Views
 {
-    public partial class StartNewChallengePage : ContentPage
+    public partial class StartNewChallengePage : BasePage
     {
         public StartNewChallengePage()
         {

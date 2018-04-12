@@ -1,8 +1,8 @@
 ﻿namespace Journey.Views
 {
-    public partial class SplashScreenPage : BasePage
+    public partial class FriendsPage : BasePage
     {
-        public SplashScreenPage()
+        public FriendsPage()
         {
             InitializeComponent();
         }

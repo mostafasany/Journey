@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" ControlTemplate="{StaticResource HeaderFooterControlTemplate}" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.StartNewChallengePage">
+<local:BasePage  xmlns="http://xamarin.com/schemas/2014/forms" xmlns:local="clr-namespace:Journey.Views" ControlTemplate="{StaticResource HeaderFooterControlTemplate}" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.StartNewChallengePage">
     <ContentPage.Content>
         <ScrollView>
             <Grid Style="{StaticResource MainGridStyle}" Margin="0,-5,0,0" Padding="-5,0">
@@ -19,4 +19,4 @@
             </Grid>
         </ScrollView>
     </ContentPage.Content>
-</ContentPage>
+</local:BasePage >

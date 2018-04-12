@@ -68,6 +68,7 @@ namespace Journey
             containerRegistry.RegisterForNavigation<NotificationsPage>();
             containerRegistry.RegisterForNavigation<ProfileLogWorkoutPage>();
             containerRegistry.RegisterForNavigation<StartNewChallengePage>();
+            containerRegistry.RegisterForNavigation<FriendsPage>();
         }
     }
 }
