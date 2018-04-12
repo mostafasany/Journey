@@ -22,7 +22,6 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
         {
             _client = azureService.CreateOrGetAzureClient();
             _azureChallengeActivity = _client.GetTable<AzureChallengeActivity>();
-
         }
 
         public async Task<ChallengeActivityLog> AddActivityAsync(ChallengeActivityLog log)

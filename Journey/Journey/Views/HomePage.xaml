@@ -4,7 +4,7 @@
                 ControlTemplate="{StaticResource HeaderFooterControlTemplate}"
                 xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views"
-                xmlns:controls="clr-namespace:Journey.Views.Controls" xmlns:resources="clr-namespace:Journey.Resources"
+                xmlns:controls="clr-namespace:Journey.Views.Controls"
                 xmlns:selectors="clr-namespace:Journey.Views.Selectors" x:Class="Journey.Views.HomePage">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -12,6 +12,11 @@
                 <ViewCell>
                     <ViewCell.View>
                         <Grid RowSpacing="0" BackgroundColor="White" CompressedLayout.IsHeadless="true">
+                            <Grid.WidthRequest>
+                                <OnPlatform x:TypeArguments="x:Double">
+                                    <On Platform="Windows" Value="200" />
+                                </OnPlatform>
+                            </Grid.WidthRequest>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -207,7 +212,9 @@
                           ItemTemplate="{StaticResource PostTemplate}" ItemAppearing="Handle_ItemAppearing"
                           HasUnevenRows="true" IsPullToRefreshEnabled="true"
                           IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
-                          RefreshCommand="{Binding OnRefreshPostsCommand}" />
+                          RefreshCommand="{Binding OnRefreshPostsCommand}" >
+                  
+                </ListView>
             </Grid>
         </Grid>
     </ContentPage.Content>

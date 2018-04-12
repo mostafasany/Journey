@@ -38,7 +38,7 @@ namespace Journey.Droid.Services
                 {
                     Bitmap bitmap = await handler.LoadImageAsync(media.Source, this);
                     string ex = media.Ext;
-                    string fileName = string.Format("{0}{1}", id++, ex);
+                    string fileName = $"{id++}{ex}";
                     File path = Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDownloads
                                                                               + File.Separator + fileName);
 
@@ -52,7 +52,7 @@ namespace Journey.Droid.Services
                 else
                 {
                     string ex = media.Ext;
-                    string fileName = string.Format("{0}{1}", id++, ex);
+                    string fileName = $"{id++}{ex}";
                     File path = Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDownloads
                                                                               + File.Separator + fileName);
                     var filestream = new FileOutputStream(path);

@@ -16,8 +16,7 @@ namespace Journey.iOS.Services
         public async Task Share(string subject, string message, List<Media> mediaItems)
         {
             var handler = new ImageLoaderSourceHandler();
-            List<NSObject> activityItems = new List<NSObject>();
-            activityItems.Add(NSObject.FromObject(message));
+            List<NSObject> activityItems = new List<NSObject> {NSObject.FromObject(message)};
             foreach (var media in mediaItems)
             {
                 var uiImage = await handler.LoadImageAsync(media.Source);
