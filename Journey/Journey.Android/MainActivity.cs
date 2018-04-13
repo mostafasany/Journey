@@ -95,6 +95,7 @@ namespace Journey.Droid
             {
                 authInProgress = bundle.GetBoolean(AUTH_PENDING);
             }
+          
             var clientConnectionCallback = new Services.Fitness.ClientConnectionCallback();
             clientConnectionCallback.OnConnectedImpl =async () => await Services.Fitness.FitnessService.FindFitnessDataSources(mClient);
             mClient = new Android.Gms.Common.Apis.GoogleApiClient.Builder(this)
