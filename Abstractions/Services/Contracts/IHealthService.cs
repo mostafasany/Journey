@@ -7,6 +7,7 @@ namespace Abstractions.Services.Contracts
     public enum Unit { Year, KG, CM, KCAL, Steps,RunningWalking };
     public interface IHealthService
     {
+        bool AuthInProgress { get; set; }
         Task<bool> Authenticate();
         Task GetAgeAsync();
         Task GetCaloriesAsync();

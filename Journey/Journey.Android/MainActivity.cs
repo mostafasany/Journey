@@ -26,8 +26,9 @@ namespace Journey.Droid
         private MobileServiceUser _user;
         private static int REQUEST_OAUTH = 1;
         private static String AUTH_PENDING = "auth_state_pending";
-        private bool authInProgress = false;
-        Android.Gms.Common.Apis.GoogleApiClient mClient;
+        //private bool authInProgress = false;
+        public static Android.Gms.Common.Apis.GoogleApiClient mClient;
+        IHealthService _healthService => DependencyService.Get<IHealthService>();
         public async Task<MobileServiceUser> Authenticate()
         {
             try
@@ -47,7 +48,7 @@ namespace Journey.Droid
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            //base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
@@ -56,22 +57,19 @@ namespace Journey.Droid
 
             if (requestCode == REQUEST_OAUTH)
             {
-                authInProgress = false;
+                _healthService.AuthInProgress = false;
                 if (resultCode == Result.Ok)
                 {
+                    Android.Widget.Toast.MakeText(ApplicationContext, "Authorized", Android.Widget.ToastLength.Long).Show();
                     if (!mClient.IsConnecting && !mClient.IsConnected)
                     {
                         mClient.Connect();
                     }
                 }
-                else if (resultCode == Result.Canceled)
+                else
                 {
-                    //Log.e("GoogleFit", "RESULT_CANCELED");
+                    Android.Widget.Toast.MakeText(ApplicationContext, "Not-Authorized", Android.Widget.ToastLength.Long).Show();
                 }
-            }
-            else
-            {
-                // Log.e("GoogleFit", "requestCode NOT request_oauth");
             }
         }
 
@@ -93,47 +91,54 @@ namespace Journey.Droid
 
             if (bundle != null)
             {
-                authInProgress = bundle.GetBoolean(AUTH_PENDING);
+                if (_healthService != null)
+                    _healthService.AuthInProgress = bundle.GetBoolean(AUTH_PENDING);
             }
-          
-            var clientConnectionCallback = new Services.Fitness.ClientConnectionCallback();
-            clientConnectionCallback.OnConnectedImpl =async () => await Services.Fitness.FitnessService.FindFitnessDataSources(mClient);
-            mClient = new Android.Gms.Common.Apis.GoogleApiClient.Builder(this)
-                     .AddApi(Android.Gms.Fitness.FitnessClass.SENSORS_API)
-                     .AddScope(new Android.Gms.Common.Apis.Scope(Android.Gms.Common.Scopes.FitnessActivityReadWrite))
-                     .AddConnectionCallbacks(clientConnectionCallback)
-                     .AddOnConnectionFailedListener(FailedToConnect)
-                    .Build();
+
+            //var clientConnectionCallback = new Services.Fitness.ClientConnectionCallback();
+            //clientConnectionCallback.OnConnectedImpl = async ()
+            //     => await Services.Fitness.FitnessService.FindFitnessDataSources(mClient);
+            //mClient = new Android.Gms.Common.Apis.GoogleApiClient.Builder(this)
+            // .AddApi(Android.Gms.Fitness.FitnessClass.SENSORS_API)
+            // .AddScope(new Android.Gms.Common.Apis.Scope(Android.Gms.Common.Scopes.FitnessActivityReadWrite))
+            // .AddConnectionCallbacks(clientConnectionCallback)
+            // .AddOnConnectionFailedListener(FailedToConnect)
+            //.Build();
 
             LoadApplication(new App(new AndroidInitializer()));
         }
 
-        void FailedToConnect(Android.Gms.Common.ConnectionResult result)
-        {
-            if (!authInProgress)
-            {
-                try
-                {
-                    authInProgress = true;
-                    result.StartResolutionForResult(this, REQUEST_OAUTH);
-                }
-                catch (IntentSender.SendIntentException e)
-                {
+        //void FailedToConnect(Android.Gms.Common.ConnectionResult result)
+        //{
+        //    if (!authInProgress)
+        //    {
+        //        try
+        //        {
+        //            authInProgress = true;
+        //            result.StartResolutionForResult(this, REQUEST_OAUTH);
+        //        }
+        //        catch (IntentSender.SendIntentException e)
+        //        {
 
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
 
         protected override void OnStart()
         {
             base.OnStart();
+            if (mClient == null)
+                return;
 
             mClient.Connect();
         }
-     
+
         protected override void OnStop()
         {
             base.OnStop();
+            if (mClient == null)
+                return;
+
             if (mClient.IsConnected)
             {
                 mClient.Disconnect();
@@ -143,7 +148,8 @@ namespace Journey.Droid
         protected override void OnSaveInstanceState(Bundle outState)
         {
             base.OnSaveInstanceState(outState);
-            outState.PutBoolean(AUTH_PENDING, authInProgress);
+            if (_healthService != null)
+                outState.PutBoolean(AUTH_PENDING, _healthService.AuthInProgress);
         }
 
     }

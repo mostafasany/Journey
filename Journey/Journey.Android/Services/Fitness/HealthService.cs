@@ -6,18 +6,19 @@ namespace Journey.Droid
 {
     public class HealthService : IHealthService
     {
-        Android.App.Activity _mainActivity;
+        MainActivity _mainActivity;
         public HealthService()
         {
-            _mainActivity = Xamarin.Forms.Forms.Context as Android.App.Activity;
+            _mainActivity = Xamarin.Forms.Forms.Context as MainActivity;
         }
+
         Android.Gms.Common.Apis.GoogleApiClient mClient;
         public const string TAG = "BasicSensorsApi";
-
+        public bool AuthInProgress { get; set; }
         const int REQUEST_OAUTH = 1;
 
         const string AUTH_PENDING = "auth_state_pending";
-        bool authInProgress;
+
 
 
         public event HealthDataEventHandler HealthDataChanged;
@@ -25,7 +26,8 @@ namespace Journey.Droid
         void BuildFitnessClient()
         {
             var clientConnectionCallback = new Services.Fitness.ClientConnectionCallback();
-            clientConnectionCallback.OnConnectedImpl = () => Services.Fitness.FitnessService.FindFitnessDataSources(mClient);
+            clientConnectionCallback.OnConnectedImpl = () 
+                => Services.Fitness.FitnessService.FindFitnessDataSources(mClient);
             if (mClient == null)
             {
                 mClient = new Android.Gms.Common.Apis.GoogleApiClient.Builder(_mainActivity)
@@ -34,6 +36,7 @@ namespace Journey.Droid
                     .AddConnectionCallbacks(clientConnectionCallback)
                    .AddOnConnectionFailedListener(FailedToConnect)
                     .Build();
+                MainActivity.mClient = mClient;
             }
             if (!mClient.IsConnecting && !mClient.IsConnected)
             {
@@ -50,12 +53,12 @@ namespace Journey.Droid
                 Android.Gms.Common.GooglePlayServicesUtil.GetErrorDialog(result.ErrorCode, _mainActivity, 0).Show();
                 return;
             }
-            if (!authInProgress)
+            if (!AuthInProgress)
             {
                 try
                 {
                     Android.Util.Log.Info(TAG, "Attempting to resolve failed connection");
-                    authInProgress = true;
+                    AuthInProgress = true;
                     result.StartResolutionForResult(_mainActivity, REQUEST_OAUTH);
                 }
                 catch (Android.Content.IntentSender.SendIntentException e)
@@ -69,7 +72,7 @@ namespace Journey.Droid
         {
             try
             {
-                //authInProgress = false;
+                AuthInProgress = false;
                 BuildFitnessClient();
                 return true;
             }
