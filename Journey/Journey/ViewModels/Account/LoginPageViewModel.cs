@@ -92,7 +92,7 @@ namespace Journey.ViewModels
             try
             {
                 if (App.Authenticator == null) return;
-
+                ShowProgress();
                 MobileServiceUser authenticated = await _accountService.AutehticateAsync();
                 if (authenticated == null)
                 {

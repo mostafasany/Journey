@@ -78,7 +78,7 @@ namespace Journey.ViewModels
         private void UpdateChallengeBanner()
         {
             HasActiveChallenge = LoggedInAccount != null && !LoggedInAccount.HasNotActiveChallenge;
-            HasActiveChallenge = !HasActiveChallenge;
+          //  HasActiveChallenge = !HasActiveChallenge;
         }
 
         #region OnProfileCommand
@@ -93,7 +93,9 @@ namespace Journey.ViewModels
         {
             try
             {
-                if (LoggedInAccount != null)
+                bool isLogginIn = await _accountService.LoginFirstAsync();
+                if (isLogginIn)
+                if (isLogginIn && NavigationService.CurrentPage != "ProfileActivityLogPage")
                     await NavigationService.Navigate("ProfileActivityLogPage");
             }
             catch (Exception ex)
@@ -141,11 +143,9 @@ namespace Journey.ViewModels
             }
             else
             {
-                if (NavigationService.CurrentPage == "StartNewChallengePage")
-                    return;
-
+              
                 bool isLogginIn = await _accountService.LoginFirstAsync();
-                if (isLogginIn)
+                if (isLogginIn && NavigationService.CurrentPage != "StartNewChallengePage")
                     await NavigationService.Navigate("StartNewChallengePage");
 
             }
@@ -157,12 +157,12 @@ namespace Journey.ViewModels
 
         public DelegateCommand OnSearchFriendCommand => new DelegateCommand(OnSearchFriend);
 
-        private void OnSearchFriend()
+        private async void OnSearchFriend()
         {
-            if (NavigationService.CurrentPage == "FriendsPage")
-                return;
-
-            NavigationService.Navigate("FriendsPage", null, null, null, false, true);
+            bool isLogginIn = await _accountService.LoginFirstAsync();
+            if (isLogginIn)
+            if (isLogginIn && NavigationService.CurrentPage != "FriendsPage")
+                await NavigationService.Navigate("FriendsPage");
         }
 
         #endregion
@@ -179,7 +179,9 @@ namespace Journey.ViewModels
         {
             try
             {
-                if (NavigationService.CurrentPage != "NotificationsPage")
+                bool isLogginIn = await _accountService.LoginFirstAsync();
+                if (isLogginIn)
+                if (isLogginIn && NavigationService.CurrentPage != "NotificationsPage")
                     await NavigationService.Navigate("NotificationsPage");
             }
             catch (Exception ex)
