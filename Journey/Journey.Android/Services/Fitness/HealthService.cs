@@ -19,8 +19,6 @@ namespace Journey.Droid
 
         const string AUTH_PENDING = "auth_state_pending";
 
-
-
         public event HealthDataEventHandler HealthDataChanged;
 
         void BuildFitnessClient()
@@ -32,15 +30,21 @@ namespace Journey.Droid
             {
                 mClient = new Android.Gms.Common.Apis.GoogleApiClient.Builder(_mainActivity)
                     .AddApi(Android.Gms.Fitness.FitnessClass.SENSORS_API)
+                    .AddScope(new Android.Gms.Common.Apis.Scope(Android.Gms.Common.Scopes.FitnessActivityReadWrite))
+                    .AddScope(new Android.Gms.Common.Apis.Scope(Android.Gms.Common.Scopes.FitnessBodyRead))
                     .AddScope(new Android.Gms.Common.Apis.Scope(Android.Gms.Common.Scopes.FitnessLocationRead))
                     .AddConnectionCallbacks(clientConnectionCallback)
-                   .AddOnConnectionFailedListener(FailedToConnect)
+                    .AddOnConnectionFailedListener(FailedToConnect)
                     .Build();
                 MainActivity.mClient = mClient;
             }
             if (!mClient.IsConnecting && !mClient.IsConnected)
             {
                 mClient.Connect();
+            }
+            else
+            {
+                Services.Fitness.FitnessService.FindFitnessDataSources(mClient);
             }
         }
 

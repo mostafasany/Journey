@@ -6,7 +6,7 @@ using Android.Gms.Fitness.Data;
 using Android.Gms.Fitness.Request;
 using Android.Util;
 using Java.Util.Concurrent;
-
+using Android.Gms.Fitness.Data;
 namespace Journey.Droid.Services.Fitness
 {
     static public class FitnessService
@@ -18,54 +18,53 @@ namespace Journey.Droid.Services.Fitness
         static public async Task FindFitnessDataSources(GoogleApiClient mClient)
         {
             var dataSourceRequest = new DataSourcesRequest.Builder()
-                                                        .SetDataTypes(
-                                                              Android.Gms.Fitness.Data.DataType.TypeStepCountCumulative,
-                                                              Android.Gms.Fitness.Data.DataType.TypeDistanceCumulative,
-                                                              Android.Gms.Fitness.Data.DataType.TypeWeight,
-                                                              Android.Gms.Fitness.Data.DataType.TypeHeight,
-                                                              Android.Gms.Fitness.Data.DataType.TypeCaloriesConsumed,
-                                                              Android.Gms.Fitness.Data.DataType.TypeCaloriesExpended,
-                                                              Android.Gms.Fitness.Data.DataType.TypeLocationTrack,
-                                                              Android.Gms.Fitness.Data.DataType.AggregateLocationBoundingBox)
-                                                         .SetDataSourceTypes(DataSource.TypeRaw)
+                                                          .SetDataTypes(Android.Gms.Fitness.Data.DataType.TypeStepCountDelta,
+                                                                        Android.Gms.Fitness.Data.DataType.TypeStepCountCumulative)
+
+                                                          //.SetDataSourceTypes(DataSource.TypeRaw)
+                                                          .SetDataSourceTypes(DataSource.TypeDerived)
                                                          .Build();
             var dataSourcesResult =
                 await FitnessClass.SensorsApi.FindDataSourcesAsync
                                                       (mClient, dataSourceRequest);
+            var _mainActivity = Xamarin.Forms.Forms.Context as MainActivity;
 
             Log.Info(TAG, "Result: " + dataSourcesResult.Status);
-            var _mainActivity = Xamarin.Forms.Forms.Context as MainActivity;
-            foreach (DataSource dataSource in dataSourcesResult.DataSources)
-            {
 
+            var dataSources = dataSourcesResult.DataSources;
+            foreach (DataSource dataSource in dataSources)
+            {
                 if (_mainActivity != null)
-                    Android.Widget.Toast.MakeText(_mainActivity, "Found Data Sources", Android.Widget.ToastLength.Long).Show();
+                    Android.Widget.Toast.MakeText(_mainActivity, "1", Android.Widget.ToastLength.Long).Show();
 
                 Log.Info(TAG, "Data source found: " + dataSource);
                 Log.Info(TAG, "Data Source type: " + dataSource.DataType.Name);
 
                 //Let's register a listener to receive Activity data!
-                if (dataSource.DataType == Android.Gms.Fitness.Data.DataType.TypeDistanceDelta && mListener == null)
+                var stepsCountType = Android.Gms.Fitness.Data.DataType.TypeStepCountDelta;
+                var dataSourceType = dataSource.DataType;
+                if (dataSourceType == stepsCountType && mListener == null)
                 {
-                    Log.Info(TAG, "Data source for LOCATION_SAMPLE found!  Registering.");
-                    await RegisterFitnessDataListener(mClient, dataSource, Android.Gms.Fitness.Data.DataType.TypeLocationSample);
+                    // Log.Info(TAG, "Data source for LOCATION_SAMPLE found!  Registering.");
+                    await RegisterFitnessDataListener(mClient, dataSource, stepsCountType);
+                }
+                else
+                {
+                    await RegisterFitnessDataListener(mClient, dataSource, stepsCountType);
                 }
             }
-            if (_mainActivity != null)
-                Android.Widget.Toast.MakeText(_mainActivity, "No Data Sources", Android.Widget.ToastLength.Long).Show();
-
         }
 
         static private async Task RegisterFitnessDataListener(GoogleApiClient mClient, DataSource dataSource, Android.Gms.Fitness.Data.DataType dataType)
         {
             // [START register_data_listener]
-            mListener = new OnDataPointListener();
-            var status = await FitnessClass.SensorsApi.AddAsync(mClient, new SensorRequest.Builder()
+            var request = new SensorRequest.Builder()
                 .SetDataSource(dataSource) // Optional but recommended for custom data sets.
                 .SetDataType(dataType) // Can't be omitted.
                 .SetSamplingRate(10, TimeUnit.Seconds)
-                .Build(),
-                mListener);
+                                         .Build();
+            mListener = new OnDataPointListener();
+            var status = await FitnessClass.SensorsApi.AddAsync(mClient, request, mListener);
             if (status.IsSuccess)
             {
                 Log.Info(TAG, "Listener registered!");
