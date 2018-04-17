@@ -379,7 +379,10 @@
     <value>Choose workout place</value>
   </data>
     <data name="KM" xml:space="preserve">
-    <value>Kilometers</value>
+    <value>km</value>
+  </data>
+       <data name="Kcal" xml:space="preserve">
+    <value>cal</value>
   </data>
      <data name="Friends_AddNewFriend" xml:space="preserve">
     <value>Do you want to add {0}</value>

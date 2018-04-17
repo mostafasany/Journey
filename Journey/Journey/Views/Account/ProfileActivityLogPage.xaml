@@ -43,7 +43,7 @@
                                 <Grid BackgroundColor="Maroon" Padding="5,10">
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                                         <Label Text="{Binding KM}" TextColor="White" FontSize="14" HorizontalOptions="Center" />
-                                        <Label Text="Km" TextColor="White" FontSize="14" HorizontalOptions="Center" />
+                                        <Label Text="{resources:Translate KM}" TextColor="White" FontSize="14" HorizontalOptions="Center" />
                                     </StackLayout>
                                 </Grid>
                             </StackLayout>
@@ -69,7 +69,7 @@
                                 <Grid BackgroundColor="Maroon" Padding="5,10">
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                                         <Label Text="{Binding Kcal}" TextColor="White" FontSize="14" HorizontalOptions="Center" />
-                                        <Label Text="Kcal" TextColor="White" FontSize="14" HorizontalOptions="Center" />
+                                        <Label Text="{resources:Translate Kcal}" TextColor="White" FontSize="14" HorizontalOptions="Center" />
                                     </StackLayout>
                                 </Grid>
                             </StackLayout>
@@ -118,7 +118,7 @@
                                 <Grid BackgroundColor="Teal" Padding="5,10">
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                                         <Label Text="{Binding KM}" TextColor="White" FontSize="14" HorizontalOptions="Center" />
-                                        <Label Text="Km" TextColor="White" FontSize="14" HorizontalOptions="Center" />
+                                        <Label Text="{resources:Translate KM}" TextColor="White" FontSize="14" HorizontalOptions="Center" />
                                     </StackLayout>
                                 </Grid>
                             </StackLayout>
@@ -144,7 +144,7 @@
                                 <Grid BackgroundColor="Teal" Padding="5,10">
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                                         <Label Text="{Binding Kcal}" TextColor="White" FontSize="14" HorizontalOptions="Center" />
-                                        <Label Text="Kcal" TextColor="White" FontSize="14" HorizontalOptions="Center" />
+                                        <Label Text="{resources:Translate Kcal}" TextColor="White" FontSize="14" HorizontalOptions="Center" />
                                     </StackLayout>
                                 </Grid>
                             </StackLayout>

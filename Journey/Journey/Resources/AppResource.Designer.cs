@@ -575,6 +575,12 @@ namespace Journey.Resources {
             }
         }
         
+        internal static string Kcal {
+            get {
+                return ResourceManager.GetString("Kcal", resourceCulture);
+            }
+        }
+        
         internal static string Friends_AddNewFriend {
             get {
                 return ResourceManager.GetString("Friends_AddNewFriend", resourceCulture);
