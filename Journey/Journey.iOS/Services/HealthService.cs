@@ -69,6 +69,8 @@ namespace Journey.iOS.Services
                     }
                     else
                     {
+                        //GetRunningWalkingDistanceAsync();
+                        //GetCaloriesAsync();
                         return true;
                     }
                 }

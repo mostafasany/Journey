@@ -280,7 +280,7 @@
     <value>Challenge will be started when your friend approve</value>
   </data>
     <data name="Challenge_UpdateKMLog" xml:space="preserve">
-    <value>Track your distance</value>
+    <value>Log Km and Kcal</value>
   </data>
     <data name="Challenge_LocationMust" xml:space="preserve">
     <value>Please choose workout place</value>

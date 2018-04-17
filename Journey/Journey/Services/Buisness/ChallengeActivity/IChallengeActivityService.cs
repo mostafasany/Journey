@@ -11,7 +11,6 @@ namespace Journey.Services.Buisness.ChallengeActivity
         Task<bool> DeleteActivityAsync(ChallengeActivityLog log);
         Task<List<ChallengeActivityLog>> GetChallengeActivitiesAsync(string challengeId);
         Task<List<ChallengeActivityLog>> GetAccountActivitiesAsync();
-        
         Task<List<ObservableChallengeProgressGroupCollection<AccountChallengeProgress>>> GetChallengePorgessAsync(string challengeId);
     }
 }

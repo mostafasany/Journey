@@ -29,7 +29,11 @@ namespace Journey.Droid
         {
             var clientConnectionCallback = new Services.Fitness.ClientConnectionCallback();
             clientConnectionCallback.OnConnectedImpl = ()
-                => GetRunningWalkingDistanceAsync();
+                =>
+            {
+                GetRunningWalkingDistanceAsync();
+                GetCaloriesAsync();
+            };
             if (mClient == null)
             {
                 mClient = new Android.Gms.Common.Apis.GoogleApiClient.Builder(_mainActivity)
@@ -95,7 +99,7 @@ namespace Journey.Droid
 
         public async Task GetCaloriesAsync()
         {
-            DailyTotalResult result = await FitnessClass.HistoryApi.ReadDailyTotalAsync(mClient, DataType.TypeCaloriesConsumed);
+            DailyTotalResult result = await FitnessClass.HistoryApi.ReadDailyTotalAsync(mClient, DataType.TypeCaloriesExpended);
             ShowDataSet(result.Total, Unit.KCAL.ToString());
         }
 
@@ -131,7 +135,6 @@ namespace Journey.Droid
                 {
                     Value val = item.GetValue(field);
                     RaiseDataChanged(unit, val.ToString());
-                    //Android.Widget.Toast.MakeText(Application.Context, "Field: " + field + " Value: " + val, Android.Widget.ToastLength.Short).Show();
                 }
             }
         }

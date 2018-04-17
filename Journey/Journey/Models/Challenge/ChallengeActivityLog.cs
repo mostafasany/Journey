@@ -68,4 +68,15 @@ namespace Journey.Models.Challenge
             set => SetProperty(ref _km, value);
         }
     }
+
+    public class ChallengeKcalActivityLog : ChallengeActivityLog
+    {
+        private double _kcal;
+
+        public double Kcal
+        {
+            get => _kcal;
+            set => SetProperty(ref _kcal, value);
+        }
+    }
 }

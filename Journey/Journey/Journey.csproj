@@ -38,6 +38,7 @@
     <None Remove="Assets\SVG\camera.svg" />
     <None Remove="Assets\SVG\moreVert.svg" />
     <None Remove="Assets\SVG\back %28copy%29.svg" />
+    <None Remove="Assets\kcal.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -75,6 +76,7 @@
     <EmbeddedResource Include="Assets\SVG\camera.svg" />
     <EmbeddedResource Include="Assets\SVG\moreVert.svg" />
     <EmbeddedResource Include="Assets\SVG\challenge.svg" />
+    <EmbeddedResource Include="Assets\kcal.png" />
   </ItemGroup>
 
   <ItemGroup>

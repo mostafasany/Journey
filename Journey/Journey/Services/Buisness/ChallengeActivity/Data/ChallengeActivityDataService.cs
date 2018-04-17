@@ -34,8 +34,10 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
                 AzureChallengeActivity logDto = ChallengeActivityDataTranslator.TranslateChallengeActivity(log);
                 await _azureChallengeActivity.InsertAsync(logDto);
 
-                log = ChallengeActivityDataTranslator.TranslateChallengeActivity(logDto);
-                return log;
+                var logModel = ChallengeActivityDataTranslator.TranslateChallengeActivity(logDto);
+                logModel.Account = log.Account;
+                logModel.Mine = true;
+                return logModel;
             }
             catch (Exception ex)
             {

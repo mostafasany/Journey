@@ -14,6 +14,7 @@ namespace Journey.Services.Buisness.ChallengeActivity.Translators
     {
         private const int ChallengeKmActivityLogId = 1;
         private const int ChallengeWorkoutActivityLogId = 2;
+        private const int ChallengeKcalActivityLogId = 3;
 
         public static AzureChallengeActivity TranslateChallengeActivity(ChallengeActivityLog activityLog)
         {
@@ -34,6 +35,11 @@ namespace Journey.Services.Buisness.ChallengeActivity.Translators
                     postDto.Type = ChallengeWorkoutActivityLogId;
                     postDto.Activity = JsonConvert.SerializeObject(logWorkout.Location);
                 }
+                else if (activityLog is ChallengeKcalActivityLog logKcal)
+                {
+                    postDto.Type = ChallengeKcalActivityLogId;
+                    postDto.Activity = logKcal.Kcal.ToString(CultureInfo.InvariantCulture);
+                }
             }
 
             return postDto;
@@ -45,40 +51,57 @@ namespace Journey.Services.Buisness.ChallengeActivity.Translators
 
             switch (actvityLog.Type)
             {
-                case 1:
-                {
-                    var activity = new ChallengeKmActivityLog
+                case ChallengeKmActivityLogId:
                     {
-                        Id = actvityLog.Id,
-                        DatetTime = actvityLog.CreatedAt,
-                        Account = new Models.Account.Account
+                        var activity = new ChallengeKmActivityLog
                         {
-                            Id = actvityLog.Account,
-                            FirstName = actvityLog.Fname,
-                            LastName = actvityLog.Lname,
-                            Image = new Media {Path = actvityLog.Profile}
-                        },
-                        KM = double.Parse(actvityLog.Activity)
-                    };
-                    return activity;
-                }
-                case 2:
-                {
-                    var activity = new ChallengeWorkoutActivityLog
+                            Id = actvityLog.Id,
+                            DatetTime = actvityLog.CreatedAt,
+                            Account = new Models.Account.Account
+                            {
+                                Id = actvityLog.Account,
+                                FirstName = actvityLog.Fname,
+                                LastName = actvityLog.Lname,
+                                Image = new Media { Path = actvityLog.Profile }
+                            },
+                            KM = double.Parse(actvityLog.Activity)
+                        };
+                        return activity;
+                    }
+                case ChallengeWorkoutActivityLogId:
                     {
-                        Id = actvityLog.Id,
-                        DatetTime = actvityLog.CreatedAt,
-                        Account = new Models.Account.Account
+                        var activity = new ChallengeWorkoutActivityLog
                         {
-                            Id = actvityLog.Account,
-                            FirstName = actvityLog.Fname,
-                            LastName = actvityLog.Lname,
-                            Image = new Media {Path = actvityLog.Profile}
-                        },
-                        Location = JsonConvert.DeserializeObject<Location>(actvityLog.Activity)
-                    };
-                    return activity;
-                }
+                            Id = actvityLog.Id,
+                            DatetTime = actvityLog.CreatedAt,
+                            Account = new Models.Account.Account
+                            {
+                                Id = actvityLog.Account,
+                                FirstName = actvityLog.Fname,
+                                LastName = actvityLog.Lname,
+                                Image = new Media { Path = actvityLog.Profile }
+                            },
+                            Location = JsonConvert.DeserializeObject<Location>(actvityLog.Activity)
+                        };
+                        return activity;
+                    }
+                case ChallengeKcalActivityLogId:
+                    {
+                        var activity = new ChallengeKcalActivityLog
+                        {
+                            Id = actvityLog.Id,
+                            DatetTime = actvityLog.CreatedAt,
+                            Account = new Models.Account.Account
+                            {
+                                Id = actvityLog.Account,
+                                FirstName = actvityLog.Fname,
+                                LastName = actvityLog.Lname,
+                                Image = new Media { Path = actvityLog.Profile }
+                            },
+                            Kcal = double.Parse(actvityLog.Activity)
+                        };
+                        return activity;
+                    }
             }
 
             return null;
@@ -99,7 +122,7 @@ namespace Journey.Services.Buisness.ChallengeActivity.Translators
             }
             catch (Exception ex)
             {
-                throw new TranslationFailedException("Post", ex);
+                throw new TranslationFailedException("Activity", ex);
             }
         }
     }

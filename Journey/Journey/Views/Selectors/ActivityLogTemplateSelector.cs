@@ -7,23 +7,32 @@ namespace Journey.Views.Selectors
     {
         public DataTemplate OtherWorkoutTemplate { get; set; }
         public DataTemplate OtherKMTemplate { get; set; }
+        public DataTemplate OtherKcalTemplate { get; set; }
         public DataTemplate MeWorkoutTemplate { get; set; }
         public DataTemplate MeKMTemplate { get; set; }
+        public DataTemplate MeKcalTemplate { get; set; }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            if (item is ChallengeWorkoutActivityLog activityLog)
+            if (item is ChallengeWorkoutActivityLog activityWorkoutLog)
             {
-                if (activityLog.Mine)
+                if (activityWorkoutLog.Mine)
                     return MeWorkoutTemplate;
                 return OtherWorkoutTemplate;
             }
 
-            if (item is ChallengeKmActivityLog activityLog1)
+            else if (item is ChallengeKmActivityLog activityKmLog)
             {
-                if (activityLog1.Mine)
+                if (activityKmLog.Mine)
                     return MeKMTemplate;
                 return OtherKMTemplate;
+            }
+
+            else if (item is ChallengeKcalActivityLog activityKcalLog)
+            {
+                if (activityKcalLog.Mine)
+                    return MeKcalTemplate;
+                return OtherKcalTemplate;
             }
 
             return MeWorkoutTemplate;
