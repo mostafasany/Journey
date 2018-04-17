@@ -1,5 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Abstractions.Services.Contracts;
+using Android.App;
+using Android.Gms.Fitness;
+using Android.Gms.Fitness.Data;
+using Android.Gms.Fitness.Result;
 
 [assembly: Xamarin.Forms.Dependency(typeof(Journey.Droid.HealthService))]
 namespace Journey.Droid
@@ -24,14 +28,15 @@ namespace Journey.Droid
         void BuildFitnessClient()
         {
             var clientConnectionCallback = new Services.Fitness.ClientConnectionCallback();
-            clientConnectionCallback.OnConnectedImpl = () 
-                => Services.Fitness.FitnessService.FindFitnessDataSources(mClient);
+            clientConnectionCallback.OnConnectedImpl = ()
+                => GetRunningWalkingDistanceAsync();
             if (mClient == null)
             {
                 mClient = new Android.Gms.Common.Apis.GoogleApiClient.Builder(_mainActivity)
-                    .AddApi(Android.Gms.Fitness.FitnessClass.SENSORS_API)
+                    .AddApi(FitnessClass.SENSORS_API)
+                    .AddApi(FitnessClass.HISTORY_API)
                     .AddScope(new Android.Gms.Common.Apis.Scope(Android.Gms.Common.Scopes.FitnessActivityReadWrite))
-                    .AddScope(new Android.Gms.Common.Apis.Scope(Android.Gms.Common.Scopes.FitnessBodyRead))
+                    .AddScope(new Android.Gms.Common.Apis.Scope(Android.Gms.Common.Scopes.FitnessBodyReadWrite))
                     .AddScope(new Android.Gms.Common.Apis.Scope(Android.Gms.Common.Scopes.FitnessLocationRead))
                     .AddConnectionCallbacks(clientConnectionCallback)
                     .AddOnConnectionFailedListener(FailedToConnect)
@@ -41,10 +46,6 @@ namespace Journey.Droid
             if (!mClient.IsConnecting && !mClient.IsConnected)
             {
                 mClient.Connect();
-            }
-            else
-            {
-                Services.Fitness.FitnessService.FindFitnessDataSources(mClient);
             }
         }
 
@@ -94,26 +95,57 @@ namespace Journey.Droid
 
         public async Task GetCaloriesAsync()
         {
-
+            DailyTotalResult result = await FitnessClass.HistoryApi.ReadDailyTotalAsync(mClient, DataType.TypeCaloriesConsumed);
+            ShowDataSet(result.Total, Unit.KCAL.ToString());
         }
 
         public async Task GetHeightAsync()
         {
-
+            DailyTotalResult result = await FitnessClass.HistoryApi.ReadDailyTotalAsync(mClient, DataType.TypeHeight);
+            ShowDataSet(result.Total, Unit.CM.ToString());
         }
 
         public async Task GetRunningWalkingDistanceAsync()
         {
+            DailyTotalResult result = await FitnessClass.HistoryApi.ReadDailyTotalAsync(mClient, DataType.TypeDistanceDelta);
+            ShowDataSet(result.Total, Unit.RunningWalking.ToString());
         }
 
         public async Task GetStepsAsync()
         {
-
+            DailyTotalResult result = await FitnessClass.HistoryApi.ReadDailyTotalAsync(mClient, DataType.TypeStepCountDelta);
+            ShowDataSet(result.Total, Unit.Steps.ToString());
         }
 
         public async Task GetWeightAsync()
         {
+            DailyTotalResult result = await FitnessClass.HistoryApi.ReadDailyTotalAsync(mClient, DataType.TypeWeight);
+            ShowDataSet(result.Total, Unit.KG.ToString());
+        }
 
+        private void ShowDataSet(DataSet dataSet, string unit)
+        {
+            foreach (var item in dataSet.DataPoints)
+            {
+                foreach (var field in item.DataType.Fields)
+                {
+                    Value val = item.GetValue(field);
+                    RaiseDataChanged(unit, val.ToString());
+                    //Android.Widget.Toast.MakeText(Application.Context, "Field: " + field + " Value: " + val, Android.Widget.ToastLength.Short).Show();
+                }
+            }
+        }
+
+        void RaiseDataChanged(string unit, string measure)
+        {
+            HealthDataChanged?.Invoke(this, new HealthDataEventArgs
+            {
+                Data = new System.Collections.Generic.Dictionary<string, string>
+                {
+                    {"Unit",unit},
+                    {"Measure",measure}
+                }
+            });
         }
     }
 }

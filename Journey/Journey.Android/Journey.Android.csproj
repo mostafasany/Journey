@@ -264,16 +264,13 @@
     <Compile Include="Services\ShareService.cs" />
     <Compile Include="Services\MediaFileExtension.cs" />
     <Compile Include="Services\Fitness\ClientConnectionCallBack.cs" />
-    <Compile Include="Services\Fitness\FitnessService.cs" />
     <Compile Include="Services\Fitness\HealthService.cs" />
-    <Compile Include="Services\Fitness\OnDataPointListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
-    <None Include="client_secret_548570830645-cjt3tahu8d09bb148qqkbgrr7d46bik2.apps.googleusercontent.com.json" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />

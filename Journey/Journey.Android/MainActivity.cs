@@ -26,7 +26,6 @@ namespace Journey.Droid
         private MobileServiceUser _user;
         private static int REQUEST_OAUTH = 1;
         private static String AUTH_PENDING = "auth_state_pending";
-        //private bool authInProgress = false;
         public static Android.Gms.Common.Apis.GoogleApiClient mClient;
         IHealthService _healthService => DependencyService.Get<IHealthService>();
         public async Task<MobileServiceUser> Authenticate()
@@ -60,15 +59,10 @@ namespace Journey.Droid
                 _healthService.AuthInProgress = false;
                 if (resultCode == Result.Ok)
                 {
-                    Android.Widget.Toast.MakeText(ApplicationContext, "Authorized", Android.Widget.ToastLength.Long).Show();
                     if (!mClient.IsConnecting && !mClient.IsConnected)
                     {
                         mClient.Connect();
                     }
-                }
-                else
-                {
-                    Android.Widget.Toast.MakeText(ApplicationContext, "Not-Authorized", Android.Widget.ToastLength.Long).Show();
                 }
             }
         }
@@ -95,34 +89,8 @@ namespace Journey.Droid
                     _healthService.AuthInProgress = bundle.GetBoolean(AUTH_PENDING);
             }
 
-            //var clientConnectionCallback = new Services.Fitness.ClientConnectionCallback();
-            //clientConnectionCallback.OnConnectedImpl = async ()
-            //     => await Services.Fitness.FitnessService.FindFitnessDataSources(mClient);
-            //mClient = new Android.Gms.Common.Apis.GoogleApiClient.Builder(this)
-            // .AddApi(Android.Gms.Fitness.FitnessClass.SENSORS_API)
-            // .AddScope(new Android.Gms.Common.Apis.Scope(Android.Gms.Common.Scopes.FitnessActivityReadWrite))
-            // .AddConnectionCallbacks(clientConnectionCallback)
-            // .AddOnConnectionFailedListener(FailedToConnect)
-            //.Build();
-
             LoadApplication(new App(new AndroidInitializer()));
         }
-
-        //void FailedToConnect(Android.Gms.Common.ConnectionResult result)
-        //{
-        //    if (!authInProgress)
-        //    {
-        //        try
-        //        {
-        //            authInProgress = true;
-        //            result.StartResolutionForResult(this, REQUEST_OAUTH);
-        //        }
-        //        catch (IntentSender.SendIntentException e)
-        //        {
-
-        //        }
-        //    }
-        //}
 
         protected override void OnStart()
         {
