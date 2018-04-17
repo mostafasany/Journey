@@ -44,6 +44,8 @@ namespace Journey.iOS.Services
             }
         }
 
+        public bool AuthInProgress { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public HealthService()
         {
             HealthStore = new HKHealthStore();

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
@@ -97,9 +98,9 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        List<ChallengeActivityLog> _challengeActivityLog;
+        ObservableCollection<ChallengeActivityLog> _challengeActivityLog;
 
-        public List<ChallengeActivityLog> ChallengeActivityLog
+        public ObservableCollection<ChallengeActivityLog> ChallengeActivityLog
         {
             get => _challengeActivityLog;
             set => SetProperty(ref _challengeActivityLog, value);
@@ -123,15 +124,17 @@ namespace Journey.ViewModels
             try
             {
                 ShowProgress();
+                List<ChallengeActivityLog> challenges;
                 if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
                 {
-                    ChallengeActivityLog = await _challengeActivityService.GetChallengeActivitiesAsync(_accountService.LoggedInAccount.ChallengeId);
+                    challenges = await _challengeActivityService.GetChallengeActivitiesAsync(_accountService.LoggedInAccount.ChallengeId);
                 }
                 else
                 {
-                    ChallengeActivityLog = await _challengeActivityService.GetAccountActivitiesAsync();
+                    challenges = await _challengeActivityService.GetAccountActivitiesAsync();
                 }
-
+                if (challenges != null)
+                    ChallengeActivityLog = new ObservableCollection<ChallengeActivityLog>(challenges);
                 base.Intialize(sync);
             }
             catch (Exception e)
@@ -176,8 +179,6 @@ namespace Journey.ViewModels
                     AddLogKmActivity(km);
                 }
             }
-
-
         }
 
         private async void AddLogKmActivity(double km)
