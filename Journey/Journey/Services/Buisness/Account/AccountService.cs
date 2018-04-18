@@ -177,6 +177,7 @@ namespace Journey.Services.Buisness.Account
         {
             try
             {
+                await App.Client.LogoutAsync();
                 await _settingsService.Remove(_facebookService.FacebookTokenKey);
                 await _settingsService.Remove(AccountTokenKey);
                 await _settingsService.Remove(AccountIdKey);

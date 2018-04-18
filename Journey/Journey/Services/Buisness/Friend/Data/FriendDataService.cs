@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Services.Azure;
@@ -15,7 +16,6 @@ namespace Journey.Services.Buisness.Friend.Data
         private readonly MobileServiceClient _client;
         private readonly IMobileServiceTable<AzureFriends> _accountFriendsTable;
         private readonly IMobileServiceTable<AzureAccount> _accountTable;
-
         //private const string ApiFriends = "https://graph.facebook.com/me/friends?fields=id,name,picture.type(large)&limit=999";
 
         public FriendDataService(IAzureService azureService)
@@ -25,26 +25,15 @@ namespace Journey.Services.Buisness.Friend.Data
             _accountFriendsTable = _client.GetTable<AzureFriends>();
         }
 
-
-        public async Task<List<string>> FollowAsync(List<string> followerId)
+        public async Task<bool> FollowAsync(string friend)
         {
             try
             {
-                var failureRequest = new List<string>();
-                foreach (string friend in followerId)
-                    try
-                    {
-                        var newFriend = new AzureFriends {Accoun1 = _client.CurrentUser.UserId, Account2 = friend};
-                        await _accountFriendsTable.InsertAsync(newFriend);
-                        if (string.IsNullOrEmpty(newFriend.Id))
-                            failureRequest.Add(friend);
-                    }
-                    catch (Exception)
-                    {
-                        failureRequest.Add(friend);
-                    }
-
-                return failureRequest;
+                var api = "friends";
+                var param = new Dictionary<string, string>();
+                param.Add("action", friend + "," + "follow");
+                bool success = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
+                return success;
             }
             catch (Exception ex)
             {
@@ -52,13 +41,15 @@ namespace Journey.Services.Buisness.Friend.Data
             }
         }
 
-        public async Task<bool> UnFollowAsync(string friendshipId)
+        public async Task<bool> UnFollowAsync(string friend)
         {
             try
             {
-                var deleteFriend = new AzureFriends {Id = friendshipId};
-                await _accountFriendsTable.DeleteAsync(deleteFriend);
-                return true;
+                var api = "friends";
+                var param = new Dictionary<string, string>();
+                param.Add("action", friend + "," + "unfollow");
+                bool success = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
+                return success;
             }
             catch (Exception ex)
             {
@@ -70,23 +61,8 @@ namespace Journey.Services.Buisness.Friend.Data
         {
             try
             {
-                // string api = string.Format("friends?id={0}", friend);
-                // List<AzureFriend> accountsTbl = await _client.InvokeApiAsync<List<AzureFriend>>(api, HttpMethod.Get, null);
-
-                // accountTbl = await accountTable.Where(a => a.Id != account).ToListAsync();
-                //if (accountsTbl != null && accountsTbl.Count != 0)
-                //{
-                //    AzureFriend friendDTO = accountsTbl.FirstOrDefault();
-                //    account = TranslateAccount(friendDTO);
-                //}
-                //else
-                //{
-                //    //TODO: Query is not correct ,if not friend found it return null , it should return account with no friend
                 AzureAccount accountDto = await _accountTable.LookupAsync(friend);
                 Models.Account.Account account = AccountDataTranslator.TranslateAccount(accountDto);
-                //}
-
-
                 return account;
             }
             catch (Exception ex)
@@ -95,20 +71,39 @@ namespace Journey.Services.Buisness.Friend.Data
             }
         }
 
-        public async Task<List<Models.Account.Account>> GetFriendsAsync(string name)
+        public async Task<List<Models.Account.Account>> SearchForFriendsAsync(string name)
         {
             try
             {
-                List<AzureAccount> accountTbl;
-                string account = _client.CurrentUser.UserId;
-                if (!string.IsNullOrEmpty(name))
-                    accountTbl = await _accountTable.Where(a => a.Id != account &&
-                                                               (a.FName.ToLower().Contains(name.ToLower()) || a.LName
-                                                                    .ToLower().Contains(name.ToLower()))).ToListAsync();
-                else
-                    accountTbl = await _accountTable.Where(a => a.Id != account).ToListAsync();
-                List<Models.Account.Account> accountDto = AccountDataTranslator.TranslateAccounts(accountTbl);
-                return accountDto;
+                //string api = string.Format("Friends?name={0}", name);
+                var api = "friends";
+                List<AzureAccount> accountTbl = await _client.InvokeApiAsync<List<AzureAccount>>(api, HttpMethod.Get, null);
+                if (accountTbl != null)
+                {
+                    List<Models.Account.Account> accountDto = AccountDataTranslator.TranslateAccounts(accountTbl);
+                    return accountDto;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(ex.Message, ex);
+            }
+        }
+
+        public async Task<List<Models.Account.Account>> GetFriendsForChallengeAsync(string name)
+        {
+            try
+            {
+                //string api = string.Format("Friends?name={0}", name);
+                var api = "friends";
+                List<AzureAccount> accountTbl = await _client.InvokeApiAsync<List<AzureAccount>>(api, HttpMethod.Get, null);
+                if (accountTbl != null)
+                {
+                    List<Models.Account.Account> accountDto = AccountDataTranslator.TranslateAccounts(accountTbl);
+                    return accountDto;
+                }
+                return null;
             }
             catch (Exception ex)
             {

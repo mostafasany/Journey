@@ -5,11 +5,10 @@ namespace Journey.Services.Buisness.Friend.Data
 {
     public interface IFriendDataService
     {
-        Task<List<string>> FollowAsync(List<string> followerId);
-
+        Task<bool> UnFollowAsync(string friend);
+        Task<bool> FollowAsync(string followerId);
         Task<Models.Account.Account> GetFriendAsync(string id);
-        Task<List<Models.Account.Account>> GetFriendsAsync(string name);
-
-        Task<bool> UnFollowAsync(string friendshipId);
+        Task<List<Models.Account.Account>> SearchForFriendsAsync(string name);
+        Task<List<Models.Account.Account>> GetFriendsForChallengeAsync(string name);
     }
 }

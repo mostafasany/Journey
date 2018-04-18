@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Abstractions.Services.Contracts;
 using Journey.Models.Account;
 using Journey.Resources;
@@ -90,9 +91,7 @@ namespace Journey.ViewModels
                 IsPullRefreshLoading = false;
 
                 SelectedFriend = null;
-                List<Account> friends = await _friendService.GetFriendsAsync("");
-                if (friends != null)
-                    FriendsList = new ObservableCollection<Account>(friends);
+                await OnSearch("");
                 base.Intialize(sync);
             }
             catch (Exception e)
@@ -115,6 +114,20 @@ namespace Journey.ViewModels
             catch (Exception e)
             {
                 ExceptionService.HandleAndShowDialog(e);
+            }
+        }
+
+        private async Task OnSearch(string keyword)
+        {
+            try
+            {
+                List<Account> friends = await _friendService.GetFriendsForChallengeAsync(keyword);
+                if (friends != null)
+                    FriendsList = new ObservableCollection<Account>(friends);
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.Handle(ex);
             }
         }
 
@@ -177,9 +190,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                List<Account> friends = await _friendService.GetFriendsAsync(_searchKeyword);
-                if (friends != null)
-                    FriendsList = new ObservableCollection<Account>(friends);
+                await OnSearch(SearchKeyword);
             }
             catch (Exception ex)
             {
@@ -199,9 +210,7 @@ namespace Journey.ViewModels
             {
                 IsPullRefreshLoading = true;
                 ShowProgress();
-                List<Account> friends = await _friendService.GetFriendsAsync(_searchKeyword);
-                if (friends != null)
-                    FriendsList = new ObservableCollection<Account>(friends);
+                await OnSearch(SearchKeyword);
             }
             catch (Exception ex)
             {

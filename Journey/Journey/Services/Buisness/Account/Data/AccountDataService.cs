@@ -99,7 +99,6 @@ namespace Journey.Services.Buisness.Account.Data
             }
         }
 
-
         public bool IsAccountAuthenticated()
         {
             try

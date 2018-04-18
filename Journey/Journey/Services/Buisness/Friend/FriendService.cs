@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
+using Journey.Models.Account;
 using Journey.Services.Buisness.Friend.Data;
 
 namespace Journey.Services.Buisness.Friend
@@ -12,12 +13,12 @@ namespace Journey.Services.Buisness.Friend
 
         public FriendService(IFriendDataService friendDataService) => _friendDataService = friendDataService;
 
-        public async Task<List<string>> FollowAsync(List<string> followerId)
+        public async Task<bool> FollowAsync(string followerId)
         {
             try
             {
-                List<string> failureIds = await _friendDataService.FollowAsync(followerId);
-                return failureIds;
+                bool followed = await _friendDataService.FollowAsync(followerId);
+                return followed;
             }
             catch (Exception ex)
             {
@@ -25,11 +26,11 @@ namespace Journey.Services.Buisness.Friend
             }
         }
 
-        public async Task<bool> UnFollowAsync(string friendshipId)
+        public async Task<bool> UnFollowAsync(string friend)
         {
             try
             {
-                bool status = await _friendDataService.UnFollowAsync(friendshipId);
+                bool status = await _friendDataService.UnFollowAsync(friend);
                 return status;
             }
             catch (Exception ex)
@@ -51,11 +52,11 @@ namespace Journey.Services.Buisness.Friend
             }
         }
 
-        public async Task<List<Models.Account.Account>> GetFriendsAsync(string name)
+        public async Task<List<Models.Account.Account>> SearchForFriendsAsync(string name)
         {
             try
             {
-                List<Models.Account.Account> friends = await _friendDataService.GetFriendsAsync(name);
+                List<Models.Account.Account> friends = await _friendDataService.SearchForFriendsAsync(name);
                 return friends;
             }
             catch (Exception ex)
@@ -68,12 +69,20 @@ namespace Journey.Services.Buisness.Friend
         {
             try
             {
-                //var gallery = await GetAccountGalleryAsync();
-                List<Models.Account.Account> inpiredList = await GetFriendsAsync("");
-                //inpiredList.Select(a => a.Status = "Achieve and celebrate your health goals").ToList();
-                //inpiredList.Select(a => a.MediaList = gallery).ToList();
+                throw new NotImplementedException();
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
+        }
 
-                return inpiredList;
+        public async Task<List<Models.Account.Account>> GetFriendsForChallengeAsync(string name)
+        {
+            try
+            {
+                List<Models.Account.Account> friends = await _friendDataService.GetFriendsForChallengeAsync(name);
+                return friends;
             }
             catch (Exception ex)
             {
