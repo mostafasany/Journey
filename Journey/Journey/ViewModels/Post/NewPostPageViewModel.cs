@@ -68,7 +68,7 @@ namespace Journey.ViewModels
                     _location = parameters.GetValue<Location>("Location");
                     if (_location != null)
                         NewPost.Location =
-                            new PostActivity {Action = "At", Activity = _location.Name, Image = _location.Image};
+                            new PostActivity { Action = "At", Activity = _location.Name, Image = _location.Image };
                 }
 
                 Intialize();
@@ -92,12 +92,15 @@ namespace Journey.ViewModels
         private Challenge _challenge;
 
         private Account _loggedInAccount;
-
         public Account LoggedInAccount
         {
             get => _loggedInAccount;
-            set => SetProperty(ref _loggedInAccount, value);
+            set
+            {
+                SetProperty(ref _loggedInAccount, value);
+            }
         }
+
 
         private List<string> _imagesPath = new List<string>();
 
@@ -117,39 +120,6 @@ namespace Journey.ViewModels
             set => SetProperty(ref _addPostToChallenge, value);
         }
 
-        //private ObservableCollection<Activity> activityList;
-        //public ObservableCollection<Activity> ActivityList
-        //{
-        //    get => activityList;
-        //    set => Set(ref activityList, value);
-        //}
-
-        //private Activity selectedActivity;
-        //public Activity SelectedActivity
-        //{
-        //    get => selectedActivity;
-        //    set
-        //    {
-        //        Set(ref selectedActivity, value);
-        //        SelectedSubActivity = SelectedActivity?.ActivityList?.FirstOrDefault();
-        //    }
-
-        //}
-
-        //private Activity selectedSubActivity;
-        //public Activity SelectedSubActivity
-        //{
-        //    get => selectedSubActivity;
-        //    set
-        //    {
-        //        if (value == null)
-        //            return;
-        //        Set(ref selectedSubActivity, value);
-
-        //        ActivityChanged(value);
-        //    }
-        //}
-
         #endregion
 
         #region Methods
@@ -161,7 +131,7 @@ namespace Journey.ViewModels
                 ShowProgress();
                 LoggedInAccount = await _accountService.GetAccountAsync();
                 _challenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
-
+              
                 base.Intialize(sync);
             }
             catch (Exception e)
@@ -241,8 +211,8 @@ namespace Journey.ViewModels
                 }
 
             ShowProgress();
-            if (!string.IsNullOrEmpty(LoggedInAccount.ChallengeId))
-                NewPost.Challenge = LoggedInAccount.ChallengeId;
+            if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
+                NewPost.Challenge = _accountService.LoggedInAccount.ChallengeId;
             Post post = await _postService.AddPostAsync(NewPost, _imagesPath);
             if (post == null)
             {
@@ -265,7 +235,7 @@ namespace Journey.ViewModels
                 _challenge.SelectedLocation != null &&
                 _challenge.SelectedLocation?.Id == _location?.Id)
             {
-                var myLocation=await _locationService.ObtainMyLocationAsync();
+                var myLocation = await _locationService.ObtainMyLocationAsync();
                 double near = _locationService.DistanceBetweenPlaces(myLocation.Lng, myLocation.Lat, _challenge.SelectedLocation.Lng, _challenge.SelectedLocation.Lat);
                 if (near <= MinDistanceForWorkout)
                 {

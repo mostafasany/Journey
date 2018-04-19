@@ -44,8 +44,9 @@ namespace Journey.ViewModels
             set => SetProperty(ref _hasActiveChallenge, value);
         }
 
-        public Media Image => LoggedInAccount == null
-            ? new Media { Path = "http://bit.ly/2zBffZy" }
+        public Media Image =>
+        LoggedInAccount == null
+        ? new Media { Path = "https://bit.ly/2HezBsF" }
             : _loggedInAccount.Image;
 
         public Account LoggedInAccount
@@ -72,13 +73,19 @@ namespace Journey.ViewModels
 
         private async void LoadNotificationsCount()
         {
-            NotificationsCount = await _notificationService.GetNotificationsCountAsync();
+            try
+            {
+                NotificationsCount = await _notificationService.GetNotificationsCountAsync();
+            }
+            catch (Exception ex)
+            {
+            }
+
         }
 
         private void UpdateChallengeBanner()
         {
             HasActiveChallenge = LoggedInAccount != null && !LoggedInAccount.HasNotActiveChallenge;
-          //  HasActiveChallenge = !HasActiveChallenge;
         }
 
         #region OnProfileCommand
@@ -95,8 +102,8 @@ namespace Journey.ViewModels
             {
                 bool isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
-                if (isLogginIn && NavigationService.CurrentPage != "ProfileActivityLogPage")
-                    await NavigationService.Navigate("ProfileActivityLogPage");
+                    if (isLogginIn && NavigationService.CurrentPage != "ProfileActivityLogPage")
+                        await NavigationService.Navigate("ProfileActivityLogPage");
             }
             catch (Exception ex)
             {
@@ -143,7 +150,7 @@ namespace Journey.ViewModels
             }
             else
             {
-              
+
                 bool isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn && NavigationService.CurrentPage != "StartNewChallengePage")
                     await NavigationService.Navigate("StartNewChallengePage");
@@ -161,8 +168,8 @@ namespace Journey.ViewModels
         {
             bool isLogginIn = await _accountService.LoginFirstAsync();
             if (isLogginIn)
-            if (isLogginIn && NavigationService.CurrentPage != "FriendsPage")
-                await NavigationService.Navigate("FriendsPage");
+                if (isLogginIn && NavigationService.CurrentPage != "FriendsPage")
+                    await NavigationService.Navigate("FriendsPage");
         }
 
         #endregion
@@ -181,8 +188,8 @@ namespace Journey.ViewModels
             {
                 bool isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
-                if (isLogginIn && NavigationService.CurrentPage != "NotificationsPage")
-                    await NavigationService.Navigate("NotificationsPage");
+                    if (isLogginIn && NavigationService.CurrentPage != "NotificationsPage")
+                        await NavigationService.Navigate("NotificationsPage");
             }
             catch (Exception ex)
             {
@@ -342,10 +349,6 @@ namespace Journey.ViewModels
             }
         }
 
-
-        public bool IsLoggedOut => LoggedInAccount == null;
-        public bool IsLoggedIn => LoggedInAccount != null;
-
         private ObservableCollection<PostBaseViewModel> _postsViewModels;
 
         public ObservableCollection<PostBaseViewModel> PostsViewModels
@@ -426,9 +429,6 @@ namespace Journey.ViewModels
         private async Task LoadAccount(bool sync)
         {
             LoggedInAccount = await _accountService.GetAccountAsync(sync);
-
-            RaisePropertyChanged(nameof(IsLoggedOut));
-            RaisePropertyChanged(nameof(IsLoggedIn));
         }
 
         protected override void Cleanup()
@@ -486,6 +486,10 @@ namespace Journey.ViewModels
         {
             try
             {
+                if (IsProgress())
+                    return;
+
+                ShowProgress();
                 bool isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
                     await NavigationService.Navigate("NewPostPage");
@@ -493,6 +497,10 @@ namespace Journey.ViewModels
             catch (Exception ex)
             {
                 ExceptionService.Handle(ex);
+            }
+            finally
+            {
+                HideProgress();
             }
         }
 

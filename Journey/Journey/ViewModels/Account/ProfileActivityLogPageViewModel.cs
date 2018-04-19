@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Abstractions.Services.Contracts;
 using Journey.Models.Challenge;
 using Journey.Services.Buisness.Account;
+using Journey.Services.Buisness.Challenge;
 using Journey.Services.Buisness.ChallengeActivity;
 using Journey.Services.Buisness.Notification;
 using Prism.Navigation;
@@ -19,18 +20,27 @@ namespace Journey.ViewModels
     {
         private readonly IAccountService _accountService;
         private readonly IChallengeActivityService _challengeActivityService;
+        private readonly IChallengeService _challengeService;
         private readonly ISettingsService _settingsService;
+        private readonly ILocationService _locationService;
         private const string LastLogDateTime = "LastLogDateTime";
         private const string LastLogId = "LastLogId";
 
         private const string LastKcalLogDateTime = "LastKcalLogDateTime";
         private const string LastKcalLogId = "LastKcalLogId";
 
+        private const string LastPostDate = "LastPostDate";
+        private const double MinDistanceForWorkout = 0.2;
         public ProfileActivityLogPageViewModel(IUnityContainer container, IAccountService accountService,
-                                               INotificationService notificationService, ISettingsService settingsService,
+                                               INotificationService notificationService,
+                                               ISettingsService settingsService,
+                                               ILocationService locationService,
+                                               IChallengeService challengeService,
             IChallengeActivityService challengeActivityService) :
             base(container, accountService, notificationService)
         {
+            _locationService = locationService;
+            _challengeService = challengeService;
             _challengeActivityService = challengeActivityService;
             _accountService = accountService;
             _settingsService = settingsService;
@@ -142,7 +152,7 @@ namespace Journey.ViewModels
             {
                 ShowProgress();
                 List<ChallengeActivityLog> challenges;
-                if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
+                if (!string.IsNullOrEmpty(_accountService?.LoggedInAccount?.ChallengeId))
                 {
                     challenges = await _challengeActivityService.GetChallengeActivitiesAsync(_accountService.LoggedInAccount.ChallengeId);
                 }
@@ -307,6 +317,59 @@ namespace Journey.ViewModels
         #endregion
 
         #region Commands
+
+
+        #region OnExerciseCommand
+
+        private ICommand _onExerciseCommand;
+
+        public ICommand OnExerciseCommand => _onExerciseCommand ?? (
+            _onExerciseCommand =
+            new Prism.Commands.DelegateCommand(OnExercise));
+
+        private async void OnExercise()
+        {
+            try
+            {
+                if (IsProgress())
+                    return;
+                ShowProgress();
+                var _challenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
+                if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId) &&
+                  _challenge.SelectedLocation != null)
+                {
+                    var myLocation = await _locationService.ObtainMyLocationAsync();
+                    double near = _locationService.DistanceBetweenPlaces(myLocation.Lng, myLocation.Lat, _challenge.SelectedLocation.Lng, _challenge.SelectedLocation.Lat);
+                    if (near <= MinDistanceForWorkout)
+                    {
+                        string date = await _settingsService.Get(LastPostDate);
+                        DateTime.TryParse(date, out DateTime parsedDate);
+                        if (parsedDate.Date != DateTime.Now.Date)
+                        {
+                            await _settingsService.Set(LastPostDate, DateTime.Now.Date.ToString(CultureInfo.InvariantCulture));
+
+                            await _challengeActivityService.AddActivityAsync(new ChallengeWorkoutActivityLog
+                            {
+                                Account = _accountService.LoggedInAccount,
+                                Challenge = _challenge.Id,
+                                DatetTime = DateTime.Now,
+                                Location = _challenge.SelectedLocation
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionService.HandleAndShowDialog(ex);
+            }
+            finally
+            {
+                HideProgress();
+            }
+        }
+
+        #endregion
 
         #region OnLogKmCommand
 

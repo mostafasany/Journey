@@ -52,14 +52,6 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        private Account _loggedInAccount;
-
-        public Account LoggedInAccount
-        {
-            get => _loggedInAccount;
-            set => SetProperty(ref _loggedInAccount, value);
-        }
-
         private ObservableCollection<Comment> _comments;
 
         public ObservableCollection<Comment> Comments
@@ -106,7 +98,6 @@ namespace Journey.ViewModels
             {
                 ShowProgress();
                 base.Intialize(sync);
-                LoggedInAccount = await _accountService.GetAccountAsync();
                 Comments = new ObservableCollection<Comment>();
                 List<Comment> commentsDTo = await _postCommentService.GetCommentsAsync(_postId, true);
                 if (commentsDTo != null)
@@ -157,7 +148,7 @@ namespace Journey.ViewModels
                     Comment comment = await _postCommentService.AddCommentAsync(NewComment, _postId);
                     if (comment != null)
                     {
-                        comment.Account = LoggedInAccount;
+                        comment.Account = _accountService.LoggedInAccount;
                         comment.Mine = true;
                         Comments.Insert(0, comment);
                         NewComment = "";

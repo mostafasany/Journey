@@ -168,7 +168,7 @@
     <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
-     <data name="Challenge_Compete" xml:space="preserve">
+    <data name="Challenge_Compete" xml:space="preserve">
     <value>Compete</value>
   </data>
     <data name="Yes" xml:space="preserve">
@@ -282,6 +282,9 @@
     <data name="Challenge_UpdateKMLog" xml:space="preserve">
     <value>Log Km and Kcal</value>
   </data>
+    <data name="Challenge_Exercsing" xml:space="preserve">
+    <value>Exercising</value>
+  </data>
     <data name="Challenge_LocationMust" xml:space="preserve">
     <value>Please choose workout place</value>
   </data>
@@ -381,10 +384,10 @@
     <data name="KM" xml:space="preserve">
     <value>km</value>
   </data>
-       <data name="Kcal" xml:space="preserve">
+    <data name="Kcal" xml:space="preserve">
     <value>cal</value>
   </data>
-     <data name="Friends_AddNewFriend" xml:space="preserve">
+    <data name="Friends_AddNewFriend" xml:space="preserve">
     <value>Do you want to add {0}</value>
   </data>
     <data name="Draw" xml:space="preserve">

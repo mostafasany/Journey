@@ -20,15 +20,6 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        private Account _loggedInAccount;
-
-        public Account LoggedInAccount
-        {
-            get => _loggedInAccount;
-            set => SetProperty(ref _loggedInAccount, value);
-        }
-
-
         private Account _friend;
 
         public Account Friend

@@ -52,12 +52,11 @@ namespace Journey.ViewModels
                         //Add
                         IsAddMode = true;
                         ToChallenge = parameters.GetValue<Account>("ToChallenge");
-                        LoggedInAccount = await _accountService.GetAccountAsync();
-                        if (string.IsNullOrEmpty(LoggedInAccount.ChallengeId))
+                        if (string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
                         {
                             SelectedChallenge = new Challenge();
                             var challengesAccount = new ObservableCollection<ChallengeAccount>();
-                            challengesAccount.Add(new ChallengeAccount(LoggedInAccount));
+                            challengesAccount.Add(new ChallengeAccount(_accountService.LoggedInAccount));
                             challengesAccount.Add(new ChallengeAccount(ToChallenge));
                             SelectedChallenge.ChallengeAccounts = challengesAccount;
                         }
@@ -98,14 +97,6 @@ namespace Journey.ViewModels
         #endregion
 
         #region Properties
-
-        private Account _loggedInAccount;
-
-        public Account LoggedInAccount
-        {
-            get => _loggedInAccount;
-            set => SetProperty(ref _loggedInAccount, value);
-        }
 
         private bool _isAddMode;
 

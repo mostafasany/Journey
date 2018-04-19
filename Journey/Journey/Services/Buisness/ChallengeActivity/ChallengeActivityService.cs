@@ -103,8 +103,9 @@ namespace Journey.Services.Buisness.ChallengeActivity
                             b => new AccountChallengeProgress
                             {
                                 Account = b.FirstOrDefault().Account,
-                                TotalKm = b.Where(e => e is ChallengeKmActivityLog).Sum(s => ((ChallengeKmActivityLog) s).KM),
-                                TotalExercises = b.Count(e => e is ChallengeWorkoutActivityLog)
+                                TotalKm = b.Where(e => e is ChallengeKmActivityLog).Sum(s => ((ChallengeKmActivityLog)s).KM),
+                                TotalExercises = b.Count(e => e is ChallengeWorkoutActivityLog),
+                                TotalKcal = b.Where(e => e is ChallengeKcalActivityLog).Sum(s => ((ChallengeKcalActivityLog)s).Kcal),
                             }
                         ).ToList()
                     })

@@ -30,6 +30,7 @@ namespace Journey.Models.Challenge
         private int _totalExercises;
 
         private double _totalkm;
+        private double _totalkcal;
 
         public string Id
         {
@@ -53,6 +54,13 @@ namespace Journey.Models.Challenge
         {
             get => _totalkm;
             set => SetProperty(ref _totalkm, value);
+        }
+
+
+        public double TotalKcal
+        {
+            get => _totalkcal;
+            set => SetProperty(ref _totalkcal, value);
         }
     }
 

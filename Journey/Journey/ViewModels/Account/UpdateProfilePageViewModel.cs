@@ -85,7 +85,7 @@ namespace Journey.ViewModels
 
         private Media _image;
 
-        public Media Image
+        public new Media Image
         {
             get => _image;
             set => SetProperty(ref _image, value);
