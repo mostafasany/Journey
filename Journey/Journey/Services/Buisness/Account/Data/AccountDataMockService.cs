@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Abstractions.Contracts;
 using Abstractions.Exceptions;
 using Abstractions.Services.Contracts;
+using Journey.Models.Account;
 using Journey.Services.Buisness.Account.Dto;
 using Journey.Services.Buisness.Account.Translators;
 using Journey.Services.Buisness.Post.Data;
@@ -119,6 +120,16 @@ namespace Journey.Services.Buisness.Account.Data
             {
                 throw new DataServiceException(ex);
             }
+        }
+
+        public Task<Models.Account.Account> GetAccontAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Models.Account.Account>> FindAccontAsync(string keyword)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Journey.Droid
                     .AddScope(new Android.Gms.Common.Apis.Scope(Android.Gms.Common.Scopes.FitnessActivityReadWrite))
                     .AddScope(new Android.Gms.Common.Apis.Scope(Android.Gms.Common.Scopes.FitnessBodyReadWrite))
                     .AddScope(new Android.Gms.Common.Apis.Scope(Android.Gms.Common.Scopes.FitnessLocationRead))
-                    .AddConnectionCallbacks(clientConnectionCallback)
+                    //.AddConnectionCallbacks(clientConnectionCallback)
                     .AddOnConnectionFailedListener(FailedToConnect)
                     .Build();
                 MainActivity.mClient = mClient;

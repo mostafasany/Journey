@@ -12,5 +12,7 @@ namespace Journey.Services.Buisness.Account.Data
         Task<Models.Account.Account> GetAccountAsync(bool sync = false);
         bool IsAccountAuthenticated();
         Task<List<Social>> MeAsync();
+        Task<Models.Account.Account> GetAccontAsync(string id);
+        Task<List<Models.Account.Account>> FindAccontAsync(string keyword);
     }
 }

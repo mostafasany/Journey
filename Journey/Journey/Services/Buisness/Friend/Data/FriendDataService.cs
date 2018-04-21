@@ -57,46 +57,13 @@ namespace Journey.Services.Buisness.Friend.Data
             }
         }
 
-        public async Task<Models.Account.Account> GetFriendAsync(string friend)
-        {
-            try
-            {
-                AzureAccount accountDto = await _accountTable.LookupAsync(friend);
-                Models.Account.Account account = AccountDataTranslator.TranslateAccount(accountDto);
-                return account;
-            }
-            catch (Exception ex)
-            {
-                throw new DataServiceException(ex.Message, ex);
-            }
-        }
-
-        public async Task<List<Models.Account.Account>> SearchForFriendsAsync(string name)
-        {
-            try
-            {
-                //string api = string.Format("Friends?name={0}", name);
-                var api = "friends";
-                List<AzureAccount> accountTbl = await _client.InvokeApiAsync<List<AzureAccount>>(api, HttpMethod.Get, null);
-                if (accountTbl != null)
-                {
-                    List<Models.Account.Account> accountDto = AccountDataTranslator.TranslateAccounts(accountTbl);
-                    return accountDto;
-                }
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new DataServiceException(ex.Message, ex);
-            }
-        }
 
         public async Task<List<Models.Account.Account>> GetFriendsForChallengeAsync(string name)
         {
             try
             {
-                //string api = string.Format("Friends?name={0}", name);
-                var api = "friends";
+                string api = string.Format("Friends?action={0}", "friends");
+                //var api = "friends";
                 List<AzureAccount> accountTbl = await _client.InvokeApiAsync<List<AzureAccount>>(api, HttpMethod.Get, null);
                 if (accountTbl != null)
                 {

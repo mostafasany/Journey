@@ -17,13 +17,16 @@ namespace Journey.ViewModels
     public class FriendsPageViewModel : MainNavigationViewModel, INavigationAware
     {
         private readonly IFriendService _friendService;
+        private readonly IAccountService _accountService;
 
-        public FriendsPageViewModel(IUnityContainer container, IAccountService accountService, INotificationService notificationService,
-            IFriendService friendService)
+        public FriendsPageViewModel(IUnityContainer container, IAccountService accountService,
+                                    INotificationService notificationService,
+                                       IFriendService friendService)
             :
             base(container, accountService, notificationService)
         {
             _friendService = friendService;
+            _accountService = accountService;
         }
 
 
@@ -98,7 +101,7 @@ namespace Journey.ViewModels
                 IsPullRefreshLoading = false;
 
                 SelectedFriend = null;
-              
+
                 await OnSearch("");
 
                 base.Intialize(sync);
@@ -130,7 +133,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                List<Account> friends = await _friendService.SearchForFriendsAsync(keyword);
+                List<Account> friends = await _accountService.FindAccontAsync(keyword);
                 if (friends != null)
                     FriendsList = new ObservableCollection<Account>(friends);
             }
@@ -162,7 +165,6 @@ namespace Journey.ViewModels
                     Invoked = async () =>
                     {
                         var status = await _friendService.FollowAsync(selectedFriend.Id);
-
                     }
                 };
 
@@ -216,8 +218,8 @@ namespace Journey.ViewModels
             {
                 IsPullRefreshLoading = true;
                 ShowProgress();
-               await OnSearch(_searchKeyword);
-              
+                await OnSearch(_searchKeyword);
+
             }
             catch (Exception ex)
             {

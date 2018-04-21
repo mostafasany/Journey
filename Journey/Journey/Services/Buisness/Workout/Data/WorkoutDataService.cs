@@ -123,8 +123,8 @@ namespace Journey.Services.Buisness.Workout.Data
 
                     var maxWeightItem = grp.First();
 
-                    accountGroup.MaxWeight = maxWeightItem!=null? "Max: " + maxWeightItem.Weight: "Max";
-                    accountGroup.MaxRips = maxWeightItem!=null ?"Max: " + maxWeightItem.Rips : "Max";
+                    accountGroup.MaxWeight = maxWeightItem.Weight;
+                    accountGroup.MaxRips = maxWeightItem.Rips;
                 }
 
             return groupWorkoutDto;

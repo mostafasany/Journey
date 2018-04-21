@@ -267,6 +267,9 @@
     <data name="Challenge_Comepete" xml:space="preserve">
     <value>Challenge</value>
   </data>
+    <data name="Challenge_FriendHasActiveChallenge" xml:space="preserve">
+    <value>Your friend is already joining in another challenge</value>
+  </data>
     <data name="Challenge_DataValidation" xml:space="preserve">
     <value>End date should be greater than Start date</value>
   </data>
@@ -376,7 +379,7 @@
     <value>Exercises</value>
   </data>
     <data name="Challenge_Winner" xml:space="preserve">
-    <value>Winner till now in</value>
+    <value>Results</value>
   </data>
     <data name="Challenge_ChooseYourWorkoutPlace" xml:space="preserve">
     <value>Choose workout place</value>

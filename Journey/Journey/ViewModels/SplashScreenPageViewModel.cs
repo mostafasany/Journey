@@ -107,9 +107,8 @@ namespace Journey.ViewModels
             if (!(container.Resolve<IDialogService>() is DialogService dialogService)) return;
             dialogService.ErrorMessageTitle = "Error Occured";
             dialogService.ErrorMessageBody = "Please try again later";
-            dialogService.NoInternetMessageBody = "No internet";
-            dialogService.NoInternetMessageTitle =
-                "No internet connection available,Please reconnect and try again later";
+            dialogService.NoInternetMessageBody = "No internet connection available,Please reconnect and try again later";
+            dialogService.NoInternetMessageTitle = "No internet";
         }
 
         public static void RegitserAppServices(IUnityContainer container)

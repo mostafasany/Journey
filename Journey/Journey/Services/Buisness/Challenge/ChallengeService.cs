@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
@@ -8,6 +9,7 @@ using Journey.Resources;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Account.Data;
 using Journey.Services.Buisness.Challenge.Data;
+using Journey.Services.Buisness.Friend.Data;
 using Journey.Services.Buisness.Notification;
 
 namespace Journey.Services.Buisness.Challenge
@@ -17,20 +19,34 @@ namespace Journey.Services.Buisness.Challenge
         private readonly IAccountDataService _accountDataService;
         private readonly IAccountService _accountService;
         private readonly IChallengeDataService _challengeDataService;
-
+        private readonly IFriendDataService _friendDataService;
         private readonly INotificationService _notificationService;
 
         public ChallengeService(IChallengeDataService challengeDataService,
             IAccountDataService accountDataService,
             IAccountService accountService,
+            IFriendDataService friendDataService,
             INotificationService notificationService)
         {
             _challengeDataService = challengeDataService;
             _accountDataService = accountDataService;
             _accountService = accountService;
+            _friendDataService = friendDataService;
             _notificationService = notificationService;
         }
 
+        public async Task<List<Models.Account.Account>> GetFriendsForChallengeAsync(string name)
+        {
+            try
+            {
+                List<Models.Account.Account> friends = await _friendDataService.GetFriendsForChallengeAsync(name);
+                return friends;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
+        }
         public async Task<Models.Challenge.Challenge> GetChallengeAsync(string challengeId)
         {
             try
@@ -95,7 +111,6 @@ namespace Journey.Services.Buisness.Challenge
                 throw new BusinessException(ex.Message, ex);
             }
         }
-
 
         public async Task<bool> CheckAccountHasChallengeAsync()
         {

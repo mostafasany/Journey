@@ -56,14 +56,20 @@ namespace Journey.Models
 
         public string MaxWeight
         {
-            get => maxWeight;
+            get 
+            {
+                return string.IsNullOrEmpty(maxWeight)?"Max Weight":maxWeight; 
+            }
             set => SetProperty(ref maxWeight, value);
         }
 
 
         public string MaxRips
         {
-            get => maxRips;
+            get
+            {
+                return string.IsNullOrEmpty(maxRips) ? "Max Rips" : maxWeight;
+            }
             set => SetProperty(ref maxRips, value);
         }
     }

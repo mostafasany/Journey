@@ -6,6 +6,7 @@ using Abstractions.Contracts;
 using Abstractions.Exceptions;
 using Abstractions.Forms;
 using Abstractions.Services.Contracts;
+using Journey.Models.Account;
 using Journey.Services.Buisness.Account.Data;
 using Microsoft.WindowsAzure.MobileServices;
 
@@ -41,7 +42,6 @@ namespace Journey.Services.Buisness.Account
         {
             try
             {
-                //account.ChallengeId = "";
                 Models.Account.Account savedAccount = await _accountDataService.AddUpdateAccountAsync(account, add);
                 return savedAccount;
             }
@@ -183,6 +183,19 @@ namespace Journey.Services.Buisness.Account
                 await _settingsService.Remove(AccountIdKey);
                 LoggedInAccount = null;
                 return true;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
+        }
+
+        public async Task<List<Models.Account.Account>> FindAccontAsync(string keyword)
+        {
+            try
+            {
+                var accounts = await _accountDataService.FindAccontAsync(keyword);
+                return accounts;
             }
             catch (Exception ex)
             {

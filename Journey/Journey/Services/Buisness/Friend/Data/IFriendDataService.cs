@@ -7,8 +7,6 @@ namespace Journey.Services.Buisness.Friend.Data
     {
         Task<bool> UnFollowAsync(string friend);
         Task<bool> FollowAsync(string followerId);
-        Task<Models.Account.Account> GetFriendAsync(string id);
-        Task<List<Models.Account.Account>> SearchForFriendsAsync(string name);
         Task<List<Models.Account.Account>> GetFriendsForChallengeAsync(string name);
     }
 }

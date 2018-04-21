@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Abstractions.Services.Contracts;
 using Journey.Models.Account;
 using Journey.Resources;
-using Journey.Services.Buisness.Friend;
+using Journey.Services.Buisness.Challenge;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
@@ -14,11 +14,11 @@ namespace Journey.ViewModels
 {
     public class ChooseChallengeFriendPageViewModel : BaseViewModel, INavigationAware
     {
-        private readonly IFriendService _friendService;
+        private readonly IChallengeService _challengeService;
 
         public ChooseChallengeFriendPageViewModel(IUnityContainer container,
-            IFriendService friendService)
-            : base(container) => _friendService = friendService;
+                                                  IChallengeService challengeService)
+            : base(container) => _challengeService = challengeService;
 
         #region Events
 
@@ -121,7 +121,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                List<Account> friends = await _friendService.GetFriendsForChallengeAsync(keyword);
+                List<Account> friends = await _challengeService.GetFriendsForChallengeAsync(keyword);
                 if (friends != null)
                     FriendsList = new ObservableCollection<Account>(friends);
             }
@@ -146,7 +146,11 @@ namespace Journey.ViewModels
                 if (string.IsNullOrEmpty(selectedFriend?.Id))
                     return;
 
-
+                if (selectedFriend.HasActiveChallenge)
+                {
+                    await DialogService.ShowMessageAsync("", AppResource.Challenge_FriendHasActiveChallenge);
+                    return;
+                }
                 var competeCommand = new DialogCommand
                 {
                     Label = AppResource.Yes,

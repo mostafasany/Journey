@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Abstractions.Contracts;
 using Abstractions.Exceptions;
@@ -92,10 +93,28 @@ namespace Journey.Services.Buisness.Account.Data
 
                 return accountDto;
             }
+            catch (HttpRequestException ex)
+            {
+                throw new NoInternetException(ex);
+            }
             catch (Exception)
             {
                 //Means User not exists
                 return null;
+            }
+        }
+
+        public async Task<Models.Account.Account> GetAccontAsync(string id)
+        {
+            try
+            {
+                AzureAccount accountDto = await _accountTable.LookupAsync(id);
+                Models.Account.Account account = AccountDataTranslator.TranslateAccount(accountDto);
+                return account;
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(ex.Message, ex);
             }
         }
 
@@ -124,85 +143,25 @@ namespace Journey.Services.Buisness.Account.Data
                 throw new DataServiceException(ex);
             }
         }
-        //        await this.accountTable.PullAsync("account", this.accountTable.CreateQuery());
-        //        // Use a different query name for each unique query in your program.
 
-
-        //        // The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
-        //        await this.Client.SyncContext.PushAsync();
-
-        //private async Task<AzureAccount> SyncAccountAsync()
-        //{
-        //    ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
-
-        //    try
-
-        //    {
-
-        //        string account = Client.CurrentUser.UserId;
-        //        AzureAccount azureAccountDTO = await accountTable.LookupAsync(account);
-        //        if (azureAccountDTO != null)
-        //        {
-        //            var challenge = await challengeDataService.GetAccountChallengeAsync();
-        //            azureAccountDTO.Challenge = challenge?.Id;
-        //            await this.accountTable.UpdateAsync(azureAccountDTO);
-
-        //            var accountDTO = AccountDataTranslator.TranslateAccount(azureAccountDTO);
-        //            AccountSynced?.Invoke(this, new AccountSyncedEventArgs
-        //            {
-        //                Account = accountDTO,
-        //                Updated = DateTime.Now,
-        //                Error = null,
-        //            });
-        //            return azureAccountDTO;
-        //        }
-        //    }
-        //    catch (MobileServicePushFailedException exc)
-        //    {
-        //        ExceptionService.Handle(exc);
-        //        if (exc.PushResult != null)
-        //        {
-        //            syncErrors = exc.PushResult.Errors;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ExceptionService.Handle(ex);
-        //        return null;
-        //    }
-
-        //    // Simple error/conflict handling.
-        //    if (syncErrors != null)
-        //    {
-        //        foreach (var error in syncErrors)
-        //        {
-        //            if (error.OperationKind == MobileServiceTableOperationKind.Update && error.Result != null)
-        //            {
-        //                // Update failed, revert to server's copy
-        //                await error.CancelAndUpdateItemAsync(error.Result);
-        //            }
-        //            else
-        //            {
-        //                // Discard local change
-        //                await error.CancelAndDiscardItemAsync();
-        //            }
-        //        }
-        //        //If Conflicets Happens , Resolve it then query again
-        //        string account = Client.CurrentUser.UserId;
-        //        AzureAccount azureAccountDTO = await accountTable.LookupAsync(account);
-        //        if (azureAccountDTO != null)
-        //        {
-        //            var accountDTO = AccountDataTranslator.TranslateAccount(azureAccountDTO);
-        //            //AccountSynced?.Invoke(this, new AccountSyncedEventArgs
-        //            //{
-        //            //    Account = accountDTO,
-        //            //    Updated = DateTime.Now,
-        //            //    Error = null,
-        //            //});
-        //            return azureAccountDTO;
-        //        }
-        //    }
-        //    return null;
-        //}
+        public async Task<List<Models.Account.Account>> FindAccontAsync(string keyword)
+        {
+            try
+            {
+                string api = string.Format("Friends?action={0}", "notfriends");
+                // var api = "friends";
+                List<AzureAccount> accountTbl = await _client.InvokeApiAsync<List<AzureAccount>>(api, HttpMethod.Get, null);
+                if (accountTbl != null)
+                {
+                    List<Models.Account.Account> accountDto = AccountDataTranslator.TranslateAccounts(accountTbl);
+                    return accountDto;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(ex.Message, ex);
+            }
+        }
     }
 }

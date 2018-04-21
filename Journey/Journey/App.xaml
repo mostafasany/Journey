@@ -163,6 +163,27 @@
                     </ViewCell.View>
                 </ViewCell>
             </DataTemplate>
+            <DataTemplate x:Key="UpdateScaleTemplate">
+                <ViewCell>
+                    <ViewCell.View>
+                        <Grid BackgroundColor="White">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Title}" Grid.Row="0" Margin="5,0" FontAttributes="Bold" Style="{StaticResource LabelHeaderStyle}" />
+                            <Grid Grid.Column="1" Grid.Row="0" BackgroundColor="{Binding Color}" WidthRequest="120">
+                                <Entry VerticalOptions="End" HorizontalTextAlignment="Center" HorizontalOptions="Center" TextColor="White" Text="{Binding Measure}" Style="{StaticResource EntryFormStyle}" WidthRequest="80" />
+                            </Grid>
+                            <controls:SeparatorControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,1" HeightRequest="1" />
+                        </Grid>
+                    </ViewCell.View>
+                </ViewCell>
+            </DataTemplate>
             <Thickness x:Key="SmallTopMargin">0,10,0,0</Thickness>
             <Color x:Key="ThemeBackgroundDetailColor">#F0F0F0</Color>
             <Color x:Key="ThemeTextColor">#000000</Color>
@@ -244,7 +265,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="70" />
+                        <RowDefinition Height="60" />
                     </Grid.RowDefinitions>
                     <Grid.Margin>
                         <OnPlatform x:TypeArguments="Thickness">

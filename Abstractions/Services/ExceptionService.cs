@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Abstractions.Exceptions;
 using Abstractions.Services.Contracts;
 using Unity;
 
@@ -43,7 +44,14 @@ namespace Abstractions.Services
                     {nameof(CallerFilePathAttribute), file}
                 };
             LoggerService.LogException(ex, paramDictionary);
-            _dialogService.ShowGenericErrorMessageAsync(string.IsNullOrEmpty(error) ? ex.Message : error);
+            if (ex.InnerException is NoInternetException)
+            {
+                _dialogService.ShowNoInternetMessageAsync();
+            }
+            else
+            {
+                _dialogService.ShowGenericErrorMessageAsync(string.IsNullOrEmpty(error) ? ex.Message : error);
+            }
         }
     }
 }

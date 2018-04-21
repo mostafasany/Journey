@@ -107,7 +107,7 @@ namespace Journey.Services.Buisness.Measurment.Data
                 },
                 new ScaleMeasurment
                 {
-                    UpIndictor = false,
+                    UpIndictor = true,
                     Title = "Fat",
                     Unit = "%",
                     Measure = 0,
@@ -115,7 +115,7 @@ namespace Journey.Services.Buisness.Measurment.Data
                 },
                 new ScaleMeasurment
                 {
-                    UpIndictor = false,
+                    UpIndictor = true,
                     Title = "BMI",
                     Unit = "",
                     Measure = 0,

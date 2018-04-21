@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Models.Challenge;
 using Journey.Services.Azure;
+using Journey.Services.Buisness.Account.Data;
 using Journey.Services.Buisness.Challenge.Dto;
 using Journey.Services.Buisness.Challenge.Translators;
-using Journey.Services.Buisness.Friend.Data;
 using Microsoft.WindowsAzure.MobileServices;
 
 namespace Journey.Services.Buisness.Challenge.Data
@@ -17,15 +17,14 @@ namespace Journey.Services.Buisness.Challenge.Data
     {
         private readonly IMobileServiceTable<AzureChallenge> _azureChallenge;
         private readonly MobileServiceClient _client;
-        private readonly IFriendDataService _friendDataService;
+        private readonly IAccountDataService _accountDataService;
 
-        public ChallengeDataService(IAzureService azureService, IFriendDataService friendDataService)
+        public ChallengeDataService(IAzureService azureService, IAccountDataService accountDataService)
         {
             _client = azureService.CreateOrGetAzureClient();
-            _friendDataService = friendDataService;
+            _accountDataService = accountDataService;
             _azureChallenge = _client.GetTable<AzureChallenge>();
         }
-
 
         public async Task<Models.Challenge.Challenge> AddChallengeAsync(Models.Challenge.Challenge challenge)
         {
@@ -70,8 +69,8 @@ namespace Journey.Services.Buisness.Challenge.Data
                 //return null;
 
                 Models.Challenge.Challenge challenge = ChallengeDataTranslator.TranslateChallenge(challengeDto);
-                Models.Account.Account account1 = await _friendDataService.GetFriendAsync(challengeDto.Account1);
-                Models.Account.Account account2 = await _friendDataService.GetFriendAsync(challengeDto.Account2);
+                Models.Account.Account account1 = await _accountDataService.GetAccontAsync(challengeDto.Account1);
+                Models.Account.Account account2 = await _accountDataService.GetAccontAsync(challengeDto.Account2);
                 challenge.ChallengeAccounts = new ObservableCollection<ChallengeAccount>();
                 challenge.ChallengeAccounts.Add(
                     new ChallengeAccount(account1));

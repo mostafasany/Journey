@@ -250,7 +250,6 @@ namespace Journey.ViewModels
                 updatedItem.KM = km;
         }
 
-
         private async void LogKcalActivity(double kcal)
         {
             var logDateTime = await _settingsService.Get(LastKcalLogDateTime);
@@ -318,7 +317,6 @@ namespace Journey.ViewModels
 
         #region Commands
 
-
         #region OnExerciseCommand
 
         private ICommand _onExerciseCommand;
@@ -347,14 +345,22 @@ namespace Journey.ViewModels
                         if (parsedDate.Date != DateTime.Now.Date)
                         {
                             await _settingsService.Set(LastPostDate, DateTime.Now.Date.ToString(CultureInfo.InvariantCulture));
-
-                            await _challengeActivityService.AddActivityAsync(new ChallengeWorkoutActivityLog
+                            var activity = new ChallengeWorkoutActivityLog
                             {
                                 Account = _accountService.LoggedInAccount,
                                 Challenge = _challenge.Id,
                                 DatetTime = DateTime.Now,
                                 Location = _challenge.SelectedLocation
-                            });
+                            };
+                            var newActivity = await _challengeActivityService.AddActivityAsync(activity);
+                            if (ChallengeActivityLog.Any())
+                            {
+                                ChallengeActivityLog.Insert(0, newActivity);
+                            }
+                            else
+                            {
+                                ChallengeActivityLog.Add(newActivity);
+                            }
                         }
                     }
                 }

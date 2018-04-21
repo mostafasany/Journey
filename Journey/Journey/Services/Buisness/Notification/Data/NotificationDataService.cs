@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Models;
@@ -65,6 +66,10 @@ namespace Journey.Services.Buisness.Notification.Data
                 if (notifications == null || notifications.Count == 0)
                     return 0;
                 return notifications.Count;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new NoInternetException(ex);
             }
             catch (Exception ex)
             {
