@@ -190,7 +190,7 @@ namespace Journey.Services.Buisness.Account
             }
         }
 
-        public async Task<List<Models.Account.Account>> FindAccontAsync(string keyword)
+        public async Task<List<Models.Account.FriendShip>> FindAccontAsync(string keyword)
         {
             try
             {

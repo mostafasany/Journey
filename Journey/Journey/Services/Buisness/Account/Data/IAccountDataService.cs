@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abstractions.Contracts;
+using Journey.Models.Account;
 using Microsoft.WindowsAzure.MobileServices;
 
 namespace Journey.Services.Buisness.Account.Data
@@ -13,6 +14,6 @@ namespace Journey.Services.Buisness.Account.Data
         bool IsAccountAuthenticated();
         Task<List<Social>> MeAsync();
         Task<Models.Account.Account> GetAccontAsync(string id);
-        Task<List<Models.Account.Account>> FindAccontAsync(string keyword);
+        Task<List<FriendShip>> FindAccontAsync(string keyword);
     }
 }

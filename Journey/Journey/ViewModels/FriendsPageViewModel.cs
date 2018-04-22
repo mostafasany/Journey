@@ -56,17 +56,17 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        private ObservableCollection<Account> _friendsList;
+        private ObservableCollection<FriendShip> _friendsList;
 
-        public ObservableCollection<Account> FriendsList
+        public ObservableCollection<FriendShip> FriendsList
         {
             get => _friendsList;
             set => SetProperty(ref _friendsList, value);
         }
 
-        private Account _selectedFriend;
+        private FriendShip _selectedFriend;
 
-        public Account SelectedFriend
+        public FriendShip SelectedFriend
         {
             get => _selectedFriend;
             set => SetProperty(ref _selectedFriend, value);
@@ -133,9 +133,9 @@ namespace Journey.ViewModels
         {
             try
             {
-                List<Account> friends = await _accountService.FindAccontAsync(keyword);
+                List<FriendShip> friends = await _accountService.FindAccontAsync(keyword);
                 if (friends != null)
-                    FriendsList = new ObservableCollection<Account>(friends);
+                    FriendsList = new ObservableCollection<FriendShip>(friends);
             }
             catch (Exception ex)
             {
@@ -149,22 +149,21 @@ namespace Journey.ViewModels
 
         #region OnSelectedFriendCommand
 
-        public DelegateCommand<Account> OnSelectedFriendCommand => new DelegateCommand<Account>(OnSelectedFriend);
+        public DelegateCommand<FriendShip> OnSelectedFriendCommand => new DelegateCommand<FriendShip>(OnSelectedFriend);
 
-        private async void OnSelectedFriend(Account selectedFriend)
+        private async void OnSelectedFriend(FriendShip selectedFriend)
         {
             try
             {
-                if (string.IsNullOrEmpty(selectedFriend?.Id))
+                if (string.IsNullOrEmpty(selectedFriend?.Id) ||!string.IsNullOrEmpty(selectedFriend.FriendShipStatus))
                     return;
-
-
+                
                 var competeCommand = new DialogCommand
                 {
                     Label = AppResource.Yes,
                     Invoked = async () =>
                     {
-                        var status = await _friendService.FollowAsync(selectedFriend.Id);
+                        var status = await _friendService.FollowRequestAsync(selectedFriend.Id);
                     }
                 };
 

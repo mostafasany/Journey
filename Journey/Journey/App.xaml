@@ -4,6 +4,7 @@
         <ResourceDictionary>
             <converters:BoolInverterConverter x:Key="BoolInverterConverter" />
             <converters:IntToBoolConverter x:Key="IntToBoolConverter" />
+            <converters:FriendShipStatusConverter x:Key="FriendShipStatusConverter" />
             <Color x:Key="Primary">#b2d8d8</Color>
             <Color x:Key="PrimaryDark">#004c4c</Color>
             <Color x:Key="LightBackgroundColor">#FFFFFF</Color>

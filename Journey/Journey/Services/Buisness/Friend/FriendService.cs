@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Services.Buisness.Friend.Data;
@@ -12,11 +11,11 @@ namespace Journey.Services.Buisness.Friend
 
         public FriendService(IFriendDataService friendDataService) => _friendDataService = friendDataService;
 
-        public async Task<bool> FollowAsync(string followerId)
+        public async Task<bool> FollowRequestAsync(string friend)
         {
             try
             {
-                bool followed = await _friendDataService.FollowAsync(followerId);
+                bool followed = await _friendDataService.FollowRequestAsync(friend);
                 return followed;
             }
             catch (Exception ex)
@@ -25,11 +24,24 @@ namespace Journey.Services.Buisness.Friend
             }
         }
 
-        public async Task<bool> UnFollowAsync(string friend)
+        public async Task<bool> FollowApproveAsync(string frinedShipId)
         {
             try
             {
-                bool status = await _friendDataService.UnFollowAsync(friend);
+                bool status = await _friendDataService.FollowApproveAsync(frinedShipId);
+                return status;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
+        }
+
+        public async Task<bool> FollowRejectAsync(string frinedShipId)
+        {
+            try
+            {
+                bool status = await _friendDataService.FollowRejectAsync(frinedShipId);
                 return status;
             }
             catch (Exception ex)

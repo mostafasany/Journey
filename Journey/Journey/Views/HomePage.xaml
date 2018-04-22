@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" ControlTemplate="{StaticResource HeaderFooterControlTemplate}" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:controls="clr-namespace:Journey.Views.Controls" xmlns:selectors="clr-namespace:Journey.Views.Selectors" x:Class="Journey.Views.HomePage">
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" ControlTemplate="{StaticResource HeaderFooterControlTemplate}" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:controls="clr-namespace:Journey.Views.Controls" xmlns:selectors="clr-namespace:Journey.Views.Selectors" xmlns:resources="clr-namespace:Journey.Resources" x:Class="Journey.Views.HomePage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="PostTemplate">
@@ -159,6 +159,7 @@
                 <ListView x:Name="PostList" Grid.Row="2" Margin="0,5" CachingStrategy="RecycleElement" ItemsSource="{Binding PostsViewModels}" SeparatorVisibility="None" ItemTemplate="{StaticResource PostTemplate}" ItemAppearing="Handle_ItemAppearing" HasUnevenRows="true" IsPullToRefreshEnabled="true"
                     IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true" RefreshCommand="{Binding OnRefreshPostsCommand}">
                 </ListView>
+                <Label Grid.Row="2" IsVisible="{Binding NoPosts}" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Gray" Text="{resources:Translate Home_NoPost}" FontSize="20" />
             </Grid>
         </Grid>
     </ContentPage.Content>

@@ -107,6 +107,7 @@ namespace Journey.ViewModels
                             PostsViewModels = new ObservableCollection<PostBaseViewModel>();
                         PostsViewModels.Insert(0, pVm);
                         RaisePropertyChanged(nameof(PostsViewModels));
+                        RaisePropertyChanged(nameof(NoPosts));
                         HideProgress();
                     }
                     catch (Exception ex)
@@ -183,13 +184,8 @@ namespace Journey.ViewModels
             set => SetProperty(ref _isPullRefreshLoading, value);
         }
 
-        private bool _noPosts;
 
-        public bool NoPosts
-        {
-            get => _noPosts;
-            set => SetProperty(ref _noPosts, value);
-        }
+        public bool NoPosts => PostsViewModels == null || PostsViewModels.Count == 0;
 
         private int _pageNo;
 
@@ -218,15 +214,10 @@ namespace Journey.ViewModels
 
         private async Task LoadPosts()
         {
-            //if (_postService.RefreshPosts)
-            //{
             _pageNo = 0;
 
             List<PostBase> postsList = await _postService.GetPostsAsync(_pageNo, LoggedInAccount?.ChallengeId, _postService.RefreshPosts);
             SetPostViewModel(postsList);
-            NoPosts = PostsViewModels == null || PostsViewModels.Count == 0;
-
-            //}
         }
 
         private void SetPostViewModel(List<PostBase> posts)

@@ -131,5 +131,10 @@ namespace Journey.Services.Buisness.Account.Data
         {
             throw new NotImplementedException();
         }
+
+        Task<List<FriendShip>> IAccountDataService.FindAccontAsync(string keyword)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

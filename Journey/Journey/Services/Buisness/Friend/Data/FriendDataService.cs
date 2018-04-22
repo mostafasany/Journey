@@ -25,13 +25,13 @@ namespace Journey.Services.Buisness.Friend.Data
             _accountFriendsTable = _client.GetTable<AzureFriends>();
         }
 
-        public async Task<bool> FollowAsync(string friend)
+        public async Task<bool> FollowRequestAsync(string friend)
         {
             try
             {
                 var api = "friends";
                 var param = new Dictionary<string, string>();
-                param.Add("action", friend + "," + "follow");
+                param.Add("action", friend + "," + "request");
                 bool success = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
                 return success;
             }
@@ -41,13 +41,13 @@ namespace Journey.Services.Buisness.Friend.Data
             }
         }
 
-        public async Task<bool> UnFollowAsync(string friend)
+        public async Task<bool> FollowRejectAsync(string frinedShipId)
         {
             try
             {
                 var api = "friends";
                 var param = new Dictionary<string, string>();
-                param.Add("action", friend + "," + "unfollow");
+                param.Add("action", frinedShipId + "," + "reject");
                 bool success = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
                 return success;
             }
@@ -57,6 +57,21 @@ namespace Journey.Services.Buisness.Friend.Data
             }
         }
 
+        public async Task<bool> FollowApproveAsync(string frinedShipId)
+        {
+            try
+            {
+                var api = "friends";
+                var param = new Dictionary<string, string>();
+                param.Add("action", frinedShipId + "," + "approve");
+                bool success = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
+                return success;
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(ex.Message, ex);
+            }
+        }
 
         public async Task<List<Models.Account.Account>> GetFriendsForChallengeAsync(string name)
         {

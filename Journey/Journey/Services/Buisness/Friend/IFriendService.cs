@@ -5,7 +5,8 @@ namespace Journey.Services.Buisness.Friend
 {
     public interface IFriendService
     {
-        Task<bool> FollowAsync(string followerId);
-        Task<bool> UnFollowAsync(string friend);
+        Task<bool> FollowRequestAsync(string friend);
+        Task<bool> FollowRejectAsync(string frinedShipId);
+        Task<bool> FollowApproveAsync(string frinedShipId);
     }
 }

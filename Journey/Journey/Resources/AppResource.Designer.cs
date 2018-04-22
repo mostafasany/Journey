@@ -557,6 +557,12 @@ namespace Journey.Resources {
             }
         }
         
+        internal static string Home_NoPost {
+            get {
+                return ResourceManager.GetString("Home_NoPost", resourceCulture);
+            }
+        }
+        
         internal static string Post_NoPosts {
             get {
                 return ResourceManager.GetString("Post_NoPosts", resourceCulture);
@@ -620,6 +626,24 @@ namespace Journey.Resources {
         internal static string Challenge_Conditions {
             get {
                 return ResourceManager.GetString("Challenge_Conditions", resourceCulture);
+            }
+        }
+        
+        internal static string FriendShip_Accepted {
+            get {
+                return ResourceManager.GetString("FriendShip_Accepted", resourceCulture);
+            }
+        }
+        
+        internal static string FriendShip_Rejected {
+            get {
+                return ResourceManager.GetString("FriendShip_Rejected", resourceCulture);
+            }
+        }
+        
+        internal static string FriendShip_Requested {
+            get {
+                return ResourceManager.GetString("FriendShip_Requested", resourceCulture);
             }
         }
     }

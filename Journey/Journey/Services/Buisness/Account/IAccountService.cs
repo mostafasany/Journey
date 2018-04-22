@@ -26,6 +26,6 @@ namespace Journey.Services.Buisness.Account
 
         Task<bool> SoicalLoginAndSaveAsync(MobileServiceClient client);
 
-        Task<List<Models.Account.Account>> FindAccontAsync(string keyword);
+        Task<List<Models.Account.FriendShip>> FindAccontAsync(string keyword);
     }
 }

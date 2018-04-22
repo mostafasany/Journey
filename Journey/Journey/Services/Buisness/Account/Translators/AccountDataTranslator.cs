@@ -9,8 +9,6 @@ namespace Journey.Services.Buisness.Account.Translators
 {
     public static class AccountDataTranslator
     {
-        #region Transaltors
-
         public static AzureAccount TranslateAccount(Models.Account.Account account)
         {
             try
@@ -59,7 +57,7 @@ namespace Journey.Services.Buisness.Account.Translators
                     accountDto.Id = account.Id;
                 accountDto.FirstName = account.FName;
                 accountDto.LastName = account.LName;
-                accountDto.Image = new Media {Path = account.Profile};
+                accountDto.Image = new Media { Path = account.Profile };
                 accountDto.SocialToken = account.SToken;
                 accountDto.SocialProvider = account.SProvider;
                 accountDto.SID = account.SID;
@@ -74,7 +72,5 @@ namespace Journey.Services.Buisness.Account.Translators
                 throw new TranslationFailedException("Account", ex.InnerException);
             }
         }
-
-        #endregion
     }
 }

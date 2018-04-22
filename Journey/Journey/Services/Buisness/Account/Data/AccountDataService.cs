@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Abstractions.Contracts;
 using Abstractions.Exceptions;
+using Journey.Models.Account;
 using Journey.Services.Azure;
 using Journey.Services.Buisness.Account.Dto;
 using Journey.Services.Buisness.Account.Translators;
@@ -136,16 +137,16 @@ namespace Journey.Services.Buisness.Account.Data
             }
         }
 
-        public async Task<List<Models.Account.Account>> FindAccontAsync(string keyword)
+        public async Task<List<FriendShip>> FindAccontAsync(string keyword)
         {
             try
             {
-                string api = string.Format("Friends?action={0}", "notfriends");
+                string api = string.Format("Friends?action={0}", "notfrieFriendShipnds");
                 // var api = "friends";
-                List<AzureAccount> accountTbl = await _client.InvokeApiAsync<List<AzureAccount>>(api, HttpMethod.Get, null);
+                List<Friend.Dto.AzureFriendShip> accountTbl = await _client.InvokeApiAsync<List<Friend.Dto.AzureFriendShip>>(api, HttpMethod.Get, null);
                 if (accountTbl != null)
                 {
-                    List<Models.Account.Account> accountDto = AccountDataTranslator.TranslateAccounts(accountTbl);
+                    List<FriendShip> accountDto = FriendShipTranslator.TranslateAccounts(accountTbl);
                     return accountDto;
                 }
                 return null;

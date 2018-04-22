@@ -6,12 +6,13 @@
                 <ViewCell>
                     <ViewCell.View>
                         <Grid Padding="5">
-                             <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.OnSelectedFriendCommand, Source={x:Reference Name=ParentListView}}" CommandParameter="{Binding} " />
-                                </Grid.GestureRecognizers>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Path=BindingContext.OnSelectedFriendCommand, Source={x:Reference Name=ParentListView}}" CommandParameter="{Binding} " />
+                            </Grid.GestureRecognizers>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <controls:CustomImage Grid.Column="0" Source="{Binding Image.Path}" Aspect="AspectFit" HeightRequest="100" HorizontalOptions="Start">
                                 <controls:CustomImage.Transformations>
@@ -19,6 +20,7 @@
                                 </controls:CustomImage.Transformations>
                             </controls:CustomImage>
                             <Label Grid.Column="1" Text="{Binding Name}" TextColor="Black" FontSize="20" Margin="5,0" HorizontalOptions="Start" VerticalOptions="Center" />
+                            <Label Grid.Column="2" Text="{Binding FriendShipStatus,Converter={StaticResource FriendShipStatusConverter}}" TextColor="Gray" FontSize="16" Margin="5,0" HorizontalOptions="Start" VerticalOptions="Center" />
                         </Grid>
                     </ViewCell.View>
                 </ViewCell>
