@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
+using Abstractions.Models;
+using Abstractions.Services.Contracts;
 using Journey.Models.Challenge;
 using Journey.Services.Buisness.Account;
+using Journey.Services.Buisness.Challenge;
 using Journey.Services.Buisness.ChallengeActivity.Data;
 
 namespace Journey.Services.Buisness.ChallengeActivity
@@ -13,11 +17,23 @@ namespace Journey.Services.Buisness.ChallengeActivity
     {
         private readonly IAccountService _accountService;
         private readonly IChallengeActivityDataService _challengeActivityDataService;
+        private readonly ISettingsService _settingsService;
+        private readonly ILocationService _locationService;
+        private readonly IChallengeService _challengeService;
+        private const string LastExerciseDate = "LastExerciseDate";
+        private const double MinDistanceForWorkout = 0.2;
 
-        public ChallengeActivityService(IChallengeActivityDataService challengeActivityDataService, IAccountService accountService)
+        public ChallengeActivityService(IChallengeActivityDataService challengeActivityDataService,
+                                        IAccountService accountService,
+                                        ISettingsService settingsService,
+                                        IChallengeService challengeService,
+                                        ILocationService locationService)
         {
             _accountService = accountService;
             _challengeActivityDataService = challengeActivityDataService;
+            _locationService = locationService;
+            _settingsService = settingsService;
+            _challengeService = challengeService;
         }
 
         public async Task<ChallengeActivityLog> AddActivityAsync(ChallengeActivityLog log)
@@ -134,6 +150,52 @@ namespace Journey.Services.Buisness.ChallengeActivity
                 }
 
                 return list;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
+        }
+
+        public async Task<ChallengeActivityLog> AddExerciseActivityAsync(Location myLocation)
+        {
+            try
+            {
+                Models.Challenge.Challenge _challenge = null;
+                Location workoutLocation = null;
+                string challengeId = null;
+                if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
+                {
+                    _challenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
+                    challengeId = _challenge.Id;
+                    workoutLocation = _challenge.SelectedLocation;
+                    double near = _locationService.DistanceBetweenPlaces(myLocation.Lng, myLocation.Lat, _challenge.SelectedLocation.Lng, _challenge.SelectedLocation.Lat);
+                    if (near > MinDistanceForWorkout)
+                    {
+                        challengeId = "";
+                    }
+                }
+                else
+                {
+                    workoutLocation = myLocation;
+                }
+
+                string date = await _settingsService.Get(LastExerciseDate);
+                DateTime.TryParse(date, out DateTime parsedDate);
+                if (parsedDate.Date != DateTime.Now.Date)
+                {
+                    await _settingsService.Set(LastExerciseDate, DateTime.Now.Date.ToString(CultureInfo.InvariantCulture));
+                    var activity = new ChallengeWorkoutActivityLog
+                    {
+                        Account = _accountService.LoggedInAccount,
+                        Challenge = challengeId,
+                        DatetTime = DateTime.Now,
+                        Location = workoutLocation
+                    };
+                    var newActivity = await AddActivityAsync(activity);
+                    return newActivity;
+                }
+                return null;
             }
             catch (Exception ex)
             {

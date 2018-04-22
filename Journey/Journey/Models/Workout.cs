@@ -68,7 +68,7 @@ namespace Journey.Models
         {
             get
             {
-                return string.IsNullOrEmpty(maxRips) ? "Max Rips" : maxWeight;
+                return string.IsNullOrEmpty(maxRips) ? "Max Rips" : maxRips;
             }
             set => SetProperty(ref maxRips, value);
         }

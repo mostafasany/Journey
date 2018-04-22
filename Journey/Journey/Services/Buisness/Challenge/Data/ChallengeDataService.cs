@@ -65,8 +65,6 @@ namespace Journey.Services.Buisness.Challenge.Data
             try
             {
                 AzureChallenge challengeDto = await _azureChallenge.LookupAsync(challengeId);
-                //if (challengeDTO.Status == false)
-                //return null;
 
                 Models.Challenge.Challenge challenge = ChallengeDataTranslator.TranslateChallenge(challengeDto);
                 Models.Account.Account account1 = await _accountDataService.GetAccontAsync(challengeDto.Account1);
@@ -77,6 +75,14 @@ namespace Journey.Services.Buisness.Challenge.Data
                 challenge.ChallengeAccounts.Add(
                     new ChallengeAccount(account2));
                 return challenge;
+            }
+            catch (MobileServiceInvalidOperationException ex)
+            {
+                if (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+                throw new DataServiceException(ex.Message, ex);
             }
             catch (Exception ex)
             {

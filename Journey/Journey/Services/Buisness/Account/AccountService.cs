@@ -6,7 +6,6 @@ using Abstractions.Contracts;
 using Abstractions.Exceptions;
 using Abstractions.Forms;
 using Abstractions.Services.Contracts;
-using Journey.Models.Account;
 using Journey.Services.Buisness.Account.Data;
 using Microsoft.WindowsAzure.MobileServices;
 
@@ -63,10 +62,10 @@ namespace Journey.Services.Buisness.Account
 
 
                 LoggedInAccount = await _accountDataService.GetAccountAsync(sync);
-
-                //if (LoggedInAccount != null)
-                //    LoggedInAccount.AccountGoal = await accountGoalService.GetAccountGoalAsync(sync);
-
+                if(LoggedInAccount==null)
+                {
+                    await LogoutAsync();
+                }
                 return LoggedInAccount;
             }
             catch (Exception ex)
@@ -182,6 +181,7 @@ namespace Journey.Services.Buisness.Account
                 await _settingsService.Remove(AccountTokenKey);
                 await _settingsService.Remove(AccountIdKey);
                 LoggedInAccount = null;
+                await _navigationService.Navigate("LoginPage", false);
                 return true;
             }
             catch (Exception ex)

@@ -334,7 +334,7 @@
     <value>Sent</value>
   </data>
     <data name="Profile_SetMonthlyGoal" xml:space="preserve">
-    <value>Set Monlthly Goal</value>
+    <value>Set Target Goal</value>
   </data>
     <data name="Profile_UpdateMeasurment" xml:space="preserve">
     <value>Update Measurments</value>

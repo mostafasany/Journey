@@ -83,6 +83,10 @@ namespace Journey.Services.Buisness.ChallengeActivity.Translators
                             },
                             Location = JsonConvert.DeserializeObject<Location>(actvityLog.Activity)
                         };
+                        if (string.IsNullOrEmpty(activity.Location?.Name))
+                        {
+                            activity.Location.Name = "-";
+                        }
                         return activity;
                     }
                 case ChallengeKcalActivityLogId:

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -31,13 +30,10 @@ namespace Journey.ViewModels
         private readonly ILocationService _locationService;
         private readonly IMediaService<Media> _mediaService;
         private readonly IPostService _postService;
-        private readonly ISettingsService _settingsService;
-        private const string LastPostDate = "LastPostDate";
-        private const double MinDistanceForWorkout = 0.2;
 
         public NewPostPageViewModel(IUnityContainer container, IBlobService blobService,
             IPostService postService, IMediaService<Media> mediaService, ILocationService locationService,
-            IAccountService accountService, ISettingsService settingsService,
+            IAccountService accountService,
             IChallengeActivityService challengeActivityService,
             IChallengeService challengeService) :
             base(container)
@@ -49,7 +45,7 @@ namespace Journey.ViewModels
             _postService = postService;
             _blobService = blobService;
             _accountService = accountService;
-            _settingsService = settingsService;
+
             NewPost = new Post();
         }
 
@@ -131,7 +127,7 @@ namespace Journey.ViewModels
                 ShowProgress();
                 LoggedInAccount = await _accountService.GetAccountAsync();
                 _challenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
-              
+
                 base.Intialize(sync);
             }
             catch (Exception e)
@@ -176,6 +172,10 @@ namespace Journey.ViewModels
                 if (IsProgress())
                     return;
 
+                if (string.IsNullOrEmpty(NewPost.Feed) && NewPost.MediaList == null)
+                    return;
+
+
                 var commands =
                     new List<DialogCommand>
                     {
@@ -201,6 +201,7 @@ namespace Journey.ViewModels
 
         private async void Post()
         {
+
             ShowProgress();
             if (_imagesPath.Count == 0 && NewPost.MediaList != null)
                 foreach (Media image in NewPost.MediaList)
@@ -230,31 +231,11 @@ namespace Journey.ViewModels
 
         private async Task CheckIfCanAddWorkoutActivity()
         {
-            if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId) &&
-                _location != null &&
-                _challenge.SelectedLocation != null &&
-                _challenge.SelectedLocation?.Id == _location?.Id)
+            if (_location == null)
             {
-                var myLocation = await _locationService.ObtainMyLocationAsync();
-                double near = _locationService.DistanceBetweenPlaces(myLocation.Lng, myLocation.Lat, _challenge.SelectedLocation.Lng, _challenge.SelectedLocation.Lat);
-                if (near <= MinDistanceForWorkout)
-                {
-                    string date = await _settingsService.Get(LastPostDate);
-                    DateTime.TryParse(date, out DateTime parsedDate);
-                    if (parsedDate.Date != DateTime.Now.Date)
-                    {
-                        await _settingsService.Set(LastPostDate, DateTime.Now.Date.ToString(CultureInfo.InvariantCulture));
-
-                        await _challengeActivityService.AddActivityAsync(new ChallengeWorkoutActivityLog
-                        {
-                            Account = _accountService.LoggedInAccount,
-                            Challenge = _challenge.Id,
-                            DatetTime = DateTime.Now,
-                            Location = _location
-                        });
-                    }
-                }
+                _location = await _locationService.ObtainMyLocationAsync();
             }
+            await _challengeActivityService.AddExerciseActivityAsync(_location);
         }
 
         #endregion

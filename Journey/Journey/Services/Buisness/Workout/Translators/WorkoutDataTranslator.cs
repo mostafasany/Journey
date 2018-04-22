@@ -12,15 +12,15 @@ namespace Journey.Services.Buisness.Workout.Translators
         {
             try
             {
-                var accountDto = new AzureAccountWorkouts();
-                if (workout == null) return accountDto;
+                var workoutDto = new AzureAccountWorkouts();
+                if (workout == null) return workoutDto;
 
 
-                accountDto.Rips = workout.Rips;
-                accountDto.Unit = workout.Unit;
-                accountDto.Weight = workout.Weight;
-                accountDto.Workout = workout.Id;
-                return accountDto;
+                workoutDto.Rips = workout.Rips;
+                workoutDto.Unit = workout.Unit;
+                workoutDto.Weight = workout.Weight;
+                workoutDto.Workout = workout.Id;
+                return workoutDto;
             }
             catch (Exception ex)
             {
@@ -32,15 +32,15 @@ namespace Journey.Services.Buisness.Workout.Translators
         {
             try
             {
-                var accountDto = new AzureWorkout();
-                if (workout == null) return accountDto;
+                var workoutDto = new AzureWorkout();
+                if (workout == null) return workoutDto;
 
-                accountDto.Id = workout.Id;
-                accountDto.Image = workout.Image;
-                accountDto.Name = workout.Name;
-                accountDto.Parent = workout.Parent;
+                workoutDto.Id = workout.Id;
+                workoutDto.Image = workout.Image;
+                workoutDto.Name = workout.Name;
+                workoutDto.Parent = workout.Parent;
 
-                return accountDto;
+                return workoutDto;
             }
             catch (Exception ex)
             {
@@ -52,15 +52,15 @@ namespace Journey.Services.Buisness.Workout.Translators
         {
             try
             {
-                var accountDto = new Models.Workout();
-                if (workout == null) return accountDto;
+                var workoutDto = new Models.Workout();
+                if (workout == null) return workoutDto;
 
-                accountDto.Id = workout.Id;
-                accountDto.Image = workout.Image;
-                accountDto.Name = workout.Name;
-                accountDto.Parent = workout.Parent;
+                workoutDto.Id = workout.Id;
+                workoutDto.Image = workout.Image;
+                workoutDto.Name = workout.Name;
+                workoutDto.Parent = workout.Parent;
 
-                return accountDto;
+                return workoutDto;
             }
             catch (Exception ex)
             {
@@ -68,11 +68,13 @@ namespace Journey.Services.Buisness.Workout.Translators
             }
         }
 
-        public static List<Models.Workout> TranslateWorkouts(List<AzureWorkout> accounts)
+        public static List<Models.Workout> TranslateWorkouts(List<AzureWorkout> workouts)
         {
             try
             {
-                return accounts.Select(TranslateWorkout).ToList();
+                if (workouts == null)
+                    return new List<Models.Workout>();
+                return workouts.Select(TranslateWorkout).ToList();
             }
             catch (Exception ex)
             {

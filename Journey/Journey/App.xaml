@@ -177,7 +177,7 @@
                             </Grid.ColumnDefinitions>
                             <Label Text="{Binding Title}" Grid.Row="0" Margin="5,0" FontAttributes="Bold" Style="{StaticResource LabelHeaderStyle}" />
                             <Grid Grid.Column="1" Grid.Row="0" BackgroundColor="{Binding Color}" WidthRequest="120">
-                                <Entry VerticalOptions="End" HorizontalTextAlignment="Center" HorizontalOptions="Center" TextColor="White" Text="{Binding Measure}" Style="{StaticResource EntryFormStyle}" WidthRequest="80" />
+                                <Entry VerticalOptions="End" HorizontalTextAlignment="Center" HorizontalOptions="Center" TextColor="Black" Text="{Binding Measure}" Style="{StaticResource EntryFormStyle}" WidthRequest="80" />
                             </Grid>
                             <controls:SeparatorControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,1" HeightRequest="1" />
                         </Grid>

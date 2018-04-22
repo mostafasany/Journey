@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
+using Abstractions.Models;
 using Abstractions.Services.Contracts;
 using Journey.Models.Challenge;
 using Journey.Services.Buisness.Account;
@@ -29,8 +30,6 @@ namespace Journey.ViewModels
         private const string LastKcalLogDateTime = "LastKcalLogDateTime";
         private const string LastKcalLogId = "LastKcalLogId";
 
-        private const string LastPostDate = "LastPostDate";
-        private const double MinDistanceForWorkout = 0.2;
         public ProfileActivityLogPageViewModel(IUnityContainer container, IAccountService accountService,
                                                INotificationService notificationService,
                                                ISettingsService settingsService,
@@ -45,6 +44,10 @@ namespace Journey.ViewModels
             _accountService = accountService;
             _settingsService = settingsService;
             SubscribeHealthService();
+            //_settingsService.Remove(LastLogDateTime);
+            //_settingsService.Remove(LastLogId);
+            //_settingsService.Remove(LastKcalLogDateTime);
+            //_settingsService.Remove(LastKcalLogId);
         }
 
         private async void SubscribeHealthService()
@@ -162,6 +165,8 @@ namespace Journey.ViewModels
                 }
                 if (challenges != null)
                     ChallengeActivityLog = new ObservableCollection<ChallengeActivityLog>(challenges);
+                else
+                    ChallengeActivityLog = new ObservableCollection<ChallengeActivityLog>();
                 base.Intialize(sync);
             }
             catch (Exception e)
@@ -331,38 +336,20 @@ namespace Journey.ViewModels
             {
                 if (IsProgress())
                     return;
+
                 ShowProgress();
-                var _challenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
-                if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId) &&
-                  _challenge.SelectedLocation != null)
+
+                var myLocation = await _locationService.ObtainMyLocationAsync();
+                var newActivity = await _challengeActivityService.AddExerciseActivityAsync(myLocation);
+                if (newActivity == null)
+                    return;
+                if (ChallengeActivityLog.Any())
                 {
-                    var myLocation = await _locationService.ObtainMyLocationAsync();
-                    double near = _locationService.DistanceBetweenPlaces(myLocation.Lng, myLocation.Lat, _challenge.SelectedLocation.Lng, _challenge.SelectedLocation.Lat);
-                    if (near <= MinDistanceForWorkout)
-                    {
-                        string date = await _settingsService.Get(LastPostDate);
-                        DateTime.TryParse(date, out DateTime parsedDate);
-                        if (parsedDate.Date != DateTime.Now.Date)
-                        {
-                            await _settingsService.Set(LastPostDate, DateTime.Now.Date.ToString(CultureInfo.InvariantCulture));
-                            var activity = new ChallengeWorkoutActivityLog
-                            {
-                                Account = _accountService.LoggedInAccount,
-                                Challenge = _challenge.Id,
-                                DatetTime = DateTime.Now,
-                                Location = _challenge.SelectedLocation
-                            };
-                            var newActivity = await _challengeActivityService.AddActivityAsync(activity);
-                            if (ChallengeActivityLog.Any())
-                            {
-                                ChallengeActivityLog.Insert(0, newActivity);
-                            }
-                            else
-                            {
-                                ChallengeActivityLog.Add(newActivity);
-                            }
-                        }
-                    }
+                    ChallengeActivityLog.Insert(0, newActivity);
+                }
+                else
+                {
+                    ChallengeActivityLog.Add(newActivity);
                 }
             }
             catch (Exception ex)

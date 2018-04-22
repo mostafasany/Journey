@@ -66,28 +66,12 @@ namespace Journey.Services.Buisness.Account.Data
 
         public async Task<Models.Account.Account> GetAccountAsync(bool sync = false)
         {
-            //TODO: There shouldnt be two request to get user , it should call the account api and it returns challengeid if exist  
             try
             {
                 if (string.IsNullOrEmpty(_client.CurrentUser.MobileServiceAuthenticationToken))
                     return null;
 
                 AzureAccount azureAccountDto = await _accountTable.LookupAsync(_client.CurrentUser.UserId);
-                //if (azureAccountDto != null && string.IsNullOrEmpty(azureAccountDto.Challenge))
-                //    await _accountTable.UpdateAsync(azureAccountDto);
-
-                //if (azureAccountDto == null)
-                //    sync = true;
-
-                //if (sync && azureAccountDTO == null)
-                //{
-                //    //Means i need it immediatley
-                //    azureAccountDTO = await SyncAccountAsync();
-                //}
-                //else if (sync)
-                //{
-                //    SyncAccountAsync();
-                //}
 
                 Models.Account.Account accountDto = AccountDataTranslator.TranslateAccount(azureAccountDto);
 
@@ -97,7 +81,15 @@ namespace Journey.Services.Buisness.Account.Data
             {
                 throw new NoInternetException(ex);
             }
-            catch (Exception)
+            catch (MobileServiceInvalidOperationException ex)
+            {
+                if (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+                throw new DataServiceException(ex.Message, ex);
+            }
+            catch (Exception ex)
             {
                 //Means User not exists
                 return null;

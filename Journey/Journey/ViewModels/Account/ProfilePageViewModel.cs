@@ -141,7 +141,6 @@ namespace Journey.ViewModels
                     Invoked = async () =>
                     {
                         await _accountService.LogoutAsync();
-                        await NavigationService.Navigate("LoginPage", false);
                     }
                 };
 

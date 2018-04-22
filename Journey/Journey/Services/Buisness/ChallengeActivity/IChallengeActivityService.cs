@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Abstractions.Models;
 using Journey.Models.Challenge;
 
 namespace Journey.Services.Buisness.ChallengeActivity
@@ -11,6 +12,7 @@ namespace Journey.Services.Buisness.ChallengeActivity
         Task<bool> DeleteActivityAsync(ChallengeActivityLog log);
         Task<List<ChallengeActivityLog>> GetChallengeActivitiesAsync(string challengeId);
         Task<List<ChallengeActivityLog>> GetAccountActivitiesAsync();
+        Task<ChallengeActivityLog> AddExerciseActivityAsync(Location location);
         Task<List<ObservableChallengeProgressGroupCollection<AccountChallengeProgress>>> GetChallengePorgessAsync(string challengeId);
     }
 }

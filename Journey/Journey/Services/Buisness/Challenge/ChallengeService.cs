@@ -51,6 +51,8 @@ namespace Journey.Services.Buisness.Challenge
         {
             try
             {
+                if (string.IsNullOrEmpty(challengeId))
+                    return null;
                 Models.Challenge.Challenge challenge = await _challengeDataService.GetChallengeAsync(challengeId);
                 return challenge;
             }

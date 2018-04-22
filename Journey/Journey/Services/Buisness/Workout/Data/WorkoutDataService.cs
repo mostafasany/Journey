@@ -21,18 +21,19 @@ namespace Journey.Services.Buisness.Workout.Data
             MobileServiceClient client = azureService.CreateOrGetAzureClient();
             _azureWorkout = client.GetTable<AzureWorkout>();
             _azureAccountWorkout = client.GetTable<AzureAccountWorkouts>();
+            MockWorkout();
         }
 
         public async Task<List<Models.Workout>> GetLogWorkoutsAsync()
         {
             try
             {
-                IEnumerable<IGrouping<string, AzureAccountWorkouts>> accountWorkoutGroups = await GetAccountWorkoutAsync();
+                var accountWorkoutGroups = await GetAccountWorkoutAsync();
 
                 await SetWorkoutGroups();
 
                 IEnumerable<IGrouping<string, AzureWorkout>> workouts = _workoutGroupCategories.Where(a => a.Key == null);
-                List<Models.Workout> workoutDto = WorkoutDataTranslator.TranslateWorkouts(workouts.FirstOrDefault().ToList());
+                List<Models.Workout> workoutDto = WorkoutDataTranslator.TranslateWorkouts(workouts.FirstOrDefault()?.ToList());
                 foreach (Models.Workout item in workoutDto)
                 {
                     IEnumerable<IGrouping<string, AzureWorkout>> group = _workoutGroupCategories.Where(a => a.Key == item.Id);
@@ -41,7 +42,7 @@ namespace Journey.Services.Buisness.Workout.Data
 
                     List<Models.Workout> groupWorkoutDto = WorkoutDataTranslator.TranslateWorkouts(group?.FirstOrDefault()?.ToList());
 
-                    groupWorkoutDto =  SetAccountMaxWeightWorkout(accountWorkoutGroups, groupWorkoutDto);
+                    groupWorkoutDto = SetAccountMaxWeightWorkout(accountWorkoutGroups, groupWorkoutDto);
 
                     item.Workouts = groupWorkoutDto;
                 }
@@ -79,32 +80,40 @@ namespace Journey.Services.Buisness.Workout.Data
             return groupWorkout;
         }
 
-        private async Task<Models.Workout> MockWorkout(Models.Workout workout)
+        private async void MockWorkout()
         {
             try
             {
-                //List<Models.Workout> chestworkouts = new List<Models.Workout>();
-                //chestworkouts.Add(new Models.Workout { Name = "Barbell Bench Press", Image = "https://bit.ly/2EaQthN", Parent = "6d79ade3-4c72-45b5-9fd7-cb839d04f822" });
-                //chestworkouts.Add(new Models.Workout { Name = "Flat Bench Dumbbell Press", Image = "https://bit.ly/2EcjsS5", Parent = "6d79ade3-4c72-45b5-9fd7-cb839d04f822" });
-                //chestworkouts.Add(new Models.Workout { Name = "Low-Incline Barbell Bench Press", Image = "https://bit.ly/2uAhKum", Parent = "6d79ade3-4c72-45b5-9fd7-cb839d04f822" });
-                //chestworkouts.Add(new Models.Workout { Name = "Machine Decline Press", Image = "https://bit.ly/2H14Wjf", Parent = "6d79ade3-4c72-45b5-9fd7-cb839d04f822" });
-                //chestworkouts.Add(new Models.Workout { Name = "Seated Machine Chest Press", Image = "https://bit.ly/2pYf842", Parent = "6d79ade3-4c72-45b5-9fd7-cb839d04f822" });
-                //chestworkouts.Add(new Models.Workout { Name = "Incline Dumbbell Press", Image = "https://bit.ly/2GN78xd", Parent = "6d79ade3-4c72-45b5-9fd7-cb839d04f822" });
 
 
-                //List<Models.Workout> workouts = new List<Models.Workout>();
-                //workouts.Add(new Models.Workout { Name = "Chest", Image = "https://bit.ly/2EaQthN", Workouts = chestworkouts });
-                //workouts.Add(new Models.Workout { Name = "Back", Image = "https://bit.ly/2EcjsS5" });
-                //workouts.Add(new Models.Workout { Name = "Biceps", Image = "https://bit.ly/2uAhKum" });
-                //workouts.Add(new Models.Workout { Name = "TriSepcs", Image = "https://bit.ly/2H14Wjf" });
-                //workouts.Add(new Models.Workout { Name = "Leg", Image = "https://bit.ly/2pYf842" });
-                //workouts.Add(new Models.Workout { Name = "Warming Up", Image = "https://bit.ly/2GN78xd" });
+                List<Models.Workout> workouts = new List<Models.Workout>();
+                workouts.Add(new Models.Workout { Name = "Chest", Image = "https://bit.ly/2EaQthN" });
+                workouts.Add(new Models.Workout { Name = "Back", Image = "https://bit.ly/2EcjsS5" });
+                workouts.Add(new Models.Workout { Name = "Biceps", Image = "https://bit.ly/2uAhKum" });
+                workouts.Add(new Models.Workout { Name = "TriSepcs", Image = "https://bit.ly/2H14Wjf" });
+                workouts.Add(new Models.Workout { Name = "Leg", Image = "https://bit.ly/2pYf842" });
+                workouts.Add(new Models.Workout { Name = "Warming Up", Image = "https://bit.ly/2GN78xd" });
+
+                foreach (var item in workouts)
+                {
+                    AzureWorkout workoutDto = WorkoutDataTranslator.TranslateWorkout(item);
+                    await _azureWorkout.InsertAsync(workoutDto);
 
 
-                AzureWorkout workoutDto = WorkoutDataTranslator.TranslateWorkout(workout);
-                await _azureWorkout.InsertAsync(workoutDto);
-                workout = WorkoutDataTranslator.TranslateWorkout(workoutDto);
-                return workout;
+                    List<Models.Workout> chestworkouts = new List<Models.Workout>();
+                    chestworkouts.Add(new Models.Workout { Name = "Barbell Bench Press", Image = "https://bit.ly/2EaQthN", Parent = workoutDto.Id });
+                    chestworkouts.Add(new Models.Workout { Name = "Flat Bench Dumbbell Press", Image = "https://bit.ly/2EcjsS5", Parent = workoutDto.Id });
+                    chestworkouts.Add(new Models.Workout { Name = "Low-Incline Barbell Bench Press", Image = "https://bit.ly/2uAhKum", Parent = workoutDto.Id });
+                    chestworkouts.Add(new Models.Workout { Name = "Machine Decline Press", Image = "https://bit.ly/2H14Wjf", Parent = workoutDto.Id });
+                    chestworkouts.Add(new Models.Workout { Name = "Seated Machine Chest Press", Image = "https://bit.ly/2pYf842", Parent = workoutDto.Id });
+                    chestworkouts.Add(new Models.Workout { Name = "Incline Dumbbell Press", Image = "https://bit.ly/2GN78xd", Parent = workoutDto.Id });
+                    foreach (var subitem in chestworkouts)
+                    {
+                        workoutDto = WorkoutDataTranslator.TranslateWorkout(subitem);
+                        await _azureWorkout.InsertAsync(workoutDto);
+                    }
+                }
+
             }
             catch (Exception ex)
             {
@@ -118,8 +127,11 @@ namespace Journey.Services.Buisness.Workout.Data
             if (accountWorkoutGroups != null && accountWorkoutGroups.Any())
                 foreach (Models.Workout accountGroup in groupWorkoutDto)
                 {
-                    List<AzureAccountWorkouts> grp = accountWorkoutGroups.Where(a => a.Key == accountGroup.Id).FirstOrDefault()
-                        .OrderByDescending(a => a.Weight).ToList();
+                    List<AzureAccountWorkouts> grp = accountWorkoutGroups.FirstOrDefault(a => a.Key == accountGroup.Id)
+                            ?.OrderByDescending(a => a.Weight)?.ToList();
+
+                    if (grp == null)
+                        continue;
 
                     var maxWeightItem = grp.First();
 
@@ -132,7 +144,7 @@ namespace Journey.Services.Buisness.Workout.Data
 
         private async Task SetWorkoutGroups()
         {
-            if (_workoutGroupCategories == null)
+            if (_workoutGroupCategories == null || !_workoutGroupCategories.Any())
             {
                 List<AzureWorkout> workoutCategories = await _azureWorkout.ToListAsync();
                 _workoutGroupCategories = workoutCategories.GroupBy(a => a.Parent);
