@@ -69,7 +69,7 @@ namespace Journey.Services.Buisness.Friend
         {
             try
             {
-                var friends = await _friendDataService.FindAccontAsync(keyword);
+                List<FriendShip> friends = await _friendDataService.FindAccontAsync(keyword);
                 return friends;
             }
             catch (Exception ex)
@@ -82,7 +82,7 @@ namespace Journey.Services.Buisness.Friend
         {
             try
             {
-                var friends = await _friendDataService.GetFriendsForChallengeAsync(keyword);
+                List<FriendShip> friends = await _friendDataService.GetFriendsForChallengeAsync(keyword);
                 return friends;
             }
             catch (Exception ex)
@@ -95,7 +95,7 @@ namespace Journey.Services.Buisness.Friend
         {
             try
             {
-                var friends = await _friendDataService.GetFriendsRequestsAsync();
+                List<FriendShip> friends = await _friendDataService.GetFriendsRequestsAsync();
                 return friends;
             }
             catch (Exception ex)

@@ -64,7 +64,7 @@ namespace Journey.ViewModels
                     _location = parameters.GetValue<Location>("Location");
                     if (_location != null)
                         NewPost.Location =
-                            new PostActivity { Action = "At", Activity = _location.Name, Image = _location.Image };
+                            new PostActivity {Action = "At", Activity = _location.Name, Image = _location.Image};
                 }
 
                 Intialize();
@@ -88,13 +88,11 @@ namespace Journey.ViewModels
         private Challenge _challenge;
 
         private Account _loggedInAccount;
+
         public Account LoggedInAccount
         {
             get => _loggedInAccount;
-            set
-            {
-                SetProperty(ref _loggedInAccount, value);
-            }
+            set => SetProperty(ref _loggedInAccount, value);
         }
 
 
@@ -201,7 +199,6 @@ namespace Journey.ViewModels
 
         private async void Post()
         {
-
             ShowProgress();
             if (_imagesPath.Count == 0 && NewPost.MediaList != null)
                 foreach (Media image in NewPost.MediaList)
@@ -231,10 +228,7 @@ namespace Journey.ViewModels
 
         private async Task CheckIfCanAddWorkoutActivity()
         {
-            if (_location == null)
-            {
-                _location = await _locationService.ObtainMyLocationAsync();
-            }
+            if (_location == null) _location = await _locationService.ObtainMyLocationAsync();
             await _challengeActivityService.AddExerciseActivityAsync(_location);
         }
 

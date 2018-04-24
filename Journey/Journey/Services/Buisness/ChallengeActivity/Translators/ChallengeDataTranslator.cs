@@ -52,60 +52,57 @@ namespace Journey.Services.Buisness.ChallengeActivity.Translators
             switch (actvityLog.Type)
             {
                 case ChallengeKmActivityLogId:
+                {
+                    var activity = new ChallengeKmActivityLog
                     {
-                        var activity = new ChallengeKmActivityLog
+                        Id = actvityLog.Id,
+                        DatetTime = actvityLog.CreatedAt,
+                        Account = new Models.Account.Account
                         {
-                            Id = actvityLog.Id,
-                            DatetTime = actvityLog.CreatedAt,
-                            Account = new Models.Account.Account
-                            {
-                                Id = actvityLog.Account,
-                                FirstName = actvityLog.Fname,
-                                LastName = actvityLog.Lname,
-                                Image = new Media { Path = actvityLog.Profile }
-                            },
-                            KM = double.Parse(actvityLog.Activity)
-                        };
-                        return activity;
-                    }
+                            Id = actvityLog.Account,
+                            FirstName = actvityLog.Fname,
+                            LastName = actvityLog.Lname,
+                            Image = new Media {Path = actvityLog.Profile}
+                        },
+                        KM = double.Parse(actvityLog.Activity)
+                    };
+                    return activity;
+                }
                 case ChallengeWorkoutActivityLogId:
+                {
+                    var activity = new ChallengeWorkoutActivityLog
                     {
-                        var activity = new ChallengeWorkoutActivityLog
+                        Id = actvityLog.Id,
+                        DatetTime = actvityLog.CreatedAt,
+                        Account = new Models.Account.Account
                         {
-                            Id = actvityLog.Id,
-                            DatetTime = actvityLog.CreatedAt,
-                            Account = new Models.Account.Account
-                            {
-                                Id = actvityLog.Account,
-                                FirstName = actvityLog.Fname,
-                                LastName = actvityLog.Lname,
-                                Image = new Media { Path = actvityLog.Profile }
-                            },
-                            Location = JsonConvert.DeserializeObject<Location>(actvityLog.Activity)
-                        };
-                        if (string.IsNullOrEmpty(activity.Location?.Name))
-                        {
-                            activity.Location.Name = "-";
-                        }
-                        return activity;
-                    }
+                            Id = actvityLog.Account,
+                            FirstName = actvityLog.Fname,
+                            LastName = actvityLog.Lname,
+                            Image = new Media {Path = actvityLog.Profile}
+                        },
+                        Location = JsonConvert.DeserializeObject<Location>(actvityLog.Activity)
+                    };
+                    if (string.IsNullOrEmpty(activity.Location?.Name)) activity.Location.Name = "-";
+                    return activity;
+                }
                 case ChallengeKcalActivityLogId:
+                {
+                    var activity = new ChallengeKcalActivityLog
                     {
-                        var activity = new ChallengeKcalActivityLog
+                        Id = actvityLog.Id,
+                        DatetTime = actvityLog.CreatedAt,
+                        Account = new Models.Account.Account
                         {
-                            Id = actvityLog.Id,
-                            DatetTime = actvityLog.CreatedAt,
-                            Account = new Models.Account.Account
-                            {
-                                Id = actvityLog.Account,
-                                FirstName = actvityLog.Fname,
-                                LastName = actvityLog.Lname,
-                                Image = new Media { Path = actvityLog.Profile }
-                            },
-                            Kcal = double.Parse(actvityLog.Activity)
-                        };
-                        return activity;
-                    }
+                            Id = actvityLog.Account,
+                            FirstName = actvityLog.Fname,
+                            LastName = actvityLog.Lname,
+                            Image = new Media {Path = actvityLog.Profile}
+                        },
+                        Kcal = double.Parse(actvityLog.Activity)
+                    };
+                    return activity;
+                }
             }
 
             return null;

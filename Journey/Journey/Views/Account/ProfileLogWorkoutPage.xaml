@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 ControlTemplate="{StaticResource ProfileHeaderControlTemplate}"
@@ -48,7 +48,8 @@
                             <Entry Grid.Row="1" Grid.Column="2" BackgroundColor="White" TextColor="Black"
                                    Keyboard="Numeric" Placeholder="{Binding Workout.MaxRips}"
                                    Text="{Binding Workout.Rips,Mode=TwoWay}" />
-                            <controls:SVGImageControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" PortablePath="done.svg"
+                            <controls:SVGImageControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="3"
+                                                      PortablePath="done.svg"
                                                       Aspect="AspectFit" Style="{StaticResource IconStyle}"
                                                       HorizontalOptions="End" VerticalOptions="End">
                                 <controls:SVGImageControl.GestureRecognizers>
@@ -67,7 +68,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <controls:ImageViewerControl Grid.Row="0" x:Name="ImageViewerControlParent" ItemsSource="{Binding WorkoutCategories}"
+            <controls:ImageViewerControl Grid.Row="0" x:Name="ImageViewerControlParent"
+                                         ItemsSource="{Binding WorkoutCategories}"
                                          ItemTemplate="{StaticResource WorkoutTemplate}" VerticalOptions="Start" />
             <ListView Grid.Row="1" SeparatorVisibility="None" Margin="0,20" RowHeight="120"
                       ItemsSource="{Binding WorkoutSubCategories}"

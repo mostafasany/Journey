@@ -17,17 +17,17 @@ namespace Journey.Services.Buisness.ChallengeActivity
     {
         private readonly IAccountService _accountService;
         private readonly IChallengeActivityDataService _challengeActivityDataService;
-        private readonly ISettingsService _settingsService;
-        private readonly ILocationService _locationService;
         private readonly IChallengeService _challengeService;
+        private readonly ILocationService _locationService;
+        private readonly ISettingsService _settingsService;
         private const string LastExerciseDate = "LastExerciseDate";
         private const double MinDistanceForWorkout = 0.2;
 
         public ChallengeActivityService(IChallengeActivityDataService challengeActivityDataService,
-                                        IAccountService accountService,
-                                        ISettingsService settingsService,
-                                        IChallengeService challengeService,
-                                        ILocationService locationService)
+            IAccountService accountService,
+            ISettingsService settingsService,
+            IChallengeService challengeService,
+            ILocationService locationService)
         {
             _accountService = accountService;
             _challengeActivityDataService = challengeActivityDataService;
@@ -119,9 +119,9 @@ namespace Journey.Services.Buisness.ChallengeActivity
                             b => new AccountChallengeProgress
                             {
                                 Account = b.FirstOrDefault().Account,
-                                TotalKm = b.Where(e => e is ChallengeKmActivityLog).Sum(s => ((ChallengeKmActivityLog)s).KM),
+                                TotalKm = b.Where(e => e is ChallengeKmActivityLog).Sum(s => ((ChallengeKmActivityLog) s).KM),
                                 TotalExercises = b.Count(e => e is ChallengeWorkoutActivityLog),
-                                TotalKcal = b.Where(e => e is ChallengeKcalActivityLog).Sum(s => ((ChallengeKcalActivityLog)s).Kcal),
+                                TotalKcal = b.Where(e => e is ChallengeKcalActivityLog).Sum(s => ((ChallengeKcalActivityLog) s).Kcal)
                             }
                         ).ToList()
                     })
@@ -134,12 +134,12 @@ namespace Journey.Services.Buisness.ChallengeActivity
                     Models.Account.Account winnerAccountInKm = null;
                     IOrderedEnumerable<AccountChallengeProgress> orderedAccountExercises = progress.Accounts.OrderByDescending(a => a.TotalExercises);
                     IOrderedEnumerable<AccountChallengeProgress> orderedAccountKm = progress.Accounts.OrderByDescending(a => a.TotalKm);
-                    var firstOrderedExercise = orderedAccountExercises.FirstOrDefault();
-                    var lastOrderedExercise = orderedAccountExercises.LastOrDefault();
+                    AccountChallengeProgress firstOrderedExercise = orderedAccountExercises.FirstOrDefault();
+                    AccountChallengeProgress lastOrderedExercise = orderedAccountExercises.LastOrDefault();
                     if (firstOrderedExercise.TotalExercises > lastOrderedExercise.TotalExercises)
                         winnerAccountInExercises = firstOrderedExercise.Account;
 
-                    var firstOrderedKm = orderedAccountKm.FirstOrDefault();
+                    AccountChallengeProgress firstOrderedKm = orderedAccountKm.FirstOrDefault();
                     if (firstOrderedKm.TotalKm > orderedAccountKm.LastOrDefault().TotalKm)
                         winnerAccountInKm = firstOrderedKm.Account;
 
@@ -170,10 +170,7 @@ namespace Journey.Services.Buisness.ChallengeActivity
                     challengeId = _challenge.Id;
                     workoutLocation = _challenge.SelectedLocation;
                     double near = _locationService.DistanceBetweenPlaces(myLocation.Lng, myLocation.Lat, _challenge.SelectedLocation.Lng, _challenge.SelectedLocation.Lat);
-                    if (near > MinDistanceForWorkout)
-                    {
-                        challengeId = "";
-                    }
+                    if (near > MinDistanceForWorkout) challengeId = "";
                 }
                 else
                 {
@@ -192,9 +189,10 @@ namespace Journey.Services.Buisness.ChallengeActivity
                         DatetTime = DateTime.Now,
                         Location = workoutLocation
                     };
-                    var newActivity = await AddActivityAsync(activity);
+                    ChallengeActivityLog newActivity = await AddActivityAsync(activity);
                     return newActivity;
                 }
+
                 return null;
             }
             catch (Exception ex)

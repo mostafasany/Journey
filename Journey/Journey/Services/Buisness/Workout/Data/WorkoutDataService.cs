@@ -28,7 +28,7 @@ namespace Journey.Services.Buisness.Workout.Data
         {
             try
             {
-                var accountWorkoutGroups = await GetAccountWorkoutAsync();
+                IEnumerable<IGrouping<string, AzureAccountWorkouts>> accountWorkoutGroups = await GetAccountWorkoutAsync();
 
                 await SetWorkoutGroups();
 
@@ -84,36 +84,33 @@ namespace Journey.Services.Buisness.Workout.Data
         {
             try
             {
+                var workouts = new List<Models.Workout>();
+                workouts.Add(new Models.Workout {Name = "Chest", Image = "https://bit.ly/2EaQthN"});
+                workouts.Add(new Models.Workout {Name = "Back", Image = "https://bit.ly/2EcjsS5"});
+                workouts.Add(new Models.Workout {Name = "Biceps", Image = "https://bit.ly/2uAhKum"});
+                workouts.Add(new Models.Workout {Name = "TriSepcs", Image = "https://bit.ly/2H14Wjf"});
+                workouts.Add(new Models.Workout {Name = "Leg", Image = "https://bit.ly/2pYf842"});
+                workouts.Add(new Models.Workout {Name = "Warming Up", Image = "https://bit.ly/2GN78xd"});
 
-
-                List<Models.Workout> workouts = new List<Models.Workout>();
-                workouts.Add(new Models.Workout { Name = "Chest", Image = "https://bit.ly/2EaQthN" });
-                workouts.Add(new Models.Workout { Name = "Back", Image = "https://bit.ly/2EcjsS5" });
-                workouts.Add(new Models.Workout { Name = "Biceps", Image = "https://bit.ly/2uAhKum" });
-                workouts.Add(new Models.Workout { Name = "TriSepcs", Image = "https://bit.ly/2H14Wjf" });
-                workouts.Add(new Models.Workout { Name = "Leg", Image = "https://bit.ly/2pYf842" });
-                workouts.Add(new Models.Workout { Name = "Warming Up", Image = "https://bit.ly/2GN78xd" });
-
-                foreach (var item in workouts)
+                foreach (Models.Workout item in workouts)
                 {
                     AzureWorkout workoutDto = WorkoutDataTranslator.TranslateWorkout(item);
                     await _azureWorkout.InsertAsync(workoutDto);
 
 
-                    List<Models.Workout> chestworkouts = new List<Models.Workout>();
-                    chestworkouts.Add(new Models.Workout { Name = "Barbell Bench Press", Image = "https://bit.ly/2EaQthN", Parent = workoutDto.Id });
-                    chestworkouts.Add(new Models.Workout { Name = "Flat Bench Dumbbell Press", Image = "https://bit.ly/2EcjsS5", Parent = workoutDto.Id });
-                    chestworkouts.Add(new Models.Workout { Name = "Low-Incline Barbell Bench Press", Image = "https://bit.ly/2uAhKum", Parent = workoutDto.Id });
-                    chestworkouts.Add(new Models.Workout { Name = "Machine Decline Press", Image = "https://bit.ly/2H14Wjf", Parent = workoutDto.Id });
-                    chestworkouts.Add(new Models.Workout { Name = "Seated Machine Chest Press", Image = "https://bit.ly/2pYf842", Parent = workoutDto.Id });
-                    chestworkouts.Add(new Models.Workout { Name = "Incline Dumbbell Press", Image = "https://bit.ly/2GN78xd", Parent = workoutDto.Id });
-                    foreach (var subitem in chestworkouts)
+                    var chestworkouts = new List<Models.Workout>();
+                    chestworkouts.Add(new Models.Workout {Name = "Barbell Bench Press", Image = "https://bit.ly/2EaQthN", Parent = workoutDto.Id});
+                    chestworkouts.Add(new Models.Workout {Name = "Flat Bench Dumbbell Press", Image = "https://bit.ly/2EcjsS5", Parent = workoutDto.Id});
+                    chestworkouts.Add(new Models.Workout {Name = "Low-Incline Barbell Bench Press", Image = "https://bit.ly/2uAhKum", Parent = workoutDto.Id});
+                    chestworkouts.Add(new Models.Workout {Name = "Machine Decline Press", Image = "https://bit.ly/2H14Wjf", Parent = workoutDto.Id});
+                    chestworkouts.Add(new Models.Workout {Name = "Seated Machine Chest Press", Image = "https://bit.ly/2pYf842", Parent = workoutDto.Id});
+                    chestworkouts.Add(new Models.Workout {Name = "Incline Dumbbell Press", Image = "https://bit.ly/2GN78xd", Parent = workoutDto.Id});
+                    foreach (Models.Workout subitem in chestworkouts)
                     {
                         workoutDto = WorkoutDataTranslator.TranslateWorkout(subitem);
                         await _azureWorkout.InsertAsync(workoutDto);
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -128,12 +125,12 @@ namespace Journey.Services.Buisness.Workout.Data
                 foreach (Models.Workout accountGroup in groupWorkoutDto)
                 {
                     List<AzureAccountWorkouts> grp = accountWorkoutGroups.FirstOrDefault(a => a.Key == accountGroup.Id)
-                            ?.OrderByDescending(a => a.Weight)?.ToList();
+                        ?.OrderByDescending(a => a.Weight)?.ToList();
 
                     if (grp == null)
                         continue;
 
-                    var maxWeightItem = grp.First();
+                    AzureAccountWorkouts maxWeightItem = grp.First();
 
                     accountGroup.MaxWeight = maxWeightItem.Weight;
                     accountGroup.MaxRips = maxWeightItem.Rips;

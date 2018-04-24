@@ -9,7 +9,6 @@ namespace Journey.Models.Challenge
 {
     public class Challenge : BindableBase
     {
-        private Location _selectedLocation;
         private ObservableCollection<ChallengeAccount> _challengeAccounts;
 
         private DateTime _endDate = DateTime.Now.AddMonths(6);
@@ -24,6 +23,7 @@ namespace Journey.Models.Challenge
 
 
         private ObservableCollection<PostBase> _posts;
+        private Location _selectedLocation;
 
         private DateTime _startDate = DateTime.Now;
 

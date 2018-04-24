@@ -45,13 +45,9 @@ namespace Abstractions.Services
                 };
             LoggerService.LogException(ex, paramDictionary);
             if (ex.InnerException is NoInternetException)
-            {
                 _dialogService.ShowNoInternetMessageAsync();
-            }
             else
-            {
                 _dialogService.ShowGenericErrorMessageAsync(string.IsNullOrEmpty(error) ? ex.Message : error);
-            }
         }
     }
 }

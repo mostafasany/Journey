@@ -29,27 +29,15 @@ namespace Abstractions.Forms
 
         public async Task ShowGenericErrorMessageAsync(string content = "", string title = "")
         {
-            if (string.IsNullOrEmpty(title))
-            {
-                title = ErrorMessageTitle;
-            }
-            if (string.IsNullOrEmpty(content))
-            {
-                content = ErrorMessageBody;
-            }
+            if (string.IsNullOrEmpty(title)) title = ErrorMessageTitle;
+            if (string.IsNullOrEmpty(content)) content = ErrorMessageBody;
             await _pageDialogService.DisplayAlertAsync(title, content, "Cancel");
         }
 
         public async Task ShowNoInternetMessageAsync(string content = "", string title = "")
         {
-            if (string.IsNullOrEmpty(title))
-            {
-                title = NoInternetMessageTitle;
-            }
-            if (string.IsNullOrEmpty(content))
-            {
-                content = NoInternetMessageBody;
-            }
+            if (string.IsNullOrEmpty(title)) title = NoInternetMessageTitle;
+            if (string.IsNullOrEmpty(content)) content = NoInternetMessageBody;
             await _pageDialogService.DisplayAlertAsync(title, content, "Cancel");
         }
 

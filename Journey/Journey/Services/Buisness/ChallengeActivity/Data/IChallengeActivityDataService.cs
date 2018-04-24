@@ -8,8 +8,8 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
     {
         Task<ChallengeActivityLog> AddActivityAsync(ChallengeActivityLog log);
         Task<bool> DeleteActivityAsync(ChallengeActivityLog log);
-        Task<List<ChallengeActivityLog>> GetChallengeActivitiesAsync(string challengeId);
         Task<List<ChallengeActivityLog>> GetAccountActivitiesAsync();
+        Task<List<ChallengeActivityLog>> GetChallengeActivitiesAsync(string challengeId);
         Task<ChallengeActivityLog> UpdateActivityAsync(ChallengeActivityLog log);
     }
 }

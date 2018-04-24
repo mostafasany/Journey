@@ -90,7 +90,6 @@ namespace Journey.ViewModels
             set => SetProperty(ref _selectedChallenge, value);
         }
 
-      
         #endregion
 
         #region Methods

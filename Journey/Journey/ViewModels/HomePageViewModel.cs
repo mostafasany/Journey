@@ -55,7 +55,7 @@ namespace Journey.ViewModels
                 var location = parameters.GetValue<Location>("Location");
                 if (location != null)
                     NewPostPageViewModel.NewPost.Location =
-                        new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
+                        new PostActivity {Action = "At", Activity = location.Name, Image = location.Image};
             }
             catch (Exception ex)
             {
@@ -151,6 +151,7 @@ namespace Journey.ViewModels
         #region Properties
 
         private Account _loggedInAccount;
+
         public new Account LoggedInAccount
         {
             get => _loggedInAccount;
@@ -187,7 +188,7 @@ namespace Journey.ViewModels
             set => SetProperty(ref _isPullRefreshLoading, value);
         }
 
-        private bool _noPosts=false;
+        private bool _noPosts;
 
         public bool NoPosts
         {
@@ -251,7 +252,7 @@ namespace Journey.ViewModels
 
         private void UpdateNoPostMessage()
         {
-            NoPosts= PostsViewModels == null || PostsViewModels.Count == 0;
+            NoPosts = PostsViewModels == null || PostsViewModels.Count == 0;
         }
 
         protected override void Cleanup()

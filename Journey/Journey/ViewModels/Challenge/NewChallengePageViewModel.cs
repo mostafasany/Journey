@@ -312,7 +312,7 @@ namespace Journey.ViewModels
                     return;
 
                 ShowProgress();
-                var challengeAccount = SelectedChallenge.ChallengeAccounts;
+                ObservableCollection<ChallengeAccount> challengeAccount = SelectedChallenge.ChallengeAccounts;
                 SelectedChallenge = await _challengeService.EditChallengeAsync(SelectedChallenge);
                 SelectedChallenge.ChallengeAccounts = challengeAccount;
             }

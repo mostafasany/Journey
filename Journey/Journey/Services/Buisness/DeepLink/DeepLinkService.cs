@@ -31,7 +31,7 @@ namespace Journey.Services.Buisness.DeepLink
                     string pageName = hostParts[2];
                     if (pageName == ProfilePageName)
                     {
-                       // _navigationService.Navigate("ChallengeProgressPage");
+                        // _navigationService.Navigate("ChallengeProgressPage");
                     }
                     else if (pageName == ChallengeRequestName)
                     {
@@ -41,7 +41,7 @@ namespace Journey.Services.Buisness.DeepLink
                             {"Challenge", id},
                             {"Mode", 2}
                         };
-                      //  _navigationService.Navigate("NewChallengePage", parameters);
+                        //  _navigationService.Navigate("NewChallengePage", parameters);
                     }
                 }
             }

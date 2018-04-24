@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Models.Challenge;
@@ -15,9 +16,9 @@ namespace Journey.Services.Buisness.Challenge.Data
 {
     public class ChallengeDataService : IChallengeDataService
     {
+        private readonly IAccountDataService _accountDataService;
         private readonly IMobileServiceTable<AzureChallenge> _azureChallenge;
         private readonly MobileServiceClient _client;
-        private readonly IAccountDataService _accountDataService;
 
         public ChallengeDataService(IAzureService azureService, IAccountDataService accountDataService)
         {
@@ -78,10 +79,7 @@ namespace Journey.Services.Buisness.Challenge.Data
             }
             catch (MobileServiceInvalidOperationException ex)
             {
-                if (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                {
-                    return null;
-                }
+                if (ex.Response.StatusCode == HttpStatusCode.NotFound) return null;
                 throw new DataServiceException(ex.Message, ex);
             }
             catch (Exception ex)

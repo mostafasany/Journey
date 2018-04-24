@@ -28,9 +28,9 @@ namespace Journey.Models.Challenge
         private string _id;
 
         private int _totalExercises;
+        private double _totalkcal;
 
         private double _totalkm;
-        private double _totalkcal;
 
         public string Id
         {

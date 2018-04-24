@@ -1,5 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:controls="clr-namespace:Journey.Views.Controls" xmlns:converters="clr-namespace:Journey.Converters" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms" x:Class="Journey.App">
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                        xmlns:controls="clr-namespace:Journey.Views.Controls"
+                        xmlns:converters="clr-namespace:Journey.Converters"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms" x:Class="Journey.App">
     <Application.Resources>
         <ResourceDictionary>
             <converters:BoolInverterConverter x:Key="BoolInverterConverter" />
@@ -134,10 +140,13 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <controls:CustomImage Grid.Column="0" Source="{Binding Image}" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="70" HeightRequest="70" />
+                            <controls:CustomImage Grid.Column="0" Source="{Binding Image}" VerticalOptions="Center"
+                                                  HorizontalOptions="Start" WidthRequest="70" HeightRequest="70" />
                             <StackLayout Grid.Column="1">
-                                <Label Text="{Binding Name}" TextColor="Black" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
-                                <Label Text="{Binding NearFormated}" TextColor="Gray" FontSize="12" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
+                                <Label Text="{Binding Name}" TextColor="Black" FontSize="16" FontAttributes="Bold"
+                                       VerticalOptions="Center" HorizontalOptions="Start" />
+                                <Label Text="{Binding NearFormated}" TextColor="Gray" FontSize="12"
+                                       FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start" />
                             </StackLayout>
                         </Grid>
                     </ViewCell.View>
@@ -155,11 +164,14 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Label Text="{Binding Title}" Grid.Row="0" Margin="5,0" FontAttributes="Bold" Style="{StaticResource LabelHeaderStyle}" />
+                            <Label Text="{Binding Title}" Grid.Row="0" Margin="5,0" FontAttributes="Bold"
+                                   Style="{StaticResource LabelHeaderStyle}" />
                             <Grid Grid.Column="1" Grid.Row="0" BackgroundColor="{Binding Color}" WidthRequest="100">
-                                <Label HorizontalOptions="Center" TextColor="White" Text="{Binding MeasureWithUnit}" Style="{StaticResource LabelHeaderStyle}" />
+                                <Label HorizontalOptions="Center" TextColor="White" Text="{Binding MeasureWithUnit}"
+                                       Style="{StaticResource LabelHeaderStyle}" />
                             </Grid>
-                            <controls:SeparatorControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,1" HeightRequest="1" />
+                            <controls:SeparatorControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,1"
+                                                       HeightRequest="1" />
                         </Grid>
                     </ViewCell.View>
                 </ViewCell>
@@ -176,11 +188,15 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Label Text="{Binding Title}" Grid.Row="0" Margin="5,0" FontAttributes="Bold" Style="{StaticResource LabelHeaderStyle}" />
+                            <Label Text="{Binding Title}" Grid.Row="0" Margin="5,0" FontAttributes="Bold"
+                                   Style="{StaticResource LabelHeaderStyle}" />
                             <Grid Grid.Column="1" Grid.Row="0" BackgroundColor="{Binding Color}" WidthRequest="120">
-                                <Entry VerticalOptions="End" HorizontalTextAlignment="Center" HorizontalOptions="Center" TextColor="Black" Text="{Binding Measure}" Style="{StaticResource EntryFormStyle}" WidthRequest="80" />
+                                <Entry VerticalOptions="End" HorizontalTextAlignment="Center"
+                                       HorizontalOptions="Center" TextColor="Black" Text="{Binding Measure}"
+                                       Style="{StaticResource EntryFormStyle}" WidthRequest="80" />
                             </Grid>
-                            <controls:SeparatorControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,1" HeightRequest="1" />
+                            <controls:SeparatorControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,1"
+                                                       HeightRequest="1" />
                         </Grid>
                     </ViewCell.View>
                 </ViewCell>
@@ -233,7 +249,9 @@
                             <controls:SVGImageControl PortablePath="challenge.svg" Style="{StaticResource IconStyle}" />
                         </Grid>
                         <controls:SeparatorControl Grid.Column="3" />
-                        <controls:CustomImage Grid.Column="4" Margin="10,5" Source="{TemplateBinding BindingContext.Image.Path}" WidthRequest="50" HeightRequest="50" Style="{StaticResource ImageHeaderStyle}">
+                        <controls:CustomImage Grid.Column="4" Margin="10,5"
+                                              Source="{TemplateBinding BindingContext.Image.Path}" WidthRequest="50"
+                                              HeightRequest="50" Style="{StaticResource ImageHeaderStyle}">
                             <controls:CustomImage.GestureRecognizers>
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnProfileCommand}" />
                             </controls:CustomImage.GestureRecognizers>
@@ -246,8 +264,12 @@
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnNotificationCommand}" />
                             </Grid.GestureRecognizers>
-                            <Label Text="{TemplateBinding BindingContext.NotificationsCount}" IsVisible="{TemplateBinding BindingContext.NotificationsCount,Converter={StaticResource IntToBoolConverter}}" TextColor="Red" FontAttributes="Bold" Margin="20,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" FontSize="12" />
-                            <controls:SVGImageControl PortablePath="notification.svg" Style="{StaticResource IconStyle}" />
+                            <Label Text="{TemplateBinding BindingContext.NotificationsCount}"
+                                   IsVisible="{TemplateBinding BindingContext.NotificationsCount,Converter={StaticResource IntToBoolConverter}}"
+                                   TextColor="Red" FontAttributes="Bold" Margin="20,0,0,0" HorizontalOptions="Center"
+                                   VerticalOptions="Start" FontSize="12" />
+                            <controls:SVGImageControl PortablePath="notification.svg"
+                                                      Style="{StaticResource IconStyle}" />
                         </Grid>
                         <controls:SeparatorControl Grid.Column="7" />
                         <Grid Grid.Column="8" BackgroundColor="White">
@@ -287,7 +309,8 @@
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0" BackgroundColor="{TemplateBinding BindingContext.FirstTabSelected}">
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnGoToActivityLogCommand}" />
+                                <TapGestureRecognizer
+                                    Command="{TemplateBinding BindingContext.OnGoToActivityLogCommand}" />
                             </Grid.GestureRecognizers>
                             <controls:SVGImageControl PortablePath="timeline.svg" Style="{StaticResource IconStyle}" />
                         </Grid>
@@ -301,7 +324,8 @@
                         <controls:SeparatorControl Grid.Column="3" />
                         <Grid Grid.Column="4" BackgroundColor="{TemplateBinding BindingContext.ThirdTabSelected}">
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnGoToProfileMeasurmentCommand}" />
+                                <TapGestureRecognizer
+                                    Command="{TemplateBinding BindingContext.OnGoToProfileMeasurmentCommand}" />
                             </Grid.GestureRecognizers>
                             <controls:SVGImageControl PortablePath="graph.svg" Style="{StaticResource IconStyle}" />
                         </Grid>
@@ -316,7 +340,8 @@
                     <BoxView Grid.Row="1" Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />
                     <!-- Content  -->
                     <Grid Grid.Row="2" VerticalOptions="FillAndExpand">
-                        <controls:LoadingControl IsVisible="{TemplateBinding BindingContext.IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <controls:LoadingControl IsVisible="{TemplateBinding BindingContext.IsLoading}"
+                                                 HorizontalOptions="Center" VerticalOptions="Center" />
                         <ContentPresenter IsVisible="{TemplateBinding BindingContext.IsNotLoading}" />
                     </Grid>
                     <BoxView Grid.Row="3" Style="{StaticResource HorizontalSeparatorBoxViewStyle}" />
@@ -347,7 +372,9 @@
                             <controls:SVGImageControl PortablePath="challenge.svg" Style="{StaticResource IconStyle}" />
                         </Grid>
                         <controls:SeparatorControl Grid.Column="3" />
-                        <controls:CustomImage Grid.Column="4" Margin="10,5" Source="{TemplateBinding BindingContext.Image.Path}" WidthRequest="50" HeightRequest="50" Style="{StaticResource ImageHeaderStyle}">
+                        <controls:CustomImage Grid.Column="4" Margin="10,5"
+                                              Source="{TemplateBinding BindingContext.Image.Path}" WidthRequest="50"
+                                              HeightRequest="50" Style="{StaticResource ImageHeaderStyle}">
                             <controls:CustomImage.GestureRecognizers>
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnProfileCommand}" />
                             </controls:CustomImage.GestureRecognizers>
@@ -360,8 +387,12 @@
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{TemplateBinding BindingContext.OnNotificationCommand}" />
                             </Grid.GestureRecognizers>
-                            <Label Text="{TemplateBinding BindingContext.NotificationsCount}" IsVisible="{TemplateBinding BindingContext.NotificationsCount,Converter={StaticResource IntToBoolConverter}}" TextColor="Red" FontAttributes="Bold" Margin="20,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" FontSize="12" />
-                            <controls:SVGImageControl PortablePath="notification.svg" Style="{StaticResource IconStyle}" />
+                            <Label Text="{TemplateBinding BindingContext.NotificationsCount}"
+                                   IsVisible="{TemplateBinding BindingContext.NotificationsCount,Converter={StaticResource IntToBoolConverter}}"
+                                   TextColor="Red" FontAttributes="Bold" Margin="20,0,0,0" HorizontalOptions="Center"
+                                   VerticalOptions="Start" FontSize="12" />
+                            <controls:SVGImageControl PortablePath="notification.svg"
+                                                      Style="{StaticResource IconStyle}" />
                         </Grid>
                         <controls:SeparatorControl Grid.Column="7" />
                         <Grid Grid.Column="8" BackgroundColor="White">

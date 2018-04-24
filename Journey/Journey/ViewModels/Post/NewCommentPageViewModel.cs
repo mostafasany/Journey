@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Journey.Models.Account;
 using Journey.Models.Post;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.PostComment;

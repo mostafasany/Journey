@@ -14,6 +14,8 @@ namespace Journey.ViewModels
         private readonly IAccountService _accountService;
         private readonly INotificationService _notificationService;
 
+        private bool _hasActiveChallenge;
+
         private Account _loggedInAccount;
 
         private int _notificationsCount;
@@ -26,8 +28,6 @@ namespace Journey.ViewModels
             LoadNotificationsCount();
         }
 
-        private bool _hasActiveChallenge;
-
         public bool HasActiveChallenge
         {
             get => _hasActiveChallenge;
@@ -35,9 +35,9 @@ namespace Journey.ViewModels
         }
 
         public Media Image =>
-        LoggedInAccount == null
-        ? new Media { Path = "https://bit.ly/2HezBsF" }
-            : _loggedInAccount.Image;
+            LoggedInAccount == null
+                ? new Media {Path = "https://bit.ly/2HezBsF"}
+                : _loggedInAccount.Image;
 
         public Account LoggedInAccount
         {
@@ -150,15 +150,12 @@ namespace Journey.ViewModels
                     return;
 
                 await NavigationService.Navigate("ChallengeProgressPage", null, null, null, false, true);
-
             }
             else
             {
-
                 bool isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn && NavigationService.CurrentPage != "StartNewChallengePage")
                     await NavigationService.Navigate("StartNewChallengePage");
-
             }
         }
 

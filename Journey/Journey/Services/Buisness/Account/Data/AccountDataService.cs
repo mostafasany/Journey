@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Abstractions.Contracts;
@@ -83,10 +84,7 @@ namespace Journey.Services.Buisness.Account.Data
             }
             catch (MobileServiceInvalidOperationException ex)
             {
-                if (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                {
-                    return null;
-                }
+                if (ex.Response.StatusCode == HttpStatusCode.NotFound) return null;
                 throw new DataServiceException(ex.Message, ex);
             }
             catch (Exception ex)

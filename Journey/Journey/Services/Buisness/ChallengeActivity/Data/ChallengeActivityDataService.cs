@@ -34,7 +34,7 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
                 AzureChallengeActivity logDto = ChallengeActivityDataTranslator.TranslateChallengeActivity(log);
                 await _azureChallengeActivity.InsertAsync(logDto);
 
-                var logModel = ChallengeActivityDataTranslator.TranslateChallengeActivity(logDto);
+                ChallengeActivityLog logModel = ChallengeActivityDataTranslator.TranslateChallengeActivity(logDto);
                 logModel.Account = log.Account;
                 logModel.Mine = true;
                 return logModel;
@@ -49,7 +49,7 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
         {
             try
             {
-                string api = "AccountActivity";
+                var api = "AccountActivity";
                 List<AzureChallengeActivity> logs = await _client.InvokeApiAsync<List<AzureChallengeActivity>>(api, HttpMethod.Get, null);
 
                 if (logs == null || logs.Count == 0)
@@ -72,7 +72,7 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
                     return null;
 
                 AzureChallengeActivity logDto = ChallengeActivityDataTranslator.TranslateChallengeActivity(log);
-                JObject jo = new JObject();
+                var jo = new JObject();
                 jo.Add(nameof(logDto.Id).ToLower(), logDto.Id);
                 jo.Add(nameof(logDto.Activity).ToLower(), logDto.Activity);
                 await _azureChallengeActivity.UpdateAsync(jo);
@@ -93,7 +93,7 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
                 if (log == null)
                     return false;
 
-                await _azureChallengeActivity.DeleteAsync(new AzureChallengeActivity { Id = log.Id });
+                await _azureChallengeActivity.DeleteAsync(new AzureChallengeActivity {Id = log.Id});
 
                 return true;
             }

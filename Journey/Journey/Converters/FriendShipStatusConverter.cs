@@ -11,21 +11,12 @@ namespace Journey.Converters
         {
             string friendShipStatus = value?.ToString();
             if (friendShipStatus == "1")
-            {
                 return AppResource.FriendShip_Requested;
-            }
-            else if (friendShipStatus == "2")
-            {
+            if (friendShipStatus == "2")
                 return AppResource.FriendShip_Accepted;
-            }
-            else if (friendShipStatus == "0")
-            {
+            if (friendShipStatus == "0")
                 return AppResource.FriendShip_Rejected;
-            }
-            else
-            {
-                return "";
-            }
+            return "";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();

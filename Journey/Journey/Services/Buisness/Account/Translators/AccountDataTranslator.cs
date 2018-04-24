@@ -35,18 +35,6 @@ namespace Journey.Services.Buisness.Account.Translators
             }
         }
 
-        public static List<Models.Account.Account> TranslateAccounts(List<AzureAccount> accounts)
-        {
-            try
-            {
-                return accounts.Select(TranslateAccount).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new TranslationFailedException("Account", ex.InnerException);
-            }
-        }
-
         public static Models.Account.Account TranslateAccount(AzureAccount account)
         {
             try
@@ -57,7 +45,7 @@ namespace Journey.Services.Buisness.Account.Translators
                     accountDto.Id = account.Id;
                 accountDto.FirstName = account.FName;
                 accountDto.LastName = account.LName;
-                accountDto.Image = new Media { Path = account.Profile };
+                accountDto.Image = new Media {Path = account.Profile};
                 accountDto.SocialToken = account.SToken;
                 accountDto.SocialProvider = account.SProvider;
                 accountDto.SID = account.SID;
@@ -66,6 +54,18 @@ namespace Journey.Services.Buisness.Account.Translators
                 accountDto.Status = account.Status;
                 accountDto.ChallengeId = account.Challenge;
                 return accountDto;
+            }
+            catch (Exception ex)
+            {
+                throw new TranslationFailedException("Account", ex.InnerException);
+            }
+        }
+
+        public static List<Models.Account.Account> TranslateAccounts(List<AzureAccount> accounts)
+        {
+            try
+            {
+                return accounts.Select(TranslateAccount).ToList();
             }
             catch (Exception ex)
             {

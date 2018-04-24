@@ -21,14 +21,14 @@ namespace Journey.Views.Selectors
                 return OtherWorkoutTemplate;
             }
 
-            else if (item is ChallengeKmActivityLog activityKmLog)
+            if (item is ChallengeKmActivityLog activityKmLog)
             {
                 if (activityKmLog.Mine)
                     return MeKMTemplate;
                 return OtherKMTemplate;
             }
 
-            else if (item is ChallengeKcalActivityLog activityKcalLog)
+            if (item is ChallengeKcalActivityLog activityKcalLog)
             {
                 if (activityKcalLog.Mine)
                     return MeKcalTemplate;

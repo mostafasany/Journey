@@ -121,14 +121,8 @@ namespace Journey.Services.Buisness.Account.Data
             }
         }
 
-        public Task<Models.Account.Account> GetAccontAsync(string id)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<Models.Account.Account> GetAccontAsync(string id) => throw new NotImplementedException();
 
-        public Task<List<Models.Account.Account>> FindAccontAsync(string keyword)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<List<Models.Account.Account>> FindAccontAsync(string keyword) => throw new NotImplementedException();
     }
 }

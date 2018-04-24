@@ -14,7 +14,7 @@ namespace Journey.Services.Buisness.Friend.Data
     public class FriendDataService : IFriendDataService
     {
         private readonly MobileServiceClient _client;
- 
+
         //private const string ApiFriends = "https://graph.facebook.com/me/friends?fields=id,name,picture.type(large)&limit=999";
 
         public FriendDataService(IAzureService azureService) => _client = azureService.CreateOrGetAzureClient();
@@ -26,6 +26,12 @@ namespace Journey.Services.Buisness.Friend.Data
         public async Task<bool> FollowApproveAsync(string frinedShipId) => await ChangeStatusAsync(frinedShipId, "approve");
 
         public async Task<bool> IgnoreApproveAsync(string frinedShipId) => await ChangeStatusAsync(frinedShipId, "ignore");
+
+        public async Task<List<FriendShip>> GetFriendsForChallengeAsync(string keyword) => await CallFriendsApiAsync("friends", keyword);
+
+        public async Task<List<FriendShip>> FindAccontAsync(string keyword) => await CallFriendsApiAsync("notfriends", keyword);
+
+        public async Task<List<FriendShip>> GetFriendsRequestsAsync() => await CallFriendsApiAsync("requests", "");
 
         public async Task<bool> ChangeStatusAsync(string frinedShipId, string status)
         {
@@ -42,12 +48,6 @@ namespace Journey.Services.Buisness.Friend.Data
             }
         }
 
-        public async Task<List<FriendShip>> GetFriendsForChallengeAsync(string keyword) => await CallFriendsApiAsync("friends", keyword);
-
-        public async Task<List<FriendShip>> FindAccontAsync(string keyword) => await CallFriendsApiAsync("notfriends", keyword);
-
-        public async Task<List<FriendShip>> GetFriendsRequestsAsync() => await CallFriendsApiAsync("requests", "");
-
         private async Task<List<FriendShip>> CallFriendsApiAsync(string action, string keyword)
         {
             try
@@ -60,6 +60,7 @@ namespace Journey.Services.Buisness.Friend.Data
                     List<FriendShip> accountDto = FriendShipTranslator.TranslateAccounts(accountTbl);
                     return accountDto;
                 }
+
                 return null;
             }
             catch (Exception ex)

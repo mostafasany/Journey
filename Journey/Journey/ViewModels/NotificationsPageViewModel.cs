@@ -17,7 +17,7 @@ namespace Journey.ViewModels
         private readonly INotificationService _notificationService;
 
         public NotificationsPageViewModel(IUnityContainer container, IAccountService accountService, INotificationService notificationService,
-           IDeepLinkService deepLinking) :
+            IDeepLinkService deepLinking) :
             base(container, accountService, notificationService)
         {
             _notificationService = notificationService;

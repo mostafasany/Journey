@@ -1,5 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Journey.Views" xmlns:resources="clr-namespace:Journey.Resources" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" ControlTemplate="{StaticResource HeaderFooterControlTemplate}" xmlns:controls="clr-namespace:Journey.Views.Controls" x:Class="Journey.Views.FriendsPage">
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:local="clr-namespace:Journey.Views" xmlns:resources="clr-namespace:Journey.Resources"
+                xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                ControlTemplate="{StaticResource HeaderFooterControlTemplate}"
+                xmlns:controls="clr-namespace:Journey.Views.Controls" x:Class="Journey.Views.FriendsPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="FriendTemplate">
@@ -7,20 +12,27 @@
                     <ViewCell.View>
                         <Grid Padding="5">
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Path=BindingContext.OnSelectedFriendCommand, Source={x:Reference Name=ParentListView}}" CommandParameter="{Binding} " />
+                                <TapGestureRecognizer
+                                    Command="{Binding Path=BindingContext.OnSelectedFriendCommand, Source={x:Reference Name=ParentListView}}"
+                                    CommandParameter="{Binding} " />
                             </Grid.GestureRecognizers>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <controls:CustomImage Grid.Column="0" Source="{Binding Image.Path}" Aspect="AspectFit" HeightRequest="100" HorizontalOptions="Start">
+                            <controls:CustomImage Grid.Column="0" Source="{Binding Image.Path}" Aspect="AspectFit"
+                                                  HeightRequest="100" HorizontalOptions="Start">
                                 <controls:CustomImage.Transformations>
                                     <fftransformations:CircleTransformation />
                                 </controls:CustomImage.Transformations>
                             </controls:CustomImage>
-                            <Label Grid.Column="1" Text="{Binding Name}" TextColor="Black" FontSize="20" Margin="5,0" HorizontalOptions="Start" VerticalOptions="Center" />
-                            <Label Grid.Column="2" Text="{Binding FriendShipStatus,Converter={StaticResource FriendShipStatusConverter}}" TextColor="Gray" FontSize="16" Margin="5,0" HorizontalOptions="Start" VerticalOptions="Center" />
+                            <Label Grid.Column="1" Text="{Binding Name}" TextColor="Black" FontSize="20" Margin="5,0"
+                                   HorizontalOptions="Start" VerticalOptions="Center" />
+                            <Label Grid.Column="2"
+                                   Text="{Binding FriendShipStatus,Converter={StaticResource FriendShipStatusConverter}}"
+                                   TextColor="Gray" FontSize="16" Margin="5,0" HorizontalOptions="Start"
+                                   VerticalOptions="Center" />
                         </Grid>
                     </ViewCell.View>
                 </ViewCell>
@@ -35,11 +47,18 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Margin="5,0">
-                <SearchBar BackgroundColor="Transparent" WidthRequest="400" Placeholder="{resources:Translate SearchFriends_Placholder}" Text="{Binding SearchKeyword,Mode=TwoWay}" SearchCommand="{Binding OnSearchCommand}" />
+                <SearchBar BackgroundColor="Transparent" WidthRequest="400"
+                           Placeholder="{resources:Translate SearchFriends_Placholder}"
+                           Text="{Binding SearchKeyword,Mode=TwoWay}" SearchCommand="{Binding OnSearchCommand}" />
             </Grid>
-            <controls:LoadingControl Grid.Row="1" Margin="10,0" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" />
-            <ListView x:Name="ParentListView" Grid.Row="2" Margin="10" RowHeight="100" SeparatorVisibility="None" ItemsSource="{Binding FriendsList}" ItemTemplate="{StaticResource FriendTemplate}" SelectedItem="{Binding SelectedFriend,Mode=TwoWay}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}"
-                BackgroundColor="White" RefreshAllowed="true" RefreshCommand="{Binding OnPullRefreshRequestCommand}" HorizontalOptions="Center" />
+            <controls:LoadingControl Grid.Row="1" Margin="10,0" IsVisible="{Binding IsLoading}"
+                                     HorizontalOptions="Center" VerticalOptions="Center" />
+            <ListView x:Name="ParentListView" Grid.Row="2" Margin="10" RowHeight="100" SeparatorVisibility="None"
+                      ItemsSource="{Binding FriendsList}" ItemTemplate="{StaticResource FriendTemplate}"
+                      SelectedItem="{Binding SelectedFriend,Mode=TwoWay}" IsPullToRefreshEnabled="true"
+                      IsRefreshing="{Binding IsPullRefreshLoading}"
+                      BackgroundColor="White" RefreshAllowed="true"
+                      RefreshCommand="{Binding OnPullRefreshRequestCommand}" HorizontalOptions="Center" />
         </Grid>
     </ContentPage.Content>
 </local:BasePage>

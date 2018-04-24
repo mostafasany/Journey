@@ -10,8 +10,8 @@ namespace Journey.ViewModels
     public class StartNewChallengePageViewModel : MainNavigationViewModel, INavigationAware
     {
         public StartNewChallengePageViewModel(IUnityContainer container,
-                                              IAccountService accountService,
-                                              INotificationService notificationService) :
+            IAccountService accountService,
+            INotificationService notificationService) :
             base(container, accountService, notificationService)
         {
         }
@@ -26,7 +26,6 @@ namespace Journey.ViewModels
         {
             try
             {
-                
             }
             catch (Exception e)
             {
@@ -42,7 +41,6 @@ namespace Journey.ViewModels
         #endregion
 
         #region Properties
-
 
         #endregion
 

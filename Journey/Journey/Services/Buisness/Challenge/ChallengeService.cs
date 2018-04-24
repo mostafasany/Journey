@@ -3,12 +3,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Models;
+using Journey.Models.Challenge;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Account.Data;
 using Journey.Services.Buisness.Challenge.Data;
 using Journey.Services.Buisness.Notification;
-using ChallengeAccount = Journey.Models.Challenge.ChallengeAccount;
 
 namespace Journey.Services.Buisness.Challenge
 {

@@ -62,10 +62,7 @@ namespace Journey.Services.Buisness.Account
 
 
                 LoggedInAccount = await _accountDataService.GetAccountAsync(sync);
-                if(LoggedInAccount==null)
-                {
-                    await LogoutAsync();
-                }
+                if (LoggedInAccount == null) await LogoutAsync();
                 return LoggedInAccount;
             }
             catch (Exception ex)
