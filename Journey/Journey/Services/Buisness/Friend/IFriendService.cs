@@ -8,5 +8,6 @@ namespace Journey.Services.Buisness.Friend
         Task<bool> FollowRequestAsync(string friend);
         Task<bool> FollowRejectAsync(string frinedShipId);
         Task<bool> FollowApproveAsync(string frinedShipId);
+        Task<bool> IgnoreApproveAsync(string frinedShipId);
     }
 }

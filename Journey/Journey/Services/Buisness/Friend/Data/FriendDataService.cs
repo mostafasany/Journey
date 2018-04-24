@@ -27,43 +27,31 @@ namespace Journey.Services.Buisness.Friend.Data
 
         public async Task<bool> FollowRequestAsync(string friend)
         {
-            try
-            {
-                var api = "friends";
-                var param = new Dictionary<string, string>();
-                param.Add("action", friend + "," + "request");
-                bool success = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
-                return success;
-            }
-            catch (Exception ex)
-            {
-                throw new DataServiceException(ex.Message, ex);
-            }
+            return await ChangeStatusAsync(friend, "request");
         }
 
         public async Task<bool> FollowRejectAsync(string frinedShipId)
         {
-            try
-            {
-                var api = "friends";
-                var param = new Dictionary<string, string>();
-                param.Add("action", frinedShipId + "," + "reject");
-                bool success = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
-                return success;
-            }
-            catch (Exception ex)
-            {
-                throw new DataServiceException(ex.Message, ex);
-            }
+            return await ChangeStatusAsync(frinedShipId, "ignore");
         }
 
         public async Task<bool> FollowApproveAsync(string frinedShipId)
+        {
+            return await ChangeStatusAsync(frinedShipId, "approve");
+        }
+
+        public async Task<bool> IgnoreApproveAsync(string frinedShipId)
+        {
+            return await ChangeStatusAsync(frinedShipId, "ignore");
+        }
+
+        public async Task<bool> ChangeStatusAsync(string frinedShipId, string status)
         {
             try
             {
                 var api = "friends";
                 var param = new Dictionary<string, string>();
-                param.Add("action", frinedShipId + "," + "approve");
+                param.Add("action", frinedShipId + "," + status);
                 bool success = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
                 return success;
             }

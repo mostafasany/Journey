@@ -599,9 +599,21 @@ namespace Journey.Resources {
             }
         }
         
-        internal static string Friends_AddNewFriend {
+        internal static string Friends_FollowFriend {
             get {
-                return ResourceManager.GetString("Friends_AddNewFriend", resourceCulture);
+                return ResourceManager.GetString("Friends_FollowFriend", resourceCulture);
+            }
+        }
+        
+        internal static string Friends_UnFollowFriend {
+            get {
+                return ResourceManager.GetString("Friends_UnFollowFriend", resourceCulture);
+            }
+        }
+        
+        internal static string Friends_IgnoreFriend {
+            get {
+                return ResourceManager.GetString("Friends_IgnoreFriend", resourceCulture);
             }
         }
         

@@ -155,36 +155,109 @@ namespace Journey.ViewModels
         {
             try
             {
-                if (string.IsNullOrEmpty(selectedFriend?.Id) ||!string.IsNullOrEmpty(selectedFriend.FriendShipStatus))
+                if (string.IsNullOrEmpty(selectedFriend?.Id))
                     return;
-                
-                var competeCommand = new DialogCommand
-                {
-                    Label = AppResource.Yes,
-                    Invoked = async () =>
-                    {
-                        var status = await _friendService.FollowRequestAsync(selectedFriend.Id);
-                    }
-                };
 
-                var cancelCommand = new DialogCommand
+                if (selectedFriend.FriendShipEnum == FriendShipEnum.Requested)
                 {
-                    Label = AppResource.Cancel
-                };
-
-                var commands = new List<DialogCommand>
+                    RequestIgnore(selectedFriend);
+                }
+                else if (selectedFriend.FriendShipEnum == FriendShipEnum.Nothing)
                 {
-                    competeCommand,
-                    cancelCommand
-                };
-
-                var message = string.Format(AppResource.Friends_AddNewFriend, selectedFriend.Name);
-                await DialogService.ShowMessageAsync("", message, commands);
+                    RequestFollow(selectedFriend);
+                }
+                else if (selectedFriend.FriendShipEnum == FriendShipEnum.Approved)
+                {
+                    RequestUnFollow(selectedFriend);
+                }
             }
             catch (Exception ex)
             {
                 ExceptionService.Handle(ex);
             }
+        }
+
+        async void RequestFollow(FriendShip selectedFriend)
+        {
+            var competeCommand = new DialogCommand
+            {
+                Label = AppResource.Yes,
+                Invoked = async () =>
+                {
+                    var status = await _friendService.FollowRequestAsync(selectedFriend.Id);
+                    if (status)
+                        selectedFriend.FriendShipStatus = ((int)FriendShipEnum.Requested).ToString();
+                }
+            };
+
+            var cancelCommand = new DialogCommand
+            {
+                Label = AppResource.Cancel
+            };
+
+            var commands = new List<DialogCommand>
+                {
+                    competeCommand,
+                    cancelCommand
+                };
+
+            var message = string.Format(AppResource.Friends_FollowFriend, selectedFriend.Name);
+            await DialogService.ShowMessageAsync("", message, commands);
+        }
+
+        async void RequestIgnore(FriendShip selectedFriend)
+        {
+            var competeCommand = new DialogCommand
+            {
+                Label = AppResource.Yes,
+                Invoked = async () =>
+                {
+                    var status = await _friendService.IgnoreApproveAsync(selectedFriend.FriendShipId);
+                    if (status)
+                        selectedFriend.FriendShipStatus = ((int)FriendShipEnum.Nothing).ToString();
+
+                }
+            };
+
+            var cancelCommand = new DialogCommand
+            {
+                Label = AppResource.Cancel
+            };
+
+            var commands = new List<DialogCommand>
+                {
+                    competeCommand,
+                    cancelCommand
+                };
+
+            var message = string.Format(AppResource.Friends_IgnoreFriend, selectedFriend.Name);
+            await DialogService.ShowMessageAsync("", message, commands);
+        }
+
+        async void RequestUnFollow(FriendShip selectedFriend)
+        {
+            var competeCommand = new DialogCommand
+            {
+                Label = AppResource.Yes,
+                Invoked = async () =>
+                {
+                    var status = await _friendService.FollowRejectAsync(selectedFriend.FriendShipId);
+                }
+            };
+
+            var cancelCommand = new DialogCommand
+            {
+                Label = AppResource.Cancel
+            };
+
+            var commands = new List<DialogCommand>
+                {
+                    competeCommand,
+                    cancelCommand
+                };
+
+            var message = string.Format(AppResource.Friends_UnFollowFriend, selectedFriend.Name);
+            await DialogService.ShowMessageAsync("", message, commands);
         }
 
         #endregion

@@ -49,5 +49,18 @@ namespace Journey.Services.Buisness.Friend
                 throw new BusinessException(ex.Message, ex);
             }
         }
+
+        public async Task<bool> IgnoreApproveAsync(string frinedShipId)
+        {
+            try
+            {
+                bool status = await _friendDataService.IgnoreApproveAsync(frinedShipId);
+                return status;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
+        }
     }
 }

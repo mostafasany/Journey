@@ -393,8 +393,14 @@
     <data name="Kcal" xml:space="preserve">
     <value>cal</value>
   </data>
-    <data name="Friends_AddNewFriend" xml:space="preserve">
-    <value>Do you want to add {0}</value>
+    <data name="Friends_FollowFriend" xml:space="preserve">
+    <value>Do you want to follow {0}</value>
+  </data>
+      <data name="Friends_UnFollowFriend" xml:space="preserve">
+    <value>Do you want to unfollow {0}</value>
+  </data>
+        <data name="Friends_IgnoreFriend" xml:space="preserve">
+    <value>Do you want to undo request from {0}</value>
   </data>
     <data name="Draw" xml:space="preserve">
     <value>Draw</value>
