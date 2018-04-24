@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Abstractions.Services.Contracts;
 using Journey.Models.Account;
 using Journey.Resources;
-using Journey.Services.Buisness.Challenge;
+using Journey.Services.Buisness.Friend;
 using Prism.Commands;
 using Prism.Navigation;
 using Unity;
@@ -14,11 +14,11 @@ namespace Journey.ViewModels
 {
     public class ChooseChallengeFriendPageViewModel : BaseViewModel, INavigationAware
     {
-        private readonly IChallengeService _challengeService;
+        private readonly IFriendService _friendService;
 
         public ChooseChallengeFriendPageViewModel(IUnityContainer container,
-                                                  IChallengeService challengeService)
-            : base(container) => _challengeService = challengeService;
+            IFriendService friendService)
+            : base(container) => _friendService = friendService;
 
         #region Events
 
@@ -46,17 +46,17 @@ namespace Journey.ViewModels
 
         #region Properties
 
-        private ObservableCollection<Account> _friendsList;
+        private ObservableCollection<FriendShip> _friendsList;
 
-        public ObservableCollection<Account> FriendsList
+        public ObservableCollection<FriendShip> FriendsList
         {
             get => _friendsList;
             set => SetProperty(ref _friendsList, value);
         }
 
-        private Account _selectedFriend;
+        private FriendShip _selectedFriend;
 
-        public Account SelectedFriend
+        public FriendShip SelectedFriend
         {
             get => _selectedFriend;
             set => SetProperty(ref _selectedFriend, value);
@@ -121,9 +121,9 @@ namespace Journey.ViewModels
         {
             try
             {
-                List<Account> friends = await _challengeService.GetFriendsForChallengeAsync(keyword);
+                List<FriendShip> friends = await _friendService.GetFriendsForChallengeAsync(keyword);
                 if (friends != null)
-                    FriendsList = new ObservableCollection<Account>(friends);
+                    FriendsList = new ObservableCollection<FriendShip>(friends);
             }
             catch (Exception ex)
             {
@@ -143,7 +143,7 @@ namespace Journey.ViewModels
         {
             try
             {
-                if (string.IsNullOrEmpty(selectedFriend?.Id))
+                if (selectedFriend == null || string.IsNullOrEmpty(selectedFriend.Id))
                     return;
 
                 if (selectedFriend.HasActiveChallenge)
@@ -151,6 +151,7 @@ namespace Journey.ViewModels
                     await DialogService.ShowMessageAsync("", AppResource.Challenge_FriendHasActiveChallenge);
                     return;
                 }
+
                 var competeCommand = new DialogCommand
                 {
                     Label = AppResource.Yes,

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.WindowsAzure.MobileServices;
 
 namespace Journey.Services.Buisness.Account
@@ -25,7 +24,5 @@ namespace Journey.Services.Buisness.Account
         Task<Models.Account.Account> SaveAccountAsync(Models.Account.Account account, bool add);
 
         Task<bool> SoicalLoginAndSaveAsync(MobileServiceClient client);
-
-        Task<List<Models.Account.FriendShip>> FindAccontAsync(string keyword);
     }
 }

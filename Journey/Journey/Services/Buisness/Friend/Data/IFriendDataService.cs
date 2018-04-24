@@ -10,6 +10,8 @@ namespace Journey.Services.Buisness.Friend.Data
         Task<bool> FollowRejectAsync(string frinedShipId);
         Task<bool> FollowApproveAsync(string frinedShipId);
         Task<bool> IgnoreApproveAsync(string frinedShipId);
-        Task<List<Journey.Models.Account.Account>> GetFriendsForChallengeAsync(string name);
+        Task<List<FriendShip>> GetFriendsForChallengeAsync(string keyword);
+        Task<List<FriendShip>> GetFriendsRequestsAsync();
+        Task<List<FriendShip>> FindAccontAsync(string keyword);
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Journey.Services.Buisness.Challenge
 {
@@ -11,6 +10,5 @@ namespace Journey.Services.Buisness.Challenge
         Task<Models.Challenge.Challenge> EditChallengeAsync(Models.Challenge.Challenge challenge);
         Task<Models.Challenge.Challenge> EndChallengeAsync(Models.Challenge.Challenge challenge);
         Task<Models.Challenge.Challenge> GetChallengeAsync(string challengeId);
-        Task<List<Models.Account.Account>> GetFriendsForChallengeAsync(string name);
     }
 }

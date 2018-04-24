@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
+using Journey.Models.Account;
 using Journey.Services.Buisness.Friend.Data;
 
 namespace Journey.Services.Buisness.Friend
@@ -56,6 +58,45 @@ namespace Journey.Services.Buisness.Friend
             {
                 bool status = await _friendDataService.IgnoreApproveAsync(frinedShipId);
                 return status;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
+        }
+
+        public async Task<List<FriendShip>> FindAccontAsync(string keyword)
+        {
+            try
+            {
+                var friends = await _friendDataService.FindAccontAsync(keyword);
+                return friends;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
+        }
+
+        public async Task<List<FriendShip>> GetFriendsForChallengeAsync(string keyword)
+        {
+            try
+            {
+                var friends = await _friendDataService.GetFriendsForChallengeAsync(keyword);
+                return friends;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
+        }
+
+        public async Task<List<FriendShip>> GetFriendsRequestsAsync()
+        {
+            try
+            {
+                var friends = await _friendDataService.GetFriendsRequestsAsync();
+                return friends;
             }
             catch (Exception ex)
             {

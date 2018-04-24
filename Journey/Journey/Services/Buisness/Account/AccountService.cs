@@ -189,18 +189,5 @@ namespace Journey.Services.Buisness.Account
                 throw new BusinessException(ex.Message, ex);
             }
         }
-
-        public async Task<List<Models.Account.FriendShip>> FindAccontAsync(string keyword)
-        {
-            try
-            {
-                var accounts = await _accountDataService.FindAccontAsync(keyword);
-                return accounts;
-            }
-            catch (Exception ex)
-            {
-                throw new BusinessException(ex.Message, ex);
-            }
-        }
     }
 }

@@ -5,18 +5,15 @@ using System.Linq;
 using System.Web;
 using Abstractions.Exceptions;
 using Abstractions.Services;
-using Abstractions.Services.Contracts;
 
 namespace Journey.Services.Buisness.DeepLink
 {
     public class DeepLinkService : IDeepLinkService
     {
-        private readonly INavigationService _navigationService;
         private const string ProfilePageName = "profile";
         private const string ChallengeRequestName = "challengerequest";
         private const string OurDomainName = "journey";
 
-       // public DeepLinkService(INavigationService navigationService) => _navigationService = navigationService;
 
         public void ParseDeepLinkingAndExecute(string deepLink)
         {
@@ -34,7 +31,7 @@ namespace Journey.Services.Buisness.DeepLink
                     string pageName = hostParts[2];
                     if (pageName == ProfilePageName)
                     {
-                        _navigationService.Navigate("ChallengeProgressPage");
+                       // _navigationService.Navigate("ChallengeProgressPage");
                     }
                     else if (pageName == ChallengeRequestName)
                     {
@@ -44,7 +41,7 @@ namespace Journey.Services.Buisness.DeepLink
                             {"Challenge", id},
                             {"Mode", 2}
                         };
-                        _navigationService.Navigate("NewChallengePage", parameters);
+                      //  _navigationService.Navigate("NewChallengePage", parameters);
                     }
                 }
             }
