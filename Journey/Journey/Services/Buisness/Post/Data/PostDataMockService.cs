@@ -57,7 +57,7 @@ namespace Journey.Services.Buisness.Post.Data
             }
         }
 
-        public async Task<List<Models.Post.Post>> GetPostsAsync(string challengeId, int page, int size,
+        public async Task<List<Models.Post.Post>> GetPostsAsync(int page, int size,
             bool sync = false)
         {
             try

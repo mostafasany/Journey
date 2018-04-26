@@ -19,41 +19,23 @@ namespace Journey.Services.Buisness.ChallengeActivity
         private readonly IChallengeActivityDataService _challengeActivityDataService;
         private readonly IChallengeService _challengeService;
         private readonly ILocationService _locationService;
-        private readonly ISettingsService _settingsService;
-        private const string LastExerciseDate = "LastExerciseDate";
         private const double MinDistanceForWorkout = 0.2;
-
         public ChallengeActivityService(IChallengeActivityDataService challengeActivityDataService,
             IAccountService accountService,
-            ISettingsService settingsService,
             IChallengeService challengeService,
             ILocationService locationService)
         {
             _accountService = accountService;
             _challengeActivityDataService = challengeActivityDataService;
             _locationService = locationService;
-            _settingsService = settingsService;
             _challengeService = challengeService;
         }
 
-        public async Task<ChallengeActivityLog> AddActivityAsync(ChallengeActivityLog log)
+        public async Task<ChallengeActivityLog> AddUpdateActivityAsync(ChallengeActivityLog log)
         {
             try
             {
-                ChallengeActivityLog logDto = await _challengeActivityDataService.AddActivityAsync(log);
-                return logDto;
-            }
-            catch (Exception ex)
-            {
-                throw new BusinessException(ex.Message, ex);
-            }
-        }
-
-        public async Task<ChallengeActivityLog> UpdateActivityAsync(ChallengeActivityLog log)
-        {
-            try
-            {
-                ChallengeActivityLog logDto = await _challengeActivityDataService.UpdateActivityAsync(log);
+                ChallengeActivityLog logDto = await _challengeActivityDataService.AddUpdateActivityAsync(log);
                 return logDto;
             }
             catch (Exception ex)
@@ -119,9 +101,9 @@ namespace Journey.Services.Buisness.ChallengeActivity
                             b => new AccountChallengeProgress
                             {
                                 Account = b.FirstOrDefault().Account,
-                                TotalKm = b.Where(e => e is ChallengeKmActivityLog).Sum(s => ((ChallengeKmActivityLog) s).KM),
+                                TotalKm = b.Where(e => e is ChallengeKmActivityLog).Sum(s => ((ChallengeKmActivityLog)s).KM),
                                 TotalExercises = b.Count(e => e is ChallengeWorkoutActivityLog),
-                                TotalKcal = b.Where(e => e is ChallengeKcalActivityLog).Sum(s => ((ChallengeKcalActivityLog) s).Kcal)
+                                TotalKcal = b.Where(e => e is ChallengeKcalActivityLog).Sum(s => ((ChallengeKcalActivityLog)s).Kcal)
                             }
                         ).ToList()
                     })
@@ -157,48 +139,41 @@ namespace Journey.Services.Buisness.ChallengeActivity
             }
         }
 
-        public async Task<ChallengeActivityLog> AddExerciseActivityAsync(Location myLocation)
+        public async Task<ChallengeActivityLog> AddExerciseActivityAsync(Location myLocation, string challenge = null)
         {
             try
             {
-                Models.Challenge.Challenge _challenge = null;
-                Location workoutLocation = null;
-                string challengeId = null;
-                if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
+                var activity = new ChallengeWorkoutActivityLog
                 {
-                    _challenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
-                    challengeId = _challenge.Id;
-                    workoutLocation = _challenge.SelectedLocation;
-                    double near = _locationService.DistanceBetweenPlaces(myLocation.Lng, myLocation.Lat, _challenge.SelectedLocation.Lng, _challenge.SelectedLocation.Lat);
-                    if (near > MinDistanceForWorkout) challengeId = "";
-                }
-                else
-                {
-                    workoutLocation = myLocation;
-                }
+                    Account = _accountService.LoggedInAccount,
+                    Challenge = challenge,
+                    DatetTime = DateTime.Now,
+                    Location = myLocation
+                };
+                ChallengeActivityLog newActivity = await AddUpdateActivityAsync(activity);
+                return newActivity;
 
-                string date = await _settingsService.Get(LastExerciseDate);
-                DateTime.TryParse(date, out DateTime parsedDate);
-                if (parsedDate.Date != DateTime.Now.Date)
-                {
-                    await _settingsService.Set(LastExerciseDate, DateTime.Now.Date.ToString(CultureInfo.InvariantCulture));
-                    var activity = new ChallengeWorkoutActivityLog
-                    {
-                        Account = _accountService.LoggedInAccount,
-                        Challenge = challengeId,
-                        DatetTime = DateTime.Now,
-                        Location = workoutLocation
-                    };
-                    ChallengeActivityLog newActivity = await AddActivityAsync(activity);
-                    return newActivity;
-                }
-
-                return null;
             }
             catch (Exception ex)
             {
                 throw new BusinessException(ex.Message, ex);
             }
+        }
+
+        public async Task<Models.Challenge.Challenge> IsExercisingInChallengeWorkoutPlaceAsync(Location myLocation)
+        {
+            if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
+            {
+                var _challenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
+
+                var workoutLocation = _challenge.SelectedLocation;
+                double near = _locationService.DistanceBetweenPlaces(myLocation.Lng, myLocation.Lat, _challenge.SelectedLocation.Lng, _challenge.SelectedLocation.Lat);
+                if (near > MinDistanceForWorkout)
+                    return null;
+                else
+                    return _challenge;
+            }
+            return null;
         }
     }
 }

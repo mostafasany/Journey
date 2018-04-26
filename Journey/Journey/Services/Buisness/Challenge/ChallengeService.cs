@@ -18,7 +18,7 @@ namespace Journey.Services.Buisness.Challenge
         private readonly IAccountService _accountService;
         private readonly IChallengeDataService _challengeDataService;
         private readonly INotificationService _notificationService;
-
+        private Models.Challenge.Challenge _cachedChallenge;
         public ChallengeService(IChallengeDataService challengeDataService,
             IAccountDataService accountDataService,
             IAccountService accountService,
@@ -36,8 +36,12 @@ namespace Journey.Services.Buisness.Challenge
             {
                 if (string.IsNullOrEmpty(challengeId))
                     return null;
-                Models.Challenge.Challenge challenge = await _challengeDataService.GetChallengeAsync(challengeId);
-                return challenge;
+                if (_cachedChallenge != null)
+                    return _cachedChallenge;
+
+                _cachedChallenge = await _challengeDataService.GetChallengeAsync(challengeId);
+
+                return _cachedChallenge;
             }
             catch (Exception ex)
             {

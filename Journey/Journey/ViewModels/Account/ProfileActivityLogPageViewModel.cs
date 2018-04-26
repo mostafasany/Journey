@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Abstractions.Models;
 using Abstractions.Services.Contracts;
@@ -24,16 +25,9 @@ namespace Journey.ViewModels
         private readonly IChallengeActivityService _challengeActivityService;
         private readonly IChallengeService _challengeService;
         private readonly ILocationService _locationService;
-        private readonly ISettingsService _settingsService;
-        private const string LastLogDateTime = "LastLogDateTime";
-        private const string LastLogId = "LastLogId";
-
-        private const string LastKcalLogDateTime = "LastKcalLogDateTime";
-        private const string LastKcalLogId = "LastKcalLogId";
 
         public ProfileActivityLogPageViewModel(IUnityContainer container, IAccountService accountService,
             INotificationService notificationService,
-            ISettingsService settingsService,
             ILocationService locationService,
             IChallengeService challengeService,
             IChallengeActivityService challengeActivityService) :
@@ -43,25 +37,7 @@ namespace Journey.ViewModels
             _challengeService = challengeService;
             _challengeActivityService = challengeActivityService;
             _accountService = accountService;
-            _settingsService = settingsService;
             SubscribeHealthService();
-            //_settingsService.Remove(LastLogDateTime);
-            //_settingsService.Remove(LastLogId);
-            //_settingsService.Remove(LastKcalLogDateTime);
-            //_settingsService.Remove(LastKcalLogId);
-        }
-
-        private async void SubscribeHealthService()
-        {
-            var healthService = DependencyService.Get<IHealthService>();
-            if (healthService == null)
-                return;
-            bool status = await healthService.Authenticate();
-            if (status)
-            {
-                HasHealthApi = true;
-                healthService.HealthDataChanged += HealthService_HealthDataChanged;
-            }
         }
 
         #region Events
@@ -78,13 +54,13 @@ namespace Journey.ViewModels
                 {
                     string measure = e.Data["Measure"];
                     decimal parsedDistance = decimal.Parse(measure) / 1000;
-                    LogKmActivity(double.Parse(parsedDistance.ToString("0.##")));
+                    AddUpdateLogKmActivity(double.Parse(parsedDistance.ToString("0.##")));
                 }
 
                 if (unit == Unit.KCAL.ToString())
                 {
                     string measure = e.Data["Measure"];
-                    LogKcalActivity(double.Parse(measure));
+                    AddUpdateLogKcalActivity(double.Parse(measure));
                 }
             }
             catch (Exception ex)
@@ -103,6 +79,15 @@ namespace Journey.ViewModels
             {
                 ClearTabSelection();
                 FirstTabSelected = "#f1f1f1";
+
+
+                if (parameters?.GetNavigationMode() == NavigationMode.Back)
+                {
+                    var _location = parameters.GetValue<Location>("Location");
+                    if (_location != null)
+                        AddExerciseActivity(_location);
+                }
+
 
                 if (parameters.GetNavigationMode() == NavigationMode.New)
                     Intialize();
@@ -190,112 +175,55 @@ namespace Journey.ViewModels
             }
         }
 
-        private async void LogKmActivity(double km)
+        private async void SubscribeHealthService()
         {
-            string logDateTime = await _settingsService.Get(LastLogDateTime);
-            if (string.IsNullOrEmpty(logDateTime))
+            var healthService = DependencyService.Get<IHealthService>();
+            if (healthService == null)
+                return;
+            bool status = await healthService.Authenticate();
+            if (status)
             {
-                AddLogKmActivity(km);
-            }
-            else
-            {
-                DateTime parsedLogDate = DateTime.Parse(logDateTime);
-                if (DateTime.Now.Date == parsedLogDate.Date)
-                    UpdateLogKmActivity(km);
-                else
-                    AddLogKmActivity(km);
+                HasHealthApi = true;
+                healthService.HealthDataChanged += HealthService_HealthDataChanged;
             }
         }
 
-        private async void AddLogKmActivity(double km)
+        private async void AddUpdateLogKmActivity(double km)
         {
-            DateTime currentDateTime = DateTime.Now;
+            if (km == 0)
+                return;
             var newActivity = new ChallengeKmActivityLog
             {
                 Account = _accountService.LoggedInAccount,
                 Challenge = _accountService.LoggedInAccount.ChallengeId,
-                DatetTime = currentDateTime,
                 KM = km
             };
-            ChallengeActivityLog activity = await _challengeActivityService.AddActivityAsync(newActivity);
-
-            await _settingsService.Set(LastLogId, activity.Id);
-            await _settingsService.Set(LastLogDateTime, currentDateTime.ToString(CultureInfo.InvariantCulture));
-            if (ChallengeActivityLog.Any())
-                ChallengeActivityLog.Insert(0, activity);
-            else
-                ChallengeActivityLog.Add(activity);
+            await AddUpdateActivity(newActivity);
         }
 
-        private async void UpdateLogKmActivity(double km)
+        private async void AddUpdateLogKcalActivity(double kcal)
         {
-            DateTime currentDateTime = DateTime.Now;
-            string lastLogId = await _settingsService.Get(LastLogId);
-            await _challengeActivityService.UpdateActivityAsync(new ChallengeKmActivityLog
-            {
-                Id = lastLogId,
-                Account = _accountService.LoggedInAccount,
-                Challenge = _accountService.LoggedInAccount.ChallengeId,
-                DatetTime = currentDateTime,
-                KM = km
-            });
-            await _settingsService.Set(LastLogDateTime, currentDateTime.ToString(CultureInfo.InvariantCulture));
-            if (ChallengeActivityLog.FirstOrDefault(a => a.Id == lastLogId) is ChallengeKmActivityLog updatedItem)
-                updatedItem.KM = km;
-        }
-
-        private async void LogKcalActivity(double kcal)
-        {
-            string logDateTime = await _settingsService.Get(LastKcalLogDateTime);
-            if (string.IsNullOrEmpty(logDateTime))
-            {
-                AddLogKcalActivity(kcal);
-            }
-            else
-            {
-                DateTime parsedLogDate = DateTime.Parse(logDateTime);
-                if (DateTime.Now.Date == parsedLogDate.Date)
-                    UpdateLogKcalActivity(kcal);
-                else
-                    AddLogKcalActivity(kcal);
-            }
-        }
-
-        private async void AddLogKcalActivity(double kcal)
-        {
-            DateTime currentDateTime = DateTime.Now;
+            if (kcal == 0)
+                return;
             var newActivity = new ChallengeKcalActivityLog
             {
                 Account = _accountService.LoggedInAccount,
                 Challenge = _accountService.LoggedInAccount.ChallengeId,
-                DatetTime = currentDateTime,
+                DatetTime = DateTime.Now,
                 Kcal = kcal
             };
-            ChallengeActivityLog activity = await _challengeActivityService.AddActivityAsync(newActivity);
-
-            await _settingsService.Set(LastKcalLogId, activity.Id);
-            await _settingsService.Set(LastKcalLogDateTime, currentDateTime.ToString(CultureInfo.InvariantCulture));
-            if (ChallengeActivityLog.Any())
-                ChallengeActivityLog.Insert(0, activity);
-            else
-                ChallengeActivityLog.Add(activity);
+            await AddUpdateActivity(newActivity);
         }
 
-        private async void UpdateLogKcalActivity(double kcal)
+        private async Task AddUpdateActivity(ChallengeActivityLog activityLog)
         {
-            DateTime currentDateTime = DateTime.Now;
-            string lastLogId = await _settingsService.Get(LastKcalLogId);
-            await _challengeActivityService.UpdateActivityAsync(new ChallengeKcalActivityLog
-            {
-                Id = lastLogId,
-                Account = _accountService.LoggedInAccount,
-                Challenge = _accountService.LoggedInAccount.ChallengeId,
-                DatetTime = currentDateTime,
-                Kcal = kcal
-            });
-            await _settingsService.Set(LastKcalLogDateTime, currentDateTime.ToString(CultureInfo.InvariantCulture));
-            if (ChallengeActivityLog.FirstOrDefault(a => a.Id == lastLogId) is ChallengeKcalActivityLog updatedItem)
-                updatedItem.Kcal = kcal;
+            ChallengeActivityLog activity = await _challengeActivityService.AddUpdateActivityAsync(activityLog);
+
+            //if (ChallengeActivityLog.Any())
+            //    ChallengeActivityLog.Insert(0, activity);
+            //else
+            //ChallengeActivityLog.Add(activity);
+            Intialize();
         }
 
         #endregion
@@ -320,13 +248,15 @@ namespace Journey.ViewModels
                 ShowProgress();
 
                 Location myLocation = await _locationService.ObtainMyLocationAsync();
-                ChallengeActivityLog newActivity = await _challengeActivityService.AddExerciseActivityAsync(myLocation);
-                if (newActivity == null)
-                    return;
-                if (ChallengeActivityLog.Any())
-                    ChallengeActivityLog.Insert(0, newActivity);
+                var _challenge = await _challengeActivityService.IsExercisingInChallengeWorkoutPlaceAsync(myLocation);
+                if (_challenge == null)
+                {
+                    await NavigationService.Navigate("ChooseLocationPage");
+                }
                 else
-                    ChallengeActivityLog.Add(newActivity);
+                {
+                    AddExerciseActivity(_challenge.SelectedLocation, _challenge.Id);
+                }
             }
             catch (Exception ex)
             {
@@ -338,6 +268,17 @@ namespace Journey.ViewModels
             }
         }
 
+        private async void AddExerciseActivity(Location myLocation, string challenge = null)
+        {
+            ChallengeActivityLog newActivity = await _challengeActivityService.AddExerciseActivityAsync(myLocation, challenge);
+            if (newActivity == null)
+                return;
+            //if (ChallengeActivityLog.Any())
+            //    ChallengeActivityLog.Insert(0, newActivity);
+            //else
+            //ChallengeActivityLog.Add(newActivity);
+            Intialize();
+        }
         #endregion
 
         #region OnLogKmCommand

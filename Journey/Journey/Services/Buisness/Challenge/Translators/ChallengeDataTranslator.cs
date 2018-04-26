@@ -10,47 +10,54 @@ namespace Journey.Services.Buisness.Challenge.Translators
     {
         public static AzureChallenge TranslateChallenge(Models.Challenge.Challenge challenge)
         {
-            var postDto = new AzureChallenge();
+            var challengeDto = new AzureChallenge();
             if (challenge != null)
             {
-                postDto.Id = challenge.Id;
-                postDto.Start = challenge.StartDate;
-                postDto.End = challenge.EndDate;
-                postDto.Terms = challenge.Terms;
-                postDto.Account1 = challenge.ChallengeAccounts[0].Id;
-                postDto.Account2 = challenge.ChallengeAccounts[1].Id;
-                postDto.Status = challenge.IsActive;
+                challengeDto.Id = challenge.Id;
+                challengeDto.Start = challenge.StartDate;
+                challengeDto.End = challenge.EndDate;
+                challengeDto.Terms = challenge.Terms;
+                challengeDto.Account1 = challenge.ChallengeAccounts[0].Id;
+                challengeDto.Account2 = challenge.ChallengeAccounts[1].Id;
+                challengeDto.Status = challenge.IsActive;
                 if (challenge.SelectedLocation != null)
-                    postDto.Location = JsonConvert.SerializeObject(challenge.SelectedLocation);
+                    challengeDto.Location1 = JsonConvert.SerializeObject(challenge.SelectedLocation);
             }
 
-            return postDto;
+            return challengeDto;
         }
 
-        public static Models.Challenge.Challenge TranslateChallenge(AzureChallenge challenge)
+        public static Models.Challenge.Challenge TranslateChallenge(AzureChallenge challenge, string account)
         {
-            var postDto = new Models.Challenge.Challenge();
+            var challengeDto = new Models.Challenge.Challenge();
 
             if (challenge != null)
             {
-                postDto.Id = challenge.Id;
-                postDto.StartDate = challenge.Start;
-                postDto.EndDate = challenge.End;
-                postDto.Terms = challenge.Terms;
-                postDto.IsActive = challenge.Status;
-                postDto.ChallengeAccounts = new ObservableCollection<ChallengeAccount>();
-                postDto.ChallengeAccounts.Add(
-                    new ChallengeAccount(new Models.Account.Account {Id = challenge.Account1})
+                challengeDto.Id = challenge.Id;
+                challengeDto.StartDate = challenge.Start;
+                challengeDto.EndDate = challenge.End;
+                challengeDto.Terms = challenge.Terms;
+                challengeDto.IsActive = challenge.Status;
+                challengeDto.ChallengeAccounts = new ObservableCollection<ChallengeAccount>();
+                challengeDto.ChallengeAccounts.Add(
+                    new ChallengeAccount(new Models.Account.Account { Id = challenge.Account1 })
                 );
-                postDto.ChallengeAccounts.Add(
-                    new ChallengeAccount(new Models.Account.Account {Id = challenge.Account2})
+                challengeDto.ChallengeAccounts.Add(
+                    new ChallengeAccount(new Models.Account.Account { Id = challenge.Account2 })
                 );
-
-                if (challenge.Location != null)
-                    postDto.SelectedLocation = JsonConvert.DeserializeObject<Location>(challenge.Location);
+                if (account == challenge.Account1)
+                {
+                    if (challenge.Location1 != null)
+                        challengeDto.SelectedLocation = JsonConvert.DeserializeObject<Location>(challenge.Location1);
+                }
+                else if (account == challenge.Account2)
+                {
+                    if (challenge.Location2 != null)
+                        challengeDto.SelectedLocation = JsonConvert.DeserializeObject<Location>(challenge.Location2);
+                }
             }
 
-            return postDto;
+            return challengeDto;
         }
     }
 }

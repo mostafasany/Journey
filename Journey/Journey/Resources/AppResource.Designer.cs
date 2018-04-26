@@ -557,6 +557,18 @@ namespace Journey.Resources {
             }
         }
         
+        internal static string Notification_NotificationHeader {
+            get {
+                return ResourceManager.GetString("Notification_NotificationHeader", resourceCulture);
+            }
+        }
+        
+        internal static string Notification_FriendRequestHeader {
+            get {
+                return ResourceManager.GetString("Notification_FriendRequestHeader", resourceCulture);
+            }
+        }
+        
         internal static string Home_NoPost {
             get {
                 return ResourceManager.GetString("Home_NoPost", resourceCulture);
@@ -614,6 +626,12 @@ namespace Journey.Resources {
         internal static string Friends_IgnoreFriend {
             get {
                 return ResourceManager.GetString("Friends_IgnoreFriend", resourceCulture);
+            }
+        }
+        
+        internal static string Friends_ApproveFriend {
+            get {
+                return ResourceManager.GetString("Friends_ApproveFriend", resourceCulture);
             }
         }
         

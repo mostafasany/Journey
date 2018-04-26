@@ -8,8 +8,7 @@ namespace Journey.Services.Buisness.Post.Data
     {
         Task<Models.Post.Post> AddPostAsync(Models.Post.Post post, List<string> images);
         Task<bool> DeletePostAsync(PostBase post);
-        Task<List<Models.Post.Post>> GetPostsAsync(string challengeId, int page, int size, bool sync = false);
-
+        Task<List<Models.Post.Post>> GetPostsAsync(int page, int size, bool sync = false);
         Task<bool> LikeAsync(PostBase post);
         Task<bool> ShareAsync(PostBase post);
     }

@@ -7,16 +7,6 @@ namespace Journey.Models.Post
         private PostActivity activity;
 
         private PostActivity location;
-        private List<ScaleMeasurment> measuremnts;
-
-        public List<ScaleMeasurment> Measuremnts
-        {
-            get => measuremnts;
-            set => SetProperty(ref measuremnts, value);
-        }
-
-
-        public bool HasMeasuremnts => Measuremnts != null && Measuremnts.Count > 0;
 
         public PostActivity Location
         {

@@ -9,7 +9,6 @@ using Journey.Services.Azure;
 using Journey.Services.Buisness.ChallengeActivity.Dto;
 using Journey.Services.Buisness.ChallengeActivity.Translators;
 using Microsoft.WindowsAzure.MobileServices;
-using Newtonsoft.Json.Linq;
 
 namespace Journey.Services.Buisness.ChallengeActivity.Data
 {
@@ -22,85 +21,6 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
         {
             _client = azureService.CreateOrGetAzureClient();
             _azureChallengeActivity = _client.GetTable<AzureChallengeActivity>();
-        }
-
-        public async Task<ChallengeActivityLog> AddActivityAsync(ChallengeActivityLog log)
-        {
-            try
-            {
-                if (log == null)
-                    return null;
-
-                AzureChallengeActivity logDto = ChallengeActivityDataTranslator.TranslateChallengeActivity(log);
-                await _azureChallengeActivity.InsertAsync(logDto);
-
-                ChallengeActivityLog logModel = ChallengeActivityDataTranslator.TranslateChallengeActivity(logDto);
-                logModel.Account = log.Account;
-                logModel.Mine = true;
-                return logModel;
-            }
-            catch (Exception ex)
-            {
-                throw new DataServiceException(ex);
-            }
-        }
-
-        public async Task<List<ChallengeActivityLog>> GetAccountActivitiesAsync()
-        {
-            try
-            {
-                var api = "AccountActivity";
-                List<AzureChallengeActivity> logs = await _client.InvokeApiAsync<List<AzureChallengeActivity>>(api, HttpMethod.Get, null);
-
-                if (logs == null || logs.Count == 0)
-                    return null;
-                List<ChallengeActivityLog> logsDto = ChallengeActivityDataTranslator.TranslateChallengeActivityList(logs);
-                logsDto.Where(a => a.Account.Id == _client.CurrentUser.UserId).ToList().ForEach(c => c.Mine = true);
-                return logsDto;
-            }
-            catch (Exception ex)
-            {
-                throw new DataServiceException(ex);
-            }
-        }
-
-        public async Task<ChallengeActivityLog> UpdateActivityAsync(ChallengeActivityLog log)
-        {
-            try
-            {
-                if (log == null)
-                    return null;
-
-                AzureChallengeActivity logDto = ChallengeActivityDataTranslator.TranslateChallengeActivity(log);
-                var jo = new JObject();
-                jo.Add(nameof(logDto.Id).ToLower(), logDto.Id);
-                jo.Add(nameof(logDto.Activity).ToLower(), logDto.Activity);
-                await _azureChallengeActivity.UpdateAsync(jo);
-
-                log = ChallengeActivityDataTranslator.TranslateChallengeActivity(logDto);
-                return log;
-            }
-            catch (Exception ex)
-            {
-                throw new DataServiceException(ex);
-            }
-        }
-
-        public async Task<bool> DeleteActivityAsync(ChallengeActivityLog log)
-        {
-            try
-            {
-                if (log == null)
-                    return false;
-
-                await _azureChallengeActivity.DeleteAsync(new AzureChallengeActivity {Id = log.Id});
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new DataServiceException(ex);
-            }
         }
 
         public async Task<List<ChallengeActivityLog>> GetChallengeActivitiesAsync(string challengeId)
@@ -121,5 +41,68 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
                 throw new DataServiceException(ex);
             }
         }
+
+        public async Task<List<ChallengeActivityLog>> GetAccountActivitiesAsync()
+        {
+            try
+            {
+                var api = "AccountActivity";
+                List<AzureChallengeActivity> logs = await _client.InvokeApiAsync<List<AzureChallengeActivity>>(api, HttpMethod.Get, null);
+
+                if (logs == null || logs.Count == 0)
+                    return null;
+                List<ChallengeActivityLog> logsDto = ChallengeActivityDataTranslator.TranslateChallengeActivityList(logs);
+                logsDto.Where(a => a.Account.Id == _client.CurrentUser.UserId).ToList().ForEach(c => c.Mine = true);
+
+                return logsDto;
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(ex);
+            }
+        }
+
+        public async Task<bool> DeleteActivityAsync(ChallengeActivityLog log)
+        {
+            try
+            {
+                if (log == null)
+                    return false;
+
+                await _azureChallengeActivity.DeleteAsync(new AzureChallengeActivity { Id = log.Id });
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(ex);
+            }
+        }
+
+        public async Task<ChallengeActivityLog> AddUpdateActivityAsync(ChallengeActivityLog log)
+        {
+            try
+            {
+                var api = "ChallengeActivity";
+                AzureChallengeActivity logDto = ChallengeActivityDataTranslator.TranslateChallengeActivity(log);
+
+                var param = new Dictionary<string, string>();
+                param.Add("activity", logDto.Activity);
+                param.Add("type", logDto.Type.ToString());
+                param.Add("challenge", string.IsNullOrEmpty(logDto.Challenge) ? "" : logDto.Challenge);
+                var status = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
+                if (status)
+                {
+                    log.Mine = true;
+                    return log;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(ex);
+            }
+        }
+
     }
 }

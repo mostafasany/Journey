@@ -64,7 +64,7 @@ namespace Journey.ViewModels
                     _location = parameters.GetValue<Location>("Location");
                     if (_location != null)
                         NewPost.Location =
-                            new PostActivity {Action = "At", Activity = _location.Name, Image = _location.Image};
+                            new PostActivity { Action = "At", Activity = _location.Name, Image = _location.Image };
                 }
 
                 Intialize();
@@ -124,7 +124,8 @@ namespace Journey.ViewModels
             {
                 ShowProgress();
                 LoggedInAccount = await _accountService.GetAccountAsync();
-                _challenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
+                if (!string.IsNullOrEmpty(_accountService.LoggedInAccount?.ChallengeId))
+                    _challenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
 
                 base.Intialize(sync);
             }
@@ -209,8 +210,7 @@ namespace Journey.ViewModels
                 }
 
             ShowProgress();
-            if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
-                NewPost.Challenge = _accountService.LoggedInAccount.ChallengeId;
+
             Post post = await _postService.AddPostAsync(NewPost, _imagesPath);
             if (post == null)
             {
@@ -228,8 +228,14 @@ namespace Journey.ViewModels
 
         private async Task CheckIfCanAddWorkoutActivity()
         {
-            if (_location == null) _location = await _locationService.ObtainMyLocationAsync();
-            await _challengeActivityService.AddExerciseActivityAsync(_location);
+            if (_location == null || string.IsNullOrEmpty(_accountService.LoggedInAccount?.ChallengeId))
+                return;
+
+            _challenge = await _challengeActivityService.IsExercisingInChallengeWorkoutPlaceAsync(_location);
+            if (_challenge != null)
+            {
+                await _challengeActivityService.AddExerciseActivityAsync(_location, _challenge.Id);
+            }
         }
 
         #endregion

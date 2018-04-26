@@ -13,7 +13,7 @@ namespace Journey.Services.Buisness.Post
 
         Task<bool> DeletePostAsync(PostBase post);
 
-        Task<List<PostBase>> GetPostsAsync(int pageNo, string challengeId = null, bool sync = false);
+        Task<List<PostBase>> GetPostsAsync(int pageNo, bool sync = false);
 
         Task<bool> LikeAsync(PostBase post);
 

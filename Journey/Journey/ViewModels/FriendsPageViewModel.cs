@@ -157,7 +157,8 @@ namespace Journey.ViewModels
                     RequestIgnore(selectedFriend);
                 else if (selectedFriend.FriendShipEnum == FriendShipEnum.Nothing)
                     RequestFollow(selectedFriend);
-                else if (selectedFriend.FriendShipEnum == FriendShipEnum.Approved) RequestUnFollow(selectedFriend);
+                else if (selectedFriend.FriendShipEnum == FriendShipEnum.Approved)
+                    RequestUnFollow(selectedFriend);
             }
             catch (Exception ex)
             {
@@ -174,7 +175,7 @@ namespace Journey.ViewModels
                 {
                     bool status = await _friendService.FollowRequestAsync(selectedFriend.Id);
                     if (status)
-                        selectedFriend.FriendShipStatus = ((int) FriendShipEnum.Requested).ToString();
+                        selectedFriend.FriendShipStatus = ((int)FriendShipEnum.Requested).ToString();
                 }
             };
 
@@ -202,7 +203,7 @@ namespace Journey.ViewModels
                 {
                     bool status = await _friendService.IgnoreApproveAsync(selectedFriend.FriendShipId);
                     if (status)
-                        selectedFriend.FriendShipStatus = ((int) FriendShipEnum.Nothing).ToString();
+                        selectedFriend.FriendShipStatus = ((int)FriendShipEnum.Nothing).ToString();
                 }
             };
 
