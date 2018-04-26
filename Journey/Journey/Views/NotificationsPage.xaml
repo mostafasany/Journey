@@ -32,7 +32,7 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <controls:CustomImage Grid.Column="0" Source="{Binding Image.Path}" Aspect="AspectFit" HeightRequest="100" HorizontalOptions="Start">
+                            <controls:CustomImage Grid.Column="0" Source="{Binding Image.Path}" Aspect="AspectFit" HeightRequest="80" HorizontalOptions="Start">
                                 <controls:CustomImage.Transformations>
                                     <fftransformations:CircleTransformation />
                                 </controls:CustomImage.Transformations>
@@ -48,11 +48,10 @@
         <Grid Style="{StaticResource MainGridStyle}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <controls:LoadingControl Grid.Row="0" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" Margin="20,0" />
-            <ListView x:Name="ParentListView" Grid.Row="0" RowHeight="100" SeparatorVisibility="None" ItemsSource="{Binding FriendsRequestList}" ItemTemplate="{StaticResource FriendTemplate}" SelectedItem="{Binding SelectedFriend,Mode=TwoWay}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
-                RefreshCommand="{Binding OnPullRefreshRequestCommand}" HorizontalOptions="Center">
+            <ListView x:Name="ParentListView" IsVisible="{Binding NoFriendRequests,Converter={StaticResource BoolInverterConverter}}" Grid.Row="0" RowHeight="120" SeparatorVisibility="None" ItemsSource="{Binding FriendsRequestList}" ItemTemplate="{StaticResource FriendTemplate}" SelectedItem="{Binding SelectedFriend,Mode=TwoWay}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}"
+                RefreshAllowed="true" RefreshCommand="{Binding OnPullRefreshRequestCommand}" HorizontalOptions="Center">
                 <ListView.Header>
                     <Label Text="{resources:Translate Notification_FriendRequestHeader}" Margin="10,0" TextColor="Gray" HorizontalOptions="Center" />
                 </ListView.Header>
@@ -63,7 +62,8 @@
                     <Label Text="{resources:Translate Notification_NotificationHeader}" Margin="10,0" TextColor="Gray" HorizontalOptions="Center" />
                 </ListView.Header>
             </ListView>
-            <Label Grid.Row="0" IsVisible="{Binding NoNofications}" HorizontalOptions="Center" VerticalOptions="Center" Text="{resources:Translate Notification_NoNotifications}" TextColor="Gray" FontSize="20" />
+            <Label Grid.Row="1" IsVisible="{Binding NoNoficationMessage}" HorizontalOptions="Center" VerticalOptions="Center" Text="{resources:Translate Notification_NoNotifications}" TextColor="Gray" FontSize="20" />
+            <controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,60,0,0" />
         </Grid>
     </ContentPage.Content>
 </local:BasePage>
