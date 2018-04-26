@@ -357,9 +357,7 @@
     <data name="Home_StartNewChallenge" xml:space="preserve">
     <value>Start a new challenge</value>
   </data>
-    <data name="Post_LocationMust" xml:space="preserve">
-    <value>Please check in !</value>
-  </data>
+
     <data name="Location_DefaultLocationTitle" xml:space="preserve">
     <value>Is this your default workout place?</value>
   </data>

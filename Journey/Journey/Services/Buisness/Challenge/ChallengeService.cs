@@ -17,7 +17,6 @@ namespace Journey.Services.Buisness.Challenge
         private readonly IAccountDataService _accountDataService;
         private readonly IAccountService _accountService;
         private readonly IChallengeDataService _challengeDataService;
-        private readonly INotificationService _notificationService;
         private Models.Challenge.Challenge _cachedChallenge;
         public ChallengeService(IChallengeDataService challengeDataService,
             IAccountDataService accountDataService,
@@ -27,7 +26,6 @@ namespace Journey.Services.Buisness.Challenge
             _challengeDataService = challengeDataService;
             _accountDataService = accountDataService;
             _accountService = accountService;
-            _notificationService = notificationService;
         }
 
         public async Task<Models.Challenge.Challenge> GetChallengeAsync(string challengeId)
@@ -53,30 +51,12 @@ namespace Journey.Services.Buisness.Challenge
         {
             try
             {
-                //var notification = await _notificationService.AddNotificationAsync(
-                //   new Models.Notifications
-                //   {
-                //Account = _accountService.LoggedInAccount,
-                //    Message = string.Format(AppResource.Notification_ChallengeRequestMessage, _accountService.LoggedInAccount.Name),
-                //    Title = AppResource.Notification_ChallengeRequestTitle,
-                //    DeepLink = string.Format("http://www.journey.challengeRequest?id={0}", "1"),
-                //});
-
                 Models.Challenge.Challenge challengeDto = await _challengeDataService.AddChallengeAsync(challenge);
                 if (challengeDto != null)
                 {
                     ChallengeAccount toChallnegeAccount = challengeDto.ChallengeAccounts.LastOrDefault();
-                    Notifications notification = await _notificationService.AddNotificationAsync(
-                        new Notifications
-                        {
-                            Account = toChallnegeAccount,
-                            Message = string.Format(AppResource.Notification_ChallengeRequestMessage,
-                                _accountService.LoggedInAccount.Name),
-                            Title = AppResource.Notification_ChallengeRequestTitle,
-                            DeepLink = string.Format("http://www.journey.challengeRequest?id={0}", challengeDto.Id)
-                        });
-                    if (notification != null)
-                        return challengeDto;
+
+                    return challengeDto;
                 }
 
                 return null;
