@@ -4,7 +4,7 @@ namespace Abstractions.Exceptions
 {
     public class DataServiceException : Exception
     {
-        public DataServiceException(string message) : base(message)
+        public DataServiceException(Type exceptionType, Exception innerException) : base(innerException.Message, innerException)
         {
         }
 

@@ -104,7 +104,6 @@
     <Folder Include="Services\Buisness\Post\Dto\" />
     <Folder Include="ViewModels\Wall\" />
     <Folder Include="Views\Challenege\" />
-    <Folder Include="Services\Buisness\Friend\Dto\" />
     <Folder Include="Models\Challenge\" />
     <Folder Include="Services\Buisness\Challenge\" />
     <Folder Include="Services\Buisness\Challenge\Dto\" />

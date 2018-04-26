@@ -131,8 +131,6 @@ namespace Abstractions.Forms
         {
             try
             {
-                //if (removeLastPage)
-                //await Application.Current.MainPage.Navigation.PopAsync();
                 await _navigationService.NavigateAsync(pageToken, navigationParameters, useModalNavigation, animated);
             }
             catch (Exception)

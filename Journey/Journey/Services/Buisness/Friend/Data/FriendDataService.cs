@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Abstractions.Exceptions;
 using Journey.Models.Account;
 using Journey.Services.Azure;
-using Journey.Services.Buisness.Account.Translators;
 using Journey.Services.Buisness.Friend.Dto;
+using Journey.Services.Buisness.Friend.Translators;
 using Microsoft.WindowsAzure.MobileServices;
 
 namespace Journey.Services.Buisness.Friend.Data

@@ -4,12 +4,6 @@ using Newtonsoft.Json;
 
 namespace Journey.Services.Buisness.Account.Dto
 {
-    public class AzureFriend : AzureAccount
-    {
-        [JsonProperty(PropertyName = "friends")]
-        public string Friend { get; set; }
-    }
-
     public class AzureAccount
     {
         [JsonProperty(PropertyName = "id")]

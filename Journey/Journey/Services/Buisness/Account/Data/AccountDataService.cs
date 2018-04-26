@@ -32,17 +32,12 @@ namespace Journey.Services.Buisness.Account.Data
 
                 AzureAccount azureAccountDto = AccountDataTranslator.TranslateAccount(account);
 
-                //var existingaccount = await GetAccountAsync();
-                //if (string.IsNullOrEmpty(account.FirstName)) //Means it came from Facebook Login "Not Data" so Migrate
-                //    accountDto = AccountDataTranslator.TranslateAccount(existingaccount);
                 if (add)
                     await _accountTable.InsertAsync(azureAccountDto);
 
                 else
                     await _accountTable.UpdateAsync(azureAccountDto);
 
-
-                //accountDto = await SyncAccountAsync();
                 account = AccountDataTranslator.TranslateAccount(azureAccountDto);
                 return account;
             }
@@ -59,39 +54,16 @@ namespace Journey.Services.Buisness.Account.Data
                 MobileServiceUser authenticated = await App.Authenticator.Authenticate();
                 return authenticated;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new DataServiceException(ex);
+                throw new AppAuthenticationException();
             }
         }
 
         public async Task<Models.Account.Account> GetAccountAsync(bool sync = false)
         {
-            try
-            {
-                if (string.IsNullOrEmpty(_client.CurrentUser.MobileServiceAuthenticationToken))
-                    return null;
-
-                AzureAccount azureAccountDto = await _accountTable.LookupAsync(_client.CurrentUser.UserId);
-
-                Models.Account.Account accountDto = AccountDataTranslator.TranslateAccount(azureAccountDto);
-
-                return accountDto;
-            }
-            catch (HttpRequestException ex)
-            {
-                throw new NoInternetException(ex);
-            }
-            catch (MobileServiceInvalidOperationException ex)
-            {
-                if (ex.Response.StatusCode == HttpStatusCode.NotFound) return null;
-                throw new DataServiceException(ex.Message, ex);
-            }
-            catch (Exception ex)
-            {
-                //Means User not exists
-                return null;
-            }
+            Models.Account.Account accountDto = await GetAccontAsync(_client.CurrentUser.UserId);
+            return accountDto;
         }
 
         public async Task<Models.Account.Account> GetAccontAsync(string id)
@@ -101,6 +73,17 @@ namespace Journey.Services.Buisness.Account.Data
                 AzureAccount accountDto = await _accountTable.LookupAsync(id);
                 Models.Account.Account account = AccountDataTranslator.TranslateAccount(accountDto);
                 return account;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new NoInternetException(ex);
+            }
+            catch (MobileServiceInvalidOperationException ex)
+            {
+                if (ex.Response.StatusCode == HttpStatusCode.NotFound)
+                    throw new DbItemNotFoundException(nameof(AzureAccount), ex);
+
+                throw new DataServiceException(ex.Message, ex);
             }
             catch (Exception ex)
             {
@@ -112,12 +95,12 @@ namespace Journey.Services.Buisness.Account.Data
         {
             try
             {
-                return _client.CurrentUser != null &&
-                       !string.IsNullOrEmpty(_client.CurrentUser.MobileServiceAuthenticationToken);
+                return _client?.CurrentUser != null &&
+                       !string.IsNullOrEmpty(_client?.CurrentUser?.MobileServiceAuthenticationToken);
             }
             catch (Exception ex)
             {
-                throw new DataServiceException(ex);
+                throw new DataServiceException(typeof(AppAuthenticationException), ex);
             }
         }
 
