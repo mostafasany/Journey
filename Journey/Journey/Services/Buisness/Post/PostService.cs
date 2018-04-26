@@ -56,14 +56,14 @@ namespace Journey.Services.Buisness.Post
         }
 
 
-        public async Task<List<PostBase>> GetPostsAsync(int page, string challengeId = null, bool sync = false)
+        public async Task<List<PostBase>> GetPostsAsync(int page, bool sync = false)
         {
             try
             {
                 List<Models.Post.Post> postList =
-                    await _postDataService.GetPostsAsync(challengeId, page, PostPageSize, sync);
+                    await _postDataService.GetPostsAsync(page, PostPageSize, sync);
 
-                if (postList == null || postList.Count == 0)
+                if (postList == null)
                     return null;
 
                 var posts = new List<PostBase>();
@@ -108,7 +108,7 @@ namespace Journey.Services.Buisness.Post
         {
             try
             {
-                PostStatusChangedEventHandler?.Invoke(this, new PostStatusChangedArgs {Post = post, Status = status});
+                PostStatusChangedEventHandler?.Invoke(this, new PostStatusChangedArgs { Post = post, Status = status });
             }
             catch (Exception ex)
             {

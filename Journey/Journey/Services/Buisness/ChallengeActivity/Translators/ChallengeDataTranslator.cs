@@ -33,6 +33,8 @@ namespace Journey.Services.Buisness.ChallengeActivity.Translators
                 else if (activityLog is ChallengeWorkoutActivityLog logWorkout)
                 {
                     postDto.Type = ChallengeWorkoutActivityLogId;
+                    logWorkout.Location.Image = "";
+                    logWorkout.Location.Near = 0;
                     postDto.Activity = JsonConvert.SerializeObject(logWorkout.Location);
                 }
                 else if (activityLog is ChallengeKcalActivityLog logKcal)
@@ -52,57 +54,57 @@ namespace Journey.Services.Buisness.ChallengeActivity.Translators
             switch (actvityLog.Type)
             {
                 case ChallengeKmActivityLogId:
-                {
-                    var activity = new ChallengeKmActivityLog
                     {
-                        Id = actvityLog.Id,
-                        DatetTime = actvityLog.CreatedAt,
-                        Account = new Models.Account.Account
+                        var activity = new ChallengeKmActivityLog
                         {
-                            Id = actvityLog.Account,
-                            FirstName = actvityLog.Fname,
-                            LastName = actvityLog.Lname,
-                            Image = new Media {Path = actvityLog.Profile}
-                        },
-                        KM = double.Parse(actvityLog.Activity)
-                    };
-                    return activity;
-                }
+                            Id = actvityLog.Id,
+                            DatetTime = actvityLog.CreatedAt,
+                            Account = new Models.Account.Account
+                            {
+                                Id = actvityLog.Account,
+                                FirstName = actvityLog.Fname,
+                                LastName = actvityLog.Lname,
+                                Image = new Media { Path = actvityLog.Profile }
+                            },
+                            KM = double.Parse(actvityLog.Activity)
+                        };
+                        return activity;
+                    }
                 case ChallengeWorkoutActivityLogId:
-                {
-                    var activity = new ChallengeWorkoutActivityLog
                     {
-                        Id = actvityLog.Id,
-                        DatetTime = actvityLog.CreatedAt,
-                        Account = new Models.Account.Account
+                        var activity = new ChallengeWorkoutActivityLog
                         {
-                            Id = actvityLog.Account,
-                            FirstName = actvityLog.Fname,
-                            LastName = actvityLog.Lname,
-                            Image = new Media {Path = actvityLog.Profile}
-                        },
-                        Location = JsonConvert.DeserializeObject<Location>(actvityLog.Activity)
-                    };
-                    if (string.IsNullOrEmpty(activity.Location?.Name)) activity.Location.Name = "-";
-                    return activity;
-                }
+                            Id = actvityLog.Id,
+                            DatetTime = actvityLog.CreatedAt,
+                            Account = new Models.Account.Account
+                            {
+                                Id = actvityLog.Account,
+                                FirstName = actvityLog.Fname,
+                                LastName = actvityLog.Lname,
+                                Image = new Media { Path = actvityLog.Profile }
+                            },
+                            Location = JsonConvert.DeserializeObject<Location>(actvityLog.Activity)
+                        };
+                        if (string.IsNullOrEmpty(activity.Location?.Name)) activity.Location.Name = "-";
+                        return activity;
+                    }
                 case ChallengeKcalActivityLogId:
-                {
-                    var activity = new ChallengeKcalActivityLog
                     {
-                        Id = actvityLog.Id,
-                        DatetTime = actvityLog.CreatedAt,
-                        Account = new Models.Account.Account
+                        var activity = new ChallengeKcalActivityLog
                         {
-                            Id = actvityLog.Account,
-                            FirstName = actvityLog.Fname,
-                            LastName = actvityLog.Lname,
-                            Image = new Media {Path = actvityLog.Profile}
-                        },
-                        Kcal = double.Parse(actvityLog.Activity)
-                    };
-                    return activity;
-                }
+                            Id = actvityLog.Id,
+                            DatetTime = actvityLog.CreatedAt,
+                            Account = new Models.Account.Account
+                            {
+                                Id = actvityLog.Account,
+                                FirstName = actvityLog.Fname,
+                                LastName = actvityLog.Lname,
+                                Image = new Media { Path = actvityLog.Profile }
+                            },
+                            Kcal = double.Parse(actvityLog.Activity)
+                        };
+                        return activity;
+                    }
             }
 
             return null;
@@ -113,11 +115,12 @@ namespace Journey.Services.Buisness.ChallengeActivity.Translators
             try
             {
                 var logsDto = new List<ChallengeActivityLog>();
-                foreach (AzureChallengeActivity log in actvityLog)
-                {
-                    ChallengeActivityLog logDto = TranslateChallengeActivity(log);
-                    logsDto.Add(logDto);
-                }
+                if (actvityLog != null)
+                    foreach (AzureChallengeActivity log in actvityLog)
+                    {
+                        ChallengeActivityLog logDto = TranslateChallengeActivity(log);
+                        logsDto.Add(logDto);
+                    }
 
                 return logsDto;
             }

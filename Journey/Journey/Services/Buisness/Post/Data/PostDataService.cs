@@ -33,8 +33,6 @@ namespace Journey.Services.Buisness.Post.Data
                 postDto.Liked = null;
                 await _azurePost.InsertAsync(postDto);
 
-                await SyncPostAsync(post.Challenge);
-
                 post = PostDataTranslators.TranslatePost(postDto);
                 return post;
             }
@@ -51,9 +49,7 @@ namespace Journey.Services.Buisness.Post.Data
                 if (post == null)
                     return false;
 
-                await _azurePost.DeleteAsync(new AzurePost {Id = post.Id});
-
-                await SyncPostAsync(post.Challenge);
+                await _azurePost.DeleteAsync(new AzurePost { Id = post.Id });
 
                 return true;
             }
@@ -63,28 +59,14 @@ namespace Journey.Services.Buisness.Post.Data
             }
         }
 
-        public async Task<List<Models.Post.Post>> GetPostsAsync(string challengeId, int page, int size,
+        public async Task<List<Models.Post.Post>> GetPostsAsync(int page, int size,
             bool sync = false)
         {
             try
             {
                 List<AzurePost> posts;
-                string api = string.Format("post?size={0}&page={1}&challenge={2}", size, page, challengeId);
+                string api = string.Format("post?size={0}&page={1}", size, page);
                 posts = await _client.InvokeApiAsync<List<AzurePost>>(api, HttpMethod.Get, null);
-                //if (sync)
-                //{
-                //    posts = await SyncPostAsync(challengeId, page, size);
-                //}
-                //if (posts == null || posts.Count == 0)
-                //{
-                //    posts = await this.azurePost.Where(po => po.Challenge == challengeId).ToListAsync();
-                //}
-                //if (posts == null || posts.Count == 0)
-                //{
-                //    posts = await SyncPostAsync(challengeId, page, size);
-                //}
-                if (posts == null || posts.Count == 0)
-                    return null;
                 List<Models.Post.Post> postsDTo = PostDataTranslators.TranslatePosts(posts);
                 return postsDTo;
             }
@@ -118,7 +100,7 @@ namespace Journey.Services.Buisness.Post.Data
             try
             {
                 var api = "post";
-                var param = new Dictionary<string, string> {{"action", post.Id + "," + "share"}};
+                var param = new Dictionary<string, string> { { "action", post.Id + "," + "share" } };
                 bool success = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
                 return success;
             }
@@ -127,8 +109,5 @@ namespace Journey.Services.Buisness.Post.Data
                 throw new DataServiceException(ex);
             }
         }
-
-
-        public async Task<List<AzurePost>> SyncPostAsync(string challengeId, int page = 0, int size = 10) => null;
     }
 }

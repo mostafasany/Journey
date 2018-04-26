@@ -55,7 +55,7 @@ namespace Journey.ViewModels
                 var location = parameters.GetValue<Location>("Location");
                 if (location != null)
                     NewPostPageViewModel.NewPost.Location =
-                        new PostActivity {Action = "At", Activity = location.Name, Image = location.Image};
+                        new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
             }
             catch (Exception ex)
             {
@@ -225,7 +225,7 @@ namespace Journey.ViewModels
         {
             _pageNo = 0;
 
-            List<PostBase> postsList = await _postService.GetPostsAsync(_pageNo, LoggedInAccount?.ChallengeId, _postService.RefreshPosts);
+            List<PostBase> postsList = await _postService.GetPostsAsync(_pageNo, _postService.RefreshPosts);
             SetPostViewModel(postsList);
             UpdateNoPostMessage();
         }
@@ -234,7 +234,6 @@ namespace Journey.ViewModels
         {
             if (posts == null)
                 return;
-
 
             PostsViewModels = new ObservableCollection<PostBaseViewModel>();
             foreach (PostBase post in posts)
@@ -342,15 +341,12 @@ namespace Journey.ViewModels
         {
             try
             {
-                // ShowProgress();
                 _pageNo++;
 
-                List<PostBase> nextPageItems = await _postService.GetPostsAsync(_pageNo, LoggedInAccount?.ChallengeId);
+                List<PostBase> nextPageItems = await _postService.GetPostsAsync(_pageNo);
                 if (nextPageItems != null && nextPageItems.Count > 0)
                     foreach (PostBase item in nextPageItems)
                         PostsViewModels.Add(PostToPostViewModel(item));
-                //else
-                //_pageNo--;
             }
             catch (Exception ex)
             {

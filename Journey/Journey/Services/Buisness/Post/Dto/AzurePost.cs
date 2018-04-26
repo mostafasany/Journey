@@ -24,15 +24,6 @@ namespace Journey.Services.Buisness.Post.Dto
         [JsonProperty(PropertyName = "activity")]
         public string Activity { get; set; }
 
-        [JsonProperty(PropertyName = "measurements")]
-        public string Measurements { get; set; }
-
-        [JsonProperty(PropertyName = "type")]
-        public int Type { get; set; }
-
-        [JsonProperty(PropertyName = "points")]
-        public double Points { get; set; }
-
         [JsonProperty(PropertyName = "comments")]
         public int Comments { get; set; }
 
@@ -54,9 +45,6 @@ namespace Journey.Services.Buisness.Post.Dto
 
         [JsonProperty(PropertyName = "profile")]
         public string Profile { get; set; }
-
-        [JsonProperty(PropertyName = "challenge")]
-        public string Challenge { get; set; }
 
         [Version]
         [JsonIgnore]

@@ -29,7 +29,7 @@ namespace Journey.Services.Buisness.Friend.Data
 
         public async Task<List<FriendShip>> GetFriendsForChallengeAsync(string keyword) => await CallFriendsApiAsync("friends", keyword);
 
-        public async Task<List<FriendShip>> FindAccontAsync(string keyword) => await CallFriendsApiAsync("notfriends", keyword);
+        public async Task<List<FriendShip>> FindAccontAsync(string keyword) => await CallFriendsApiAsync("all", keyword);
 
         public async Task<List<FriendShip>> GetFriendsRequestsAsync() => await CallFriendsApiAsync("requests", "");
 
@@ -38,7 +38,7 @@ namespace Journey.Services.Buisness.Friend.Data
             try
             {
                 var api = "friends";
-                var param = new Dictionary<string, string> {{"action", frinedShipId + "," + status}};
+                var param = new Dictionary<string, string> { { "action", frinedShipId + "," + status } };
                 bool success = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
                 return success;
             }

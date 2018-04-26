@@ -372,6 +372,12 @@
     <data name="Notification_NoNotifications" xml:space="preserve">
     <value>No Notifcations</value>
   </data>
+     <data name="Notification_NotificationHeader" xml:space="preserve">
+    <value>Notifcations</value>
+  </data>
+     <data name="Notification_FriendRequestHeader" xml:space="preserve">
+    <value>Friend Requests</value>
+  </data>
     <data name="Home_NoPost" xml:space="preserve">
     <value>Be the first one to add new post</value>
   </data>
@@ -396,11 +402,14 @@
     <data name="Friends_FollowFriend" xml:space="preserve">
     <value>Do you want to follow {0}</value>
   </data>
-      <data name="Friends_UnFollowFriend" xml:space="preserve">
+    <data name="Friends_UnFollowFriend" xml:space="preserve">
     <value>Do you want to unfollow {0}</value>
   </data>
-        <data name="Friends_IgnoreFriend" xml:space="preserve">
-    <value>Do you want to undo request from {0}</value>
+    <data name="Friends_IgnoreFriend" xml:space="preserve">
+    <value>Do you want to undo request for {0}</value>
+  </data>
+    <data name="Friends_ApproveFriend" xml:space="preserve">
+    <value>Do you want to approve friend request from {0}</value>
   </data>
     <data name="Draw" xml:space="preserve">
     <value>Draw</value>
@@ -437,7 +446,7 @@ Day of Contest
        </value>
   </data>
     <data name="FriendShip_Accepted" xml:space="preserve">
-    <value>Accepted</value>
+    <value>Friend</value>
   </data>
     <data name="FriendShip_Rejected" xml:space="preserve">
     <value>Rejected</value>

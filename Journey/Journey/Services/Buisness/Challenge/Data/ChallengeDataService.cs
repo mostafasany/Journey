@@ -35,7 +35,7 @@ namespace Journey.Services.Buisness.Challenge.Data
                     return null;
                 AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge);
                 await _azureChallenge.InsertAsync(accountDto);
-                challenge = ChallengeDataTranslator.TranslateChallenge(accountDto);
+                challenge = ChallengeDataTranslator.TranslateChallenge(accountDto, _client.CurrentUser.UserId);
                 return challenge;
             }
             catch (Exception ex)
@@ -52,7 +52,7 @@ namespace Journey.Services.Buisness.Challenge.Data
                     return null;
                 AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge);
                 await _azureChallenge.UpdateAsync(accountDto);
-                challenge = ChallengeDataTranslator.TranslateChallenge(accountDto);
+                challenge = ChallengeDataTranslator.TranslateChallenge(accountDto, _client.CurrentUser.UserId);
                 return challenge;
             }
             catch (Exception ex)
@@ -67,7 +67,7 @@ namespace Journey.Services.Buisness.Challenge.Data
             {
                 AzureChallenge challengeDto = await _azureChallenge.LookupAsync(challengeId);
 
-                Models.Challenge.Challenge challenge = ChallengeDataTranslator.TranslateChallenge(challengeDto);
+                Models.Challenge.Challenge challenge = ChallengeDataTranslator.TranslateChallenge(challengeDto, _client.CurrentUser.UserId);
                 Models.Account.Account account1 = await _accountDataService.GetAccontAsync(challengeDto.Account1);
                 Models.Account.Account account2 = await _accountDataService.GetAccontAsync(challengeDto.Account2);
                 challenge.ChallengeAccounts = new ObservableCollection<ChallengeAccount>();
@@ -99,7 +99,7 @@ namespace Journey.Services.Buisness.Challenge.Data
                 if (accountChallenge == null)
                     return null;
 
-                Models.Challenge.Challenge challenge = ChallengeDataTranslator.TranslateChallenge(accountChallenge);
+                Models.Challenge.Challenge challenge = ChallengeDataTranslator.TranslateChallenge(accountChallenge, _client.CurrentUser.UserId);
 
                 return challenge;
             }
@@ -117,7 +117,7 @@ namespace Journey.Services.Buisness.Challenge.Data
                     return null;
                 AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge);
                 await _azureChallenge.UpdateAsync(accountDto);
-                challenge = ChallengeDataTranslator.TranslateChallenge(accountDto);
+                challenge = ChallengeDataTranslator.TranslateChallenge(accountDto, _client.CurrentUser.UserId);
                 return challenge;
             }
             catch (Exception ex)

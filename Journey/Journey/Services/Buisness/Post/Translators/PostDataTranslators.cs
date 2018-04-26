@@ -25,9 +25,7 @@ namespace Journey.Services.Buisness.Post.Translators
                     postDto.Status = post.Feed;
                     postDto.Activity = JsonConvert.SerializeObject(post.Activity);
                     postDto.Location = JsonConvert.SerializeObject(post.Location);
-                    postDto.Measurements = JsonConvert.SerializeObject(post.Measuremnts);
-                    postDto.Images = JsonConvert.SerializeObject(images);
-                    postDto.Challenge = post.Challenge;
+                    postDto.Images = JsonConvert.SerializeObject(images);  
                 }
 
                 return postDto;
@@ -49,7 +47,7 @@ namespace Journey.Services.Buisness.Post.Translators
                     Id = post.Account,
                     LastName = post.Lname,
                     FirstName = post.Fname,
-                    Image = new Media {Path = post.Profile}
+                    Image = new Media { Path = post.Profile }
                 };
                 postDto.Liked = post.Liked.HasValue ? post.Liked.Value : false;
                 postDto.LikesCount = post.Likes;
@@ -69,15 +67,6 @@ namespace Journey.Services.Buisness.Post.Translators
                 try
                 {
                     postDto.Location = JsonConvert.DeserializeObject<PostActivity>(post.Location);
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-
-                try
-                {
-                    postDto.Measuremnts = JsonConvert.DeserializeObject<List<ScaleMeasurment>>(post.Measurements);
                 }
                 catch (Exception)
                 {
@@ -114,11 +103,12 @@ namespace Journey.Services.Buisness.Post.Translators
             try
             {
                 var postDtos = new List<Models.Post.Post>();
-                foreach (AzurePost post in posts)
-                {
-                    Models.Post.Post postDto = TranslatePost(post);
-                    postDtos.Add(postDto);
-                }
+                if (posts != null)
+                    foreach (AzurePost post in posts)
+                    {
+                        Models.Post.Post postDto = TranslatePost(post);
+                        postDtos.Add(postDto);
+                    }
 
                 return postDtos;
             }

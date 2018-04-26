@@ -37,8 +37,7 @@ namespace Journey.Models.Post
         private PostType postType;
 
         private int sharesCount;
-        public string Challenge { get; set; }
-
+      
         public string Id
         {
             get => id;
