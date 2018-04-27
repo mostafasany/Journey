@@ -201,10 +201,6 @@
       <Project>{badcab4e-c095-4868-af47-2343625e6105}</Project>
       <Name>Abstractions.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Abstractions\Abstractions.csproj">
-      <Project>{2c910479-1896-44da-be23-00f1bb40e137}</Project>
-      <Name>Abstractions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Journey\Journey.csproj">
       <Project>{dc18b476-29b8-49b4-bf46-50a295f3758c}</Project>
       <Name>Journey</Name>

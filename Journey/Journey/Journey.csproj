@@ -39,6 +39,7 @@
     <None Remove="Assets\SVG\moreVert.svg" />
     <None Remove="Assets\SVG\back %28copy%29.svg" />
     <None Remove="Assets\kcal.png" />
+    <None Remove="Assets\SVG\downArrow.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -77,6 +78,7 @@
     <EmbeddedResource Include="Assets\SVG\moreVert.svg" />
     <EmbeddedResource Include="Assets\SVG\challenge.svg" />
     <EmbeddedResource Include="Assets\kcal.png" />
+    <EmbeddedResource Include="Assets\SVG\downArrow.svg" />
   </ItemGroup>
 
   <ItemGroup>

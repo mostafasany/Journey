@@ -230,6 +230,8 @@ namespace Journey.ViewModels
                 Invoked = async () =>
                 {
                     bool status = await _friendService.FollowRejectAsync(selectedFriend.FriendShipId);
+                    if (status)
+                        selectedFriend.FriendShipStatus = ((int)FriendShipEnum.Nothing).ToString();
                 }
             };
 

@@ -198,7 +198,7 @@ namespace Journey.ViewModels
 
                 if (SelectedChallenge?.SelectedLocation == null)
                 {
-                    await DialogService.ShowMessageAsync(AppResource.Post_LocationMust, AppResource.Error);
+                    await DialogService.ShowMessageAsync(AppResource.Challenge_ChooseYourWorkoutPlace, AppResource.Error);
                     return;
                 }
 

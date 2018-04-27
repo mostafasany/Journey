@@ -102,7 +102,12 @@ namespace Journey.ViewModels
             set => SetProperty(ref _isPullRefreshLoading, value);
         }
 
-        public bool NoNofications => (Notifications == null || Notifications.Count == 0) && (FriendsRequestList == null || FriendsRequestList.Count == 0);
+        public bool NoNofications => (Notifications == null || Notifications.Count == 0);
+
+        public bool NoNoficationMessage => NoNofications && NoFriendRequests;
+
+        public bool NoFriendRequests => (FriendsRequestList == null || FriendsRequestList.Count == 0);
+
 
         #endregion
 
@@ -125,6 +130,9 @@ namespace Journey.ViewModels
                     FriendsRequestList = new ObservableCollection<FriendShip>(friendRequests);
 
                 RaisePropertyChanged(nameof(NoNofications));
+                RaisePropertyChanged(nameof(NoFriendRequests));
+                RaisePropertyChanged(nameof(NoNoficationMessage));
+
             }
             catch (Exception e)
             {
