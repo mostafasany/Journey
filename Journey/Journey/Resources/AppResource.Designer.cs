@@ -149,12 +149,6 @@ namespace Journey.Resources {
             }
         }
         
-        internal static string Challenge_Compete {
-            get {
-                return ResourceManager.GetString("Challenge_Compete", resourceCulture);
-            }
-        }
-        
         internal static string Yes {
             get {
                 return ResourceManager.GetString("Yes", resourceCulture);
@@ -341,6 +335,12 @@ namespace Journey.Resources {
             }
         }
         
+        internal static string SearchFriendsForChallenge_Placholder {
+            get {
+                return ResourceManager.GetString("SearchFriendsForChallenge_Placholder", resourceCulture);
+            }
+        }
+        
         internal static string Challenge_Comepete {
             get {
                 return ResourceManager.GetString("Challenge_Comepete", resourceCulture);
@@ -407,9 +407,9 @@ namespace Journey.Resources {
             }
         }
         
-        internal static string Challenge_Edit {
+        internal static string Challenge_Update {
             get {
-                return ResourceManager.GetString("Challenge_Edit", resourceCulture);
+                return ResourceManager.GetString("Challenge_Update", resourceCulture);
             }
         }
         
@@ -563,6 +563,24 @@ namespace Journey.Resources {
             }
         }
         
+        internal static string Notification_FriendRequest {
+            get {
+                return ResourceManager.GetString("Notification_FriendRequest", resourceCulture);
+            }
+        }
+        
+        internal static string Notification_ChallengeRequest {
+            get {
+                return ResourceManager.GetString("Notification_ChallengeRequest", resourceCulture);
+            }
+        }
+        
+        internal static string Notification_From {
+            get {
+                return ResourceManager.GetString("Notification_From", resourceCulture);
+            }
+        }
+        
         internal static string Home_NoPost {
             get {
                 return ResourceManager.GetString("Home_NoPost", resourceCulture);
@@ -626,6 +644,12 @@ namespace Journey.Resources {
         internal static string Friends_ApproveFriend {
             get {
                 return ResourceManager.GetString("Friends_ApproveFriend", resourceCulture);
+            }
+        }
+        
+        internal static string Challenge_ApproveChallenge {
+            get {
+                return ResourceManager.GetString("Challenge_ApproveChallenge", resourceCulture);
             }
         }
         

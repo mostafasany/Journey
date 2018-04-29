@@ -7,6 +7,7 @@ using Journey.Models;
 using Journey.Models.Account;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
+using Journey.Services.Buisness.Challenge;
 using Journey.Services.Buisness.Friend;
 using Journey.Services.Buisness.Notification;
 using Prism.Commands;
@@ -20,17 +21,20 @@ namespace Journey.ViewModels
         private readonly IDeepLinkService _deepLinking;
         private readonly INotificationService _notificationService;
         private readonly IFriendService _friendService;
+        private readonly IChallengeService _challengeService;
 
         public NotificationsPageViewModel(IUnityContainer container,
                                           IAccountService accountService,
                                           INotificationService notificationService,
                                           IFriendService friendService,
-            IDeepLinkService deepLinking) :
+                                          IChallengeService challengeService,
+                                          IDeepLinkService deepLinking) :
             base(container, accountService, notificationService)
         {
             _notificationService = notificationService;
             _deepLinking = deepLinking;
             _friendService = friendService;
+            _challengeService = challengeService;
         }
 
         #region Events
@@ -86,14 +90,6 @@ namespace Journey.ViewModels
             }
         }
 
-        private ObservableCollection<FriendShip> _friendsRequestList;
-
-        public ObservableCollection<FriendShip> FriendsRequestList
-        {
-            get => _friendsRequestList;
-            set => SetProperty(ref _friendsRequestList, value);
-        }
-
         private bool _isPullRefreshLoading;
 
         public bool IsPullRefreshLoading
@@ -103,10 +99,6 @@ namespace Journey.ViewModels
         }
 
         public bool NoNofications => (Notifications == null || Notifications.Count == 0);
-
-        public bool NoNoficationMessage => NoNofications && NoFriendRequests;
-
-        public bool NoFriendRequests => (FriendsRequestList == null || FriendsRequestList.Count == 0);
 
 
         #endregion
@@ -125,14 +117,7 @@ namespace Journey.ViewModels
                 if (postDTo != null)
                     Notifications = new ObservableCollection<Notifications>(postDTo);
 
-                var friendRequests = await _friendService.GetFriendsRequestsAsync();
-                if (friendRequests != null)
-                    FriendsRequestList = new ObservableCollection<FriendShip>(friendRequests);
-
                 RaisePropertyChanged(nameof(NoNofications));
-                RaisePropertyChanged(nameof(NoFriendRequests));
-                RaisePropertyChanged(nameof(NoNoficationMessage));
-
             }
             catch (Exception e)
             {
@@ -156,6 +141,63 @@ namespace Journey.ViewModels
                 ExceptionService.HandleAndShowDialog(e);
             }
         }
+
+        private async void RequestFriendRequestApproval(Notifications notification)
+        {
+            var competeCommand = new DialogCommand
+            {
+                Label = AppResource.Yes,
+                Invoked = async () =>
+                {
+                    bool status = await _friendService.FollowApproveAsync(notification.Id);
+                    if (status)
+                        Notifications.Remove(notification);
+                }
+            };
+
+            var cancelCommand = new DialogCommand
+            {
+                Label = AppResource.Cancel
+            };
+
+            var commands = new List<DialogCommand>
+            {
+                competeCommand,
+                cancelCommand
+            };
+
+            string message = string.Format(AppResource.Friends_ApproveFriend, notification.Account.Name);
+            await DialogService.ShowMessageAsync("", message, commands);
+        }
+
+        private async void RequestChallengeRequestApproval(Notifications notification)
+        {
+            var competeCommand = new DialogCommand
+            {
+                Label = AppResource.Yes,
+                Invoked = async () =>
+                {
+                    var challenge = await _challengeService.ApproveChallengeAsync(notification.Id);
+                    if (challenge != null)
+                        Notifications.Remove(notification);
+                }
+            };
+
+            var cancelCommand = new DialogCommand
+            {
+                Label = AppResource.Cancel
+            };
+
+            var commands = new List<DialogCommand>
+            {
+                competeCommand,
+                cancelCommand
+            };
+
+            string message = string.Format(AppResource.Challenge_ApproveChallenge, notification.Account.Name);
+            await DialogService.ShowMessageAsync("", message, commands);
+        }
+
 
         #endregion
 
@@ -206,63 +248,23 @@ namespace Journey.ViewModels
         {
             try
             {
-                _deepLinking.ParseDeepLinkingAndExecute(notification?.DeepLink);
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.Handle(ex);
-            }
-        }
-
-        #endregion
-
-        #region OnSelectedFriendCommand
-
-        public DelegateCommand<FriendShip> OnSelectedFriendCommand => new DelegateCommand<FriendShip>(OnSelectedFriend);
-
-        private void OnSelectedFriend(FriendShip selectedFriend)
-        {
-            try
-            {
-                if (selectedFriend == null || string.IsNullOrEmpty(selectedFriend.Id))
-                    return;
-
-                if (selectedFriend.FriendShipEnum == FriendShipEnum.Requested)
-                    RequestApprove(selectedFriend);
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.Handle(ex);
-            }
-        }
-
-
-        private async void RequestApprove(FriendShip selectedFriend)
-        {
-            var competeCommand = new DialogCommand
-            {
-                Label = AppResource.Yes,
-                Invoked = async () =>
+                if (notification.NotificationType == NotificationType.Notification)
                 {
-                    bool status = await _friendService.FollowApproveAsync(selectedFriend.FriendShipId);
-                    if (status)
-                        FriendsRequestList.Remove(selectedFriend);
+                    _deepLinking.ParseDeepLinkingAndExecute(notification?.DeepLink);
                 }
-            };
-
-            var cancelCommand = new DialogCommand
+                else if (notification.NotificationType == NotificationType.FriendRequest)
+                {
+                    RequestFriendRequestApproval(notification);
+                }
+                else if (notification.NotificationType == NotificationType.ChallengeRequest)
+                {
+                    RequestChallengeRequestApproval(notification);
+                }
+            }
+            catch (Exception ex)
             {
-                Label = AppResource.Cancel
-            };
-
-            var commands = new List<DialogCommand>
-            {
-                competeCommand,
-                cancelCommand
-            };
-
-            string message = string.Format(AppResource.Friends_ApproveFriend, selectedFriend.Name);
-            await DialogService.ShowMessageAsync("", message, commands);
+                ExceptionService.Handle(ex);
+            }
         }
 
         #endregion

@@ -209,8 +209,6 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Assets\challengeBanner.png" />
-    <Content Include="Assets\compete.png" />
-    <Content Include="Assets\downArrow.png" />
     <Content Include="Assets\loading.png" />
     <Content Include="Assets\LoginLogo.png" />
     <Content Include="Assets\running.png" />

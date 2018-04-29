@@ -15,7 +15,6 @@
     <None Remove="Assets\challengeBanner.png" />
     <None Remove="Services\Mocks\AccountMock.xml" />
     <None Remove="Services\Mocks\MeMock.xml" />
-    <None Remove="Assets\downArrow.png" />
     <None Remove="Assets\running.png" />
     <None Remove="Assets\workout.png" />
     <None Remove="Assets\ic_settings_3x.png" />
@@ -50,13 +49,11 @@
     <EmbeddedResource Include="Assets\LoginLogo.png" />
     <EmbeddedResource Include="Assets\SVG\addFriend.svg" />
     <EmbeddedResource Include="Assets\videothumbnail.png" />
-    <EmbeddedResource Include="Assets\compete.png" />
     <EmbeddedResource Include="Assets\challengeBanner.png" />
     <EmbeddedResource Include="Services\Mocks\PostsMock.xml" />
     <EmbeddedResource Include="Services\Mocks\AccountMock.xml" />
     <EmbeddedResource Include="Services\Mocks\PostMock.xml" />
     <EmbeddedResource Include="Services\Mocks\MeMock.xml" />
-    <EmbeddedResource Include="Assets\downArrow.png" />
     <EmbeddedResource Include="Assets\running.png" />
     <EmbeddedResource Include="Assets\workout.png" />
     <EmbeddedResource Include="Assets\SVG\home.svg" />

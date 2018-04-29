@@ -24,6 +24,7 @@ namespace Journey.Models.Challenge
 
         private ObservableCollection<PostBase> _posts;
         private Location _selectedLocation;
+        private Location _challengerLocation;
 
         private DateTime _startDate = DateTime.Now;
 
@@ -93,6 +94,12 @@ namespace Journey.Models.Challenge
         {
             get => _selectedLocation;
             set => SetProperty(ref _selectedLocation, value);
+        }
+
+        public Location ChallengerLocation
+        {
+            get => _challengerLocation;
+            set => SetProperty(ref _challengerLocation, value);
         }
     }
 }

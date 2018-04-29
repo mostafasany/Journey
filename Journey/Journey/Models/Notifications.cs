@@ -2,6 +2,8 @@
 
 namespace Journey.Models
 {
+    public enum NotificationType { Notification, FriendRequest, ChallengeRequest }
+
     public class Notifications : BindableBase
     {
         private Account.Account account;
@@ -12,6 +14,7 @@ namespace Journey.Models
         private string message;
 
         private string title;
+        public NotificationType NotificationType;
 
         public string Id
         {

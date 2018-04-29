@@ -30,7 +30,7 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
                 string api = string.Format("ChallengeActivity?challenge={0}", challengeId);
                 List<AzureChallengeActivity> logs = await _client.InvokeApiAsync<List<AzureChallengeActivity>>(api, HttpMethod.Get, null);
 
-                if (logs == null || logs.Count == 0)
+                if (logs == null)
                     return null;
                 List<ChallengeActivityLog> logsDto = ChallengeActivityDataTranslator.TranslateChallengeActivityList(logs);
                 logsDto.Where(a => a.Account.Id == _client.CurrentUser.UserId).ToList().ForEach(c => c.Mine = true);

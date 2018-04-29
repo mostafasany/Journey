@@ -45,7 +45,6 @@ namespace Journey.ViewModels
                 {
                     var mode = parameters.GetValue<int>("Mode");
                     IsAddMode = false;
-                    IsApproveRequestMode = false;
                     IsEditMode = false;
                     if (mode == 0)
                     {
@@ -69,7 +68,7 @@ namespace Journey.ViewModels
 
                         if (mode == 1)
                             IsEditMode = true;
-                        else if (mode == 2) IsApproveRequestMode = true;
+                       
                     }
                 }
                 else if (parameters?.GetNavigationMode() == NavigationMode.Back)
@@ -112,14 +111,6 @@ namespace Journey.ViewModels
         {
             get => _isEditMode;
             set => SetProperty(ref _isEditMode, value);
-        }
-
-        private bool _isApproveRequestMode;
-
-        public bool IsApproveRequestMode
-        {
-            get => _isApproveRequestMode;
-            set => SetProperty(ref _isApproveRequestMode, value);
         }
 
 
@@ -219,7 +210,6 @@ namespace Journey.ViewModels
                     startChallengeCommand,
                     cancelCommand
                 };
-                //SelectedChallenge.Interval = SelectedInterval.IntervalValue;
                 await DialogService.ShowMessageAsync("", AppResource.Challenge_Start, commands);
             }
             catch (Exception ex)
@@ -241,8 +231,9 @@ namespace Journey.ViewModels
                     return;
 
                 ShowProgress();
-                bool hasActiveChallange = await _challengeService.CheckAccountHasChallengeAsync();
-                if (!hasActiveChallange)
+                bool hasActiveChallange = await _challengeService.HasChallengeAsync(ToChallenge.Id);
+                var account = await _accountService.GetAccountAsync(true);
+                if (!hasActiveChallange && !account.HasActiveChallenge)
                 {
                     if (string.IsNullOrEmpty(SelectedChallenge.SelectedLocation.Id))
                     {
@@ -265,31 +256,6 @@ namespace Journey.ViewModels
             catch (Exception ex)
             {
                 await DialogService.ShowGenericErrorMessageAsync(ex.Message, AppResource.Error);
-            }
-            finally
-            {
-                HideProgress();
-            }
-        }
-
-        #endregion
-
-        #region OnApproveRequestCommand
-
-        public DelegateCommand OnApproveRequestCommand => new DelegateCommand(OnApproveRequest);
-
-
-        private async void OnApproveRequest()
-        {
-            try
-            {
-                Challenge challenge = await _challengeService.ApproveChallengeAsync(SelectedChallenge);
-                if (challenge != null)
-                    await NavigationService.Navigate("HomePage", true, "Sync");
-            }
-            catch (Exception ex)
-            {
-                ExceptionService.Handle(ex);
             }
             finally
             {

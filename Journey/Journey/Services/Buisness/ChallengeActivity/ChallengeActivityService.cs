@@ -88,7 +88,7 @@ namespace Journey.Services.Buisness.ChallengeActivity
             try
             {
                 List<ChallengeActivityLog> challengeProgress = await _challengeActivityDataService.GetChallengeActivitiesAsync(challengeId);
-                if (!challengeProgress.Any())
+                if (challengeProgress == null)
                     return null;
                 List<KeyGroupedChallengeProgress> orderedList = challengeProgress
                     .OrderBy(a => a.DatetTime)
@@ -167,6 +167,8 @@ namespace Journey.Services.Buisness.ChallengeActivity
                 var _challenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
 
                 var workoutLocation = _challenge.SelectedLocation;
+                if (workoutLocation == null)
+                    return null;
                 double near = _locationService.DistanceBetweenPlaces(myLocation.Lng, myLocation.Lat, _challenge.SelectedLocation.Lng, _challenge.SelectedLocation.Lat);
                 if (near > MinDistanceForWorkout)
                     return null;

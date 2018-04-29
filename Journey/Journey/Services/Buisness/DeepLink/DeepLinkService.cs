@@ -33,16 +33,7 @@ namespace Journey.Services.Buisness.DeepLink
                     {
                         // _navigationService.Navigate("ChallengeProgressPage");
                     }
-                    else if (pageName == ChallengeRequestName)
-                    {
-                        string id = paramaters["id"];
-                        var parameters = new Dictionary<string, object>
-                        {
-                            {"Challenge", id},
-                            {"Mode", 2}
-                        };
-                        //  _navigationService.Navigate("NewChallengePage", parameters);
-                    }
+                   
                 }
             }
             catch (Exception ex)

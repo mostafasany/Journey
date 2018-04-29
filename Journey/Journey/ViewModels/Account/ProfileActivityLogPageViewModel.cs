@@ -142,9 +142,9 @@ namespace Journey.ViewModels
             {
                 ShowProgress();
                 List<ChallengeActivityLog> challenges;
-                if (!string.IsNullOrEmpty(_accountService?.LoggedInAccount?.ChallengeId))
-                    challenges = await _challengeActivityService.GetChallengeActivitiesAsync(_accountService.LoggedInAccount.ChallengeId);
-                else
+                //if (!string.IsNullOrEmpty(_accountService?.LoggedInAccount?.ChallengeId))
+                //    challenges = await _challengeActivityService.GetChallengeActivitiesAsync(_accountService.LoggedInAccount.ChallengeId);
+                //else
                     challenges = await _challengeActivityService.GetAccountActivitiesAsync();
                 if (challenges != null)
                     ChallengeActivityLog = new ObservableCollection<ChallengeActivityLog>(challenges);
@@ -184,6 +184,7 @@ namespace Journey.ViewModels
             if (status)
             {
                 HasHealthApi = true;
+                healthService.HealthDataChanged -= HealthService_HealthDataChanged;
                 healthService.HealthDataChanged += HealthService_HealthDataChanged;
             }
         }

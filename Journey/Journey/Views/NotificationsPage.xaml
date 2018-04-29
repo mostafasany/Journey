@@ -5,7 +5,7 @@
             <DataTemplate x:Key="NotificationTemplate">
                 <ViewCell>
                     <ViewCell.View>
-                        <Grid Padding="5">
+                        <Grid Padding="5" BackgroundColor="White">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -14,30 +14,13 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <controls:ImageControl Grid.Column="0" PortablePath="compete.png" WidthRequest="50" HeightRequest="50" HorizontalOptions="Start" VerticalOptions="Center" />
-                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Title}" Style="{StaticResource LabelListItemStyle}" FontAttributes="Bold" />
-                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Message}" FontSize="14" Style="{StaticResource LabelListItemStyle}" />
-                        </Grid>
-                    </ViewCell.View>
-                </ViewCell>
-            </DataTemplate>
-            <DataTemplate x:Key="FriendTemplate">
-                <ViewCell>
-                    <ViewCell.View>
-                        <Grid Padding="5">
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Path=BindingContext.OnSelectedFriendCommand, Source={x:Reference Name=ParentListView}}" CommandParameter="{Binding} " />
-                            </Grid.GestureRecognizers>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <controls:CustomImage Grid.Column="0" Source="{Binding Image.Path}" Aspect="AspectFit" HeightRequest="80" HorizontalOptions="Start">
+                            <controls:CustomImage Grid.Column="0" Grid.RowSpan="2" Source="{Binding Account.Image.Path}" Aspect="AspectFit" HeightRequest="80" HorizontalOptions="Start">
                                 <controls:CustomImage.Transformations>
                                     <fftransformations:CircleTransformation />
                                 </controls:CustomImage.Transformations>
                             </controls:CustomImage>
-                            <Label Grid.Column="1" Text="{Binding Name}" TextColor="Black" FontSize="20" Margin="5,0" HorizontalOptions="Start" VerticalOptions="Center" />
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Title}" Style="{StaticResource LabelListItemStyle}" FontAttributes="Bold" />
+                            <Label Grid.Row="1" Grid.Column="1"  Text="{Binding Message}" FontSize="14" Style="{StaticResource LabelListItemStyle}" />
                         </Grid>
                     </ViewCell.View>
                 </ViewCell>
@@ -46,24 +29,14 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid Style="{StaticResource MainGridStyle}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <ListView x:Name="ParentListView" IsVisible="{Binding NoFriendRequests,Converter={StaticResource BoolInverterConverter}}" Grid.Row="0" RowHeight="120" SeparatorVisibility="None" ItemsSource="{Binding FriendsRequestList}" ItemTemplate="{StaticResource FriendTemplate}" SelectedItem="{Binding SelectedFriend,Mode=TwoWay}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}"
-                RefreshAllowed="true" RefreshCommand="{Binding OnPullRefreshRequestCommand}" HorizontalOptions="Center">
-                <ListView.Header>
-                    <Label Text="{resources:Translate Notification_FriendRequestHeader}" Margin="10,0" TextColor="Gray" HorizontalOptions="Center" />
-                </ListView.Header>
-            </ListView>
-            <ListView Grid.Row="1" IsVisible="{Binding NoNofications,Converter={StaticResource BoolInverterConverter}}" SeparatorVisibility="None" RowHeight="100" ItemsSource="{Binding Notifications}" ItemTemplate="{StaticResource NotificationTemplate}" HorizontalOptions="Start" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true"
-                RefreshCommand="{Binding OnPullRefreshRequestCommand}" SelectedItem="{Binding SelectedNotification,Mode=TwoWay}">
+            <ListView IsVisible="{Binding NoNofications,Converter={StaticResource BoolInverterConverter}}" SeparatorVisibility="None" RowHeight="100" ItemsSource="{Binding Notifications}" ItemTemplate="{StaticResource NotificationTemplate}" HorizontalOptions="Start" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsPullRefreshLoading}" RefreshAllowed="true" RefreshCommand="{Binding OnPullRefreshRequestCommand}"
+                SelectedItem="{Binding SelectedNotification,Mode=TwoWay}">
                 <ListView.Header>
                     <Label Text="{resources:Translate Notification_NotificationHeader}" Margin="10,0" TextColor="Gray" HorizontalOptions="Center" />
                 </ListView.Header>
             </ListView>
-            <Label Grid.Row="1" IsVisible="{Binding NoNoficationMessage}" HorizontalOptions="Center" VerticalOptions="Center" Text="{resources:Translate Notification_NoNotifications}" TextColor="Gray" FontSize="20" />
-            <controls:LoadingControl Grid.Row="1" IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,60,0,0" />
+            <Label IsVisible="{Binding NoNofications}" HorizontalOptions="Center" VerticalOptions="Center" Text="{resources:Translate Notification_NoNotifications}" TextColor="Gray" FontSize="20" />
+            <controls:LoadingControl IsVisible="{Binding IsLoading}" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,60,0,0" />
         </Grid>
     </ContentPage.Content>
 </local:BasePage>

@@ -1,10 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
-using Journey.Models;
 using Journey.Models.Challenge;
-using Journey.Resources;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Account.Data;
 using Journey.Services.Buisness.Challenge.Data;
@@ -20,8 +19,7 @@ namespace Journey.Services.Buisness.Challenge
         private Models.Challenge.Challenge _cachedChallenge;
         public ChallengeService(IChallengeDataService challengeDataService,
             IAccountDataService accountDataService,
-            IAccountService accountService,
-            INotificationService notificationService)
+            IAccountService accountService)
         {
             _challengeDataService = challengeDataService;
             _accountDataService = accountDataService;
@@ -81,11 +79,11 @@ namespace Journey.Services.Buisness.Challenge
             }
         }
 
-        public async Task<bool> CheckAccountHasChallengeAsync()
+        public async Task<bool> HasChallengeAsync(string friend)
         {
             try
             {
-                Models.Challenge.Challenge challenge = await _challengeDataService.CheckAccountHasChallengeAsync();
+                Models.Challenge.Challenge challenge = await _challengeDataService.HasChallengeAsync(friend);
                 if (challenge == null)
                     return false;
                 return true;
@@ -96,10 +94,13 @@ namespace Journey.Services.Buisness.Challenge
             }
         }
 
-        public async Task<Models.Challenge.Challenge> ApproveChallengeAsync(Models.Challenge.Challenge challenge)
+        public async Task<Models.Challenge.Challenge> ApproveChallengeAsync(string challengeId)
         {
             try
             {
+                var challenge = await _challengeDataService.GetChallengeAsync(challengeId);
+                if (challenge == null)
+                    return null;
                 challenge.IsActive = true;
                 Models.Challenge.Challenge challengeDto = await _challengeDataService.UpdateChallengeAsync(challenge);
                 ChallengeAccount account1 = challenge.ChallengeAccounts.FirstOrDefault();
@@ -129,6 +130,18 @@ namespace Journey.Services.Buisness.Challenge
                 await _accountDataService.AddUpdateAccountAsync(account1, false);
                 await _accountDataService.AddUpdateAccountAsync(account2, false);
                 return challengeDto;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ex.Message, ex);
+            }
+        }
+        public async Task<List<Models.Challenge.Challenge>> GetChallengeRequestsAsync()
+        {
+            try
+            {
+                var challenges = await _challengeDataService.GetChallengeRequestsAsync();
+                return challenges;
             }
             catch (Exception ex)
             {

@@ -33,7 +33,7 @@ namespace Journey.Services.Buisness.Challenge.Data
             {
                 if (challenge == null)
                     return null;
-                AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge);
+                AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge,_client.CurrentUser.UserId);
                 await _azureChallenge.InsertAsync(accountDto);
                 challenge = ChallengeDataTranslator.TranslateChallenge(accountDto, _client.CurrentUser.UserId);
                 return challenge;
@@ -50,7 +50,7 @@ namespace Journey.Services.Buisness.Challenge.Data
             {
                 if (challenge == null)
                     return null;
-                AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge);
+                AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge,_client.CurrentUser.UserId);
                 await _azureChallenge.UpdateAsync(accountDto);
                 challenge = ChallengeDataTranslator.TranslateChallenge(accountDto, _client.CurrentUser.UserId);
                 return challenge;
@@ -67,14 +67,8 @@ namespace Journey.Services.Buisness.Challenge.Data
             {
                 AzureChallenge challengeDto = await _azureChallenge.LookupAsync(challengeId);
 
-                Models.Challenge.Challenge challenge = ChallengeDataTranslator.TranslateChallenge(challengeDto, _client.CurrentUser.UserId);
-                Models.Account.Account account1 = await _accountDataService.GetAccontAsync(challengeDto.Account1);
-                Models.Account.Account account2 = await _accountDataService.GetAccontAsync(challengeDto.Account2);
-                challenge.ChallengeAccounts = new ObservableCollection<ChallengeAccount>();
-                challenge.ChallengeAccounts.Add(
-                    new ChallengeAccount(account1));
-                challenge.ChallengeAccounts.Add(
-                    new ChallengeAccount(account2));
+                Models.Challenge.Challenge challenge = await GetChallengeWithChallengersAsync(challengeDto);
+
                 return challenge;
             }
             catch (MobileServiceInvalidOperationException ex)
@@ -88,13 +82,34 @@ namespace Journey.Services.Buisness.Challenge.Data
             }
         }
 
-        public async Task<Models.Challenge.Challenge> CheckAccountHasChallengeAsync()
+        async Task<Models.Challenge.Challenge> GetChallengeWithChallengersAsync(AzureChallenge challengeDto)
         {
             try
             {
-                string account = _client.CurrentUser.UserId;
+
+                Models.Challenge.Challenge challenge = ChallengeDataTranslator.TranslateChallenge(challengeDto, _client.CurrentUser.UserId);
+                Models.Account.Account account1 = await _accountDataService.GetAccontAsync(challengeDto.Account1);
+                Models.Account.Account account2 = await _accountDataService.GetAccontAsync(challengeDto.Account2);
+                challenge.ChallengeAccounts = new ObservableCollection<ChallengeAccount>();
+                challenge.ChallengeAccounts.Add(
+                    new ChallengeAccount(account1));
+                challenge.ChallengeAccounts.Add(
+                    new ChallengeAccount(account2));
+                return challenge;
+            }
+
+            catch (Exception ex)
+            {
+                throw new DataServiceException(ex.Message, ex);
+            }
+        }
+
+        public async Task<Models.Challenge.Challenge> HasChallengeAsync(string friend)
+        {
+            try
+            {
                 List<AzureChallenge> challengeDto = await _azureChallenge
-                    .Where(a => a.Account1 == account || a.Account2 == account).ToListAsync();
+                    .Where(a => a.Account1 == friend || a.Account2 == friend).ToListAsync();
                 AzureChallenge accountChallenge = challengeDto?.FirstOrDefault();
                 if (accountChallenge == null)
                     return null;
@@ -115,7 +130,7 @@ namespace Journey.Services.Buisness.Challenge.Data
             {
                 if (challenge == null)
                     return null;
-                AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge);
+                AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge,_client.CurrentUser.UserId);
                 await _azureChallenge.UpdateAsync(accountDto);
                 challenge = ChallengeDataTranslator.TranslateChallenge(accountDto, _client.CurrentUser.UserId);
                 return challenge;
@@ -125,5 +140,31 @@ namespace Journey.Services.Buisness.Challenge.Data
                 throw new DataServiceException(ex.Message, ex);
             }
         }
+
+        public async Task<List<Models.Challenge.Challenge>> GetChallengeRequestsAsync()
+        {
+            try
+            {
+                List<AzureChallenge> challengesDto = await _azureChallenge.Where(a => a.Account2 == _client.CurrentUser.UserId && !a.Status).ToListAsync();
+                List<Models.Challenge.Challenge> challenges = new List<Models.Challenge.Challenge>();
+                foreach (var item in challengesDto)
+                {
+                    Models.Challenge.Challenge challenge = await GetChallengeWithChallengersAsync(item);
+                    challenges.Add(challenge);
+                }
+
+                return challenges;
+            }
+            catch (MobileServiceInvalidOperationException ex)
+            {
+                if (ex.Response.StatusCode == HttpStatusCode.NotFound) return null;
+                throw new DataServiceException(ex.Message, ex);
+            }
+            catch (Exception ex)
+            {
+                throw new DataServiceException(ex.Message, ex);
+            }
+        }
+
     }
 }
