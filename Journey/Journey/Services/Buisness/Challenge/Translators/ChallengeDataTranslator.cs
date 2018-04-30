@@ -27,7 +27,6 @@ namespace Journey.Services.Buisness.Challenge.Translators
                     challengeDto.Account2 = challenge.ChallengeAccounts[1].Id;
                     challengeDto.Status = challenge.IsActive;
                     if (challenge.SelectedLocation != null)
-                    {
                         if (account == challenge.ChallengeAccounts[0].Id)
                         {
                             challengeDto.Location1 = JsonConvert.SerializeObject(challenge.SelectedLocation);
@@ -38,23 +37,9 @@ namespace Journey.Services.Buisness.Challenge.Translators
                             challengeDto.Location2 = JsonConvert.SerializeObject(challenge.SelectedLocation);
                             challengeDto.Location1 = JsonConvert.SerializeObject(challenge.ChallengerLocation);
                         }
-                    }
                 }
 
                 return challengeDto;
-            }
-            catch (Exception ex)
-            {
-                throw new TranslationFailedException("Challenge", ex.InnerException);
-            }
-
-        }
-
-        public static List<Models.Challenge.Challenge> TranslateChallenges(List<AzureChallenge> challenges, string account)
-        {
-            try
-            {
-                return challenges == null ? new List<Models.Challenge.Challenge>() : challenges.Select(a => TranslateChallenge(a, account)).ToList();
             }
             catch (Exception ex)
             {
@@ -77,10 +62,10 @@ namespace Journey.Services.Buisness.Challenge.Translators
                     challengeDto.IsActive = challenge.Status;
                     challengeDto.ChallengeAccounts = new ObservableCollection<ChallengeAccount>();
                     challengeDto.ChallengeAccounts.Add(
-                        new ChallengeAccount(new Models.Account.Account { Id = challenge.Account1 })
+                        new ChallengeAccount(new Models.Account.Account {Id = challenge.Account1})
                     );
                     challengeDto.ChallengeAccounts.Add(
-                        new ChallengeAccount(new Models.Account.Account { Id = challenge.Account2 })
+                        new ChallengeAccount(new Models.Account.Account {Id = challenge.Account2})
                     );
                     if (account == challenge.Account1)
                     {
@@ -88,7 +73,6 @@ namespace Journey.Services.Buisness.Challenge.Translators
                             challengeDto.SelectedLocation = JsonConvert.DeserializeObject<Location>(challenge.Location1);
                         if (challenge.Location2 != null)
                             challengeDto.ChallengerLocation = JsonConvert.DeserializeObject<Location>(challenge.Location2);
-
                     }
                     else if (account == challenge.Account2)
                     {
@@ -96,18 +80,27 @@ namespace Journey.Services.Buisness.Challenge.Translators
                             challengeDto.SelectedLocation = JsonConvert.DeserializeObject<Location>(challenge.Location2);
                         if (challenge.Location1 != null)
                             challengeDto.ChallengerLocation = JsonConvert.DeserializeObject<Location>(challenge.Location1);
-
                     }
                 }
 
                 return challengeDto;
-
             }
             catch (Exception ex)
             {
                 throw new TranslationFailedException("Challenge", ex.InnerException);
             }
+        }
 
+        public static List<Models.Challenge.Challenge> TranslateChallenges(List<AzureChallenge> challenges, string account)
+        {
+            try
+            {
+                return challenges == null ? new List<Models.Challenge.Challenge>() : challenges.Select(a => TranslateChallenge(a, account)).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new TranslationFailedException("Challenge", ex.InnerException);
+            }
         }
     }
 }

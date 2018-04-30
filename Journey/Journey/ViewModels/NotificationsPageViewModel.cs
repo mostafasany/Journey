@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using Abstractions.Services;
 using Abstractions.Services.Contracts;
 using Journey.Models;
-using Journey.Models.Account;
+using Journey.Models.Challenge;
 using Journey.Resources;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Challenge;
@@ -18,17 +18,17 @@ namespace Journey.ViewModels
 {
     public class NotificationsPageViewModel : MainNavigationViewModel, INavigationAware
     {
-        private readonly IDeepLinkService _deepLinking;
-        private readonly INotificationService _notificationService;
-        private readonly IFriendService _friendService;
         private readonly IChallengeService _challengeService;
+        private readonly IDeepLinkService _deepLinking;
+        private readonly IFriendService _friendService;
+        private readonly INotificationService _notificationService;
 
         public NotificationsPageViewModel(IUnityContainer container,
-                                          IAccountService accountService,
-                                          INotificationService notificationService,
-                                          IFriendService friendService,
-                                          IChallengeService challengeService,
-                                          IDeepLinkService deepLinking) :
+            IAccountService accountService,
+            INotificationService notificationService,
+            IFriendService friendService,
+            IChallengeService challengeService,
+            IDeepLinkService deepLinking) :
             base(container, accountService, notificationService)
         {
             _notificationService = notificationService;
@@ -98,8 +98,7 @@ namespace Journey.ViewModels
             set => SetProperty(ref _isPullRefreshLoading, value);
         }
 
-        public bool NoNofications => (Notifications == null || Notifications.Count == 0);
-
+        public bool NoNofications => Notifications == null || Notifications.Count == 0;
 
         #endregion
 
@@ -177,7 +176,7 @@ namespace Journey.ViewModels
                 Label = AppResource.Yes,
                 Invoked = async () =>
                 {
-                    var challenge = await _challengeService.ApproveChallengeAsync(notification.Id);
+                    Challenge challenge = await _challengeService.ApproveChallengeAsync(notification.Id);
                     if (challenge != null)
                         Notifications.Remove(notification);
                 }
@@ -197,7 +196,6 @@ namespace Journey.ViewModels
             string message = string.Format(AppResource.Challenge_ApproveChallenge, notification.Account.Name);
             await DialogService.ShowMessageAsync("", message, commands);
         }
-
 
         #endregion
 
@@ -249,17 +247,10 @@ namespace Journey.ViewModels
             try
             {
                 if (notification.NotificationType == NotificationType.Notification)
-                {
-                    _deepLinking.ParseDeepLinkingAndExecute(notification?.DeepLink);
-                }
+                    _deepLinking.ParseDeepLinkingAndExecute(notification.DeepLink);
                 else if (notification.NotificationType == NotificationType.FriendRequest)
-                {
                     RequestFriendRequestApproval(notification);
-                }
-                else if (notification.NotificationType == NotificationType.ChallengeRequest)
-                {
-                    RequestChallengeRequestApproval(notification);
-                }
+                else if (notification.NotificationType == NotificationType.ChallengeRequest) RequestChallengeRequestApproval(notification);
             }
             catch (Exception ex)
             {

@@ -33,7 +33,6 @@ namespace Journey.Services.Buisness.DeepLink
                     {
                         // _navigationService.Navigate("ChallengeProgressPage");
                     }
-                   
                 }
             }
             catch (Exception ex)

@@ -33,7 +33,7 @@ namespace Journey.Services.Buisness.Challenge.Data
             {
                 if (challenge == null)
                     return null;
-                AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge,_client.CurrentUser.UserId);
+                AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge, _client.CurrentUser.UserId);
                 await _azureChallenge.InsertAsync(accountDto);
                 challenge = ChallengeDataTranslator.TranslateChallenge(accountDto, _client.CurrentUser.UserId);
                 return challenge;
@@ -50,7 +50,7 @@ namespace Journey.Services.Buisness.Challenge.Data
             {
                 if (challenge == null)
                     return null;
-                AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge,_client.CurrentUser.UserId);
+                AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge, _client.CurrentUser.UserId);
                 await _azureChallenge.UpdateAsync(accountDto);
                 challenge = ChallengeDataTranslator.TranslateChallenge(accountDto, _client.CurrentUser.UserId);
                 return challenge;
@@ -76,28 +76,6 @@ namespace Journey.Services.Buisness.Challenge.Data
                 if (ex.Response.StatusCode == HttpStatusCode.NotFound) return null;
                 throw new DataServiceException(ex.Message, ex);
             }
-            catch (Exception ex)
-            {
-                throw new DataServiceException(ex.Message, ex);
-            }
-        }
-
-        async Task<Models.Challenge.Challenge> GetChallengeWithChallengersAsync(AzureChallenge challengeDto)
-        {
-            try
-            {
-
-                Models.Challenge.Challenge challenge = ChallengeDataTranslator.TranslateChallenge(challengeDto, _client.CurrentUser.UserId);
-                Models.Account.Account account1 = await _accountDataService.GetAccontAsync(challengeDto.Account1);
-                Models.Account.Account account2 = await _accountDataService.GetAccontAsync(challengeDto.Account2);
-                challenge.ChallengeAccounts = new ObservableCollection<ChallengeAccount>();
-                challenge.ChallengeAccounts.Add(
-                    new ChallengeAccount(account1));
-                challenge.ChallengeAccounts.Add(
-                    new ChallengeAccount(account2));
-                return challenge;
-            }
-
             catch (Exception ex)
             {
                 throw new DataServiceException(ex.Message, ex);
@@ -130,7 +108,7 @@ namespace Journey.Services.Buisness.Challenge.Data
             {
                 if (challenge == null)
                     return null;
-                AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge,_client.CurrentUser.UserId);
+                AzureChallenge accountDto = ChallengeDataTranslator.TranslateChallenge(challenge, _client.CurrentUser.UserId);
                 await _azureChallenge.UpdateAsync(accountDto);
                 challenge = ChallengeDataTranslator.TranslateChallenge(accountDto, _client.CurrentUser.UserId);
                 return challenge;
@@ -146,8 +124,8 @@ namespace Journey.Services.Buisness.Challenge.Data
             try
             {
                 List<AzureChallenge> challengesDto = await _azureChallenge.Where(a => a.Account2 == _client.CurrentUser.UserId && !a.Status).ToListAsync();
-                List<Models.Challenge.Challenge> challenges = new List<Models.Challenge.Challenge>();
-                foreach (var item in challengesDto)
+                var challenges = new List<Models.Challenge.Challenge>();
+                foreach (AzureChallenge item in challengesDto)
                 {
                     Models.Challenge.Challenge challenge = await GetChallengeWithChallengersAsync(item);
                     challenges.Add(challenge);
@@ -166,5 +144,25 @@ namespace Journey.Services.Buisness.Challenge.Data
             }
         }
 
+        private async Task<Models.Challenge.Challenge> GetChallengeWithChallengersAsync(AzureChallenge challengeDto)
+        {
+            try
+            {
+                Models.Challenge.Challenge challenge = ChallengeDataTranslator.TranslateChallenge(challengeDto, _client.CurrentUser.UserId);
+                Models.Account.Account account1 = await _accountDataService.GetAccontAsync(challengeDto.Account1);
+                Models.Account.Account account2 = await _accountDataService.GetAccontAsync(challengeDto.Account2);
+                challenge.ChallengeAccounts = new ObservableCollection<ChallengeAccount>();
+                challenge.ChallengeAccounts.Add(
+                    new ChallengeAccount(account1));
+                challenge.ChallengeAccounts.Add(
+                    new ChallengeAccount(account2));
+                return challenge;
+            }
+
+            catch (Exception ex)
+            {
+                throw new DataServiceException(ex.Message, ex);
+            }
+        }
     }
 }

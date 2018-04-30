@@ -1,15 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Abstractions.Models;
 using Abstractions.Services.Contracts;
 using Journey.Models.Challenge;
 using Journey.Services.Buisness.Account;
-using Journey.Services.Buisness.Challenge;
 using Journey.Services.Buisness.ChallengeActivity;
 using Journey.Services.Buisness.Notification;
 using Prism.Commands;
@@ -23,18 +20,15 @@ namespace Journey.ViewModels
     {
         private readonly IAccountService _accountService;
         private readonly IChallengeActivityService _challengeActivityService;
-        private readonly IChallengeService _challengeService;
         private readonly ILocationService _locationService;
 
         public ProfileActivityLogPageViewModel(IUnityContainer container, IAccountService accountService,
             INotificationService notificationService,
             ILocationService locationService,
-            IChallengeService challengeService,
             IChallengeActivityService challengeActivityService) :
             base(container, accountService, notificationService)
         {
             _locationService = locationService;
-            _challengeService = challengeService;
             _challengeActivityService = challengeActivityService;
             _accountService = accountService;
             SubscribeHealthService();
@@ -83,9 +77,9 @@ namespace Journey.ViewModels
 
                 if (parameters?.GetNavigationMode() == NavigationMode.Back)
                 {
-                    var _location = parameters.GetValue<Location>("Location");
-                    if (_location != null)
-                        AddExerciseActivity(_location);
+                    var location = parameters.GetValue<Location>("Location");
+                    if (location != null)
+                        AddExerciseActivity(location);
                 }
 
 
@@ -145,7 +139,7 @@ namespace Journey.ViewModels
                 //if (!string.IsNullOrEmpty(_accountService?.LoggedInAccount?.ChallengeId))
                 //    challenges = await _challengeActivityService.GetChallengeActivitiesAsync(_accountService.LoggedInAccount.ChallengeId);
                 //else
-                    challenges = await _challengeActivityService.GetAccountActivitiesAsync();
+                challenges = await _challengeActivityService.GetAccountActivitiesAsync();
                 if (challenges != null)
                     ChallengeActivityLog = new ObservableCollection<ChallengeActivityLog>(challenges);
                 else
@@ -180,7 +174,7 @@ namespace Journey.ViewModels
             var healthService = DependencyService.Get<IHealthService>();
             if (healthService == null)
                 return;
-            bool status = await healthService.Authenticate();
+            bool status = await healthService.AuthenticateAsync();
             if (status)
             {
                 HasHealthApi = true;
@@ -218,12 +212,7 @@ namespace Journey.ViewModels
 
         private async Task AddUpdateActivity(ChallengeActivityLog activityLog)
         {
-            ChallengeActivityLog activity = await _challengeActivityService.AddUpdateActivityAsync(activityLog);
-
-            //if (ChallengeActivityLog.Any())
-            //    ChallengeActivityLog.Insert(0, activity);
-            //else
-            //ChallengeActivityLog.Add(activity);
+            await _challengeActivityService.AddUpdateActivityAsync(activityLog);
             Intialize();
         }
 
@@ -249,15 +238,11 @@ namespace Journey.ViewModels
                 ShowProgress();
 
                 Location myLocation = await _locationService.ObtainMyLocationAsync();
-                var _challenge = await _challengeActivityService.IsExercisingInChallengeWorkoutPlaceAsync(myLocation);
-                if (_challenge == null)
-                {
+                Challenge challenge = await _challengeActivityService.IsExercisingInChallengeWorkoutPlaceAsync(myLocation);
+                if (challenge == null)
                     await NavigationService.Navigate("ChooseLocationPage");
-                }
                 else
-                {
-                    AddExerciseActivity(_challenge.SelectedLocation, _challenge.Id);
-                }
+                    AddExerciseActivity(challenge.SelectedLocation, challenge.Id);
             }
             catch (Exception ex)
             {
@@ -280,6 +265,7 @@ namespace Journey.ViewModels
             //ChallengeActivityLog.Add(newActivity);
             Intialize();
         }
+
         #endregion
 
         #region OnLogKmCommand
@@ -310,7 +296,7 @@ namespace Journey.ViewModels
 
         public ICommand OnPullRefreshRequestCommand => new DelegateCommand(OnPullRefreshRequest);
 
-        private async void OnPullRefreshRequest()
+        private void OnPullRefreshRequest()
         {
             try
             {

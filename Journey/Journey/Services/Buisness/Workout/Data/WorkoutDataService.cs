@@ -37,10 +37,10 @@ namespace Journey.Services.Buisness.Workout.Data
                 foreach (Models.Workout item in workoutDto)
                 {
                     IEnumerable<IGrouping<string, AzureWorkout>> group = _workoutGroupCategories.Where(a => a.Key == item.Id);
-                    if (group == null || group?.FirstOrDefault() == null)
+                    if (group == null || group.FirstOrDefault() == null)
                         continue;
 
-                    List<Models.Workout> groupWorkoutDto = WorkoutDataTranslator.TranslateWorkouts(group?.FirstOrDefault()?.ToList());
+                    List<Models.Workout> groupWorkoutDto = WorkoutDataTranslator.TranslateWorkouts(group.FirstOrDefault()?.ToList());
 
                     groupWorkoutDto = SetAccountMaxWeightWorkout(accountWorkoutGroups, groupWorkoutDto);
 
@@ -55,7 +55,7 @@ namespace Journey.Services.Buisness.Workout.Data
             }
         }
 
-        public async Task<bool> LogWorkout(Models.Workout workout)
+        public async Task<bool> LogWorkoutAsync(Models.Workout workout)
         {
             try
             {

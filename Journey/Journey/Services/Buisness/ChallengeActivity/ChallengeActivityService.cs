@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Exceptions;
@@ -20,6 +19,7 @@ namespace Journey.Services.Buisness.ChallengeActivity
         private readonly IChallengeService _challengeService;
         private readonly ILocationService _locationService;
         private const double MinDistanceForWorkout = 0.2;
+
         public ChallengeActivityService(IChallengeActivityDataService challengeActivityDataService,
             IAccountService accountService,
             IChallengeService challengeService,
@@ -101,9 +101,9 @@ namespace Journey.Services.Buisness.ChallengeActivity
                             b => new AccountChallengeProgress
                             {
                                 Account = b.FirstOrDefault().Account,
-                                TotalKm = b.Where(e => e is ChallengeKmActivityLog).Sum(s => ((ChallengeKmActivityLog)s).KM),
+                                TotalKm = b.Where(e => e is ChallengeKmActivityLog).Sum(s => ((ChallengeKmActivityLog) s).KM),
                                 TotalExercises = b.Count(e => e is ChallengeWorkoutActivityLog),
-                                TotalKcal = b.Where(e => e is ChallengeKcalActivityLog).Sum(s => ((ChallengeKcalActivityLog)s).Kcal)
+                                TotalKcal = b.Where(e => e is ChallengeKcalActivityLog).Sum(s => ((ChallengeKcalActivityLog) s).Kcal)
                             }
                         ).ToList()
                     })
@@ -152,7 +152,6 @@ namespace Journey.Services.Buisness.ChallengeActivity
                 };
                 ChallengeActivityLog newActivity = await AddUpdateActivityAsync(activity);
                 return newActivity;
-
             }
             catch (Exception ex)
             {
@@ -164,17 +163,17 @@ namespace Journey.Services.Buisness.ChallengeActivity
         {
             if (!string.IsNullOrEmpty(_accountService.LoggedInAccount.ChallengeId))
             {
-                var _challenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
+                Models.Challenge.Challenge _challenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
 
-                var workoutLocation = _challenge.SelectedLocation;
+                Location workoutLocation = _challenge.SelectedLocation;
                 if (workoutLocation == null)
                     return null;
                 double near = _locationService.DistanceBetweenPlaces(myLocation.Lng, myLocation.Lat, _challenge.SelectedLocation.Lng, _challenge.SelectedLocation.Lat);
                 if (near > MinDistanceForWorkout)
                     return null;
-                else
-                    return _challenge;
+                return _challenge;
             }
+
             return null;
         }
     }

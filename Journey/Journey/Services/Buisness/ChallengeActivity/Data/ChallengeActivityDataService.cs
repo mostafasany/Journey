@@ -69,7 +69,7 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
                 if (log == null)
                     return false;
 
-                await _azureChallengeActivity.DeleteAsync(new AzureChallengeActivity { Id = log.Id });
+                await _azureChallengeActivity.DeleteAsync(new AzureChallengeActivity {Id = log.Id});
 
                 return true;
             }
@@ -90,12 +90,13 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
                 param.Add("activity", logDto.Activity);
                 param.Add("type", logDto.Type.ToString());
                 param.Add("challenge", string.IsNullOrEmpty(logDto.Challenge) ? "" : logDto.Challenge);
-                var status = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
+                bool status = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
                 if (status)
                 {
                     log.Mine = true;
                     return log;
                 }
+
                 return null;
             }
             catch (Exception ex)
@@ -103,6 +104,5 @@ namespace Journey.Services.Buisness.ChallengeActivity.Data
                 throw new DataServiceException(ex);
             }
         }
-
     }
 }

@@ -21,7 +21,7 @@ namespace Journey.UWP
             LoadApplication(new Journey.App(new UwpInitializer()));
         }
 
-        public async Task<MobileServiceUser> Authenticate()
+        public async Task<MobileServiceUser> AuthenticateAsync()
         {
             try
             {
@@ -37,6 +37,19 @@ namespace Journey.UWP
 
 
             return _user;
+        }
+
+        public async Task<bool> LogoutAsync()
+        {
+            try
+            {
+                await Journey.App.Client.LogoutAsync();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
     }
 

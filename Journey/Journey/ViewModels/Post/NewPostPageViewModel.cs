@@ -27,18 +27,16 @@ namespace Journey.ViewModels
         private readonly IBlobService _blobService;
         private readonly IChallengeActivityService _challengeActivityService;
         private readonly IChallengeService _challengeService;
-        private readonly ILocationService _locationService;
         private readonly IMediaService<Media> _mediaService;
         private readonly IPostService _postService;
 
         public NewPostPageViewModel(IUnityContainer container, IBlobService blobService,
-            IPostService postService, IMediaService<Media> mediaService, ILocationService locationService,
+            IPostService postService, IMediaService<Media> mediaService, 
             IAccountService accountService,
             IChallengeActivityService challengeActivityService,
             IChallengeService challengeService) :
             base(container)
         {
-            _locationService = locationService;
             _challengeService = challengeService;
             _challengeActivityService = challengeActivityService;
             _mediaService = mediaService;
@@ -64,7 +62,7 @@ namespace Journey.ViewModels
                     _location = parameters.GetValue<Location>("Location");
                     if (_location != null)
                         NewPost.Location =
-                            new PostActivity { Action = "At", Activity = _location.Name, Image = _location.Image };
+                            new PostActivity {Action = "At", Activity = _location.Name, Image = _location.Image};
                 }
 
                 Intialize();
@@ -125,7 +123,8 @@ namespace Journey.ViewModels
                 ShowProgress();
                 LoggedInAccount = await _accountService.GetAccountAsync();
                 if (!string.IsNullOrEmpty(_accountService.LoggedInAccount?.ChallengeId))
-                    _challenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
+                    if (_accountService.LoggedInAccount != null)
+                        _challenge = await _challengeService.GetChallengeAsync(_accountService.LoggedInAccount.ChallengeId);
 
                 base.Intialize(sync);
             }
@@ -232,10 +231,7 @@ namespace Journey.ViewModels
                 return;
 
             _challenge = await _challengeActivityService.IsExercisingInChallengeWorkoutPlaceAsync(_location);
-            if (_challenge != null)
-            {
-                await _challengeActivityService.AddExerciseActivityAsync(_location, _challenge.Id);
-            }
+            if (_challenge != null) await _challengeActivityService.AddExerciseActivityAsync(_location, _challenge.Id);
         }
 
         #endregion

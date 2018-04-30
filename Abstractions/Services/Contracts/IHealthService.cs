@@ -17,7 +17,7 @@ namespace Abstractions.Services.Contracts
     public interface IHealthService
     {
         bool AuthInProgress { get; set; }
-        Task<bool> Authenticate();
+        Task<bool> AuthenticateAsync();
         Task GetAgeAsync();
         Task GetCaloriesAsync();
         Task GetHeightAsync();

@@ -25,11 +25,11 @@ namespace Journey.Services.Buisness.Workout
             }
         }
 
-        public async Task<bool> LogWorkout(Models.Workout workout)
+        public async Task<bool> LogWorkoutAsync(Models.Workout workout)
         {
             try
             {
-                bool success = await _workoutDataService.LogWorkout(workout);
+                bool success = await _workoutDataService.LogWorkoutAsync(workout);
                 return success;
             }
             catch (Exception ex)

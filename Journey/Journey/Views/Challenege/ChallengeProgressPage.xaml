@@ -100,7 +100,7 @@
                                FontAttributes="Bold" Margin="0,5" />
                         <Label Text="{Binding WinnerAccountInExercises}" Grid.Row="2" Grid.Column="0"
                                HorizontalOptions="Center" />
-                        <Label Text="{Binding WinnerAccountInKM}" Grid.Row="2" Grid.Column="1"
+                        <Label Text="{Binding WinnerAccountInKm}" Grid.Row="2" Grid.Column="1"
                                HorizontalOptions="Center" />
                     </Grid>
                 </ListView.Footer>

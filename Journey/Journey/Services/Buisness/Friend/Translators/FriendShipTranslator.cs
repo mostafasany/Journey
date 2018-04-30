@@ -42,7 +42,7 @@ namespace Journey.Services.Buisness.Friend.Translators
         {
             try
             {
-                return friends==null ? new List<FriendShip>() : friends.Select(TranslateAccount).ToList();
+                return friends == null ? new List<FriendShip>() : friends.Select(TranslateAccount).ToList();
             }
             catch (Exception ex)
             {

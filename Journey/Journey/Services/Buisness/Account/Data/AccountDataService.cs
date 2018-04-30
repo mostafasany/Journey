@@ -51,7 +51,7 @@ namespace Journey.Services.Buisness.Account.Data
         {
             try
             {
-                MobileServiceUser authenticated = await App.Authenticator.Authenticate();
+                MobileServiceUser authenticated = await App.Authenticator.AuthenticateAsync();
                 return authenticated;
             }
             catch (Exception)

@@ -68,7 +68,6 @@ namespace Journey.ViewModels
 
                         if (mode == 1)
                             IsEditMode = true;
-                       
                     }
                 }
                 else if (parameters?.GetNavigationMode() == NavigationMode.Back)
@@ -196,7 +195,7 @@ namespace Journey.ViewModels
                 var startChallengeCommand = new DialogCommand
                 {
                     Label = AppResource.Yes,
-                    Invoked = () => StartChallenge()
+                    Invoked = async () => await StartChallenge()
                 };
 
                 var cancelCommand = new DialogCommand
@@ -232,7 +231,7 @@ namespace Journey.ViewModels
 
                 ShowProgress();
                 bool hasActiveChallange = await _challengeService.HasChallengeAsync(ToChallenge.Id);
-                var account = await _accountService.GetAccountAsync(true);
+                Account account = await _accountService.GetAccountAsync(true);
                 if (!hasActiveChallange && !account.HasActiveChallenge)
                 {
                     if (string.IsNullOrEmpty(SelectedChallenge.SelectedLocation.Id))

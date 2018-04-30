@@ -179,7 +179,7 @@ namespace Journey.ViewModels
 
                 if (LoggedInAccount.AccountGoal == null)
                     LoggedInAccount.AccountGoal = new AccountGoal();
-                if (LoggedInAccount.AccountGoal?.Weight == null || LoggedInAccount.AccountGoal.Weight == 0)
+                if (LoggedInAccount.AccountGoal.Weight == 0)
                     LoggedInAccount.AccountGoal.Weight = Measuremnts.FirstOrDefault(a => a.Title == "Weight").Measure;
             }
             catch (Exception ex)

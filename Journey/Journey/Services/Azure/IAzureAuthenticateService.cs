@@ -5,6 +5,7 @@ namespace Journey.Services.Azure
 {
     public interface IAzureAuthenticateService
     {
-        Task<MobileServiceUser> Authenticate();
+        Task<MobileServiceUser> AuthenticateAsync();
+        Task<bool> LogoutAsync();
     }
 }

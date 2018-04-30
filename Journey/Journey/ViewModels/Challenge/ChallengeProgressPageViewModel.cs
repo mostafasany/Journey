@@ -68,7 +68,7 @@ namespace Journey.ViewModels
 
         private string _winnerAccountInKm;
 
-        public string WinnerAccountInKM
+        public string WinnerAccountInKm
         {
             get => _winnerAccountInKm;
             set => SetProperty(ref _winnerAccountInKm, value);
@@ -117,9 +117,9 @@ namespace Journey.ViewModels
                         else
                             WinnerAccountInExercises = AppResource.Draw;
                         if (challenge1KmCount != challenge2KmCount)
-                            WinnerAccountInKM = challenge1KmCount > challenge2KmCount ? challenge1?.Name : challenge2?.Name;
+                            WinnerAccountInKm = challenge1KmCount > challenge2KmCount ? challenge1?.Name : challenge2?.Name;
                         else
-                            WinnerAccountInKM = AppResource.Draw;
+                            WinnerAccountInKm = AppResource.Draw;
                     }
                     else
                     {

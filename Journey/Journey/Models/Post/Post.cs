@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Journey.Models.Post
+﻿namespace Journey.Models.Post
 {
     public class Post : PostBase
     {

@@ -6,6 +6,6 @@ namespace Journey.Services.Buisness.Workout.Data
     public interface IWorkoutDataService
     {
         Task<List<Models.Workout>> GetLogWorkoutsAsync();
-        Task<bool> LogWorkout(Models.Workout workout);
+        Task<bool> LogWorkoutAsync(Models.Workout workout);
     }
 }

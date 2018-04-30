@@ -7,10 +7,10 @@ namespace Journey.Services.Buisness.Challenge
     {
         Task<Models.Challenge.Challenge> AddChallengeAsync(Models.Challenge.Challenge challenge);
         Task<Models.Challenge.Challenge> ApproveChallengeAsync(string challenge);
-        Task<bool> HasChallengeAsync(string friend);
         Task<Models.Challenge.Challenge> EditChallengeAsync(Models.Challenge.Challenge challenge);
         Task<Models.Challenge.Challenge> EndChallengeAsync(Models.Challenge.Challenge challenge);
         Task<Models.Challenge.Challenge> GetChallengeAsync(string challengeId);
         Task<List<Models.Challenge.Challenge>> GetChallengeRequestsAsync();
+        Task<bool> HasChallengeAsync(string friend);
     }
 }

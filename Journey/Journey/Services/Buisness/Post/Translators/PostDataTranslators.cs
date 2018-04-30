@@ -25,7 +25,7 @@ namespace Journey.Services.Buisness.Post.Translators
                     postDto.Status = post.Feed;
                     postDto.Activity = JsonConvert.SerializeObject(post.Activity);
                     postDto.Location = JsonConvert.SerializeObject(post.Location);
-                    postDto.Images = JsonConvert.SerializeObject(images);  
+                    postDto.Images = JsonConvert.SerializeObject(images);
                 }
 
                 return postDto;
@@ -47,7 +47,7 @@ namespace Journey.Services.Buisness.Post.Translators
                     Id = post.Account,
                     LastName = post.Lname,
                     FirstName = post.Fname,
-                    Image = new Media { Path = post.Profile }
+                    Image = new Media {Path = post.Profile}
                 };
                 postDto.Liked = post.Liked.HasValue ? post.Liked.Value : false;
                 postDto.LikesCount = post.Likes;

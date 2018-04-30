@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FFImageLoading.Forms.Touch;
 using FFImageLoading.Transformations;
 using Foundation;
@@ -23,7 +22,7 @@ namespace Journey.iOS
     {
         private MobileServiceUser _user;
 
-        public async Task<MobileServiceUser> Authenticate()
+        public async Task<MobileServiceUser> AuthenticateAsync()
         {
             try
             {
@@ -42,11 +41,28 @@ namespace Journey.iOS
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
             }
 
             return _user;
+        }
+
+        public async Task<bool> LogoutAsync()
+        {
+            try
+            {
+                foreach (var cookie in NSHttpCookieStorage.SharedStorage.Cookies)
+                {
+                    NSHttpCookieStorage.SharedStorage.DeleteCookie(cookie);
+                }
+                await App.Client.LogoutAsync();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
 
         //

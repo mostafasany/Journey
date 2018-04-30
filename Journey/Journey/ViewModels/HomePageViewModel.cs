@@ -55,7 +55,7 @@ namespace Journey.ViewModels
                 var location = parameters.GetValue<Location>("Location");
                 if (location != null)
                     NewPostPageViewModel.NewPost.Location =
-                        new PostActivity { Action = "At", Activity = location.Name, Image = location.Image };
+                        new PostActivity {Action = "At", Activity = location.Name, Image = location.Image};
             }
             catch (Exception ex)
             {

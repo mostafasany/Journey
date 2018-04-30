@@ -175,7 +175,7 @@ namespace Journey.ViewModels
                 {
                     bool status = await _friendService.FollowRequestAsync(selectedFriend.Id);
                     if (status)
-                        selectedFriend.FriendShipStatus = ((int)FriendShipEnum.Requested).ToString();
+                        selectedFriend.FriendShipStatus = ((int) FriendShipEnum.Requested).ToString();
                 }
             };
 
@@ -203,7 +203,7 @@ namespace Journey.ViewModels
                 {
                     bool status = await _friendService.IgnoreApproveAsync(selectedFriend.FriendShipId);
                     if (status)
-                        selectedFriend.FriendShipStatus = ((int)FriendShipEnum.Nothing).ToString();
+                        selectedFriend.FriendShipStatus = ((int) FriendShipEnum.Nothing).ToString();
                 }
             };
 
@@ -231,7 +231,7 @@ namespace Journey.ViewModels
                 {
                     bool status = await _friendService.FollowRejectAsync(selectedFriend.FriendShipId);
                     if (status)
-                        selectedFriend.FriendShipStatus = ((int)FriendShipEnum.Nothing).ToString();
+                        selectedFriend.FriendShipStatus = ((int) FriendShipEnum.Nothing).ToString();
                 }
             };
 

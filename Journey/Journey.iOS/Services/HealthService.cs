@@ -46,12 +46,9 @@ namespace Journey.iOS.Services
 
         public bool AuthInProgress { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public HealthService()
-        {
-            HealthStore = new HKHealthStore();
-        }
+        public HealthService() => HealthStore = new HKHealthStore();
 
-        public async Task<bool> Authenticate()
+        public async Task<bool> AuthenticateAsync()
         {
             try
             {
@@ -86,7 +83,7 @@ namespace Journey.iOS.Services
         {
             try
             {
-                if (await Authenticate())
+                if (await AuthenticateAsync())
                 {
                     UpdateUsersAge();
                 }
@@ -137,7 +134,7 @@ namespace Journey.iOS.Services
         {
             try
             {
-                if (await Authenticate())
+                if (await AuthenticateAsync())
                 {
                     UpdateUsersHeight();
                 }
@@ -228,7 +225,7 @@ namespace Journey.iOS.Services
         {
             try
             {
-                if (await Authenticate())
+                if (await AuthenticateAsync())
                 {
                     UpdateUsersWeight();
                 }

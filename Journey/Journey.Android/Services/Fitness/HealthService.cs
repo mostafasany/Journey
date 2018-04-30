@@ -1,83 +1,35 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Abstractions.Services.Contracts;
-using Android.App;
+using Android.Content;
+using Android.Gms.Common;
+using Android.Gms.Common.Apis;
 using Android.Gms.Fitness;
 using Android.Gms.Fitness.Data;
 using Android.Gms.Fitness.Result;
+using Android.Util;
+using Journey.Droid;
+using Journey.Droid.Services.Fitness;
+using Xamarin.Forms;
+using DataType = Android.Gms.Fitness.Data.DataType;
 
-[assembly: Xamarin.Forms.Dependency(typeof(Journey.Droid.HealthService))]
+[assembly: Dependency(typeof(HealthService))]
+
 namespace Journey.Droid
 {
     public class HealthService : IHealthService
     {
-        MainActivity _mainActivity;
-        public HealthService()
-        {
-            _mainActivity = Xamarin.Forms.Forms.Context as MainActivity;
-        }
+        private readonly MainActivity _mainActivity;
 
-        Android.Gms.Common.Apis.GoogleApiClient mClient;
-        public const string TAG = "BasicSensorsApi";
+        private GoogleApiClient _mClient;
+        public const string Tag = "BasicSensorsApi";
+        private const int RequestOauth = 1;
+        public HealthService() => _mainActivity = Forms.Context as MainActivity;
         public bool AuthInProgress { get; set; }
-        const int REQUEST_OAUTH = 1;
-
-        const string AUTH_PENDING = "auth_state_pending";
 
         public event HealthDataEventHandler HealthDataChanged;
 
-        void BuildFitnessClient()
-        {
-            var clientConnectionCallback = new Services.Fitness.ClientConnectionCallback();
-            clientConnectionCallback.OnConnectedImpl = ()
-                =>
-            {
-                GetRunningWalkingDistanceAsync();
-                GetCaloriesAsync();
-            };
-            if (mClient == null)
-            {
-                mClient = new Android.Gms.Common.Apis.GoogleApiClient.Builder(_mainActivity)
-                    .AddApi(FitnessClass.SENSORS_API)
-                    .AddApi(FitnessClass.HISTORY_API)
-                    .AddScope(new Android.Gms.Common.Apis.Scope(Android.Gms.Common.Scopes.FitnessActivityReadWrite))
-                    .AddScope(new Android.Gms.Common.Apis.Scope(Android.Gms.Common.Scopes.FitnessBodyReadWrite))
-                    .AddScope(new Android.Gms.Common.Apis.Scope(Android.Gms.Common.Scopes.FitnessLocationRead))
-                    //.AddConnectionCallbacks(clientConnectionCallback)
-                    .AddOnConnectionFailedListener(FailedToConnect)
-                    .Build();
-                MainActivity.mClient = mClient;
-            }
-            if (!mClient.IsConnecting && !mClient.IsConnected)
-            {
-                mClient.Connect();
-            }
-        }
-
-        void FailedToConnect(Android.Gms.Common.ConnectionResult result)
-        {
-            Android.Util.Log.Info(TAG, "Connection failed. Cause: " + result);
-            if (!result.HasResolution)
-            {
-                // Show the localized error dialog
-                Android.Gms.Common.GooglePlayServicesUtil.GetErrorDialog(result.ErrorCode, _mainActivity, 0).Show();
-                return;
-            }
-            if (!AuthInProgress)
-            {
-                try
-                {
-                    Android.Util.Log.Info(TAG, "Attempting to resolve failed connection");
-                    AuthInProgress = true;
-                    result.StartResolutionForResult(_mainActivity, REQUEST_OAUTH);
-                }
-                catch (Android.Content.IntentSender.SendIntentException e)
-                {
-                    Android.Util.Log.Error(TAG, "Exception while starting resolution activity", e);
-                }
-            }
-        }
-
-        public async Task<bool> Authenticate()
+        public async Task<bool> AuthenticateAsync()
         {
             try
             {
@@ -85,70 +37,113 @@ namespace Journey.Droid
                 BuildFitnessClient();
                 return true;
             }
-            catch (System.Exception ex)
+            catch
             {
                 return false;
             }
-
         }
 
-        public async Task GetAgeAsync()
-        {
-
-        }
+        public Task GetAgeAsync() => null;
 
         public async Task GetCaloriesAsync()
         {
-            DailyTotalResult result = await FitnessClass.HistoryApi.ReadDailyTotalAsync(mClient, DataType.TypeCaloriesExpended);
+            DailyTotalResult result = await FitnessClass.HistoryApi.ReadDailyTotalAsync(_mClient, DataType.TypeCaloriesExpended);
             ShowDataSet(result.Total, Unit.KCAL.ToString());
         }
 
         public async Task GetHeightAsync()
         {
-            DailyTotalResult result = await FitnessClass.HistoryApi.ReadDailyTotalAsync(mClient, DataType.TypeHeight);
+            DailyTotalResult result = await FitnessClass.HistoryApi.ReadDailyTotalAsync(_mClient, DataType.TypeHeight);
             ShowDataSet(result.Total, Unit.CM.ToString());
         }
 
         public async Task GetRunningWalkingDistanceAsync()
         {
-            DailyTotalResult result = await FitnessClass.HistoryApi.ReadDailyTotalAsync(mClient, DataType.TypeDistanceDelta);
+            DailyTotalResult result = await FitnessClass.HistoryApi.ReadDailyTotalAsync(_mClient, DataType.TypeDistanceDelta);
             ShowDataSet(result.Total, Unit.RunningWalking.ToString());
         }
 
         public async Task GetStepsAsync()
         {
-            DailyTotalResult result = await FitnessClass.HistoryApi.ReadDailyTotalAsync(mClient, DataType.TypeStepCountDelta);
+            DailyTotalResult result = await FitnessClass.HistoryApi.ReadDailyTotalAsync(_mClient, DataType.TypeStepCountDelta);
             ShowDataSet(result.Total, Unit.Steps.ToString());
         }
 
         public async Task GetWeightAsync()
         {
-            DailyTotalResult result = await FitnessClass.HistoryApi.ReadDailyTotalAsync(mClient, DataType.TypeWeight);
+            DailyTotalResult result = await FitnessClass.HistoryApi.ReadDailyTotalAsync(_mClient, DataType.TypeWeight);
             ShowDataSet(result.Total, Unit.KG.ToString());
+        }
+
+        private void BuildFitnessClient()
+        {
+            var clientConnectionCallback = new ClientConnectionCallback();
+            clientConnectionCallback.OnConnectedImpl = async ()
+                =>
+            {
+                await GetRunningWalkingDistanceAsync();
+                await GetCaloriesAsync();
+            };
+            if (_mClient == null)
+            {
+                _mClient = new GoogleApiClient.Builder(_mainActivity)
+                    .AddApi(FitnessClass.SENSORS_API)
+                    .AddApi(FitnessClass.HISTORY_API)
+                    .AddScope(new Scope(Scopes.FitnessActivityReadWrite))
+                    .AddScope(new Scope(Scopes.FitnessBodyReadWrite))
+                    .AddScope(new Scope(Scopes.FitnessLocationRead))
+                    //.AddConnectionCallbacks(clientConnectionCallback)
+                    .AddOnConnectionFailedListener(FailedToConnect)
+                    .Build();
+                MainActivity.MClient = _mClient;
+            }
+
+            if (!_mClient.IsConnecting && !_mClient.IsConnected) _mClient.Connect();
+        }
+
+        private void FailedToConnect(ConnectionResult result)
+        {
+            Log.Info(Tag, "Connection failed. Cause: " + result);
+            if (!result.HasResolution)
+            {
+                // Show the localized error dialog
+                GooglePlayServicesUtil.GetErrorDialog(result.ErrorCode, _mainActivity, 0).Show();
+                return;
+            }
+
+            if (!AuthInProgress)
+                try
+                {
+                    Log.Info(Tag, "Attempting to resolve failed connection");
+                    AuthInProgress = true;
+                    result.StartResolutionForResult(_mainActivity, RequestOauth);
+                }
+                catch (IntentSender.SendIntentException e)
+                {
+                    Log.Error(Tag, "Exception while starting resolution activity", e);
+                }
+        }
+
+        private void RaiseDataChanged(string unit, string measure)
+        {
+            HealthDataChanged?.Invoke(this, new HealthDataEventArgs
+            {
+                Data = new Dictionary<string, string>
+                {
+                    {"Unit", unit},
+                    {"Measure", measure}
+                }
+            });
         }
 
         private void ShowDataSet(DataSet dataSet, string unit)
         {
-            foreach (var item in dataSet.DataPoints)
+            foreach (DataPoint item in dataSet.DataPoints)
+            foreach (Field field in item.DataType.Fields)
             {
-                foreach (var field in item.DataType.Fields)
-                {
-                    Value val = item.GetValue(field);
-                    RaiseDataChanged(unit, val.ToString());
-                }
+                Value val = item.GetValue(field);
+                RaiseDataChanged(unit, val.ToString());
             }
-        }
-
-        void RaiseDataChanged(string unit, string measure)
-        {
-            HealthDataChanged?.Invoke(this, new HealthDataEventArgs
-            {
-                Data = new System.Collections.Generic.Dictionary<string, string>
-                {
-                    {"Unit",unit},
-                    {"Measure",measure}
-                }
-            });
         }
     }
 }

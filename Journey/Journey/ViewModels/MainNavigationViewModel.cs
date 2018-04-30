@@ -106,7 +106,7 @@ namespace Journey.ViewModels
             {
                 bool isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
-                    if (isLogginIn && NavigationService.CurrentPage != "ProfileActivityLogPage")
+                    if (NavigationService.CurrentPage != "ProfileActivityLogPage")
                         await NavigationService.Navigate("ProfileActivityLogPage");
             }
             catch (Exception ex)
@@ -169,7 +169,7 @@ namespace Journey.ViewModels
         {
             bool isLogginIn = await _accountService.LoginFirstAsync();
             if (isLogginIn)
-                if (isLogginIn && NavigationService.CurrentPage != "FriendsPage")
+                if (NavigationService.CurrentPage != "FriendsPage")
                     await NavigationService.Navigate("FriendsPage");
         }
 
@@ -189,7 +189,7 @@ namespace Journey.ViewModels
             {
                 bool isLogginIn = await _accountService.LoginFirstAsync();
                 if (isLogginIn)
-                    if (isLogginIn && NavigationService.CurrentPage != "NotificationsPage")
+                    if (NavigationService.CurrentPage != "NotificationsPage")
                         await NavigationService.Navigate("NotificationsPage");
             }
             catch (Exception ex)

@@ -7,7 +7,6 @@ using Journey.Models.Challenge;
 using Journey.Services.Buisness.Account;
 using Journey.Services.Buisness.Account.Data;
 using Journey.Services.Buisness.Challenge.Data;
-using Journey.Services.Buisness.Notification;
 
 namespace Journey.Services.Buisness.Challenge
 {
@@ -17,6 +16,7 @@ namespace Journey.Services.Buisness.Challenge
         private readonly IAccountService _accountService;
         private readonly IChallengeDataService _challengeDataService;
         private Models.Challenge.Challenge _cachedChallenge;
+
         public ChallengeService(IChallengeDataService challengeDataService,
             IAccountDataService accountDataService,
             IAccountService accountService)
@@ -98,7 +98,7 @@ namespace Journey.Services.Buisness.Challenge
         {
             try
             {
-                var challenge = await _challengeDataService.GetChallengeAsync(challengeId);
+                Models.Challenge.Challenge challenge = await _challengeDataService.GetChallengeAsync(challengeId);
                 if (challenge == null)
                     return null;
                 challenge.IsActive = true;
@@ -136,11 +136,12 @@ namespace Journey.Services.Buisness.Challenge
                 throw new BusinessException(ex.Message, ex);
             }
         }
+
         public async Task<List<Models.Challenge.Challenge>> GetChallengeRequestsAsync()
         {
             try
             {
-                var challenges = await _challengeDataService.GetChallengeRequestsAsync();
+                List<Models.Challenge.Challenge> challenges = await _challengeDataService.GetChallengeRequestsAsync();
                 return challenges;
             }
             catch (Exception ex)

@@ -38,7 +38,7 @@ namespace Journey.Services.Buisness.Friend.Data
             try
             {
                 var api = "friends";
-                var param = new Dictionary<string, string> { { "action", frinedShipId + "," + status } };
+                var param = new Dictionary<string, string> {{"action", frinedShipId + "," + status}};
                 bool success = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
                 return success;
             }

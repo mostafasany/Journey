@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 ControlTemplate="{StaticResource ProfileHeaderControlTemplate}"
@@ -41,7 +41,8 @@
                             <controls:CustomImage Grid.Row="1" Grid.Column="0" Source="{Binding Workout.Image}"
                                                   Aspect="AspectFit" WidthRequest="80" HeightRequest="80" />
                             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Workout.Name}"
-                                   TextColor="Gray" HorizontalOptions="Start" FontAttributes="Bold" VerticalOptions="Center" />
+                                   TextColor="Gray" HorizontalOptions="Start" FontAttributes="Bold"
+                                   VerticalOptions="Center" />
                             <Entry Grid.Row="1" Grid.Column="1" BackgroundColor="White" TextColor="Black"
                                    Keyboard="Numeric" Placeholder="{Binding Workout.MaxWeight}"
                                    Text="{Binding Workout.Weight,Mode=TwoWay}" />

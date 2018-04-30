@@ -5,6 +5,7 @@ using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
+using Android.Webkit;
 using FFImageLoading.Forms.Droid;
 using Journey.Constants;
 using Journey.Droid.Renderers;
@@ -26,9 +27,9 @@ namespace Journey.Droid
         private MobileServiceUser _user;
         private static int REQUEST_OAUTH = 1;
         private static String AUTH_PENDING = "auth_state_pending";
-        public static Android.Gms.Common.Apis.GoogleApiClient mClient;
+        public static Android.Gms.Common.Apis.GoogleApiClient MClient;
         IHealthService _healthService => DependencyService.Get<IHealthService>();
-        public async Task<MobileServiceUser> Authenticate()
+        public async Task<MobileServiceUser> AuthenticateAsync()
         {
             try
             {
@@ -42,6 +43,20 @@ namespace Journey.Droid
             }
 
             return _user;
+        }
+
+        public async Task<bool> LogoutAsync()
+        {
+            try
+            {
+                CookieManager.Instance.RemoveAllCookie();
+                await App.Client.LogoutAsync();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
@@ -59,9 +74,9 @@ namespace Journey.Droid
                 _healthService.AuthInProgress = false;
                 if (resultCode == Result.Ok)
                 {
-                    if (!mClient.IsConnecting && !mClient.IsConnected)
+                    if (!MClient.IsConnecting && !MClient.IsConnected)
                     {
-                        mClient.Connect();
+                        MClient.Connect();
                     }
                 }
             }
@@ -95,21 +110,19 @@ namespace Journey.Droid
         protected override void OnStart()
         {
             base.OnStart();
-            if (mClient == null)
-                return;
 
-            mClient.Connect();
+            MClient?.Connect();
         }
 
         protected override void OnStop()
         {
             base.OnStop();
-            if (mClient == null)
+            if (MClient == null)
                 return;
 
-            if (mClient.IsConnected)
+            if (MClient.IsConnected)
             {
-                mClient.Disconnect();
+                MClient.Disconnect();
             }
         }
 
@@ -120,6 +133,7 @@ namespace Journey.Droid
                 outState.PutBoolean(AUTH_PENDING, _healthService.AuthInProgress);
         }
 
+       
     }
 
     public class AndroidInitializer : IPlatformInitializer

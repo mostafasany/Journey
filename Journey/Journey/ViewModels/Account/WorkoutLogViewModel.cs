@@ -36,7 +36,7 @@ namespace Journey.ViewModels.Wall
             {
                 if (Workout.Rips == string.Empty && Workout.Weight == string.Empty) return;
 
-                await _workoutService.LogWorkout(Workout);
+                await _workoutService.LogWorkoutAsync(Workout);
                 Workout.Rips = Workout.Weight = string.Empty;
             }
             catch (Exception ex)

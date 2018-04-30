@@ -49,7 +49,7 @@ namespace Journey.Services.Buisness.Post.Data
                 if (post == null)
                     return false;
 
-                await _azurePost.DeleteAsync(new AzurePost { Id = post.Id });
+                await _azurePost.DeleteAsync(new AzurePost {Id = post.Id});
 
                 return true;
             }
@@ -100,7 +100,7 @@ namespace Journey.Services.Buisness.Post.Data
             try
             {
                 var api = "post";
-                var param = new Dictionary<string, string> { { "action", post.Id + "," + "share" } };
+                var param = new Dictionary<string, string> {{"action", post.Id + "," + "share"}};
                 bool success = await _client.InvokeApiAsync<bool>(api, HttpMethod.Put, param);
                 return success;
             }
