@@ -60,6 +60,26 @@ namespace Journey.Services.Buisness.Account.Data
             }
         }
 
+        public async Task<bool> LogoutAsync()
+        {
+            try
+            {
+                await App.Authenticator.LogoutAsync();
+                //Invalidating token on the mobile backend
+                var authUri = new Uri($"{Constants.Constant.ApplicationUrl}/.auth/logout");
+                using (var httpClient = new HttpClient())
+                {
+                    httpClient.DefaultRequestHeaders.Add("X-ZUMO-AUTH", _client.CurrentUser.MobileServiceAuthenticationToken);
+                    var response = await httpClient.GetAsync(authUri);
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public async Task<Models.Account.Account> GetAccountAsync(bool sync = false)
         {
             Models.Account.Account accountDto = await GetAccontAsync(_client.CurrentUser.UserId);

@@ -49,8 +49,12 @@ namespace Journey.Droid
         {
             try
             {
-                CookieManager.Instance.RemoveAllCookie();
+                if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.Lollipop)
+                    Android.Webkit.CookieManager.Instance.RemoveAllCookies(null);
+                else
+                    Android.Webkit.CookieManager.Instance.RemoveAllCookie();
                 await App.Client.LogoutAsync();
+                _user = null;
             }
             catch
             {

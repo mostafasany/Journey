@@ -57,6 +57,8 @@ namespace Journey.iOS
                     NSHttpCookieStorage.SharedStorage.DeleteCookie(cookie);
                 }
                 await App.Client.LogoutAsync();
+
+                _user = null;
             }
             catch
             {

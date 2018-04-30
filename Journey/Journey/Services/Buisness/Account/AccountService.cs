@@ -174,13 +174,17 @@ namespace Journey.Services.Buisness.Account
         {
             try
             {
-                await App.Client.LogoutAsync();
-                await _settingsService.Remove(_facebookService.FacebookTokenKey);
-                await _settingsService.Remove(AccountTokenKey);
-                await _settingsService.Remove(AccountIdKey);
-                LoggedInAccount = null;
-                await _navigationService.Navigate("LoginPage", false);
-                return true;
+                var status = await _accountDataService.LogoutAsync();
+                if (status)
+                {
+                    await _settingsService.Remove(_facebookService.FacebookTokenKey);
+                    await _settingsService.Remove(AccountTokenKey);
+                    await _settingsService.Remove(AccountIdKey);
+                    LoggedInAccount = null;
+                    await _navigationService.Navigate("LoginPage", false);
+                }
+
+                return status;
             }
             catch (Exception ex)
             {
