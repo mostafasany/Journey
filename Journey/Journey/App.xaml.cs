@@ -16,8 +16,11 @@ namespace Journey
     {
         public App(IPlatformInitializer initializer = null) : base(initializer)
         {
-			AppCenter.Start("5cd2d7a6-a4d6-42f7-8b07-8a8edaecb380", typeof(Analytics));
-        }
+            AppCenter.Start("uwp=5cd2d7a6-a4d6-42f7-8b07-8a8edaecb380;" +
+                            "android=4baafbe3-a180-426d-9380-edce869d1fc7;" +
+                            "ios=016eda8d-dace-48a4-9c4a-f1152d6e1194;",
+                typeof(Analytics));
+            }
 
         public static IAzureAuthenticateService Authenticator { get; private set; }
         public static MobileServiceClient Client { get; private set; }
