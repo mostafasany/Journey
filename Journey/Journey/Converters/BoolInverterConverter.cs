@@ -2,7 +2,7 @@
 using System.Globalization;
 using Xamarin.Forms;
 
-namespace Abstractions.Forms.Converters
+namespace Journey.Converters
 {
     public class BoolInverterConverter : IValueConverter
     {

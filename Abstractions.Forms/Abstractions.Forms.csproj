@@ -23,7 +23,4 @@
     <Folder Include="Models\" />
     <Folder Include="Converters\" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Converters\IntToBoolConverter.cs" />
-  </ItemGroup>
 </Project>
