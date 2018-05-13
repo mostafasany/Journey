@@ -6,7 +6,8 @@ using Prism;
 using Prism.Ioc;
 using Prism.Unity;
 using Xamarin.Forms.Xaml;
-
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
 namespace Journey
@@ -15,6 +16,7 @@ namespace Journey
     {
         public App(IPlatformInitializer initializer = null) : base(initializer)
         {
+			AppCenter.Start("5cd2d7a6-a4d6-42f7-8b07-8a8edaecb380", typeof(Analytics));
         }
 
         public static IAzureAuthenticateService Authenticator { get; private set; }
